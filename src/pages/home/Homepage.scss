@@ -40,6 +40,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white;
   width: 100%;
   min-height: 100vh;
 
@@ -79,7 +80,7 @@
     font-size: 18px;
     line-height: 28px;
     color: var(--c-text-primary);
-    margin-top: 100px; // Spacing to push content down
+    margin-top: 10px;
   }
 }
 
@@ -130,6 +131,11 @@
 // COMPONENTS
 //==========================================================================
 
+.app-logo-background {
+    display: flex;
+    align-items: center;
+}
+
 .app-logo {
   font-family: var(--f-primary);
   font-size: 24px;
@@ -163,7 +169,7 @@
   border: 1px solid var(--c-border);
   border-radius: var(--border-radius-lg);
   box-shadow: 0 8px 32px var(--c-shadow-heavy);
-  padding: 20px;
+  padding: 15px;
 
   &__title {
     font-family: var(--f-primary);
@@ -199,7 +205,7 @@
   border: 1px solid var(--c-border);
   border-radius: var(--border-radius-md);
   box-shadow: 0 4px 16px var(--c-shadow-light);
-  padding: 14px;
+  padding: 10px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -223,7 +229,7 @@
   border: 1px solid var(--c-border);
   border-radius: var(--border-radius-md);
   box-shadow: 0 4px 16px var(--c-shadow-light);
-  padding: 14px 17px;
+  padding: 10px 17px;
   display: flex;
   align-items: center;
   gap: 12px;

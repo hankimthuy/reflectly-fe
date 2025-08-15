@@ -1,21 +1,19 @@
 import React from 'react';
-import './icon-wrapper.scss';
+import './IconWrapper.scss';
 
-// Sử dụng Union Type cho prop 'variant' để giới hạn giá trị đầu vào.
-// Điều này giúp loại bỏ lỗi chính tả và đảm bảo tính nhất quán.
-type IconWrapperVariant = 'primary' | 'secondary' | 'gradient';
+export type IconWrapperVariant = 'primary' | 'secondary' | 'gradient';
 
 /**
- * Interface cho props của IconWrapper.
+ * Interface cho props của InfoCard.
  * I-prefix được sử dụng để phân biệt rõ ràng giữa interface và component.
  */
-interface IIconWrapperProps {
+export interface IIconWrapperProps {
     children: React.ReactNode;
     variant: IconWrapperVariant;
 }
 
 /**
- * @component IconWrapper
+ * @component InfoCard
  * @description A reusable wrapper for icons with different styles.
  * @param {IIconWrapperProps} props The component props.
  */
