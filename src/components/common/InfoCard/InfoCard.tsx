@@ -1,10 +1,10 @@
-// src/components/InfoCard.tsx
+// src/components/BaseCard.tsx
 import React from 'react';
 import {IconWrapper, type IconWrapperVariant} from "../IconWrapper/IconWrapper.tsx";
 
 /**
  * @interface InfoCardProps
- * @description Props for the InfoCard component.
+ * @description Props for the BaseCard component.
  */
 interface InfoCardProps {
     icon: React.ElementType; // Use React.ElementType for Material-UI icons
@@ -14,10 +14,10 @@ interface InfoCardProps {
 }
 
 /**
- * @component InfoCard
+ * @component BaseCard
  * @description A reusable card component for displaying informational content.
  * @param {InfoCardProps} props The component props.
- * @returns {JSX.Element} The rendered InfoCard component.
+ * @returns {JSX.Element} The rendered BaseCard component.
  */
 const InfoCard: React.FC<InfoCardProps> = ({ icon: Icon, title, description, variant }) => {
     return (

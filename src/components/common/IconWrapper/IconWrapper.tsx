@@ -4,7 +4,7 @@ import './IconWrapper.scss';
 export type IconWrapperVariant = 'primary' | 'secondary' | 'gradient';
 
 /**
- * Interface cho props của InfoCard.
+ * Interface cho props của BaseCard.
  * I-prefix được sử dụng để phân biệt rõ ràng giữa interface và component.
  */
 export interface IIconWrapperProps {
@@ -13,7 +13,7 @@ export interface IIconWrapperProps {
 }
 
 /**
- * @component InfoCard
+ * @component BaseCard
  * @description A reusable wrapper for icons with different styles.
  * @param {IIconWrapperProps} props The component props.
  */

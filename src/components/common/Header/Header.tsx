@@ -1,20 +1,20 @@
-// src/components/InfoCard.tsx
+// src/components/BaseCard.tsx
 import React from 'react';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 /**
  * @interface HomeHeaderProps
- * @description Props for the InfoCard component.
+ * @description Props for the BaseCard component.
  */
 interface HomeHeaderProps {
     date: string;
 }
 
 /**
- * @component InfoCard
+ * @component BaseCard
  * @description Displays the app logo, profile icon, and current date.
  * @param {HomeHeaderProps} props The component props.
- * @returns {JSX.Element} The rendered InfoCard component.
+ * @returns {JSX.Element} The rendered BaseCard component.
  */
 const NavigationBar: React.FC<HomeHeaderProps> = ({ date }) => {
     return (
