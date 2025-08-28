@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {type ReactElement} from 'react';
 import './IconWrapper.scss';
 
 export type IconWrapperVariant = 'primary' | 'secondary' | 'gradient';
@@ -10,6 +10,13 @@ export type IconWrapperVariant = 'primary' | 'secondary' | 'gradient';
 export interface IIconWrapperProps {
     children: React.ReactNode;
     variant: IconWrapperVariant;
+}
+
+export interface ICardData {
+    icon: ReactElement;
+    variant: IconWrapperVariant;
+    title: string;
+    subtitle: string;
 }
 
 /**

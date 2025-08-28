@@ -1,91 +1,102 @@
 import React from 'react';
 import './Homepage.scss'; // Import the SCSS file for styling
-import Typography from '@mui/material/Typography';
 
-import HomeHeader from '../../components/common/Header/Header.tsx';
 import DailyReflectionCard from './DailyReflectionCard/DailyReflectionCard';
-import QuickActionCard from '../../components/common/QuickActionCard/QuickActionCard';
-import InfoCard from '../../components/common/InfoCard/InfoCard';
-import NavigationBar from '../../components/common/NavigationBar/NavigationBar';
-
+import BaseCard from "../../components/common/BaseCard/BaseCard.tsx";
+import {IconWrapper} from "../../components/common/IconWrapper/IconWrapper.tsx";
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined';
-import BaseCard from "../../components/common/BaseCard/BaseCard.tsx";
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 
 /**
- * @component HomePage
+ * @component EntriesPage
  * @description The main dashboard screen for the Reflectly app, now composed of smaller,
  * reusable TypeScript components.
- * @returns {JSX.Element} The rendered HomePage component.
+ * @returns {JSX.Element} The rendered EntriesPage component.
  */
 const HomePage: React.FC = () => {
-    const todayDate = `Today, ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh', month: 'long', day: 'numeric' })}`;
 
     return (
-        <div className="home-page">
-            <div className="home-page__container">
-
-                {/* --- Header --- */}
-                <HomeHeader date={todayDate} />
-
-                <main className="home-page__main-content">
-                    {/* --- Daily Reflection BaseCard --- */}
+                <main className="main-content">
                     <DailyReflectionCard />
 
-                    <div className="quick-actions-grid">
-                        {/* --- Mood Check BaseCard --- */}
-                        <QuickActionCard
-                            icon={EmojiEmotionsOutlinedIcon}
-                            title="Mood Check"
-                            description="Track your daily emotions"
-                            variant="secondary"
-                        />
+                    <Grid container spacing={2}>
+                        <Grid size={6}>
+                            <BaseCard>
+                                <div className="card-header">
+                                    <IconWrapper variant="secondary">
+                                        <EmojiEmotionsOutlinedIcon />
+                                    </IconWrapper>
+                                    <div>
+                                        <Typography variant="subtitle1" component="div">
+                                            Mood Check
+                                        </Typography>
+                                        <Typography variant="caption" color="text.secondary">
+                                            {`"Track your daily emotions"`}
+                                        </Typography>
+                                    </div>
+                                </div>
+                            </BaseCard>
+                        </Grid>
 
-                        {/* --- Gratitude BaseCard --- */}
-                        <QuickActionCard
-                            icon={StarBorderOutlinedIcon}
-                            title="Gratitude"
-                            description="Three things you're grateful for"
-                            variant="primary"
-                        />
-                    </div>
+                        <Grid size={6}>
+                            <BaseCard>
+                                <div className="card-header">
+                                    <IconWrapper variant="primary">
+                                        <StarBorderOutlinedIcon />
+                                    </IconWrapper>
+                                    <div>
+                                        <Typography variant="subtitle1" component="div">
+                                            Gratitude
+                                        </Typography>
+                                        <Typography variant="caption" color="text.secondary">
+                                            {`"Three things you're grateful for"`}
+                                        </Typography>
+                                    </div>
+                                </div>
+                            </BaseCard>
+                        </Grid>
 
-                    {/* --- Latest Check-in BaseCard --- */}
-                    <InfoCard
-                        icon={SentimentSatisfiedOutlinedIcon}
-                        title="Latest Check-in"
-                        description={
-                            <>
-                                <span>Yesterday:</span>
-                                <span>Peaceful</span>
-                            </>
-                        }
-                        variant="secondary"
-                    />
+                        <Grid size={12}>
+                            <BaseCard>
+                                <div className="card-header">
+                                    <IconWrapper variant="secondary">
+                                        <SentimentSatisfiedOutlinedIcon />
+                                    </IconWrapper>
+                                    <div>
+                                        <Typography variant="subtitle1" component="div">
+                                            Latest Check-in
+                                        </Typography>
+                                        <Typography variant="caption" color="text.secondary">
+                                            Yesterday: {`"Feeling grateful for the little things in life."`}
+                                        </Typography>
+                                    </div>
+                                </div>
+                            </BaseCard>
+                        </Grid>
+                    </Grid>
+
 
                     {/* --- Daily Affirmation BaseCard --- */}
-                    <InfoCard
-                        icon={StarBorderOutlinedIcon}
-                        title="Daily Affirmation"
-                        description="Every moment is a fresh beginning. Breathe deeply and trust your journey."
-                        variant="primary"
-                    />
+                    <BaseCard>
+                        <div className="card-header">
+                            <IconWrapper variant="primary">
+                                <StarBorderOutlinedIcon />
+                            </IconWrapper>
+                            <div>
+                                <Typography variant="subtitle1" component="div">
+                                    Daily Affirmation
+                                </Typography>
+                                <Typography variant="caption" color="text.secondary">
+                                    {`"I am worthy of love and happiness."`}
+                                </Typography>
+                            </div>
+                        </div>
+                    </BaseCard>
                 </main>
-                <BaseCard>
-                    <Typography variant="h5" component="div">
-                        Placeholder Card
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        This is a placeholder card for demonstration purposes.
-                    </Typography>
-                </BaseCard>
 
-                {/* --- Navigation Bar --- */}
-                <NavigationBar />
-
-            </div>
-        </div>
     );
 };
 

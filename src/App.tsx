@@ -1,14 +1,13 @@
-import HomePage from "./pages/home/Homepage.tsx";
+import './App.scss';
+import {BrowserRouter} from "react-router-dom";
+import AppRoutes from "./routes"; // Import the SCSS file for styling
 
-function App() {
+const App: React.FC = () => {
 
   return (
-      <>
-          <div>
-              <HomePage/>
-          </div>
-      </>
-  )
-}
-
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+  );
+};
 export default App

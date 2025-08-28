@@ -2,29 +2,20 @@ import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
+import {cardSx, getActionAreaStyles} from "./BaseCard.styles.ts";
 
 interface BaseCardProps {
-    /** Indicates if the card is active and should show active styles. */
     active?: boolean;
-    /** Called when the card is clicked. */
     onClick?: () => void;
-    /** Content to render inside the card. */
     children: React.ReactNode;
 }
 
 const BaseCard: React.FC<BaseCardProps> = ({ active, onClick, children }) => (
-    <Card>
+    <Card sx={cardSx}>
         <CardActionArea
             onClick={onClick}
-            sx={{
-                height: '100%',
-                backgroundColor: active ? 'action.selected' : undefined,
-                '&:hover': {
-                    backgroundColor: active ? 'action.selectedHover' : 'action.hover',
-                },
-            }}
-        >
-            <CardContent sx={{ height: '100%' }}>
+            sx={getActionAreaStyles(active)}>
+            <CardContent>
                 {children}
             </CardContent>
         </CardActionArea>

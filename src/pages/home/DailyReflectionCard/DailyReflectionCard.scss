@@ -1,0 +1,35 @@
+.daily-reflection-card {
+  background-color: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 8px 32px var(--c-shadow-heavy);
+  padding: 15px;
+
+  .title {
+    font-family: var(--f-primary);
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .prompt {
+    font-size: 14px;
+    line-height: 22.8px;
+    margin-top: 8px;
+  }
+
+  .input-area {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background-color: var(--c-primary-light);
+    border-radius: var(--border-radius-lg);
+    padding: 8px;
+    margin-top: 16px;
+  }
+
+  .placeholder {
+    flex-grow: 1;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}

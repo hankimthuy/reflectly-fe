@@ -1,6 +1,7 @@
 // src/components/BaseCard.tsx
 import React from 'react';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import './Header.scss'
 
 /**
  * @interface HomeHeaderProps
@@ -24,9 +25,9 @@ const NavigationBar: React.FC<HomeHeaderProps> = ({ date }) => {
                     <span className="app-logo--primary">Reflect</span>
                     <span className="app-logo--secondary">ly</span>
                 </span>
-                <AccountCircleOutlinedIcon className="home-header__profile-icon"/>
+                <AccountCircleOutlinedIcon className="profile-icon"/>
             </div>
-            <h1 className="home-header__date">{date}</h1>
+            <h1 className="date">{date}</h1>
         </header>
     );
 };

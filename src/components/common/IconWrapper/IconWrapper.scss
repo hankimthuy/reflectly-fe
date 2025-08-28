@@ -21,11 +21,15 @@
   }
 
   &--gradient {
-    // Sử dụng gradient cho background
-    background: linear-gradient(
-                    45deg,
-                    var(--c-primary) 0%,
-                    var(--c-secondary) 99%
-    );
+    background: linear-gradient(90deg, var(--c-primary) 0%, var(--c-secondary) 100%);
   }
+}
+
+.icon-wrapper {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
 }

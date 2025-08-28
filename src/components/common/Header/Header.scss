@@ -1,0 +1,33 @@
+.home-header {
+  padding: 24px 16px 8px;
+
+  .profile-icon {
+    position: absolute;
+    top: 24px;
+    right: 16px;
+    font-size: 32px;
+    color: var(--c-text-secondary);
+  }
+
+  .date {
+    font-family: var(--f-primary);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 28px;
+    color: var(--c-text-primary);
+    margin-top: 10px;
+  }
+
+  .app-logo-background {
+    display: flex;
+    align-items: center;
+  }
+
+  .app-logo {
+    font-family: var(--f-primary);
+    font-size: 24px;
+    font-weight: 700;
+    &--primary { color: var(--c-primary); }
+    &--secondary { color: var(--c-secondary); }
+  }
+}
