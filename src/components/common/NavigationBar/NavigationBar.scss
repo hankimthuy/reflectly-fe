@@ -1,0 +1,51 @@
+// Variables from CSS Custom Properties
+$c-surface: var(--c-surface);
+$c-shadow-heavy: var(--c-shadow-heavy);
+$c-text-muted: var(--c-text-muted);
+$c-text-secondary: var(--c-text-secondary);
+$c-primary: var(--c-primary);
+$c-shadow-accent: var(--c-shadow-accent);
+
+// Mixins for reusable styles
+@mixin flex-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin place-items-center {
+  display: grid;
+  place-items: center;
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: $c-surface;
+  border-top: 1px solid $c-shadow-heavy;
+  position: relative;
+
+  .item {
+    @include flex-col-center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 500;
+    color: $c-text-muted;
+    text-decoration: none;
+
+    &--active {
+      color: $c-text-secondary;
+    }
+  }
+
+  .add-button {
+    @include place-items-center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: $c-primary;
+    color: $c-surface;
+    box-shadow: 0 4px 16px $c-shadow-accent;
+  }
+}
