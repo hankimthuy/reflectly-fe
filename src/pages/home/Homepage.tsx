@@ -10,12 +10,6 @@ import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfi
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 
-/**
- * @component EntriesPage
- * @description The main dashboard screen for the Reflectly app, now composed of smaller,
- * reusable TypeScript components.
- * @returns {JSX.Element} The rendered EntriesPage component.
- */
 const HomePage: React.FC = () => {
 
     return (
@@ -77,7 +71,6 @@ const HomePage: React.FC = () => {
                             </BaseCard>
                         </Grid>
                     </Grid>
-
 
                     {/* --- Daily Affirmation BaseCard --- */}
                     <BaseCard>
