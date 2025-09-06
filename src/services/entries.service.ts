@@ -1,5 +1,5 @@
 // src/services/entry.service.ts
-import { httpClient } from './http-client';
+import { httpClient } from './httpClient.ts';
 import type {AxiosResponse} from 'axios';
 
 // TypeScript interfaces based on your database schema

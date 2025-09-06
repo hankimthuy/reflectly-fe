@@ -1,16 +1,26 @@
 import React from 'react';
 import './LoginPage.scss';
 import {type CredentialResponse, GoogleLogin} from "@react-oauth/google";
+import {loginWithGoogleIdToken} from "../../services/auth.service.ts";
 
 const LoginPage: React.FC = () => {
-  const handleLoginSuccess = (credentialResponse: CredentialResponse) => {
-    console.log('JWT ID Token:', credentialResponse.credential);
+  const handleGoogleButtonLoginSuccess = async (credentialResponse: CredentialResponse) => {
+    if (credentialResponse.credential) {
+      const idToken = credentialResponse.credential;
+      console.log('JWT ID Token received from Google:', idToken);
 
-    // SECURITY BEST PRACTICE:
-    // This token should be sent to your backend server.
-    // The backend must verify the token's integrity with Google's public keys
-    // before creating a user session or granting access.
-    // Example: sendTokenToBackend(credentialResponse.credential);
+      try {
+        const backendResponse = await loginWithGoogleIdToken(idToken);
+
+        console.log('Response from Backend:', backendResponse);
+        // TODO: Handle successful login: save user token, update auth context, navigate user.
+
+      } catch (error) {
+        console.error('Login failed during backend authentication step.');
+      }
+    } else {
+      console.error('Did not receive credential from Google.');
+    }
   };
 
   const handleLoginError = () => {
@@ -20,12 +30,12 @@ const LoginPage: React.FC = () => {
   return (
       <div className="login-container" style={{padding: '50px', textAlign: 'center'}}>
         <h2>Welcome Back!</h2>
-        <p>Please sign in using your Google account to continue.</p>
+
         <div className="google-button-wrapper" style={{marginTop: '20px'}}>
           <GoogleLogin
-              onSuccess={handleLoginSuccess}
+              onSuccess={handleGoogleButtonLoginSuccess}
               onError={handleLoginError}
-              useOneTap // Enables the One Tap sign-in experience for returning users
+              useOneTap // Enables the One Tap sign-in experience
               theme="outline"
               size="large"
           />

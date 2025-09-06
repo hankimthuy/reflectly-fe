@@ -1,13 +1,6 @@
-
 // Create a configured Axios instance
-import axios, {type AxiosInstance, type AxiosResponse} from "axios";
-
-const apiClient: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:8081/api', // Replace with your Spring Boot backend URL
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+import {type AxiosResponse} from "axios";
+import apiClient from "./apiClient.ts";
 
 export const httpClient = {
   get: <T>(url: string, params?: object): Promise<AxiosResponse<T>> => {
@@ -31,4 +24,4 @@ export const httpClient = {
   },
 };
 
-export default apiClient;
+export default httpClient;
