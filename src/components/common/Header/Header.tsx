@@ -15,6 +15,7 @@ const HomeHeader: React.FC = () => {
   const { user, logout } = useAuth();
   const [isLogoMenuOpen, setIsLogoMenuOpen] = useState<boolean>(false);
   const logoRef = useRef<HTMLDivElement | null>(null);
+  const [avatarError, setAvatarError] = useState<boolean>(false);
   
   useEffect(() => {
     if (!isLogoMenuOpen) return;
@@ -68,7 +69,15 @@ const HomeHeader: React.FC = () => {
           // Login success
           <div className="user-info" onMouseDown={(e) => e.stopPropagation()} onClick={handleLogoClick}>
             <span className="profile-name">{user.fullName}</span>
-            <img src={user.picture} alt={`Avatar ${user.fullName}`} className="profile-avatar" />
+            {user.picture && !avatarError && (
+              <img
+                src={user.picture}
+                alt={`Avatar ${user.fullName}`}
+                className="profile-avatar"
+                referrerPolicy="no-referrer"
+                onError={() => setAvatarError(true)}
+              />
+            )}
           </div>
         ) : (
           // Not Login
