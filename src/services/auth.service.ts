@@ -12,11 +12,11 @@ interface GoogleLoginResponse {
 
 export const loginWithGoogleIdToken = async (idToken: string) => {
   try {
-    const response = await apiClient.post<GoogleLoginResponse>('/google-login', { idToken });
+    const response = await apiClient.post<GoogleLoginResponse>('/auth/google-login', { idToken });
 
     return response.data;
   } catch (error) {
-    console.error('Lỗi khi gửi ID Token đến BE:', error);
+    console.error('Error ID Token to BE:', error);
     throw error;
   }
 };

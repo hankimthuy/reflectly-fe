@@ -2,18 +2,28 @@ import React from 'react';
 import './LoginPage.scss';
 import {type CredentialResponse, GoogleLogin} from "@react-oauth/google";
 import {loginWithGoogleIdToken} from "../../services/auth.service.ts";
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage: React.FC = () => {
+  const navigate = useNavigate();
   const handleGoogleButtonLoginSuccess = async (credentialResponse: CredentialResponse) => {
     if (credentialResponse.credential) {
       const idToken = credentialResponse.credential;
-      console.log('JWT ID Token received from Google:', idToken);
 
       try {
         const backendResponse = await loginWithGoogleIdToken(idToken);
-
         console.log('Response from Backend:', backendResponse);
-        // TODO: Handle successful login: save user token, update auth context, navigate user.
+
+        // Save token to localStorage for API client
+        localStorage.setItem('id_token', backendResponse.token);
+
+        // Save user info to sessionStorage for header display
+        sessionStorage.setItem('google_user_info', JSON.stringify(backendResponse.user));
+
+        // Notify app of auth change so headers update immediately
+        window.dispatchEvent(new CustomEvent('auth-changed', { detail: { user: backendResponse.user } }));
+
+        navigate('/');
 
       } catch (error) {
         console.error('Login failed during backend authentication step.');
