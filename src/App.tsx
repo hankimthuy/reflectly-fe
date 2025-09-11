@@ -2,6 +2,7 @@ import './App.scss';
 import {BrowserRouter} from "react-router-dom";
 import AppRoutes from "./routes";
 import {GoogleOAuthProvider} from "@react-oauth/google"; // Import the SCSS file for styling
+import { AuthProvider } from './contexts/AuthContext';
 
 const App: React.FC = () => {
   const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
@@ -11,11 +12,12 @@ const App: React.FC = () => {
   }
   return (
       <GoogleOAuthProvider clientId={googleClientId}>
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
+        <AuthProvider>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </AuthProvider>
       </GoogleOAuthProvider>
-
   );
 };
 export default App

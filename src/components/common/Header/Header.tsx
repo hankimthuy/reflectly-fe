@@ -3,51 +3,19 @@ import React, { useEffect, useRef, useState } from 'react';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import './Header.scss';
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from '../../../contexts/AuthContext';
 
 const todayDate = `Today, ${new Date().toLocaleString('en-US', {
   timeZone: 'Asia/Ho_Chi_Minh',
   month: 'long',
   day: 'numeric',
 })}`;
-
-interface UserProfile {
-  fullName: string;
-  picture: string; // URL avatar
-}
-
 const HomeHeader: React.FC = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserProfile | null>(null);
+  const { user, logout } = useAuth();
   const [isLogoMenuOpen, setIsLogoMenuOpen] = useState<boolean>(false);
   const logoRef = useRef<HTMLDivElement | null>(null);
   
-  useEffect(() => {
-    const loadUserFromSession = () => {
-      const storedUserJSON = sessionStorage.getItem('google_user_info');
-      if (storedUserJSON) {
-        try {
-          const storedUser = JSON.parse(storedUserJSON);
-          setUser(storedUser);
-        } catch (error) {
-          sessionStorage.removeItem('google_user_info');
-        }
-      } else {
-        setUser(null);
-      }
-    };
-
-    // Initial load
-    loadUserFromSession();
-
-    // Listen for auth change events
-    const handleAuthChanged = () => loadUserFromSession();
-    window.addEventListener('auth-changed', handleAuthChanged as EventListener);
-
-    return () => {
-      window.removeEventListener('auth-changed', handleAuthChanged as EventListener);
-    };
-  }, []);
-
   useEffect(() => {
     if (!isLogoMenuOpen) return;
     const handleClickOutside = (event: MouseEvent) => {
@@ -73,9 +41,7 @@ const HomeHeader: React.FC = () => {
 
   const handleLogout = () => {
     setIsLogoMenuOpen(false);
-    localStorage.removeItem('id_token');
-    sessionStorage.removeItem('google_user_info');
-    setUser(null);
+    logout();
     navigate('/');
   };
 

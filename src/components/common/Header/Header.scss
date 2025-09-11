@@ -2,7 +2,6 @@
   padding: 24px 16px 8px;
 
   .date {
-    font-family: var(--f-primary);
     font-weight: 600;
     font-size: 18px;
     line-height: 28px;
@@ -18,7 +17,6 @@
   }
 
   .app-logo {
-    font-family: var(--f-primary);
     font-size: 24px;
     font-weight: 700;
   }
@@ -91,5 +89,3 @@
 .app-logo-link:focus {
   outline: none;
 }
-
-// Remove color utility classes here. Define global utility classes instead (e.g., .text-primary, .text-secondary)
