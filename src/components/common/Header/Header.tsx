@@ -1,15 +1,15 @@
-// src/components/BaseCard.tsx
 import React, { useEffect, useRef, useState } from 'react';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import './Header.scss';
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from '../../../contexts/AuthContext';
+import { useAuth } from '../../../contexts/AuthProvider.tsx';
 
 const todayDate = `Today, ${new Date().toLocaleString('en-US', {
   timeZone: 'Asia/Ho_Chi_Minh',
   month: 'long',
   day: 'numeric',
 })}`;
+
 const HomeHeader: React.FC = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
@@ -24,13 +24,13 @@ const HomeHeader: React.FC = () => {
         setIsLogoMenuOpen(false);
       }
     };
-
+  
     document.addEventListener('click', handleClickOutside);
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
   }, [isLogoMenuOpen]);
-
+  
   const handleLogoClick = () => {
     setIsLogoMenuOpen((prev) => !prev);
   };
@@ -40,14 +40,11 @@ const HomeHeader: React.FC = () => {
     navigate('/profile');
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     setIsLogoMenuOpen(false);
-    logout();
+    await logout();
     navigate('/');
   };
-
-  useEffect(() => {
-  }, [isLogoMenuOpen]);
 
   return (
     <header className="home-header">
@@ -69,9 +66,9 @@ const HomeHeader: React.FC = () => {
           // Login success
           <div className="user-info" onMouseDown={(e) => e.stopPropagation()} onClick={handleLogoClick}>
             <span className="profile-name">{user.fullName}</span>
-            {user.picture && !avatarError && (
+            {user.pictureUrl && !avatarError && (
               <img
-                src={user.picture}
+                src={user.pictureUrl}
                 alt={`Avatar ${user.fullName}`}
                 className="profile-avatar"
                 referrerPolicy="no-referrer"

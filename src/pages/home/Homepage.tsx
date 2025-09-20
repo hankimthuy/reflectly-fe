@@ -1,95 +1,72 @@
 import React from 'react';
-import './Homepage.scss'; // Import the SCSS file for styling
+import { Navigate, Link } from 'react-router-dom';
+import './Homepage.scss';
 
-import DailyReflectionCard from './DailyReflectionCard/DailyReflectionCard';
-import BaseCard from "../../components/common/BaseCard/BaseCard.tsx";
-import {IconWrapper} from "../../components/common/IconWrapper/IconWrapper.tsx";
-import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
-import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
-import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import { 
+  Typography, 
+  Button, 
+  Container, 
+  Box
+} from '@mui/material';
+import { 
+  LoginOutlined
+} from '@mui/icons-material';
+import { useAuth } from '../../contexts/AuthProvider';
 
 const HomePage: React.FC = () => {
+    const { isAuthenticated, isLoading } = useAuth();
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    // Redirect to entries if user is already authenticated
+    if (isAuthenticated) {
+        return <Navigate to="/entries" replace />;
+    }
 
     return (
-                <main className="main-content">
-                    <DailyReflectionCard />
-
-                    <Grid container spacing={2}>
-                        <Grid size={6}>
-                            <BaseCard>
-                                <div className="card-header">
-                                    <IconWrapper variant="secondary">
-                                        <EmojiEmotionsOutlinedIcon />
-                                    </IconWrapper>
-                                    <div>
-                                        <Typography variant="subtitle1" component="div">
-                                            Mood Check
-                                        </Typography>
-                                        <Typography variant="caption" color="text.secondary">
-                                            {`"Track your daily emotions"`}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </BaseCard>
-                        </Grid>
-
-                        <Grid size={6}>
-                            <BaseCard>
-                                <div className="card-header">
-                                    <IconWrapper variant="primary">
-                                        <StarBorderOutlinedIcon />
-                                    </IconWrapper>
-                                    <div>
-                                        <Typography variant="subtitle1" component="div">
-                                            Gratitude
-                                        </Typography>
-                                        <Typography variant="caption" color="text.secondary">
-                                            {`"Three things you're grateful for"`}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </BaseCard>
-                        </Grid>
-
-                        <Grid size={12}>
-                            <BaseCard>
-                                <div className="card-header">
-                                    <IconWrapper variant="secondary">
-                                        <SentimentSatisfiedOutlinedIcon />
-                                    </IconWrapper>
-                                    <div>
-                                        <Typography variant="subtitle1" component="div">
-                                            Latest Check-in
-                                        </Typography>
-                                        <Typography variant="caption" color="text.secondary">
-                                            Yesterday: {`"Feeling grateful for the little things in life."`}
-                                        </Typography>
-                                    </div>
-                                </div>
-                            </BaseCard>
-                        </Grid>
-                    </Grid>
-
-                    {/* --- Daily Affirmation BaseCard --- */}
-                    <BaseCard>
-                        <div className="card-header">
-                            <IconWrapper variant="primary">
-                                <StarBorderOutlinedIcon />
-                            </IconWrapper>
-                            <div>
-                                <Typography variant="subtitle1" component="div">
-                                    Daily Affirmation
-                                </Typography>
-                                <Typography variant="caption" color="text.secondary">
-                                    {`"I am worthy of love and happiness."`}
-                                </Typography>
-                            </div>
-                        </div>
-                    </BaseCard>
-                </main>
-
+        <Box className="homepage-container">
+            <Container maxWidth="lg">
+                {/* Hero Section */}
+                <Box className="hero-section">
+                    <Typography 
+                        variant="h2" 
+                        component="h1" 
+                        className="hero-title"
+                        gutterBottom
+                    >
+                        Welcome to Reflectly
+                    </Typography>
+                    <Typography 
+                        variant="h5" 
+                        component="p" 
+                        className="hero-subtitle"
+                        gutterBottom
+                    >
+                        Your personal journey of self-discovery and growth
+                    </Typography>
+                    <Typography 
+                        variant="body1" 
+                        className="hero-description"
+                        sx={{ mb: 4 }}
+                    >
+                        Track your daily reflections, mood, and gratitude to build a better understanding of yourself.
+                    </Typography>
+                    
+                    <Button
+                        component={Link}
+                        to="/login"
+                        variant="contained"
+                        size="large"
+                        startIcon={<LoginOutlined />}
+                        className="cta-button"
+                    >
+                        Get Started
+                    </Button>
+                </Box>
+            </Container>
+        </Box>
     );
 };
 

@@ -1,4 +1,3 @@
-// src/api/apiClient.js
 import axios from 'axios';
 const API_URL = import.meta.env.VITE_API_URL;
 const apiClient = axios.create({
@@ -10,7 +9,8 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('id_token'); 
+    // Use internal JWT token for API calls (stored as 'id_token' in sessionStorage)
+    const token = sessionStorage.getItem('id_token'); 
 
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
