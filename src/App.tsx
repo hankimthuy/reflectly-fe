@@ -3,15 +3,18 @@ import {BrowserRouter} from "react-router-dom";
 import AppRoutes from "./routes/AppRoutes";
 import {GoogleOAuthProvider} from "@react-oauth/google"; 
 import { AuthProvider } from './contexts/AuthProvider.tsx';
+import ErrorPage from './components/common/ErrorPage/ErrorPage';
 
 const App: React.FC = () => {
-  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || '123456789-abcdefghijklmnop.apps.googleusercontent.com';
+  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
   if (!googleClientId) {
     return (
-      <div style={{ padding: '20px', textAlign: 'center' }}>
-        <h2>Lỗi cấu hình: Vui lòng kiểm tra Google Client ID.</h2>
-      </div>
+      <ErrorPage 
+        title="App is temporarily unavailable"
+        message="We're experiencing some technical difficulties. Please try again later or contact support if the problem persists."
+        tip="💡 Try refreshing the page in a few minutes"
+      />
     );
   }
   return (
