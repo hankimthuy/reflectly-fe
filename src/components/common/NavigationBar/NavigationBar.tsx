@@ -1,11 +1,10 @@
 // src/components/NavigationBar.tsx
-import React from 'react';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import AddIcon from '@mui/icons-material/Add';
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
-import './NavigationBar.scss'
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import './NavigationBar.scss';
 
 type NavigationBarProps = object
 
