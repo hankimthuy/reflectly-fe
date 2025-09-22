@@ -7,11 +7,9 @@ interface BackendAuthResponse {
   email: string;
   fullName: string;
   pictureUrl: string;
-  internalJwtToken: string;
 }
 
 interface GoogleLoginResponse {
-  token: string;
   user: {
     id: string;
     email: string;
@@ -32,7 +30,7 @@ export const loginWithGoogleIdToken = async (idToken: string): Promise<GoogleLog
     const backendData = response.data;
     
     // Validate required fields
-    if (!backendData.id || !backendData.email || !backendData.fullName || !backendData.pictureUrl || !backendData.internalJwtToken) {
+    if (!backendData.id || !backendData.email || !backendData.fullName || !backendData.pictureUrl) {
       throw new Error('Missing required fields in backend response');
     }
     
@@ -46,7 +44,6 @@ export const loginWithGoogleIdToken = async (idToken: string): Promise<GoogleLog
     
     // Transform backend response to match frontend interface
     const transformedResponse: GoogleLoginResponse = {
-      token: backendData.internalJwtToken,
       user: userData
     };
 
@@ -58,7 +55,6 @@ export const loginWithGoogleIdToken = async (idToken: string): Promise<GoogleLog
 };
 
 
-// Get user profile using internal JWT token
 export const getUserProfile = async (): Promise<BackendAuthResponse> => {
   try {
     const response = await apiClient.get<BackendAuthResponse>('/api/auth/get-user-profile');

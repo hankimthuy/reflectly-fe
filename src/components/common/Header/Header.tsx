@@ -3,6 +3,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import './Header.scss';
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from '../../../contexts/AuthProvider.tsx';
+import { APP_ROUTES } from '../../../config/route';
 
 const todayDate = `Today, ${new Date().toLocaleString('en-US', {
   timeZone: 'Asia/Ho_Chi_Minh',
@@ -49,7 +50,7 @@ const HomeHeader: React.FC = () => {
   return (
     <header className="home-header">
       <div className="app-logo-background is-relative" ref={logoRef}>
-        <Link to="/" className="app-logo-link">
+        <Link to={APP_ROUTES.HOME} className="app-logo-link">
           <span className="app-logo">
             <span className="text-primary">Reflect</span>
             <span className="text-secondary">ly</span>
@@ -79,7 +80,7 @@ const HomeHeader: React.FC = () => {
         ) : (
           // Not Login
           <div>
-          <Link to="/login" className="item">
+          <Link to={APP_ROUTES.LOGIN} className="item">
             <AccountCircleOutlinedIcon className="profile-icon" />
           </Link>
           </div>

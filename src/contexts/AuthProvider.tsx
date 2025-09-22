@@ -17,7 +17,7 @@ export interface AuthState {
 }
 
 export interface AuthActions {
-  login: (user: AuthUser, token: string) => Promise<void>;
+  login: (user: AuthUser) => Promise<void>;
   logout: () => Promise<void>;
   clearError: () => void;
 }
@@ -26,7 +26,6 @@ export interface AuthContextValue extends AuthState, AuthActions {}
 
 // Constants
 const STORAGE_KEYS = {
-  TOKEN: 'id_token',
   USER_INFO: 'google_user_info',
 } as const;
 
@@ -73,22 +72,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       try {
         setIsLoading(true);
         const storedUserJSON = sessionStorage.getItem(STORAGE_KEYS.USER_INFO);
-        const storedToken = sessionStorage.getItem(STORAGE_KEYS.TOKEN);
 
-        if (storedUserJSON && storedToken) {
+        if (storedUserJSON) {
           const parsedUser = JSON.parse(storedUserJSON) as AuthUser;
           setUser(parsedUser);
         } else {
           // Clear invalid data
           sessionStorage.removeItem(STORAGE_KEYS.USER_INFO);
-          sessionStorage.removeItem(STORAGE_KEYS.TOKEN);
         }
       } catch (error) {
         console.error('Error initializing auth:', error);
         setError('Failed to initialize authentication');
         // Clear corrupted data
         sessionStorage.removeItem(STORAGE_KEYS.USER_INFO);
-        sessionStorage.removeItem(STORAGE_KEYS.TOKEN);
       } finally {
         setIsLoading(false);
       }
@@ -98,14 +94,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   // Login function
-  const login = useCallback(async (nextUser: AuthUser, token: string): Promise<void> => {
+  const login = useCallback(async (nextUser: AuthUser): Promise<void> => {
     try {
       setIsLoading(true);
       setError(null);
 
       // Validate inputs
-      if (!nextUser || !token) {
-        throw new Error('Invalid user data or token');
+      if (!nextUser) {
+        throw new Error('Invalid user data');
       }
 
       // Validate user object structure
@@ -114,7 +110,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
 
       // Store in sessionStorage
-      sessionStorage.setItem(STORAGE_KEYS.TOKEN, token);
       sessionStorage.setItem(STORAGE_KEYS.USER_INFO, JSON.stringify(nextUser));
 
       // Update state
@@ -136,7 +131,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setError(null);
 
       // Clear storage
-      sessionStorage.removeItem(STORAGE_KEYS.TOKEN);
       sessionStorage.removeItem(STORAGE_KEYS.USER_INFO);
 
       // Update state

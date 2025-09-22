@@ -5,6 +5,7 @@ import { useAuth } from '../../contexts/AuthProvider';
 import { useGoogleAuth } from '../../hooks/useGoogleAuth';
 import Loading from '../../components/common/Loading/Loading';
 import './LoginPage.scss';
+import { APP_ROUTES } from '../../config/route';
 
 interface LocationState {
   from?: string;
@@ -16,7 +17,7 @@ const LoginPage: React.FC = () => {
   const { isLoading, error, isAuthenticated } = useAuth();
   
   const state = location.state as LocationState;
-  const intendedDestination = state?.from || '/';
+  const intendedDestination = state?.from || APP_ROUTES.HOME;
   
   const { 
     isLoggingIn, 

@@ -5,6 +5,7 @@ import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './NavigationBar.scss';
+import { APP_ROUTES } from '../../../config/route';
 
 type NavigationBarProps = object
 
@@ -17,14 +18,14 @@ const NavigationBar: React.FC<NavigationBarProps> = () => {
 
     return (
         <nav className="nav-bar">
-          <Link  to="/entries" className={`item ${isActive('/entries')}`}>
+          <Link  to={APP_ROUTES.HOME} className={`item ${isActive(APP_ROUTES.HOME)}`}>
             <HomeOutlinedIcon />
             <span>Home</span>
           </Link>
-          <Link to="/new-entry" className="add-button">
+          <Link to={APP_ROUTES.ENTRIES} className="add-button">
             <AddIcon />
           </Link>
-          <Link to="/profile" className={`item ${isActive('/profile')}`}>
+          <Link to={APP_ROUTES.PROFILE} className={`item ${isActive(APP_ROUTES.PROFILE)}`}>
             <PersonOutlinedIcon />
             <span>Profile</span>
           </Link>

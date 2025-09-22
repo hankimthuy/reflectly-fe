@@ -17,6 +17,7 @@
   background-color: var(--c-surface);
   border-top: 1px solid var(--c-shadow-heavy);
   position: relative;
+  padding: 5px 0;
 
   .item {
     @include flex-col-center;

@@ -52,7 +52,7 @@ export const useGoogleAuth = (options?: UseGoogleAuthOptions): UseGoogleAuthRetu
       console.log('Response from Backend:', backendResponse);
       
       // Use AuthContext to persist and update app state
-      await login(backendResponse.user, backendResponse.token);
+      await login(backendResponse.user);
       
       // Navigate to intended destination after successful login
       navigate(intendedDestination, { replace: true });
