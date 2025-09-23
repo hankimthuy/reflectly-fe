@@ -1,5 +1,4 @@
 :root {
-  /* --- Colors & Theming from your previous code --- */
   --c-primary: #87CEEB;
   --c-secondary: #FF9A9E;
   --c-primary-light: #f0f8ff;
@@ -13,26 +12,37 @@
   --c-shadow-heavy: rgba(0, 0, 0, 0.1);
   --c-shadow-accent: rgba(135, 206, 235, 0.2);
 
-  /* --- Sizing & Spacing --- */
   --border-radius-sm: 8px;
   --border-radius-md: 12px;
   --border-radius-lg: 16px;
   --app-width: 450px;
   --app-height: 100vh;
 
-  /* --- Base Font & System Styles (from your new code) --- */
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: var(--c-text-primary); /* Use a variable for consistency */
-  background-color: var(--c-background); /* Use a variable for consistency */
+  color: var(--c-text-primary);
+  background-color: var(--c-background);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+a.text-primary,
+.text-primary {
+  color: var(--c-primary) !important;
+}
+
+.text-secondary {
+  color: var(--c-secondary) !important;
+}
+
+.text-danger {
+  color: #d32f2f !important;
 }
 
 a {
@@ -45,10 +55,11 @@ a:hover {
   color: #535bf2;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
-  height: 100%; /* Đảm bảo body chiếm toàn bộ chiều cao của viewport */
+  height: 100%;
 }
 
 body {
@@ -79,9 +90,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
@@ -92,9 +105,11 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
   }
+
   button {
     background-color: #f9f9f9;
   }
