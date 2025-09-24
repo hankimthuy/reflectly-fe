@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { GoogleLogin } from "@react-oauth/google";
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthProvider';
+import { useAuth } from '../../providers/AuthProvider';
 import { useGoogleAuth } from '../../hooks/useGoogleAuth';
 import Loading from '../../components/common/Loading/Loading';
 import './LoginPage.scss';

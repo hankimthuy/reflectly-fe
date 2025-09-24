@@ -1,5 +1,5 @@
-import type { AuthUser } from "../contexts/AuthProvider.tsx";
 import apiClient from "./apiClient.ts";
+import type {User} from "../models/user.ts";
 
 // Actual backend response structure (flat structure)
 interface BackendAuthResponse {
@@ -35,7 +35,7 @@ export const loginWithGoogleIdToken = async (idToken: string): Promise<GoogleLog
     }
     
     // Map backend response to AuthUser
-    const userData: AuthUser = {
+    const userData: User = {
       id: backendData.id,
       email: backendData.email,
       fullName: backendData.fullName,

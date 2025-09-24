@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthProvider';
+import { useAuth } from '../providers/AuthProvider';
 
 interface LocationState {
   from?: {

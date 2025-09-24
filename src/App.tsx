@@ -2,7 +2,7 @@ import './App.scss';
 import {BrowserRouter} from "react-router-dom";
 import AppRoutes from "./routes/AppRoutes";
 import {GoogleOAuthProvider} from "@react-oauth/google"; 
-import { AuthProvider } from './contexts/AuthProvider.tsx';
+import { AuthProvider } from './providers/AuthProvider.tsx';
 import ErrorPage from './components/common/ErrorPage/ErrorPage';
 
 const App: React.FC = () => {

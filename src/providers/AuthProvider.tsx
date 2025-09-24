@@ -1,52 +1,32 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
+import type { User } from "../models/user.ts";
 
-// Types
-export interface AuthUser {
-  id: string;
-  email: string;
-  pictureUrl: string;
-  fullName: string;
+interface AuthContextValue {
+    user: User | null;
+    isLoading: boolean;
+    isAuthenticated: boolean;
+    error: string | null;
+    login: (user: User) => Promise<void>;
+    logout: () => Promise<void>;
+    clearError: () => void;
 }
-
-export interface AuthState {
-  user: AuthUser | null;
-  isLoading: boolean;
-  isAuthenticated: boolean;
-  error: string | null;
-}
-
-export interface AuthActions {
-  login: (user: AuthUser) => Promise<void>;
-  logout: () => Promise<void>;
-  clearError: () => void;
-}
-
-export interface AuthContextValue extends AuthState, AuthActions {}
 
 // Constants
 const STORAGE_KEYS = {
   USER_INFO: 'google_user_info',
 } as const;
 
-// Default context value
-const defaultAuthContextValue: AuthContextValue = {
-  user: null,
-  isLoading: false,
-  isAuthenticated: false,
-  error: null,
-  login: async () => {},
-  logout: async () => {},
-  clearError: () => {},
-};
-
 // Context
-const AuthContext = createContext<AuthContextValue>(defaultAuthContextValue);
-
-// Provider Props
-interface AuthProviderProps {
-  children: ReactNode;
-}
+const AuthContext = createContext<AuthContextValue>({
+    user: null,
+    isLoading: false,
+    isAuthenticated: false,
+    error: null,
+    login: async () => {},
+    logout: async () => {},
+    clearError: () => {},
+});
 
 // Custom hook for auth context
 export const useAuth = (): AuthContextValue => {
@@ -58,8 +38,8 @@ export const useAuth = (): AuthContextValue => {
 };
 
 // Main Provider Component
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<AuthUser | null>(null);
+export const AuthProvider = ({ children }: {children: ReactNode;}) => {
+  const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -74,7 +54,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const storedUserJSON = sessionStorage.getItem(STORAGE_KEYS.USER_INFO);
 
         if (storedUserJSON) {
-          const parsedUser = JSON.parse(storedUserJSON) as AuthUser;
+          const parsedUser = JSON.parse(storedUserJSON) as User;
           setUser(parsedUser);
         } else {
           // Clear invalid data
@@ -94,7 +74,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   // Login function
-  const login = useCallback(async (nextUser: AuthUser): Promise<void> => {
+  const login = useCallback(async (nextUser: User): Promise<void> => {
     try {
       setIsLoading(true);
       setError(null);
