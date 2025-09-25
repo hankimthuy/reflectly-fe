@@ -12,7 +12,7 @@ import {
 import { 
   LoginOutlined
 } from '@mui/icons-material';
-import { useAuth } from '../../contexts/AuthProvider';
+import { useAuth } from '../../providers/AuthProvider';
 
 const WelcomePage: React.FC = () => {
     const { isAuthenticated, isLoading } = useAuth();

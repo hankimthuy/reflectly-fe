@@ -7,7 +7,7 @@ import { APP_ROUTES } from '../config/route';
 
 const MainLayout = lazy(() => import('../components/layout/MainLayout'));
 const WelcomePage = lazy(() => import('../pages/welcome/WelcomePage'));
-const HomePage = lazy(() => import('../pages/home/HomePage'));
+const HomePage = lazy(() => import('../pages/home/Homepage'));
 const EntriesPage = lazy(() => import('../pages/entries/EntriesPage'));
 const LoginPage = lazy(() => import('../pages/login/LoginPage'));
 const ProfilePage = lazy(() => import('../pages/profile/ProfilePage'));

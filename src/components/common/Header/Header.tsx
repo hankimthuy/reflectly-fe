@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import './Header.scss';
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from '../../../contexts/AuthProvider.tsx';
+import { useAuth } from '../../../providers/AuthProvider.tsx';
 import { APP_ROUTES } from '../../../config/route';
 
 const todayDate = `Today, ${new Date().toLocaleString('en-US', {
