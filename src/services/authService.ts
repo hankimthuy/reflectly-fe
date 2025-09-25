@@ -18,16 +18,21 @@ interface GoogleLoginResponse {
   };
 }
 
+// Common method to get user profile from backend
+const getUserProfile = async (idToken?: string): Promise<BackendAuthResponse> => {
+  try {
+    const headers = idToken ? { 'Authorization': `Bearer ${idToken}` } : {};
+    const response = await apiClient.get<BackendAuthResponse>('/api/users/profile', { headers });
+    return response.data;
+  } catch (error) {
+    console.error('Error getting user profile from backend:', error);
+    throw error;
+  }
+};
+
 export const loginWithGoogleIdToken = async (idToken: string): Promise<GoogleLoginResponse> => {
   try {
-    // Call the backend API with Google ID token
-    const response = await apiClient.get<BackendAuthResponse>('/api/auth/get-user-profile', {
-      headers: {
-        'Authorization': `Bearer ${idToken}`
-      }
-    });
-
-    const backendData = response.data;
+    const backendData = await getUserProfile(idToken);
     
     // Validate required fields
     if (!backendData.id || !backendData.email || !backendData.fullName || !backendData.pictureUrl) {
@@ -50,17 +55,6 @@ export const loginWithGoogleIdToken = async (idToken: string): Promise<GoogleLog
     return transformedResponse;
   } catch (error) {
     console.error('Error sending Google ID Token to backend:', error);
-    throw error;
-  }
-};
-
-
-export const getUserProfile = async (): Promise<BackendAuthResponse> => {
-  try {
-    const response = await apiClient.get<BackendAuthResponse>('/api/auth/get-user-profile');
-    return response.data;
-  } catch (error) {
-    console.error('Error getting user profile:', error);
     throw error;
   }
 };
