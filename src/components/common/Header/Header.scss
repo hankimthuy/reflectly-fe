@@ -1,16 +1,8 @@
 .home-header {
   padding: 24px 16px 8px;
-
-  .profile-icon {
-    position: absolute;
-    top: 24px;
-    right: 16px;
-    font-size: 32px;
-    color: var(--c-text-secondary);
-  }
+  background: white;
 
   .date {
-    font-family: var(--f-primary);
     font-weight: 600;
     font-size: 18px;
     line-height: 28px;
@@ -21,13 +13,81 @@
   .app-logo-background {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    position: relative;
   }
 
   .app-logo {
-    font-family: var(--f-primary);
     font-size: 24px;
     font-weight: 700;
-    &--primary { color: var(--c-primary); }
-    &--secondary { color: var(--c-secondary); }
   }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .profile-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+  }
+
+
+  .profile-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  .profile-icon {
+    font-size: 32px !important;
+    color: var(--c-text-secondary);
+  }
+}
+
+.logo-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  min-width: 160px;
+  z-index: 1000;
+}
+
+.logo-dropdown-item {
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: var(--c-text-primary);
+}
+
+.logo-dropdown-separator {
+  height: 1px;
+  background: rgba(0,0,0,0.06);
+}
+
+.app-logo-link {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+}
+
+.app-logo-link:focus {
+  outline: none;
 }

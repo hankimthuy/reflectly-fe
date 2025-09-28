@@ -1,4 +1,4 @@
-.page {
+.main-layout-page {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,7 +6,7 @@
   width: 100%;
   min-height: 100vh;
 
-  .container {
+  .main-layout-container {
     position: relative;
     width: var(--app-width);
     height: var(--app-height);

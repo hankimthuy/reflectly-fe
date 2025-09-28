@@ -12,16 +12,10 @@ import { Outlet } from 'react-router-dom';
  */
 
 const MainLayout: React.FC = () => {
-  const todayDate = `Today, ${new Date().toLocaleString('en-US', {
-    timeZone: 'Asia/Ho_Chi_Minh',
-    month: 'long',
-    day: 'numeric',
-  })}`;
-
   return (
-      <div className="page">
-        <div className="container">
-          <HomeHeader date={todayDate} />
+      <div className="main-layout-page">
+        <div className="main-layout-container">
+          <HomeHeader />
           <Outlet />
           <NavigationBar />
         </div>
