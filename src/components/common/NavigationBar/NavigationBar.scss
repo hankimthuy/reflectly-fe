@@ -1,3 +1,7 @@
+// Import responsive system
+@import '../../../styles/variables';
+@import '../../../styles/responsive';
+
 // Mixins for reusable styles
 @mixin flex-col-center {
   display: flex;
@@ -11,34 +15,149 @@
 }
 
 .nav-bar {
+  @include nav-responsive;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   background-color: var(--c-surface);
-  border-top: 1px solid var(--c-shadow-heavy);
-  position: relative;
-  padding: 5px 0;
+  border-top: 1px solid var(--c-border);
+  gap: var(--spacing-2xl); // Add spacing between navigation items
+  
+  // Mobile layout - fixed bottom navigation
+  @include mobile-only {
+    @include padding-responsive(var(--spacing-sm) var(--spacing-md));
+    box-shadow: 0 -4px 16px var(--c-shadow-light);
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
+    gap: var(--spacing-xl); // Smaller gap on mobile
+  }
+  
+  // Tablet layout - rounded navigation
+  @include respond-between(tablet, ipad-air) {
+    border-radius: var(--border-radius-xl);
+    border: 1px solid var(--c-border);
+    box-shadow: var(--shadow-lg);
+    @include padding-responsive(var(--spacing-md) var(--spacing-lg));
+    margin: 0 var(--spacing-md) var(--spacing-md);
+  }
+  
+  // iPad Air layout - enhanced navigation
+  @include respond-between(ipad-air, laptop-sm) {
+    border-radius: var(--border-radius-xl);
+    border: 1px solid var(--c-border);
+    box-shadow: var(--shadow-xl);
+    @include padding-responsive(var(--spacing-lg) var(--spacing-xl));
+    margin: 0 var(--spacing-lg) var(--spacing-lg);
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.9);
+  }
+  
+  // Laptop layout - keep bottom navigation like mobile/tablet
+  @include respond-to(laptop-sm) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    border-top: 1px solid var(--c-border);
+    border-radius: 0;
+    margin: 0;
+    padding: var(--spacing-md) var(--spacing-xl);
+    box-shadow: 0 -4px 20px var(--c-shadow-light);
+    z-index: var(--z-fixed);
+    gap: var(--spacing-2xl); // Reduced gap on laptop
+  }
 
   .item {
     @include flex-col-center;
-    gap: 4px;
-    font-size: 10px;
-    font-weight: 500;
+    gap: var(--spacing-xs);
+    @include font-responsive(10px, 11px, 12px);
+    font-weight: var(--font-weight-medium);
     color: var(--c-text-muted);
     text-decoration: none;
+    @include padding-responsive(var(--spacing-xs), var(--spacing-sm), var(--spacing-sm));
+    border-radius: var(--border-radius-md);
+    transition: all var(--transition-normal);
+    min-width: 44px; // Accessibility - minimum touch target
+    
+    // Enhanced mobile touch targets
+    @include mobile-only {
+      min-height: 44px;
+      justify-content: center;
+    }
 
     &--active {
       color: var(--c-text-secondary);
+      background-color: var(--c-primary-light);
+      transform: translateY(-2px);
+      
+      .icon {
+        color: var(--c-primary);
+        transform: scale(1.1);
+      }
+    }
+    
+    &:hover:not(.item--active) {
+      color: var(--c-text-primary);
+      background-color: rgba(135, 206, 235, 0.1);
+      transform: translateY(-1px);
+    }
+    
+    .icon {
+      @include font-responsive(20px, 22px, 24px);
+      transition: all var(--transition-normal);
+    }
+    
+    .label {
+      @include font-responsive(9px, 10px, 11px);
+      font-weight: var(--font-weight-medium);
+      text-align: center;
+      
+      // Hide labels on very small screens
+      @media screen and (max-width: 360px) {
+        display: none;
+      }
     }
   }
 
   .add-button {
     @include place-items-center;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
     background-color: var(--c-primary);
     color: var(--c-surface);
-    box-shadow: 0 4px 16px var(--c-shadow-accent);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    
+    @include mobile-only {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      box-shadow: 0 4px 16px var(--c-shadow-accent);
+    }
+    
+    @include respond-to(tablet) {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      box-shadow: 0 6px 20px var(--c-shadow-accent);
+    }
+    
+    &:hover {
+      background-color: var(--c-text-secondary);
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 8px 25px var(--c-shadow-accent);
+    }
+    
+    &:active {
+      transform: translateY(-1px) scale(1.02);
+    }
+    
+    .icon {
+      @include font-responsive(24px, 26px, 28px);
+    }
   }
 }

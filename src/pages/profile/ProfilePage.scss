@@ -1,3 +1,7 @@
+// Import responsive system
+@import '../../styles/variables';
+@import '../../styles/responsive';
+
 .profile-page {
   flex: 1;
   background: var(--c-background);
@@ -5,32 +9,68 @@
   justify-content: center;
   align-items: flex-start;
   overflow-y: auto;
+  @include padding-responsive(var(--spacing-md), var(--spacing-lg), var(--spacing-xl));
 
   .profile-container {
-    background: var(--c-surface);
-    border-radius: var(--border-radius-lg);
-    box-shadow: 0 4px 20px var(--c-shadow-light);
-    padding: 1.5rem;
-    max-width: 450px;
+    @include card-responsive;
+    @include padding-responsive(var(--spacing-lg), var(--spacing-xl), var(--spacing-2xl));
     width: 100%;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    @include margin-responsive(var(--spacing-md) 0, var(--spacing-lg) 0, var(--spacing-xl) 0);
+    
+    // Mobile layout
+    @include mobile-only {
+      max-width: 100%;
+      margin: var(--spacing-sm);
+    }
+    
+    // Tablet layout
+    @include respond-to(tablet) {
+      max-width: 500px;
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px var(--c-shadow-heavy);
+      }
+    }
+    
+    // Laptop layout
+    @include respond-to(laptop-sm) {
+      max-width: 600px;
+    }
   }
 
   .profile-header {
     text-align: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
+    @include margin-responsive(0 0 var(--spacing-xl), 0 0 var(--spacing-2xl), 0 0 var(--spacing-3xl));
+    @include padding-responsive(0 0 var(--spacing-lg), 0 0 var(--spacing-xl), 0 0 var(--spacing-2xl));
     border-bottom: 2px solid var(--c-border);
 
     .profile-avatar-large {
-      margin: 0 auto 1.5rem;
-      width: 120px;
-      height: 120px;
+      @include margin-responsive(0 auto var(--spacing-lg), 0 auto var(--spacing-xl), 0 auto var(--spacing-2xl));
       border-radius: 50%;
       overflow: hidden;
       border: 4px solid var(--c-primary);
       box-shadow: 0 4px 15px var(--c-shadow-accent);
+      transition: all var(--transition-normal);
+      
+      @include mobile-only {
+        width: 100px;
+        height: 100px;
+      }
+      
+      @include respond-to(tablet) {
+        width: 120px;
+        height: 120px;
+      }
+      
+      @include respond-to(laptop-sm) {
+        width: 140px;
+        height: 140px;
+      }
+      
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px var(--c-shadow-accent);
+      }
 
       .avatar-image {
         width: 100%;
@@ -42,24 +82,23 @@
         width: 100%;
         height: 100%;
         background: linear-gradient(135deg, var(--c-primary), var(--c-secondary));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2.5rem;
-        font-weight: bold;
+        @include flex-center;
+        @include font-responsive(2rem, 2.5rem, 3rem);
+        font-weight: var(--font-weight-bold);
         color: white;
       }
     }
 
     .profile-name {
-      font-size: 1.8rem;
-      font-weight: 700;
+      @include font-responsive(var(--font-size-xl), var(--font-size-2xl), var(--font-size-3xl));
+      font-weight: var(--font-weight-bold);
       color: var(--c-text-primary);
-      margin: 0 0 0.5rem 0;
+      @include margin-responsive(0 0 var(--spacing-xs), 0 0 var(--spacing-sm), 0 0 var(--spacing-md));
+      line-height: var(--line-height-tight);
     }
 
     .profile-email {
-      font-size: 1rem;
+      @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
       color: var(--c-text-muted);
       margin: 0;
     }
@@ -67,69 +106,86 @@
 
   .profile-content {
     .profile-section {
-      margin-bottom: 1.5rem;
+      @include margin-responsive(0 0 var(--spacing-lg), 0 0 var(--spacing-xl), 0 0 var(--spacing-2xl));
 
       h2 {
-        font-size: 1.2rem;
-        font-weight: 600;
+        @include font-responsive(var(--font-size-lg), var(--font-size-xl), var(--font-size-2xl));
+        font-weight: var(--font-weight-semibold);
         color: var(--c-text-primary);
-        margin-bottom: 1rem;
-        padding-bottom: 0.5rem;
+        @include margin-responsive(0 0 var(--spacing-md), 0 0 var(--spacing-lg), 0 0 var(--spacing-lg));
+        @include padding-responsive(0 0 var(--spacing-sm), 0 0 var(--spacing-md), 0 0 var(--spacing-md));
         border-bottom: 1px solid var(--c-border);
       }
     }
 
     .info-grid {
-      display: grid;
-      gap: 1rem;
+      @include grid-responsive(1, 1, 2);
+      gap: var(--spacing-md);
 
       .info-item {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
+        @include flex-col-stretch;
+        gap: var(--spacing-xs);
+        @include padding-responsive(var(--spacing-sm), var(--spacing-md), var(--spacing-md));
+        background: var(--c-primary-light);
+        border-radius: var(--border-radius-md);
+        border-left: 3px solid var(--c-primary);
+        transition: all var(--transition-normal);
+        
+        &:hover {
+          transform: translateX(2px);
+          box-shadow: var(--shadow-md);
+        }
 
         label {
-          font-weight: 600;
+          font-weight: var(--font-weight-semibold);
           color: var(--c-text-secondary);
-          font-size: 0.8rem;
+          @include font-responsive(10px, 11px, 12px);
           text-transform: uppercase;
           letter-spacing: 0.5px;
         }
 
         span {
-          font-size: 0.95rem;
+          @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-base));
           color: var(--c-text-primary);
-          padding: 0.5rem;
-          background: var(--c-primary-light);
-          border-radius: var(--border-radius-sm);
-          border-left: 3px solid var(--c-primary);
+          font-weight: var(--font-weight-medium);
         }
       }
     }
 
     .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
+      @include grid-responsive(3, 3, 3);
+      gap: var(--spacing-sm);
+      
+      @include respond-to(tablet) {
+        gap: var(--spacing-md);
+      }
 
       .stat-item {
         text-align: center;
-        padding: 1rem 0.5rem;
+        @include padding-responsive(var(--spacing-md) var(--spacing-sm), var(--spacing-lg) var(--spacing-md), var(--spacing-xl) var(--spacing-lg));
         background: var(--c-primary-light);
-        border-radius: var(--border-radius-sm);
+        border-radius: var(--border-radius-md);
         border: 1px solid var(--c-border);
+        transition: all var(--transition-normal);
+        
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-md);
+          background: var(--c-surface);
+        }
 
         .stat-number {
-          font-size: 1.5rem;
-          font-weight: 700;
+          @include font-responsive(var(--font-size-xl), var(--font-size-2xl), var(--font-size-3xl));
+          font-weight: var(--font-weight-bold);
           color: var(--c-primary);
-          margin-bottom: 0.25rem;
+          @include margin-responsive(0 0 var(--spacing-xs), 0 0 var(--spacing-sm), 0 0 var(--spacing-sm));
+          line-height: var(--line-height-tight);
         }
 
         .stat-label {
-          font-size: 0.7rem;
+          @include font-responsive(9px, 10px, 11px);
           color: var(--c-text-muted);
-          font-weight: 500;
+          font-weight: var(--font-weight-medium);
           text-transform: uppercase;
           letter-spacing: 0.5px;
         }

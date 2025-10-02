@@ -1,0 +1,184 @@
+// Design System Variables - Responsive
+// Optimized for Mobile (iPhone 14 Pro, Samsung) and Laptops (14", 15.6")
+
+// Color Palette
+:root {
+  // Primary Colors
+  --c-primary: #87CEEB;
+  --c-secondary: #FF9A9E;
+  --c-primary-light: #f0f8ff;
+  --c-surface: #ffffff;
+  --c-background: #F8F9FA;
+  
+  // Text Colors
+  --c-text-primary: #333333;
+  --c-text-secondary: #2d5d7f;
+  --c-text-muted: #999999;
+  
+  // UI Colors
+  --c-border: #e0e0e0;
+  --c-shadow-light: rgba(0, 0, 0, 0.05);
+  --c-shadow-heavy: rgba(0, 0, 0, 0.1);
+  --c-shadow-accent: rgba(135, 206, 235, 0.2);
+  --c-danger: #d32f2f;
+  --c-success: #2e7d32;
+  --c-warning: #f57c00;
+  
+  // Border Radius - Responsive
+  --border-radius-xs: 4px;
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 24px;
+  
+  // Spacing Scale - Mobile First
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  
+  // Typography Scale - Mobile First
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 32px;
+  
+  // Line Heights
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  // Font Weights
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  // Container Widths
+  --container-mobile: 100%;
+  --container-tablet: 768px;
+  --container-laptop: 1200px;
+  --container-desktop: 1400px;
+  
+  // App Layout - Responsive
+  --app-width-mobile: 100vw;
+  --app-width-tablet: 450px;
+  --app-width-ipad-air: 600px;
+  --app-width-laptop: 800px;
+  --app-height: 100vh;
+  --app-min-height: 100vh;
+  
+  // Header Heights
+  --header-height-mobile: 60px;
+  --header-height-tablet: 70px;
+  --header-height-ipad-air: 75px;
+  --header-height-laptop: 80px;
+  
+  // Navigation Heights
+  --nav-height-mobile: 60px;
+  --nav-height-tablet: 70px;
+  --nav-height-ipad-air: 75px;
+  --nav-height-laptop: 0px; // Hidden on laptop
+  
+  // Z-index Scale
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  
+  // Transitions
+  --transition-fast: 0.15s ease-in-out;
+  --transition-normal: 0.25s ease-in-out;
+  --transition-slow: 0.35s ease-in-out;
+  
+  // Shadows - Enhanced for different screen sizes
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
+}
+
+// Tablet adjustments
+@media screen and (min-width: 768px) {
+  :root {
+    --spacing-md: 20px;
+    --spacing-lg: 28px;
+    --spacing-xl: 40px;
+    --spacing-2xl: 56px;
+    --spacing-3xl: 80px;
+    
+    --font-size-sm: 15px;
+    --font-size-base: 17px;
+    --font-size-lg: 19px;
+    --font-size-xl: 22px;
+    --font-size-2xl: 28px;
+    --font-size-3xl: 36px;
+    
+    --border-radius-sm: 10px;
+    --border-radius-md: 14px;
+    --border-radius-lg: 18px;
+    --border-radius-xl: 28px;
+  }
+}
+
+// iPad Air adjustments
+@media screen and (min-width: 820px) {
+  :root {
+    --spacing-md: 22px;
+    --spacing-lg: 30px;
+    --spacing-xl: 44px;
+    --spacing-2xl: 60px;
+    --spacing-3xl: 88px;
+    
+    --font-size-sm: 16px;
+    --font-size-base: 18px;
+    --font-size-lg: 20px;
+    --font-size-xl: 24px;
+    --font-size-2xl: 30px;
+    --font-size-3xl: 38px;
+    
+    --border-radius-sm: 12px;
+    --border-radius-md: 16px;
+    --border-radius-lg: 20px;
+    --border-radius-xl: 30px;
+  }
+}
+
+// Laptop and up adjustments
+@media screen and (min-width: 1366px) {
+  :root {
+    --spacing-md: 16px;
+    --spacing-lg: 20px;
+    --spacing-xl: 28px;
+    --spacing-2xl: 36px;
+    --spacing-3xl: 48px;
+    
+    --font-size-sm: 16px;
+    --font-size-base: 18px;
+    --font-size-lg: 20px;
+    --font-size-xl: 24px;
+    --font-size-2xl: 32px;
+    --font-size-3xl: 40px;
+    
+    --border-radius-sm: 12px;
+    --border-radius-md: 16px;
+    --border-radius-lg: 20px;
+    --border-radius-xl: 32px;
+  }
+}
+
+// Font Family
+:root {
+  --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+  --font-family-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+}

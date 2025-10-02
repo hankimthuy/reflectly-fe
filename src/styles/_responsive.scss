@@ -1,0 +1,244 @@
+// Responsive Design System for Reflectly
+// Supporting: Mobile (iPhone 14 Pro, Samsung), Laptop 14", Laptop 15.6"
+
+// Import Sass modules
+@use 'sass:map';
+
+// Breakpoints
+$breakpoints: (
+  mobile: 320px,
+  mobile-lg: 414px,
+  tablet: 768px,
+  ipad-air: 820px,     // iPad Air
+  laptop-sm: 1366px,   // 14" laptop
+  laptop-lg: 1920px,   // 15.6" laptop
+  desktop: 2560px
+);
+
+// Responsive mixins
+@mixin respond-to($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media screen and (min-width: map.get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown breakpoint: #{$breakpoint}";
+  }
+}
+
+@mixin respond-between($min, $max) {
+  @if map.has-key($breakpoints, $min) and map.has-key($breakpoints, $max) {
+    $min-width: map.get($breakpoints, $min);
+    $max-width: map.get($breakpoints, $max) - 1px;
+    @media screen and (min-width: #{$min-width}) and (max-width: #{$max-width}) {
+      @content;
+    }
+  }
+}
+
+@mixin mobile-only {
+  $tablet-width: map.get($breakpoints, tablet) - 1px;
+  @media screen and (max-width: #{$tablet-width}) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media screen and (min-width: map.get($breakpoints, tablet)) {
+    @content;
+  }
+}
+
+@mixin laptop-up {
+  @media screen and (min-width: map.get($breakpoints, laptop-sm)) {
+    @content;
+  }
+}
+
+// Container mixins for different screen sizes
+@mixin container-mobile {
+  width: 100%;
+  max-width: 100vw;
+  padding: 0 16px;
+}
+
+@mixin container-tablet {
+  width: 100%;
+  max-width: 768px;
+  padding: 0 24px;
+  margin: 0 auto;
+}
+
+@mixin container-laptop {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 32px;
+  margin: 0 auto;
+}
+
+// Flexbox utilities
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin flex-col-stretch {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+@mixin place-items-center {
+  display: grid;
+  place-items: center;
+}
+
+// Grid utilities
+@mixin grid-responsive($mobile-cols: 1, $tablet-cols: 2, $laptop-cols: 3) {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat($mobile-cols, 1fr);
+  
+  @include respond-to(tablet) {
+    grid-template-columns: repeat($tablet-cols, 1fr);
+    gap: 24px;
+  }
+  
+  @include respond-to(laptop-sm) {
+    grid-template-columns: repeat($laptop-cols, 1fr);
+    gap: 32px;
+  }
+}
+
+// Typography responsive mixins
+@mixin font-responsive($mobile-size, $tablet-size: null, $laptop-size: null) {
+  font-size: $mobile-size;
+  
+  @if $tablet-size {
+    @include respond-to(tablet) {
+      font-size: $tablet-size;
+    }
+  }
+  
+  @if $laptop-size {
+    @include respond-to(laptop-sm) {
+      font-size: $laptop-size;
+    }
+  }
+}
+
+// Spacing utilities - Fixed mixed declarations
+@mixin padding-responsive($mobile, $tablet: null, $laptop: null) {
+  & {
+    padding: $mobile;
+    
+    @if $tablet {
+      @include respond-to(tablet) {
+        padding: $tablet;
+      }
+    }
+    
+    @if $laptop {
+      @include respond-to(laptop-sm) {
+        padding: $laptop;
+      }
+    }
+  }
+}
+
+@mixin margin-responsive($mobile, $tablet: null, $laptop: null) {
+  & {
+    margin: $mobile;
+    
+    @if $tablet {
+      @include respond-to(tablet) {
+        margin: $tablet;
+      }
+    }
+    
+    @if $laptop {
+      @include respond-to(laptop-sm) {
+        margin: $laptop;
+      }
+    }
+  }
+}
+
+// Height utilities using vh for consistent viewport sizing
+@mixin height-responsive($mobile-vh: 100vh, $laptop-vh: null) {
+  & {
+    height: $mobile-vh;
+    min-height: $mobile-vh;
+    
+    @if $laptop-vh {
+      @include respond-to(laptop-sm) {
+        height: $laptop-vh;
+        min-height: $laptop-vh;
+      }
+    }
+  }
+}
+
+// Card responsive design - Fixed mixed declarations
+@mixin card-responsive {
+  & {
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 4px 16px var(--c-shadow-light);
+    background: var(--c-surface);
+    
+    @include mobile-only {
+      border-radius: var(--border-radius-sm);
+      margin: 0 8px;
+    }
+    
+    @include respond-to(tablet) {
+      border-radius: var(--border-radius-lg);
+      box-shadow: 0 8px 32px var(--c-shadow-heavy);
+    }
+  }
+}
+
+// Button responsive design - Fixed mixed declarations
+@mixin button-responsive {
+  & {
+    @include padding-responsive(12px 16px, 14px 20px, 16px 24px);
+    @include font-responsive(14px, 15px, 16px);
+    border-radius: var(--border-radius-sm);
+    
+    @include respond-to(tablet) {
+      border-radius: var(--border-radius-md);
+    }
+  }
+}
+
+// Navigation responsive - Fixed mixed declarations
+@mixin nav-responsive {
+  & {
+    @include mobile-only {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    
+    @include respond-to(tablet) {
+      position: relative;
+      border-radius: var(--border-radius-lg);
+      margin: 16px;
+    }
+  }
+}

@@ -1,19 +1,77 @@
+// Import responsive system
+@import '../../styles/variables';
+@import '../../styles/responsive';
+
 .main-layout-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: black;
   width: 100%;
-  min-height: 100vh;
+  @include height-responsive(100vh, 100vh);
+  background-color: var(--c-background);
+  
+  // Mobile and laptop - full screen layout
+  @include mobile-only {
+    display: block;
+  }
+  
+  // Tablet only - centered container
+  @include respond-between(tablet, ipad-air) {
+    @include flex-center;
+    background-color: #000;
+    padding: var(--spacing-lg);
+  }
+  
+  // iPad Air - enhanced centered layout
+  @include respond-between(ipad-air, laptop-sm) {
+    @include flex-center;
+    background: linear-gradient(135deg, #4a90e2 0%, #7b68ee 100%);
+    padding: var(--spacing-xl);
+  }
+  
+  // Laptop and up - full screen with gradient background
+  @include respond-to(laptop-sm) {
+    display: block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 0;
+  }
 
   .main-layout-container {
     position: relative;
-    width: var(--app-width);
-    height: var(--app-height);
     background-color: var(--c-background);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    @include flex-col-stretch;
+    
+    // Mobile layout - full screen
+    @include mobile-only {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    
+    // Tablet layout - constrained width with container
+    @include respond-between(tablet, ipad-air) {
+      width: var(--app-width-tablet);
+      height: var(--app-height);
+      border-radius: var(--border-radius-xl);
+      box-shadow: var(--shadow-2xl);
+      overflow: hidden;
+    }
+    
+    // iPad Air layout - larger container
+    @include respond-between(ipad-air, laptop-sm) {
+      width: var(--app-width-ipad-air);
+      height: var(--app-height);
+      border-radius: var(--border-radius-xl);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+    }
+    
+    // Laptop layout - full screen like mobile
+    @include respond-to(laptop-sm) {
+      width: 100vw;
+      height: 100vh;
+      overflow: auto;
+      border-radius: 0;
+      box-shadow: none;
+    }
   }
 }
 

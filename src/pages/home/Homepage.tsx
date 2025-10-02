@@ -18,10 +18,13 @@ const HomePage: React.FC = () => {
 
   return (
     <main className="main-content">
+      {/* Daily Reflection Card - Full Width */}
       <DailyReflectionCard />
 
+      {/* Cards Grid Layout */}
       <Grid container spacing={2}>
-        <Grid size={6}>
+        {/* First Row - Mood Check & Gratitude (2 cards side by side) */}
+        <Grid size={{ xs: 12, sm: 6 }}>
           <BaseCard>
             <div className="card-header">
               <IconWrapper variant="secondary">
@@ -39,7 +42,7 @@ const HomePage: React.FC = () => {
           </BaseCard>
         </Grid>
 
-        <Grid size={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <BaseCard>
             <div className="card-header">
               <IconWrapper variant="primary">
@@ -57,6 +60,26 @@ const HomePage: React.FC = () => {
           </BaseCard>
         </Grid>
 
+        {/* Second Row - Daily Affirmation (full width) */}
+        <Grid size={12}>
+          <BaseCard>
+            <div className="card-header">
+              <IconWrapper variant="primary">
+                <StarBorderOutlinedIcon />
+              </IconWrapper>
+              <div>
+                <Typography variant="subtitle1" component="div">
+                  Daily Affirmation
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  {`"I am worthy of love and happiness."`}
+                </Typography>
+              </div>
+            </div>
+          </BaseCard>
+        </Grid>
+
+        {/* Third Row - Latest Check-in (full width) */}
         <Grid size={12}>
           <BaseCard>
             <div className="card-header">
@@ -75,24 +98,7 @@ const HomePage: React.FC = () => {
           </BaseCard>
         </Grid>
       </Grid>
-
-      {/* --- Daily Affirmation BaseCard --- */}
-      <BaseCard>
-        <div className="card-header">
-          <IconWrapper variant="primary">
-            <StarBorderOutlinedIcon />
-          </IconWrapper>
-          <div>
-            <Typography variant="subtitle1" component="div">
-              Daily Affirmation
-            </Typography>
-            <Typography variant="caption" color="text.secondary">
-              {`"I am worthy of love and happiness."`}
-            </Typography>
-          </div>
-        </div>
-      </BaseCard>      
-      </main>
+    </main>
 
   );
 };
