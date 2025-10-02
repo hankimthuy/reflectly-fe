@@ -1,0 +1,276 @@
+// Import responsive system
+@import '../../../../styles/variables';
+@import '../../../../styles/responsive';
+
+.reflection-logging-step {
+  @include flex-col-stretch;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 100%);
+  position: relative;
+
+  .step-header {
+    @include padding-responsive(var(--spacing-lg), var(--spacing-xl), var(--spacing-2xl));
+    position: relative;
+    z-index: 2;
+
+    .header-controls {
+      @include flex-between;
+      @include margin-responsive(0 0 var(--spacing-lg), 0 0 var(--spacing-xl), 0 0 var(--spacing-xl));
+
+      .back-button,
+      .close-button {
+        @include flex-center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all var(--transition-normal);
+        @include font-responsive(18px, 20px, 22px);
+        color: var(--c-text-primary);
+
+        &:hover {
+          background: var(--c-surface);
+          transform: scale(1.1);
+        }
+      }
+
+      .close-button {
+        opacity: 0.6;
+      }
+    }
+
+    .mascot {
+      @include flex-center;
+      @include margin-responsive(0 0 var(--spacing-lg), 0 0 var(--spacing-xl), 0 0 var(--spacing-xl));
+      
+      .mascot-icon {
+        width: 60px;
+        height: 60px;
+        background: var(--c-surface);
+        border-radius: 50%;
+        @include flex-center;
+        @include font-responsive(24px, 28px, 32px);
+        box-shadow: var(--shadow-md);
+        
+        @include respond-to(tablet) {
+          width: 70px;
+          height: 70px;
+        }
+        
+        @include respond-to(laptop-sm) {
+          width: 80px;
+          height: 80px;
+        }
+      }
+    }
+
+    .date-info {
+      @include flex-center;
+      @include margin-responsive(0 0 var(--spacing-sm), 0 0 var(--spacing-md), 0 0 var(--spacing-md));
+
+    .date-card {
+      @include flex-center;
+      gap: var(--spacing-xs);
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: var(--border-radius-lg);
+      @include padding-responsive(
+        var(--spacing-sm) var(--spacing-md),
+        var(--spacing-md) var(--spacing-lg),
+        var(--spacing-md) var(--spacing-lg)
+      );
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      transition: all var(--transition-normal);
+
+      &:hover {
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+
+        .date-icon {
+          @include font-responsive(16px, 18px, 20px);
+          @include flex-center;
+          width: 35px;
+          height: 35px;
+          background: linear-gradient(135deg, #FF6B6B, #FF8E8E);
+          border-radius: 50%;
+          box-shadow: var(--shadow-sm);
+          
+          @include respond-to(tablet) {
+            width: 40px;
+            height: 40px;
+          }
+          
+          @include respond-to(laptop-sm) {
+            width: 45px;
+            height: 45px;
+          }
+        }
+
+        .date-content {
+          @include flex-col-stretch;
+          text-align: left;
+
+          .date-main {
+            @include font-responsive(var(--font-size-xs), var(--font-size-sm), var(--font-size-sm));
+            font-weight: var(--font-weight-bold);
+            color: var(--c-text-primary);
+            line-height: 1.2;
+            margin: 0 0 1px 0;
+          }
+
+          .date-subtitle {
+            @include font-responsive(10px, 11px, 12px);
+            font-weight: var(--font-weight-medium);
+            color: rgba(0, 0, 0, 0.6);
+            line-height: 1.2;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .step-content {
+    flex: 1;
+    @include padding-responsive(0 var(--spacing-md), 0 var(--spacing-lg), 0 var(--spacing-xl));
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
+    padding-bottom: 20px;
+
+    .selected-emotions {
+      @include margin-responsive(0 0 var(--spacing-lg), 0 0 var(--spacing-xl), 0 0 var(--spacing-xl));
+
+      .section-title {
+        @include font-responsive(var(--font-size-lg), var(--font-size-xl), var(--font-size-2xl));
+        font-weight: var(--font-weight-bold);
+        color: rgba(0, 0, 0, 0.7);
+        margin: 0 0 var(--spacing-md) 0;
+      }
+
+      .emotion-tags {
+        @include flex-wrap;
+        gap: var(--spacing-sm);
+
+        .emotion-tag {
+          @include flex-center;
+          gap: var(--spacing-xs);
+          @include padding-responsive(
+            var(--spacing-xs) var(--spacing-sm),
+            var(--spacing-sm) var(--spacing-md),
+            var(--spacing-sm) var(--spacing-md)
+          );
+          background: var(--c-surface);
+          border: 2px solid var(--emotion-color);
+          border-radius: var(--border-radius-lg);
+          @include font-responsive(var(--font-size-xs), var(--font-size-sm), var(--font-size-sm));
+          font-weight: var(--font-weight-medium);
+          color: var(--c-text-primary);
+          box-shadow: var(--shadow-sm);
+
+          .emotion-icon {
+            @include font-responsive(14px, 16px, 18px);
+          }
+        }
+      }
+    }
+
+    .reflection-form {
+      @include flex-col-stretch;
+      gap: var(--spacing-lg);
+
+      .input-group {
+        @include flex-col-stretch;
+
+        .input-label {
+          @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
+          font-weight: var(--font-weight-semibold);
+          color: rgba(0, 0, 0, 0.7);
+          margin: 0 0 var(--spacing-sm) 0;
+        }
+
+        .title-input,
+        .reflection-input {
+          @include padding-responsive(
+            var(--spacing-md),
+            var(--spacing-lg),
+            var(--spacing-lg)
+          );
+          background: rgba(255, 255, 255, 0.9);
+          border: 2px solid transparent;
+          border-radius: var(--border-radius-lg);
+          @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
+          color: var(--c-text-primary);
+          transition: all var(--transition-normal);
+          resize: vertical;
+
+          &::placeholder {
+            color: var(--c-text-muted);
+          }
+
+          &:focus {
+            outline: none;
+            border-color: var(--c-primary);
+            background: var(--c-surface);
+            box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.2);
+          }
+        }
+
+        .title-input {
+          min-height: 50px;
+        }
+
+        .reflection-input {
+          min-height: 120px;
+          font-family: inherit;
+          line-height: var(--line-height-relaxed);
+          resize: vertical;
+          max-height: 300px;
+          
+          @include respond-to(laptop-sm) {
+            max-height: 250px;
+          }
+        }
+      }
+    }
+  }
+
+  .step-footer {
+    @include padding-responsive(var(--spacing-lg), var(--spacing-xl), var(--spacing-2xl));
+    @include flex-center;
+
+    .complete-button {
+      @include button-responsive;
+      @include padding-responsive(
+        var(--spacing-md) var(--spacing-2xl),
+        var(--spacing-lg) var(--spacing-3xl),
+        var(--spacing-xl) var(--spacing-3xl)
+      );
+      background: var(--c-surface);
+      color: #FF6B6B;
+      font-weight: var(--font-weight-bold);
+      @include font-responsive(var(--font-size-base), var(--font-size-lg), var(--font-size-xl));
+      border: none;
+      border-radius: var(--border-radius-xl);
+      cursor: pointer;
+      transition: all var(--transition-normal);
+      min-width: 200px;
+
+      &:hover:not(:disabled) {
+        background: #f8f9fa;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+    }
+  }
+}

@@ -1,38 +1,88 @@
-// src/services/entry.service.ts
-import { httpClient } from './httpClient.ts';
-import type {AxiosResponse} from 'axios';
+import type { Entry, CreateEntryRequest, UpdateEntryRequest } from '../models/entry';
+import apiClient from './apiClient';
 
-// TypeScript interfaces based on your database schema
-export interface JournalEntry {
-  entryId: string;
-  entryDate: string;
-  content: string;
-  moodId: number;
-}
-
-// Data Transfer Object for creating or updating an entry
-export type JournalEntryDto = Omit<JournalEntry, 'entryId'>;
-
-const resource = '/entries';
-
-export const EntryService = {
-  getAll: (): Promise<AxiosResponse<JournalEntry[]>> => {
-    return httpClient.get<JournalEntry[]>(resource);
+export const entriesService = {
+  // Get all entries for the current user
+  async getEntries(): Promise<Entry[]> {
+    try {
+      const response = await apiClient.get('/entries');
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch entries:', error);
+      throw error;
+    }
   },
 
-  getById: (id: string): Promise<AxiosResponse<JournalEntry>> => {
-    return httpClient.getById<JournalEntry>(resource, id);
+  // Get a specific entry by ID
+  async getEntry(id: string): Promise<Entry> {
+    try {
+      const response = await apiClient.get(`/entries/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch entry:', error);
+      throw error;
+    }
   },
 
-  create: (data: JournalEntryDto): Promise<AxiosResponse<JournalEntry>> => {
-    return httpClient.post<JournalEntry, JournalEntryDto>(resource, data);
+  // Create a new entry
+  async createEntry(entry: CreateEntryRequest): Promise<Entry> {
+    try {
+      const response = await apiClient.post('/entries', entry);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to create entry:', error);
+      throw error;
+    }
   },
 
-  update: (id: string, data: JournalEntryDto): Promise<AxiosResponse<JournalEntry>> => {
-    return httpClient.put<JournalEntry, JournalEntryDto>(resource, id, data);
+  // Update an existing entry
+  async updateEntry(entry: UpdateEntryRequest): Promise<Entry> {
+    try {
+      const { id, ...updateData } = entry;
+      const response = await apiClient.put(`/entries/${id}`, updateData);
+      return response.data;
+    } catch (error) {
+      console.error('Failed to update entry:', error);
+      throw error;
+    }
   },
 
-  delete: (id: string): Promise<AxiosResponse<void>> => {
-    return httpClient.delete(resource, id);
+  // Delete an entry
+  async deleteEntry(id: string): Promise<void> {
+    try {
+      await apiClient.delete(`/entries/${id}`);
+    } catch (error) {
+      console.error('Failed to delete entry:', error);
+      throw error;
+    }
   },
+
+  // Get entries by date range
+  async getEntriesByDateRange(startDate: Date, endDate: Date): Promise<Entry[]> {
+    try {
+      const response = await apiClient.get('/entries', {
+        params: {
+          startDate: startDate.toISOString(),
+          endDate: endDate.toISOString()
+        }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch entries by date range:', error);
+      throw error;
+    }
+  },
+
+  // Get entries by emotion
+  async getEntriesByEmotion(emotion: string): Promise<Entry[]> {
+    try {
+      const response = await apiClient.get('/entries', {
+        params: { emotion }
+      });
+      return response.data;
+    } catch (error) {
+      console.error('Failed to fetch entries by emotion:', error);
+      throw error;
+    }
+  }
 };

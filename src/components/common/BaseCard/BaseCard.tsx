@@ -9,6 +9,7 @@ interface BaseCardProps {
     active?: boolean;
     onClick?: () => void;
     children: React.ReactNode;
+    className?: string;
 }
 
 const getActionAreaStyles = (active: boolean | undefined): SxProps<Theme> => ({
@@ -24,8 +25,8 @@ const cardSx: SxProps<Theme> = {
   borderRadius: '8px'
 };
 
-const BaseCard: React.FC<BaseCardProps> = ({ active, onClick, children }) => (
-    <Card sx={cardSx}>
+const BaseCard: React.FC<BaseCardProps> = ({ active, onClick, children, className }) => (
+    <Card sx={cardSx} className={className}>
         <CardActionArea
             onClick={onClick}
             sx={getActionAreaStyles(active)}>

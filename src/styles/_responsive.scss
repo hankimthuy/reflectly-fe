@@ -101,6 +101,11 @@ $breakpoints: (
   align-items: stretch;
 }
 
+@mixin flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 @mixin place-items-center {
   display: grid;
   place-items: center;
