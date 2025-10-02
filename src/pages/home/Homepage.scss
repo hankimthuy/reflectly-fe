@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    background: white;
+    background: var(--c-background);
   }
   
   .card-header {

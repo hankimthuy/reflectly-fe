@@ -5,10 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc & vite build",
-    "build-dev": "tsc & vite build --mode dev",
+    "build": "vite build",
+    "build:dev": "tsc && vite build --mode development",
+    "build:prod": "tsc && vite build --mode production",
+    "deploy": "npm run build:prod",
+    "deploy:dev": "npm run build:dev",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "serve": "vite preview --port 3000"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
