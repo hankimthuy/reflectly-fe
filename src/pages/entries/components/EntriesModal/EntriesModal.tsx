@@ -66,13 +66,6 @@ const EntriesModal: React.FC<EntriesModalProps> = ({
     }
   };
 
-  const handleClose = () => {
-    // Reset state when closing
-    setCurrentStep('emotion-selection');
-    setSelectedEmotions([]);
-    onClose();
-  };
-
   if (!isOpen) return null;
 
   return (
