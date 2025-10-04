@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './EntriesPage.scss';
-import EmotionSelectionStep from './components/EmotionSelectionStep/EmotionSelectionStep';
-import ReflectionLoggingStep from './components/ReflectionLoggingStep/ReflectionLoggingStep';
+import EmotionCapture from './components/EmotionCapture/EmotionCapture';
+import ReflectionCapture from './components/ReflectionCapture/ReflectionCapture';
 import type { CreateEntryRequest } from '../../models/entry';
 import { entriesService } from '../../services/entriesService';
 import { Emotion } from '../../models/emotion';
 
-type Step = 'emotion-selection' | 'reflection-logging';
+type Step = 'emotion-capture' | 'reflection-capture';
 
 /**
  * @component EntriesPage
@@ -14,7 +14,7 @@ type Step = 'emotion-selection' | 'reflection-logging';
  * @returns {JSX.Element} The rendered EntriesPage component.
  */
 const EntriesPage: React.FC = () => {
-  const [currentStep, setCurrentStep] = useState<Step>('emotion-selection');
+  const [currentStep, setCurrentStep] = useState<Step>('emotion-capture');
   const [selectedEmotions, setSelectedEmotions] = useState<Emotion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,12 +28,12 @@ const EntriesPage: React.FC = () => {
 
   const handleNext = () => {
     if (selectedEmotions.length > 0) {
-      setCurrentStep('reflection-logging');
+      setCurrentStep('reflection-capture');
     }
   };
 
   const handleBack = () => {
-    setCurrentStep('emotion-selection');
+    setCurrentStep('emotion-capture');
   };
 
   const handleSave = async (title: string, reflection: string) => {
@@ -48,8 +48,8 @@ const EntriesPage: React.FC = () => {
       
       await entriesService.createEntry(entry);
       
-      // Reset state and go back to emotion selection
-      setCurrentStep('emotion-selection');
+      // Reset state and go back to emotion capture
+      setCurrentStep('emotion-capture');
       setSelectedEmotions([]);
     } catch (error) {
       console.error('Failed to save entry:', error);
@@ -62,8 +62,8 @@ const EntriesPage: React.FC = () => {
 
   return (
     <div className="entries-page">
-      {currentStep === 'emotion-selection' && (
-        <EmotionSelectionStep
+      {currentStep === 'emotion-capture' && (
+        <EmotionCapture
           selectedEmotions={selectedEmotions}
           onEmotionToggle={handleEmotionToggle}
           onNext={handleNext}
@@ -71,8 +71,8 @@ const EntriesPage: React.FC = () => {
         />
       )}
       
-      {currentStep === 'reflection-logging' && (
-        <ReflectionLoggingStep
+      {currentStep === 'reflection-capture' && (
+        <ReflectionCapture
           selectedEmotions={selectedEmotions}
           onBack={handleBack}
           onSave={handleSave}

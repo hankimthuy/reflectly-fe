@@ -2,7 +2,7 @@
 @import '../../../../styles/variables';
 @import '../../../../styles/responsive';
 
-.emotion-selection-step {
+.emotion-capture {
   @include flex-col-stretch;
   min-height: 100vh;
   background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 100%);

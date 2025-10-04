@@ -1,15 +1,15 @@
 import React from 'react';
 import { Emotion, EMOTION_DATA } from '../../../../models/emotion';
-import './EmotionSelectionStep.scss';
+import './EmotionCapture.scss';
 
-interface EmotionSelectionStepProps {
+interface EmotionCaptureProps {
   selectedEmotions: Emotion[];
   onEmotionToggle: (emotion: Emotion) => void;
   onNext: () => void;
   maxSelections?: number;
 }
 
-const EmotionSelectionStep: React.FC<EmotionSelectionStepProps> = ({
+const EmotionCapture: React.FC<EmotionCaptureProps> = ({
   selectedEmotions,
   onEmotionToggle,
   onNext,
@@ -31,7 +31,7 @@ const EmotionSelectionStep: React.FC<EmotionSelectionStepProps> = ({
   const isSelected = (emotion: Emotion) => selectedEmotions.includes(emotion);
 
   return (
-    <div className="emotion-selection-step">
+    <div className="emotion-capture">
       <div className="step-header">
         <div className="mascot">
           <div className="mascot-icon">
@@ -103,4 +103,4 @@ const EmotionSelectionStep: React.FC<EmotionSelectionStepProps> = ({
   );
 };
 
-export default EmotionSelectionStep;
+export default EmotionCapture;

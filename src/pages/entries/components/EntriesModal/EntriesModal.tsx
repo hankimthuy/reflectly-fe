@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Emotion } from '../../../../models/emotion';
-import { CreateEntryRequest } from '../../../../models/entry';
-import EmotionSelectionStep from '../EmotionSelectionStep/EmotionSelectionStep';
-import ReflectionLoggingStep from '../ReflectionLoggingStep/ReflectionLoggingStep';
+import EmotionCapture from '../EmotionCapture/EmotionCapture';
+import ReflectionCapture from '../ReflectionCapture/ReflectionCapture';
 import './EntriesModal.scss';
+import type { CreateEntryRequest } from '../../../../models/entry';
 
 interface EntriesModalProps {
   isOpen: boolean;
@@ -11,14 +11,14 @@ interface EntriesModalProps {
   onSave: (entry: CreateEntryRequest) => Promise<void>;
 }
 
-type Step = 'emotion-selection' | 'reflection-logging';
+type Step = 'emotion-capture' | 'reflection-capture';
 
 const EntriesModal: React.FC<EntriesModalProps> = ({
   isOpen,
   onClose,
   onSave
 }) => {
-  const [currentStep, setCurrentStep] = useState<Step>('emotion-selection');
+  const [currentStep, setCurrentStep] = useState<Step>('emotion-capture');
   const [selectedEmotions, setSelectedEmotions] = useState<Emotion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -34,12 +34,12 @@ const EntriesModal: React.FC<EntriesModalProps> = ({
 
   const handleNext = () => {
     if (selectedEmotions.length > 0) {
-      setCurrentStep('reflection-logging');
+      setCurrentStep('reflection-capture');
     }
   };
 
   const handleBack = () => {
-    setCurrentStep('emotion-selection');
+    setCurrentStep('emotion-capture');
   };
 
   const handleSave = async (title: string, reflection: string) => {
@@ -55,7 +55,7 @@ const EntriesModal: React.FC<EntriesModalProps> = ({
       await onSave(entry);
       
       // Reset state and close modal
-      setCurrentStep('emotion-selection');
+      setCurrentStep('emotion-capture');
       setSelectedEmotions([]);
       onClose();
     } catch (error) {
@@ -72,8 +72,8 @@ const EntriesModal: React.FC<EntriesModalProps> = ({
     <div className="entries-modal-overlay">
       <div className="entries-modal">
         <div className="modal-content">
-          {currentStep === 'emotion-selection' && (
-            <EmotionSelectionStep
+          {currentStep === 'emotion-capture' && (
+            <EmotionCapture
               selectedEmotions={selectedEmotions}
               onEmotionToggle={handleEmotionToggle}
               onNext={handleNext}
@@ -81,8 +81,8 @@ const EntriesModal: React.FC<EntriesModalProps> = ({
             />
           )}
           
-          {currentStep === 'reflection-logging' && (
-            <ReflectionLoggingStep
+          {currentStep === 'reflection-capture' && (
+            <ReflectionCapture
               selectedEmotions={selectedEmotions}
               onBack={handleBack}
               onSave={handleSave}

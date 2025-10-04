@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Emotion, EMOTION_DATA } from '../../../../models/emotion';
-import './ReflectionLoggingStep.scss';
+import './ReflectionCapture.scss';
 
-interface ReflectionLoggingStepProps {
+interface ReflectionCaptureProps {
   selectedEmotions: Emotion[];
   onBack: () => void;
   onSave: (title: string, reflection: string) => void;
   isLoading?: boolean;
 }
 
-const ReflectionLoggingStep: React.FC<ReflectionLoggingStepProps> = ({
+const ReflectionCapture: React.FC<ReflectionCaptureProps> = ({
   selectedEmotions,
   onBack,
   onSave,
@@ -36,7 +36,7 @@ const ReflectionLoggingStep: React.FC<ReflectionLoggingStepProps> = ({
   }).toUpperCase();
 
   return (
-    <div className="reflection-logging-step">
+    <div className="reflection-capture">
       <div className="step-header">
         <div className="header-controls">
           <button className="back-button" onClick={onBack}>
@@ -120,4 +120,4 @@ const ReflectionLoggingStep: React.FC<ReflectionLoggingStepProps> = ({
   );
 };
 
-export default ReflectionLoggingStep;
+export default ReflectionCapture;
