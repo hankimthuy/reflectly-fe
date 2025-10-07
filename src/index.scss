@@ -1,7 +1,7 @@
 // Import responsive system
 @use 'sass:map';
-@import './styles/variables';
-@import './styles/responsive';
+@use './styles/variables' as *;
+@use './styles/responsive' as *;
 
 :root {
   font-family: var(--font-family-primary);
@@ -69,35 +69,34 @@ body {
 
 // Typography - Responsive
 h1 {
-  @include font-responsive(var(--font-size-2xl), var(--font-size-3xl), 3.2em);
   line-height: var(--line-height-tight);
   font-weight: var(--font-weight-bold);
   margin: 0 0 var(--spacing-lg) 0;
+  @include font-responsive(var(--font-size-2xl), var(--font-size-3xl), 3.2em);
 }
 
 h2 {
-  @include font-responsive(var(--font-size-xl), var(--font-size-2xl), 2.4em);
   line-height: var(--line-height-tight);
   font-weight: var(--font-weight-semibold);
   margin: 0 0 var(--spacing-md) 0;
+  @include font-responsive(var(--font-size-xl), var(--font-size-2xl), 2.4em);
 }
 
 h3 {
-  @include font-responsive(var(--font-size-lg), var(--font-size-xl), 1.8em);
   line-height: var(--line-height-normal);
   font-weight: var(--font-weight-semibold);
   margin: 0 0 var(--spacing-sm) 0;
+  @include font-responsive(var(--font-size-lg), var(--font-size-xl), 1.8em);
 }
 
 p {
-  @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-base));
   line-height: var(--line-height-relaxed);
   margin: 0 0 var(--spacing-md) 0;
+  @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-base));
 }
 
 // Button - Responsive
 button {
-  @include button-responsive;
   border: 1px solid transparent;
   font-family: inherit;
   background-color: var(--c-primary);
@@ -105,6 +104,7 @@ button {
   cursor: pointer;
   transition: all var(--transition-normal);
   font-weight: var(--font-weight-medium);
+  @include button-responsive;
   
   &:hover {
     background-color: var(--c-text-secondary);

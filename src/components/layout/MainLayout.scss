@@ -1,11 +1,11 @@
 // Import responsive system
-@import '../../styles/variables';
-@import '../../styles/responsive';
+@use '../../styles/variables' as *;
+@use '../../styles/responsive' as *;
 
 .main-layout-page {
   width: 100%;
-  @include height-responsive(100vh, 100vh);
   background-color: var(--c-background);
+  @include height-responsive(100vh, 100vh);
   
   // Mobile and laptop - full screen layout
   @include mobile-only {
@@ -14,16 +14,16 @@
   
   // Tablet only - centered container
   @include respond-between(tablet, ipad-air) {
-    @include flex-center;
     background-color: #000;
     padding: var(--spacing-lg);
+    @include flex-center;
   }
   
   // iPad Air - enhanced centered layout
   @include respond-between(ipad-air, laptop-sm) {
-    @include flex-center;
     background: linear-gradient(135deg, #4a90e2 0%, #7b68ee 100%);
     padding: var(--spacing-xl);
+    @include flex-center;
   }
   
   // Laptop and up - full screen with gradient background
