@@ -13,7 +13,7 @@ export interface JournalEntry {
 // Data Transfer Object for creating or updating an entry
 export type JournalEntryDto = Omit<JournalEntry, 'entryId'>;
 
-const resource = '/entries';
+const resource = '/api/entries';
 
 export const EntryService = {
   getAll: (): Promise<AxiosResponse<JournalEntry[]>> => {

@@ -3,6 +3,11 @@ import { ENV_CONFIG } from '../config/environment';
 
 const API_URL = ENV_CONFIG.API_BASE_URL;
 
+// Function to get ID token from sessionStorage
+const getIdToken = (): string | null => {
+  return sessionStorage.getItem('google_id_token');
+};
+
 const apiClient = axios.create({
   baseURL: API_URL,
   headers: {
@@ -12,9 +17,15 @@ const apiClient = axios.create({
   timeout: ENV_CONFIG.API_TIMEOUT, // 10 second timeout
 });
 
-// Add request interceptor for logging
+// Add request interceptor for authentication and logging
 apiClient.interceptors.request.use(
   (config) => {
+    // Add Authorization header if ID token is available
+    const idToken = getIdToken();
+    if (idToken) {
+      config.headers.Authorization = `Bearer ${idToken}`;
+    }
+    
     console.log(`API Request: ${config.method?.toUpperCase()} ${config.url}`);
     return config;
   },

@@ -7,10 +7,6 @@ export const ENV_CONFIG = {
   // Google OAuth Configuration
   GOOGLE_CLIENT_ID: import.meta.env.VITE_GOOGLE_CLIENT_ID || '',
   
-  // App Configuration
-  APP_NAME: import.meta.env.VITE_APP_NAME || 'Reflectly',
-  APP_VERSION: import.meta.env.VITE_APP_VERSION || '1.0.0',
-  
   // Environment
   IS_PRODUCTION: import.meta.env.PROD,
   IS_DEVELOPMENT: import.meta.env.DEV,
