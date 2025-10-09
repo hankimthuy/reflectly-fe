@@ -16,7 +16,6 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: () => 'app',
-        // Tên file đơn giản
         entryFileNames: 'assets/app.js',
         chunkFileNames: 'assets/app.js',
         assetFileNames: 'assets/[name].[ext]'
@@ -24,7 +23,6 @@ export default defineConfig({
     },
   },
   define: {
-    // Define environment variables for build
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
   },
 })
