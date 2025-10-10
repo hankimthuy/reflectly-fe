@@ -1,11 +1,10 @@
 // Environment configuration
 export const ENV_CONFIG = {
   // API Configuration
-  API_BASE_URL: import.meta.env.VITE_API_URL || 
-    (import.meta.env.DEV ? 'http://localhost:8080/api' : ''),
+  API_BASE_URL: import.meta.env.VITE_API_URL || 'http://localhost:8080/api',
   
   // Google OAuth Configuration
-  GOOGLE_CLIENT_ID: import.meta.env.VITE_GOOGLE_CLIENT_ID || '',
+  GOOGLE_CLIENT_ID: import.meta.env.VITE_GOOGLE_CLIENT_ID || '313620579141-tibtt01emn54e2d5svd2gskqb9132bgv.apps.googleusercontent.com',
   
   // Environment
   IS_PRODUCTION: import.meta.env.PROD,
