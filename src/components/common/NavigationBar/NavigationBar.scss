@@ -1,6 +1,6 @@
 // Import responsive system
-@import '../../../styles/variables';
-@import '../../../styles/responsive';
+@use '../../../styles/variables' as *;
+@use '../../../styles/responsive' as *;
 
 // Mixins for reusable styles
 @mixin flex-col-center {
@@ -15,21 +15,21 @@
 }
 
 .nav-bar {
-  @include nav-responsive;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: var(--c-surface);
   border-top: 1px solid var(--c-border);
   gap: var(--spacing-2xl); // Add spacing between navigation items
+  @include nav-responsive;
   
   // Mobile layout - fixed bottom navigation
   @include mobile-only {
-    @include padding-responsive(var(--spacing-sm) var(--spacing-md));
     box-shadow: 0 -4px 16px var(--c-shadow-light);
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.95);
     gap: var(--spacing-xl); // Smaller gap on mobile
+    @include padding-responsive(var(--spacing-sm) var(--spacing-md));
   }
   
   // Tablet layout - rounded navigation
@@ -37,8 +37,8 @@
     border-radius: var(--border-radius-xl);
     border: 1px solid var(--c-border);
     box-shadow: var(--shadow-lg);
-    @include padding-responsive(var(--spacing-md) var(--spacing-lg));
     margin: 0 var(--spacing-md) var(--spacing-md);
+    @include padding-responsive(var(--spacing-md) var(--spacing-lg));
   }
   
   // iPad Air layout - enhanced navigation
@@ -46,10 +46,10 @@
     border-radius: var(--border-radius-xl);
     border: 1px solid var(--c-border);
     box-shadow: var(--shadow-xl);
-    @include padding-responsive(var(--spacing-lg) var(--spacing-xl));
     margin: 0 var(--spacing-lg) var(--spacing-lg);
     backdrop-filter: blur(15px);
     background: rgba(255, 255, 255, 0.9);
+    @include padding-responsive(var(--spacing-lg) var(--spacing-xl));
   }
   
   // Laptop layout - keep bottom navigation like mobile/tablet
@@ -73,16 +73,16 @@
   }
 
   .item {
-    @include flex-col-center;
     gap: var(--spacing-xs);
-    @include font-responsive(10px, 11px, 12px);
     font-weight: var(--font-weight-medium);
     color: var(--c-text-muted);
     text-decoration: none;
-    @include padding-responsive(var(--spacing-xs), var(--spacing-sm), var(--spacing-sm));
     border-radius: var(--border-radius-md);
     transition: all var(--transition-normal);
     min-width: 44px; // Accessibility - minimum touch target
+    @include flex-col-center;
+    @include font-responsive(10px, 11px, 12px);
+    @include padding-responsive(var(--spacing-xs), var(--spacing-sm), var(--spacing-sm));
     
     // Enhanced mobile touch targets
     @include mobile-only {
@@ -108,14 +108,14 @@
     }
     
     .icon {
-      @include font-responsive(20px, 22px, 24px);
       transition: all var(--transition-normal);
+      @include font-responsive(20px, 22px, 24px);
     }
     
     .label {
-      @include font-responsive(9px, 10px, 11px);
       font-weight: var(--font-weight-medium);
       text-align: center;
+      @include font-responsive(9px, 10px, 11px);
       
       // Hide labels on very small screens
       @media screen and (max-width: 360px) {

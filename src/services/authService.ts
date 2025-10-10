@@ -22,7 +22,7 @@ interface GoogleLoginResponse {
 const getUserProfile = async (idToken?: string): Promise<BackendAuthResponse> => {
   try {
     const headers = idToken ? { 'Authorization': `Bearer ${idToken}` } : {};
-    const response = await apiClient.get<BackendAuthResponse>('/users/profile', { headers });
+    const response = await apiClient.get<BackendAuthResponse>('/api/users/profile', { headers });
     return response.data;
   } catch (error) {
     console.error('Error getting user profile from backend:', error);

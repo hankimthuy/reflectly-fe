@@ -1,11 +1,11 @@
 // Import responsive system
-@import '../../../styles/variables';
-@import '../../../styles/responsive';
+@use '../../../styles/variables' as *;
+@use '../../../styles/responsive' as *;
 
 .daily-reflection-card {
+  transition: all var(--transition-normal);
   @include card-responsive;
   @include padding-responsive(var(--spacing-md), var(--spacing-lg), var(--spacing-xl));
-  transition: all var(--transition-normal);
   
   // Enhanced mobile experience
   @include mobile-only {
@@ -31,17 +31,17 @@
 
   .title {
     font-family: var(--font-family-primary);
-    @include font-responsive(var(--font-size-lg), var(--font-size-xl), var(--font-size-2xl));
     font-weight: var(--font-weight-bold);
     color: var(--c-text-primary);
-    @include margin-responsive(0 0 var(--spacing-sm), 0 0 var(--spacing-md), 0 0 var(--spacing-lg));
     line-height: var(--line-height-tight);
+    @include font-responsive(var(--font-size-lg), var(--font-size-xl), var(--font-size-2xl));
+    @include margin-responsive(0 0 var(--spacing-sm), 0 0 var(--spacing-md), 0 0 var(--spacing-lg));
   }
 
   .prompt {
-    @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
     line-height: var(--line-height-relaxed);
     color: var(--c-text-secondary);
+    @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
     @include margin-responsive(0 0 var(--spacing-md), 0 0 var(--spacing-lg), 0 0 var(--spacing-xl));
     
     // Enhanced readability on larger screens
@@ -56,10 +56,10 @@
     gap: var(--spacing-md);
     background-color: var(--c-primary-light);
     border-radius: var(--border-radius-lg);
-    @include padding-responsive(var(--spacing-sm), var(--spacing-md), var(--spacing-lg));
     border: 2px solid transparent;
     transition: all var(--transition-normal);
     cursor: pointer;
+    @include padding-responsive(var(--spacing-sm), var(--spacing-md), var(--spacing-lg));
     
     &:hover {
       border-color: var(--c-primary);
@@ -85,10 +85,10 @@
 
   .placeholder {
     flex-grow: 1;
-    @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
     font-weight: var(--font-weight-medium);
     color: var(--c-text-muted);
     transition: color var(--transition-normal);
+    @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
     
     .input-area:hover & {
       color: var(--c-text-primary);
@@ -96,14 +96,14 @@
   }
   
   .action-button {
-    @include place-items-center;
-    @include font-responsive(18px, 20px, 22px);
     color: var(--c-primary);
     background: transparent;
     border: none;
     cursor: pointer;
     transition: all var(--transition-normal);
     border-radius: 50%;
+    @include place-items-center;
+    @include font-responsive(18px, 20px, 22px);
     
     @include mobile-only {
       width: 32px;
