@@ -1,5 +1,5 @@
 // Design System Variables - Responsive
-// Optimized for Mobile (iPhone 14 Pro, Samsung) and Laptops (14", 15.6")
+// Optimized for Mobile (500px), Small Desktop (1024px), Large Desktop (1025px+)
 
 // Color Palette
 :root {
@@ -62,29 +62,25 @@
   
   // Container Widths
   --container-mobile: 100%;
-  --container-tablet: 768px;
-  --container-laptop: 1200px;
-  --container-desktop: 1400px;
+  --container-laptop: 1024px;
+  --container-desktop: 1200px;
   
   // App Layout - Responsive
   --app-width-mobile: 100vw;
-  --app-width-tablet: 450px;
-  --app-width-ipad-air: 600px;
-  --app-width-laptop: 800px;
+  --app-width-laptop: 1024px;
+  --app-width-desktop: 1200px;
   --app-height: 100vh;
   --app-min-height: 100vh;
   
   // Header Heights
   --header-height-mobile: 60px;
-  --header-height-tablet: 70px;
-  --header-height-ipad-air: 75px;
-  --header-height-laptop: 80px;
+  --header-height-laptop: 70px;
+  --header-height-desktop: 80px;
   
   // Navigation Heights
   --nav-height-mobile: 60px;
-  --nav-height-tablet: 70px;
-  --nav-height-ipad-air: 75px;
-  --nav-height-laptop: 0px; // Hidden on laptop
+  --nav-height-laptop: 70px;
+  --nav-height-desktop: 0px; // Hidden on large desktop
   
   // Z-index Scale
   --z-dropdown: 1000;
@@ -108,8 +104,8 @@
   --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
 }
 
-// Tablet adjustments
-@media screen and (min-width: 768px) {
+// Small Desktop
+@media screen and (min-width: 1024px) {
   :root {
     --spacing-md: 20px;
     --spacing-lg: 28px;
@@ -131,31 +127,9 @@
   }
 }
 
-// iPad Air adjustments
-@media screen and (min-width: 820px) {
-  :root {
-    --spacing-md: 22px;
-    --spacing-lg: 30px;
-    --spacing-xl: 44px;
-    --spacing-2xl: 60px;
-    --spacing-3xl: 88px;
-    
-    --font-size-sm: 16px;
-    --font-size-base: 18px;
-    --font-size-lg: 20px;
-    --font-size-xl: 24px;
-    --font-size-2xl: 30px;
-    --font-size-3xl: 38px;
-    
-    --border-radius-sm: 12px;
-    --border-radius-md: 16px;
-    --border-radius-lg: 20px;
-    --border-radius-xl: 30px;
-  }
-}
 
-// Laptop and up adjustments
-@media screen and (min-width: 1366px) {
+// Large Desktop
+@media screen and (min-width: 1025px) {
   :root {
     --spacing-md: 16px;
     --spacing-lg: 20px;

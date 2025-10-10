@@ -9,53 +9,45 @@
   overflow-y: auto;
   height: 100%;
   min-height: 0; // Important for flex scrolling
-  @include padding-responsive(
-    0 var(--spacing-md),
+  @include padding-responsive(0 var(--spacing-md),
     0 var(--spacing-lg),
-    0 var(--spacing-xl)
-  );
+    0 var(--spacing-xl));
   @include flex-col-stretch;
-  
-  // Mobile adjustments
+
+  // Mobile
   @include mobile-only {
     padding-bottom: calc(var(--nav-height-mobile) + var(--spacing-md));
   }
-  
-  // Tablet adjustments
-  @include respond-between(tablet, ipad-air) {
+
+  // Laptop
+  @include respond-to(laptop) {
     gap: var(--spacing-lg);
     padding-bottom: var(--spacing-xl);
-  }
-  
-  // iPad Air adjustments - enhanced layout
-  @include respond-between(ipad-air, laptop-sm) {
-    gap: var(--spacing-xl);
-    padding-bottom: calc(var(--nav-height-ipad-air) + var(--spacing-xl));
-    
-    // 2-column grid for iPad Air
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: var(--spacing-xl);
+
+    display: flex;
     align-items: start;
-    
+
     .daily-reflection-card {
       grid-column: 1 / -1; // Full width for main card
       margin-bottom: var(--spacing-lg);
     }
   }
-  
-  // Laptop adjustments - simple padding and spacing
-  @include respond-to(laptop-sm) {
-    padding: var(--spacing-xl) var(--spacing-2xl);
-    padding-bottom: calc(80px + var(--spacing-xl)); // Account for bottom navigation
+
+  // Desktop - constrained width and centered for main content only
+  @include respond-to(desktop) {
+    width: 100%;
     max-width: none;
+    margin: 0;
+    padding: var(--spacing-xl) 25vw;
+    padding-bottom: calc(80px + var(--spacing-xl));
+    display: block;
+
+    .daily-reflection-card {
+      grid-column: unset;
+      margin-bottom: var(--spacing-lg);
+    }
   }
-  
-  @include respond-to(laptop-lg) {
-    padding: var(--spacing-2xl) 4vw;
-    padding-bottom: calc(80px + var(--spacing-2xl));
-  }
-  
+
   // Ensure Grid container supports equal height
   .MuiGrid-container {
     align-items: stretch;
@@ -98,24 +90,24 @@
   height: 100%;
   justify-content: center;
   @include padding-responsive(var(--spacing-md), var(--spacing-lg), var(--spacing-xl));
-  
+
   .icon-wrapper {
     margin-bottom: var(--spacing-xs);
   }
-  
+
   div {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-xs);
-    
+
     .MuiTypography-subtitle1 {
       font-weight: var(--font-weight-semibold);
       color: var(--c-text-primary);
       text-align: center;
       @include font-responsive(var(--font-size-base), var(--font-size-lg), var(--font-size-xl));
     }
-    
+
     .MuiTypography-caption {
       color: var(--c-text-secondary);
       text-align: center;

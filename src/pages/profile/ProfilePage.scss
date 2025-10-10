@@ -23,8 +23,8 @@
       margin: var(--spacing-sm);
     }
     
-    // Tablet layout
-    @include respond-to(tablet) {
+    // Small Desktop layout
+    @include respond-to(laptop) {
       max-width: 500px;
       &:hover {
         transform: translateY(-2px);
@@ -32,8 +32,8 @@
       }
     }
     
-    // Laptop layout
-    @include respond-to(laptop-sm) {
+    // Large Desktop layout
+    @include respond-to(desktop) {
       max-width: 600px;
     }
   }
@@ -57,12 +57,12 @@
         height: 100px;
       }
       
-      @include respond-to(tablet) {
+      @include respond-to(laptop) {
         width: 120px;
         height: 120px;
       }
       
-      @include respond-to(laptop-sm) {
+      @include respond-to(desktop) {
         width: 140px;
         height: 140px;
       }
@@ -156,7 +156,7 @@
       gap: var(--spacing-sm);
       @include grid-responsive(3, 3, 3);
       
-      @include respond-to(tablet) {
+      @include respond-to(laptop) {
         gap: var(--spacing-md);
       }
 

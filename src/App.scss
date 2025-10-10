@@ -14,8 +14,8 @@
     overflow-x: hidden;
   }
   
-  // Tablet and up
-  @include respond-to(tablet) {
+  // Laptop and up
+  @include respond-to(laptop) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,8 +23,9 @@
     max-width: none;
   }
   
-  // Laptop and up
-  @include respond-to(laptop-sm) {
+  // Desktop and up
+  @include respond-to(desktop) {
+    display: block;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   }
 }

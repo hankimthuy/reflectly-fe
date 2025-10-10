@@ -13,16 +13,16 @@
     box-shadow: var(--shadow-md);
   }
   
-  // Tablet enhancements
-  @include respond-to(tablet) {
+  // Small Desktop
+  @include respond-to(laptop) {
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 12px 40px var(--c-shadow-heavy);
     }
   }
   
-  // Laptop enhancements
-  @include respond-to(laptop-sm) {
+  // Large Desktop
+  @include respond-to(desktop) {
     &:hover {
       transform: translateY(-4px);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
@@ -45,7 +45,7 @@
     @include margin-responsive(0 0 var(--spacing-md), 0 0 var(--spacing-lg), 0 0 var(--spacing-xl));
     
     // Enhanced readability on larger screens
-    @include respond-to(laptop-sm) {
+    @include respond-to(desktop) {
       max-width: 80%;
     }
   }
@@ -77,8 +77,8 @@
       min-height: 48px; // Accessibility - minimum touch target
     }
     
-    // Tablet and up enhancements
-    @include respond-to(tablet) {
+    // Small Desktop and up
+    @include respond-to(laptop) {
       gap: var(--spacing-lg);
     }
   }
@@ -110,12 +110,12 @@
       height: 32px;
     }
     
-    @include respond-to(tablet) {
+    @include respond-to(laptop) {
       width: 36px;
       height: 36px;
     }
     
-    @include respond-to(laptop-sm) {
+    @include respond-to(desktop) {
       width: 40px;
       height: 40px;
     }

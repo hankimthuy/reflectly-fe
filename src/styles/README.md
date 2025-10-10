@@ -1,29 +1,24 @@
 # Responsive Design System - Reflectly
 
-This document outlines the comprehensive responsive design system implemented for the Reflectly application, optimized for mobile devices (iPhone 14 Pro, Samsung Galaxy) and laptops (14" and 15.6").
+This document outlines the comprehensive responsive design system implemented for the Reflectly application, optimized for mobile devices, tablets, and desktop monitors.
 
 ## 📱 Supported Devices
 
 ### Mobile Devices
-- **iPhone 14 Pro**: 393px × 852px
-- **Samsung Galaxy**: Similar dimensions
-- **General Mobile**: 320px - 767px
+- **Smartphones (portrait)**: Up to 500px
+- **General Mobile**: 320px - 499px
 
-### Laptop Screens  
-- **14" Laptop**: ~1366px width
-- **15.6" Laptop**: ~1920px width
-- **General Laptop**: 1366px+
+### Desktop Screens  
+- **Laptop**: 992px (Laptops)
+- **Desktop**: 1400px+ (Desktop monitors)
 
 ## 🎯 Breakpoints
 
 ```scss
 $breakpoints: (
-  mobile: 320px,
-  mobile-lg: 414px,
-  tablet: 768px,
-  laptop-sm: 1366px,  // 14" laptop
-  laptop-lg: 1920px,  // 15.6" laptop
-  desktop: 2560px
+  mobile: 500px,       // Smartphones (portrait)
+  laptop: 992px,       // Laptop
+  desktop: 1400px      // Desktop, Monitor
 );
 ```
 
@@ -41,39 +36,38 @@ $breakpoints: (
 
 ### 3. Flexible Layout System
 - **Mobile**: Single column, full-width layout
-- **Tablet**: Constrained width with centered container
-- **Laptop**: Multi-column layouts with enhanced spacing
+- **Small Desktop**: Constrained width with centered container
+- **Large Desktop**: Multi-column layouts with enhanced spacing
 
 ## 📐 Layout Specifications
 
 ### Container Widths
 ```scss
 // Mobile: 100vw (full width)
-// Tablet: 450px (constrained)
-// Laptop 14": 800px
-// Laptop 15.6": 1000px
+// Small Desktop: 1024px (constrained)
+// Large Desktop: 1200px
 ```
 
 ### Navigation Behavior
 - **Mobile**: Fixed bottom navigation with backdrop blur
-- **Tablet**: Rounded floating navigation
-- **Laptop**: Hidden navigation (header-based navigation)
+- **Small Desktop**: Rounded floating navigation
+- **Large Desktop**: Fixed bottom navigation with enhanced styling
 
 ## 🎨 Design Tokens
 
 ### Spacing Scale (Responsive)
 ```scss
-// Mobile → Tablet → Laptop
+// Mobile → Small Desktop → Large Desktop
 --spacing-xs: 4px → 4px → 4px
 --spacing-sm: 8px → 8px → 8px  
---spacing-md: 16px → 20px → 24px
---spacing-lg: 24px → 28px → 32px
---spacing-xl: 32px → 40px → 48px
+--spacing-md: 16px → 20px → 16px
+--spacing-lg: 24px → 28px → 20px
+--spacing-xl: 32px → 40px → 28px
 ```
 
 ### Typography Scale (Responsive)
 ```scss
-// Mobile → Tablet → Laptop
+// Mobile → Small Desktop → Large Desktop
 --font-size-sm: 14px → 15px → 16px
 --font-size-base: 16px → 17px → 18px
 --font-size-lg: 18px → 19px → 20px
@@ -85,8 +79,8 @@ $breakpoints: (
 ### Responsive Mixins
 ```scss
 @include mobile-only { /* Mobile styles */ }
-@include respond-to(tablet) { /* Tablet+ styles */ }
-@include respond-to(laptop-sm) { /* Laptop+ styles */ }
+@include respond-to(laptop) { /* Small Desktop+ styles */ }
+@include respond-to(desktop) { /* Large Desktop+ styles */ }
 ```
 
 ### Layout Mixins
@@ -98,27 +92,27 @@ $breakpoints: (
 
 ### Spacing Mixins
 ```scss
-@include padding-responsive($mobile, $tablet, $laptop);
-@include margin-responsive($mobile, $tablet, $laptop);
-@include font-responsive($mobile, $tablet, $laptop);
+@include padding-responsive($mobile, $laptop, $desktop);
+@include margin-responsive($mobile, $laptop, $desktop);
+@include font-responsive($mobile, $laptop, $desktop);
 ```
 
 ## 📱 Component Adaptations
 
 ### Header Component
 - **Mobile**: Sticky header with backdrop blur
-- **Tablet**: Enhanced spacing and hover effects
-- **Laptop**: Larger avatar and improved typography
+- **Small Desktop**: Enhanced spacing and hover effects
+- **Large Desktop**: Larger avatar and improved typography
 
 ### Navigation Bar
 - **Mobile**: Fixed bottom with glass morphism
-- **Tablet**: Floating rounded design
-- **Laptop**: Hidden (replaced by header navigation)
+- **Small Desktop**: Floating rounded design
+- **Large Desktop**: Fixed bottom with enhanced styling
 
 ### Cards & Content
 - **Mobile**: Full-width with minimal margins
-- **Tablet**: Constrained width with hover animations
-- **Laptop**: Multi-column layouts with enhanced shadows
+- **Small Desktop**: Constrained width with hover animations
+- **Large Desktop**: Multi-column layouts with enhanced shadows
 
 ## 🎯 Performance Optimizations
 
@@ -213,7 +207,7 @@ $breakpoints: (
 - Focus indicators on all interactive elements
 - Screen reader friendly markup
 
-## 🎨 Visual Enhancements
+## 🎨 Visual
 
 ### Animations & Transitions
 - Subtle hover effects on tablet/laptop

@@ -133,12 +133,12 @@ button {
 .container {
   @include container-mobile;
   
-  @include respond-to(tablet) {
-    @include container-tablet;
+  @include respond-to(laptop) {
+    @include container-laptop;
   }
   
-  @include respond-to(laptop-sm) {
-    @include container-laptop;
+  @include respond-to(desktop) {
+    @include container-desktop;
   }
 }
 

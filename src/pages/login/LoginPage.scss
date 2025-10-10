@@ -21,8 +21,8 @@
       max-width: calc(100vw - 2 * var(--spacing-md));
     }
     
-    // Tablet and up enhancements
-    @include respond-to(tablet) {
+    // Small Desktop and up
+    @include respond-to(laptop) {
       max-width: 450px;
       &:hover {
         transform: translateY(-4px);
@@ -30,8 +30,8 @@
       }
     }
     
-    // Laptop enhancements
-    @include respond-to(laptop-sm) {
+    // Large Desktop
+    @include respond-to(desktop) {
       max-width: 500px;
     }
 
