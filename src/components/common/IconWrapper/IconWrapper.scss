@@ -1,35 +1,76 @@
+// Import responsive system
+@use '../../../styles/_variables' as *;
+@use '../../../styles/_responsive' as *;
+
 .icon-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
+  flex-shrink: 0;
+  
+  // Perfect circle
   border-radius: 50%;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
-
+  
+  // Responsive sizing
+  @include mobile-only {
+    width: 40px;
+    height: 40px;
+  }
+  
+  @include respond-to(laptop) {
+    width: 48px;
+    height: 48px;
+  }
+  
+  @include respond-to(desktop) {
+    width: 56px;
+    height: 56px;
+  }
+  
+  // Subtle shadow và border như trong mẫu
+  & {
+    box-shadow: 0 2px 8px rgba(var(--c-shadow-color-rgb), 0.1);
+    border: 2px solid var(--c-border-white);
+    transition: var(--transition-normal);
+  }
+  
+  // Icon styling
   svg {
-    font-size: 20px;
-    color: var(--c-surface);   }
+    color: var(--c-text-on-surface);
+    width: 60%;
+    height: 60%;
+  }
+  
+  // Hover effect
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--c-shadow-color-rgb), 0.15);
+  }
 
+  // Variants sử dụng màu từ bảng màu chuẩn
   &--primary {
-    background-color: var(--c-primary);
+    background-color: var(--c-primary-light); // #F6E9E8 - màu pastel nhẹ
   }
 
   &--secondary {
-    background-color: var(--c-secondary);
+    background-color: var(--c-surface); // #FDF6EC - màu kem nhạt
   }
 
   &--gradient {
-    background: linear-gradient(90deg, var(--c-primary) 0%, var(--c-secondary) 100%);
+    background: linear-gradient(135deg, 
+      var(--c-primary-light) 0%, 
+      var(--c-surface) 100%
+    );
   }
-}
+  
+  // Thêm variant mới dựa trên bảng màu
+  &--accent {
+    background-color: var(--c-background); // #FBFBF8
+    border: 2px solid var(--c-border-subtle);
+  }
 
-.icon-wrapper {
-  flex-shrink: 0;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
+  &--muted {
+    background-color: var(--c-border); // #DED8CC
+    border: 2px solid rgba(255, 255, 255, 0.6);
+  }
 }

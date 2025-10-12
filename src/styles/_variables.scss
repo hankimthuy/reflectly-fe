@@ -1,36 +1,41 @@
 // Design System Variables - Responsive
 // Optimized for Mobile (500px), Small Desktop (1024px), Large Desktop (1025px+)
 
-// Color Palette
 :root {
-  // Primary Colors
-  --c-primary: #87CEEB;
-  --c-secondary: #FF9A9E;
-  --c-primary-light: #f0f8ff;
-  --c-surface: #ffffff;
-  --c-background: #F8F9FA;
-  
+  // Core Palette
+  --c-primary: #DDA7A2;
+  --c-secondary: #89A5B3;
+
+  // Surfaces & Backgrounds
+  --c-background: #FBFBF8;
+  --c-surface: #FDF6EC;
+  --c-primary-light: #F6E9E8;
+
   // Text Colors
-  --c-text-primary: #333333;
-  --c-text-secondary: #2d5d7f;
-  --c-text-muted: #999999;
-  
-  // UI Colors
-  --c-border: #e0e0e0;
-  --c-shadow-light: rgba(0, 0, 0, 0.05);
-  --c-shadow-heavy: rgba(0, 0, 0, 0.1);
-  --c-shadow-accent: rgba(135, 206, 235, 0.2);
+  --c-text-on-surface: #6B4F4F;
+  --c-text-on-background: #6B4F4F;
+  --c-text-muted: #A1927E;
+
+  // UI Elements
+  --c-border: #DED8CC;
+  --c-border-subtle: rgba(107, 79, 79, 0.1);
+  --c-border-white: rgba(255, 255, 255, 0.8);
+  --c-shadow-color-rgb: 107, 79, 79;
+  --c-shadow-light: 0 2px 8px rgba(var(--c-shadow-color-rgb), 0.08), 0 1px 3px rgba(var(--c-shadow-color-rgb), 0.06);
+  --c-shadow-heavy: 0 4px 16px rgba(var(--c-shadow-color-rgb), 0.12), 0 2px 6px rgba(var(--c-shadow-color-rgb), 0.08);
+
+  // Semantic Colors (Standard)
   --c-danger: #d32f2f;
   --c-success: #2e7d32;
   --c-warning: #f57c00;
-  
+
   // Border Radius - Responsive
   --border-radius-xs: 4px;
   --border-radius-sm: 8px;
   --border-radius-md: 12px;
   --border-radius-lg: 16px;
   --border-radius-xl: 24px;
-  
+
   // Spacing Scale - Mobile First
   --spacing-xs: 4px;
   --spacing-sm: 8px;
@@ -39,7 +44,7 @@
   --spacing-xl: 32px;
   --spacing-2xl: 48px;
   --spacing-3xl: 64px;
-  
+
   // Typography Scale - Mobile First
   --font-size-xs: 12px;
   --font-size-sm: 14px;
@@ -48,40 +53,41 @@
   --font-size-xl: 20px;
   --font-size-2xl: 24px;
   --font-size-3xl: 32px;
-  
+
   // Line Heights
   --line-height-tight: 1.2;
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.75;
-  
+
   // Font Weights
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
-  
+  --font-weight-black: 900;
+
   // Container Widths
   --container-mobile: 100%;
   --container-laptop: 1024px;
   --container-desktop: 1200px;
-  
+
   // App Layout - Responsive
   --app-width-mobile: 100vw;
   --app-width-laptop: 1024px;
   --app-width-desktop: 1200px;
   --app-height: 100vh;
   --app-min-height: 100vh;
-  
+
   // Header Heights
   --header-height-mobile: 60px;
   --header-height-laptop: 70px;
   --header-height-desktop: 80px;
-  
+
   // Navigation Heights
   --nav-height-mobile: 60px;
   --nav-height-laptop: 70px;
-  --nav-height-desktop: 0px; // Hidden on large desktop
-  
+  --nav-height-desktop: 80px; // Keep navigation on desktop
+
   // Z-index Scale
   --z-dropdown: 1000;
   --z-sticky: 1020;
@@ -90,12 +96,12 @@
   --z-modal: 1050;
   --z-popover: 1060;
   --z-tooltip: 1070;
-  
+
   // Transitions
   --transition-fast: 0.15s ease-in-out;
   --transition-normal: 0.25s ease-in-out;
   --transition-slow: 0.35s ease-in-out;
-  
+
   // Shadows - Enhanced for different screen sizes
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
@@ -112,14 +118,14 @@
     --spacing-xl: 40px;
     --spacing-2xl: 56px;
     --spacing-3xl: 80px;
-    
+
     --font-size-sm: 15px;
     --font-size-base: 17px;
     --font-size-lg: 19px;
     --font-size-xl: 22px;
     --font-size-2xl: 28px;
     --font-size-3xl: 36px;
-    
+
     --border-radius-sm: 10px;
     --border-radius-md: 14px;
     --border-radius-lg: 18px;
@@ -136,14 +142,14 @@
     --spacing-xl: 28px;
     --spacing-2xl: 36px;
     --spacing-3xl: 48px;
-    
+
     --font-size-sm: 16px;
     --font-size-base: 18px;
     --font-size-lg: 20px;
     --font-size-xl: 24px;
     --font-size-2xl: 32px;
     --font-size-3xl: 40px;
-    
+
     --border-radius-sm: 12px;
     --border-radius-md: 16px;
     --border-radius-lg: 20px;
@@ -154,5 +160,6 @@
 // Font Family
 :root {
   --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
-  --font-family-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  --font-family-mono: 'Inter Mono', Consolas, 'Courier New', monospace;
+  --font-family-secondary: 'Inter', sans-serif;
 }

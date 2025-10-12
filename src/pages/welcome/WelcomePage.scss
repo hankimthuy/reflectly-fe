@@ -1,6 +1,6 @@
 // Import responsive system
-@use '../../styles/variables' as *;
-@use '../../styles/responsive' as *;
+@use '../../styles/_variables' as *;
+@use '../../styles/_responsive' as *;
 
 .homepage-container {
   background: var(--c-background);
@@ -26,22 +26,22 @@
   }
 }
 
-.hero-section {
-  text-align: center;
-  color: var(--c-text-primary);
-  background: linear-gradient(135deg, var(--c-primary-light) 0%, var(--c-surface) 100%);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-xl);
-  transition: all var(--transition-normal);
-  width: 100%;
-  max-width: 600px;
-  max-height: 90vh;
-  overflow-y: auto;
-  @include padding-responsive(var(--spacing-xl) var(--spacing-md),
-    var(--spacing-2xl) var(--spacing-lg),
-    2.5rem var(--spacing-xl)
-  );
-  @include margin-responsive(var(--spacing-md), var(--spacing-lg), var(--spacing-xl));
+  .hero-section {
+    text-align: center;
+    color: var(--c-text-on-surface);
+    background: var(--c-surface);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-xl);
+    transition: all var(--transition-normal);
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    @include padding-responsive(var(--spacing-xl) var(--spacing-md),
+      var(--spacing-2xl) var(--spacing-lg),
+      2.5rem var(--spacing-xl)
+    );
+    @include margin-responsive(var(--spacing-md), var(--spacing-lg), var(--spacing-xl));
 
   // Mobile
   @include mobile-only {
@@ -66,7 +66,7 @@
 
     &:hover {
       transform: translateY(-6px);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 30px 80px var(--c-shadow-heavy);
     }
   }
 
@@ -85,7 +85,7 @@
 
   .hero-subtitle {
     font-weight: var(--font-weight-medium);
-    color: var(--c-text-secondary);
+    color: var(--c-text-on-surface);
     line-height: var(--line-height-normal);
     @include font-responsive(var(--font-size-base), var(--font-size-lg), var(--font-size-xl));
     @include margin-responsive(0 0 var(--spacing-sm), 0 0 var(--spacing-md), 0 0 var(--spacing-lg));
@@ -105,8 +105,8 @@
   }
 
   .cta-button {
-    background: linear-gradient(45deg, var(--c-primary), var(--c-secondary));
-    color: white;
+    background: var(--c-primary);
+    color: var(--c-text-on-background);
     font-weight: var(--font-weight-semibold);
     border-radius: var(--border-radius-lg);
     text-transform: none;
@@ -127,7 +127,7 @@
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 12px 35px var(--c-shadow-accent);
-      background: linear-gradient(45deg, var(--c-secondary), var(--c-primary));
+      background: var(--c-secondary);
     }
 
     &:active {

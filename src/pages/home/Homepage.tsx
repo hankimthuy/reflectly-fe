@@ -1,7 +1,7 @@
 import React from 'react';
 import './HomePage.scss';
 import { IconWrapper } from '../../components/common/IconWrapper/IconWrapper.tsx';
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import BaseCard from '../../components/common/BaseCard/BaseCard.tsx';
 import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
@@ -26,17 +26,19 @@ const HomePage: React.FC = () => {
         {/* First Row - Mood Check & Gratitude (2 cards side by side) */}
         <Grid size={{ xs: 12, sm: 6 }}>
           <BaseCard>
-            <div className="card-header">
-              <IconWrapper variant="secondary">
-                <EmojiEmotionsOutlinedIcon />
-              </IconWrapper>
-              <div>
-                <Typography variant="subtitle1" component="div">
+            <div className="card-content">
+              <div className="card-icon">
+                <IconWrapper variant="secondary">
+                  <EmojiEmotionsOutlinedIcon />
+                </IconWrapper>
+              </div>
+              <div className="card-text">
+                <h2 className="card-title">
                   Mood Check
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
+                </h2>
+                <p className="card-description">
                   {`"Track your daily emotions"`}
-                </Typography>
+                </p>
               </div>
             </div>
           </BaseCard>
@@ -44,17 +46,19 @@ const HomePage: React.FC = () => {
 
         <Grid size={{ xs: 12, sm: 6 }}>
           <BaseCard>
-            <div className="card-header">
-              <IconWrapper variant="primary">
-                <StarBorderOutlinedIcon />
-              </IconWrapper>
-              <div>
-                <Typography variant="subtitle1" component="div">
+            <div className="card-content">
+              <div className="card-icon">
+                <IconWrapper variant="primary">
+                  <StarBorderOutlinedIcon />
+                </IconWrapper>
+              </div>
+              <div className="card-text">
+                <h2 className="card-title">
                   Gratitude
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
+                </h2>
+                <p className="card-description">
                   {`"Three things you're grateful for"`}
-                </Typography>
+                </p>
               </div>
             </div>
           </BaseCard>
@@ -63,17 +67,19 @@ const HomePage: React.FC = () => {
         {/* Second Row - Daily Affirmation (full width) */}
         <Grid size={12}>
           <BaseCard>
-            <div className="card-header">
-              <IconWrapper variant="primary">
-                <StarBorderOutlinedIcon />
-              </IconWrapper>
-              <div>
-                <Typography variant="subtitle1" component="div">
+            <div className="card-content">
+              <div className="card-icon">
+                <IconWrapper variant="primary">
+                  <StarBorderOutlinedIcon />
+                </IconWrapper>
+              </div>
+              <div className="card-text">
+                <h2 className="card-title">
                   Daily Affirmation
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
+                </h2>
+                <p className="card-description">
                   {`"I am worthy of love and happiness."`}
-                </Typography>
+                </p>
               </div>
             </div>
           </BaseCard>
@@ -82,17 +88,19 @@ const HomePage: React.FC = () => {
         {/* Third Row - Latest Check-in (full width) */}
         <Grid size={12}>
           <BaseCard>
-            <div className="card-header">
-              <IconWrapper variant="secondary">
-                <SentimentSatisfiedOutlinedIcon />
-              </IconWrapper>
-              <div>
-                <Typography variant="subtitle1" component="div">
+            <div className="card-content">
+              <div className="card-icon">
+                <IconWrapper variant="secondary">
+                  <SentimentSatisfiedOutlinedIcon />
+                </IconWrapper>
+              </div>
+              <div className="card-text">
+                <h2 className="card-title">
                   Latest Check-in
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
+                </h2>
+                <p className="card-description">
                   Yesterday: {`"Feeling grateful for the little things in life."`}
-                </Typography>
+                </p>
               </div>
             </div>
           </BaseCard>

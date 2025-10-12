@@ -51,7 +51,7 @@ const HomeHeader: React.FC = () => {
     <header className="home-header">
       <div className="app-logo-background is-relative" ref={logoRef}>
         <Link to={APP_ROUTES.HOME} className="app-logo-link">
-          <span className="app-logo">
+          <span className="app-logo-text">
             <span className="text-primary">Reflect</span>
             <span className="text-secondary">ly</span>
           </span>

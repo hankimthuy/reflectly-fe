@@ -19,13 +19,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000;
+    background-color: var(--c-background);
     max-width: none;
   }
   
   // Desktop and up
   @include respond-to(desktop) {
     display: block;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--c-background);
   }
 }

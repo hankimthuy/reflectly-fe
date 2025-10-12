@@ -6,34 +6,34 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f8f9fa;
-  font-family: 'Inter', sans-serif;
+  background-color: var(--c-background);
+  font-family: var(--font-family-primary);
 
   .error-container {
-    background-color: white;
+    background-color: var(--c-surface);
     padding: 2rem;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px var(--c-shadow-light);
     max-width: 500px;
     width: 100%;
 
     .error-title {
-      color: #333;
+      color: var(--c-text-on-surface);
       margin-bottom: 1rem;
       font-size: 1.5rem;
     }
 
     .error-message {
-      color: #666;
+      color: var(--c-text-muted);
       margin-bottom: 1.5rem;
       line-height: 1.6;
     }
 
     .error-tip {
-      background-color: #e3f2fd;
+      background-color: var(--c-primary-light);
       padding: 1rem;
       border-radius: 8px;
-      color: #1976d2;
+      color: var(--c-primary);
       font-size: 0.9rem;
     }
   }

@@ -3,6 +3,7 @@ import React from 'react';
 import './DailyReflectionCard.scss'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+// Removed Typography import
 
 /**
  * @interface DailyReflectionCardProps
@@ -18,7 +19,9 @@ type DailyReflectionCardProps = object
 const DailyReflectionCard: React.FC<DailyReflectionCardProps> = () => {
     return (
         <section className="daily-reflection-card">
-            <h2 className="title">Daily Reflection</h2>
+            <h1 className="title">
+              Daily Reflection
+            </h1>
             <p className="prompt">
                 What brought you a moment of peace today?
             </p>
