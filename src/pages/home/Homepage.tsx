@@ -48,7 +48,7 @@ const HomePage: React.FC = () => {
           <BaseCard>
             <div className="card-content">
               <div className="card-icon">
-                <IconWrapper variant="primary">
+                <IconWrapper variant="secondary">
                   <StarBorderOutlinedIcon />
                 </IconWrapper>
               </div>
@@ -90,7 +90,7 @@ const HomePage: React.FC = () => {
           <BaseCard>
             <div className="card-content">
               <div className="card-icon">
-                <IconWrapper variant="secondary">
+                <IconWrapper variant="primary">
                   <SentimentSatisfiedOutlinedIcon />
                 </IconWrapper>
               </div>

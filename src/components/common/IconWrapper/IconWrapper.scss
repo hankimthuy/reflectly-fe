@@ -49,11 +49,11 @@
 
   // Variants sử dụng màu từ bảng màu chuẩn
   &--primary {
-    background-color: var(--c-primary-light); // #F6E9E8 - màu pastel nhẹ
+    background-color: var(--c-primary);
   }
 
   &--secondary {
-    background-color: var(--c-surface); // #FDF6EC - màu kem nhạt
+    background-color: var(--c-primary-light);
   }
 
   &--gradient {

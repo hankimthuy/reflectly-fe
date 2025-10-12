@@ -3,6 +3,7 @@ import React from 'react';
 import './DailyReflectionCard.scss'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import { IconWrapper } from '../../../components/common/IconWrapper/IconWrapper';
 // Removed Typography import
 
 /**
@@ -26,13 +27,13 @@ const DailyReflectionCard: React.FC<DailyReflectionCardProps> = () => {
                 What brought you a moment of peace today?
             </p>
             <div className="input-area">
-                <div className="icon-wrapper icon-wrapper--gradient">
+                <IconWrapper variant="primary">
                     <EditOutlinedIcon />
-                </div>
+                </IconWrapper>
                 <span className="placeholder">Start writing...</span>
-                <div className="icon-wrapper icon-wrapper--primary">
+                <IconWrapper variant="gradient">
                     <KeyboardArrowRightIcon />
-                </div>
+                </IconWrapper>
             </div>
         </section>
     );
