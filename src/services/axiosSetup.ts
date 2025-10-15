@@ -1,24 +1,21 @@
 import axios from 'axios';
-import { ENV_CONFIG } from '../config/environment';
-
-const API_URL = ENV_CONFIG.API_BASE_URL;
 
 // Function to get ID token from sessionStorage
 const getIdToken = (): string | null => {
   return sessionStorage.getItem('google_id_token');
 };
 
-const apiClient = axios.create({
-  baseURL: API_URL,
+const axiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: ENV_CONFIG.CORS_CREDENTIALS, // Enable sending cookies for authentication
-  timeout: ENV_CONFIG.API_TIMEOUT, // 10 second timeout
+  withCredentials: true, // Enable sending cookies for authentication
+  timeout: 10000, // 10 second timeout
 });
 
 // Add request interceptor for authentication and logging
-apiClient.interceptors.request.use(
+axiosInstance.interceptors.request.use(
   (config) => {
     // Add Authorization header if ID token is available
     const idToken = getIdToken();
@@ -36,7 +33,7 @@ apiClient.interceptors.request.use(
 );
 
 // Add response interceptor for error handling
-apiClient.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (response) => {
     console.log(`API Response: ${response.status} ${response.config.url}`);
     return response;
@@ -57,4 +54,4 @@ apiClient.interceptors.response.use(
   }
 );
 
-export default apiClient;
+export default axiosInstance;

@@ -7,7 +7,7 @@
   background-color: var(--c-background);
   @include height-responsive(100vh, 100vh);
   
-  // Mobile and laptop - full screen layout
+  // Mobile and laptop - full screen MainLayout
   @include mobile-only {
     display: block;
   }
@@ -31,7 +31,7 @@
     background-color: var(--c-background);
     @include flex-col-stretch;
     
-    // Mobile layout - full screen
+    // Mobile MainLayout - full screen
     @include mobile-only {
       width: 100vw;
       height: 100vh;
@@ -42,7 +42,7 @@
     }
     
     
-    // Laptop layout - constrained width with container
+    // Laptop MainLayout - constrained width with container
     @include respond-to(laptop) {
       width: var(--app-width-laptop);
       height: var(--app-height);
@@ -52,7 +52,7 @@
       padding-bottom: var(--nav-height-laptop);
     }
     
-    // Desktop layout - full width container, only main-content will be constrained
+    // Desktop MainLayout - full width container, only main-content will be constrained
     @include respond-to(desktop) {
       width: 100vw;
       height: 100vh;

@@ -9,10 +9,10 @@ import './EntriesPage.scss';
  */
 const EntriesPage: React.FC = () => {
 
-  return (
-    <main className="main-content">
-      </main>
-  );
+    return (
+        <main className="main-content">
+        </main>
+    );
 };
 
 export default EntriesPage;

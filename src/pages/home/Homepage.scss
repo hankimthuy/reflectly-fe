@@ -41,9 +41,7 @@
     width: 100%;
     max-width: none;
     margin: 0;
-    padding: var(--spacing-xl) 25vw; 
-    padding-bottom: var(--spacing-xl);
-    
+    padding: var(--spacing-xl) 25vw;
     .daily-reflection-card {
       grid-column: unset;
       margin-bottom: var(--spacing-lg);
@@ -83,7 +81,7 @@
   flex-grow: 1;
 }
 
-// New horizontal card layout
+// New horizontal card MainLayout
 .card-content {
   display: flex;
   align-items: center;
@@ -123,7 +121,7 @@
     gap: var(--spacing-xs);
     
     .card-title {
-      font-family: var(--font-family-primary);
+      font-family: var(--font-family-primary), sans-serif;
       font-weight: var(--font-weight-semibold);
       color: var(--c-text-on-surface);
       margin: 0;

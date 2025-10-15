@@ -4,7 +4,7 @@
 @use './styles/responsive' as *;
 
 :root {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-primary), sans-serif;
   line-height: var(--line-height-normal);
   font-weight: var(--font-weight-normal);
 
@@ -57,11 +57,11 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-primary), sans-serif;
   background-color: var(--c-background);
   color: var(--c-text-on-background);
   
-  // Mobile-first responsive layout
+  // Mobile-first responsive MainLayout
   @include mobile-only {
     overflow-x: hidden;
   }
@@ -98,7 +98,7 @@ p {
 // Button - Responsive
 button {
   border: 1px solid transparent;
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-primary), sans-serif;
   background-color: var(--c-primary);
   color: var(--c-text-on-background);
   cursor: pointer;

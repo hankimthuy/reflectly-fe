@@ -17,13 +17,13 @@
     @include padding-responsive(var(--spacing-lg), var(--spacing-xl), var(--spacing-2xl));
     @include margin-responsive(var(--spacing-md) 0, var(--spacing-lg) 0, var(--spacing-xl) 0);
     
-    // Mobile layout
+    // Mobile MainLayout
     @include mobile-only {
       max-width: 100%;
       margin: var(--spacing-sm);
     }
     
-    // Small Desktop layout
+    // Small Desktop MainLayout
     @include respond-to(laptop) {
       max-width: 500px;
       &:hover {
@@ -32,7 +32,7 @@
       }
     }
     
-    // Large Desktop layout
+    // Large Desktop MainLayout
     @include respond-to(desktop) {
       max-width: 600px;
     }

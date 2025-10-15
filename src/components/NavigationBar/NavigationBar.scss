@@ -1,6 +1,6 @@
 // Import responsive system
-@use '../../../styles/_variables' as *;
-@use '../../../styles/_responsive' as *;
+@use '../../styles/_variables' as *;
+@use '../../styles/_responsive' as *;
 
 // Mixins for reusable styles
 @mixin flex-col-center {
@@ -23,7 +23,7 @@
   gap: var(--spacing-2xl); // Add spacing between navigation items
   @include nav-responsive;
   
-  // Mobile layout - fixed bottom navigation
+  // Mobile MainLayout - fixed bottom navigation
   @include mobile-only {
     position: fixed;
     bottom: 0;
@@ -40,7 +40,7 @@
     }
   }
   
-  // Laptop layout - rounded navigation
+  // Laptop MainLayout - rounded navigation
   @include respond-to(laptop) {
     position: fixed;
     bottom: 0;
@@ -54,7 +54,7 @@
     @include padding-responsive(var(--spacing-md) var(--spacing-lg));
   }
   
-  // Desktop layout - keep bottom navigation like mobile/tablet
+  // Desktop MainLayout - keep bottom navigation like mobile/tablet
   @include respond-to(desktop) {
     position: fixed;
     bottom: 0;
