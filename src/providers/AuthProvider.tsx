@@ -4,10 +4,11 @@ import type { User } from "../models/user.ts";
 
 interface AuthContextValue {
     user: User | null;
+    idToken: string | null;
     isLoading: boolean;
     isAuthenticated: boolean;
     error: string | null;
-    login: (user: User) => Promise<void>;
+    login: (user: User, idToken: string) => Promise<void>;
     logout: () => Promise<void>;
     clearError: () => void;
 }
@@ -15,11 +16,13 @@ interface AuthContextValue {
 // Constants
 const STORAGE_KEYS = {
   USER_INFO: 'google_user_info',
+  ID_TOKEN: 'google_id_token',
 } as const;
 
 // Context
 const AuthContext = createContext<AuthContextValue>({
     user: null,
+    idToken: null,
     isLoading: false,
     isAuthenticated: false,
     error: null,
@@ -40,6 +43,7 @@ export const useAuth = (): AuthContextValue => {
 // Main Provider Component
 export const AuthProvider = ({ children }: {children: ReactNode;}) => {
   const [user, setUser] = useState<User | null>(null);
+  const [idToken, setIdToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -52,19 +56,23 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
       try {
         setIsLoading(true);
         const storedUserJSON = sessionStorage.getItem(STORAGE_KEYS.USER_INFO);
+        const storedIdToken = sessionStorage.getItem(STORAGE_KEYS.ID_TOKEN);
 
-        if (storedUserJSON) {
+        if (storedUserJSON && storedIdToken) {
           const parsedUser = JSON.parse(storedUserJSON) as User;
           setUser(parsedUser);
+          setIdToken(storedIdToken);
         } else {
           // Clear invalid data
           sessionStorage.removeItem(STORAGE_KEYS.USER_INFO);
+          sessionStorage.removeItem(STORAGE_KEYS.ID_TOKEN);
         }
       } catch (error) {
         console.error('Error initializing auth:', error);
         setError('Failed to initialize authentication');
         // Clear corrupted data
         sessionStorage.removeItem(STORAGE_KEYS.USER_INFO);
+        sessionStorage.removeItem(STORAGE_KEYS.ID_TOKEN);
       } finally {
         setIsLoading(false);
       }
@@ -74,7 +82,7 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
   }, []);
 
   // Login function
-  const login = useCallback(async (nextUser: User): Promise<void> => {
+  const login = useCallback(async (nextUser: User, nextIdToken: string): Promise<void> => {
     try {
       setIsLoading(true);
       setError(null);
@@ -84,6 +92,10 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
         throw new Error('Invalid user data');
       }
 
+      if (!nextIdToken) {
+        throw new Error('Invalid ID token');
+      }
+
       // Validate user object structure
       if (!nextUser.id || !nextUser.email || !nextUser.fullName || nextUser.pictureUrl === undefined) {
         throw new Error('Invalid user data structure');
@@ -91,9 +103,11 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
 
       // Store in sessionStorage
       sessionStorage.setItem(STORAGE_KEYS.USER_INFO, JSON.stringify(nextUser));
+      sessionStorage.setItem(STORAGE_KEYS.ID_TOKEN, nextIdToken);
 
       // Update state
       setUser(nextUser);
+      setIdToken(nextIdToken);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Login failed';
       setError(errorMessage);
@@ -112,9 +126,11 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
 
       // Clear storage
       sessionStorage.removeItem(STORAGE_KEYS.USER_INFO);
+      sessionStorage.removeItem(STORAGE_KEYS.ID_TOKEN);
 
       // Update state
       setUser(null);
+      setIdToken(null);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Logout failed';
       setError(errorMessage);
@@ -133,6 +149,7 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
   const contextValue = useMemo(
     () => ({
       user,
+      idToken,
       isLoading,
       isAuthenticated,
       error,
@@ -140,7 +157,7 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
       logout,
       clearError,
     }),
-    [user, isLoading, isAuthenticated, error, login, logout, clearError]
+    [user, idToken, isLoading, isAuthenticated, error, login, logout, clearError]
   );
 
   return (

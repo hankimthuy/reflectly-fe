@@ -1,22 +1,9 @@
-/**
- * Vite Environment Variables Type Declarations
- * 
- * Why do we need this file?
- * - TypeScript doesn't know about import.meta.env (Vite feature)
- * - Need to define types for environment variables
- * - Ensures type safety when using environment variables in Vite
- * 
- * Usage:
- * - import.meta.env.VITE_API_URL ✅ Type-safe
- * - import.meta.env.VITE_GOOGLE_CLIENT_ID ✅ Type-safe
- * 
- * Note: Only variables prefixed with VITE_ are exposed to the client
- */
-
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
+  // API base URL for backend communication
   readonly VITE_API_URL: string
+  // Google OAuth client ID for user authentication
   readonly VITE_GOOGLE_CLIENT_ID: string
 }
 

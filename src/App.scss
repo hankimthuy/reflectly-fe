@@ -1,4 +1,31 @@
+// Import responsive system
+@use './styles/variables' as *;
+@use './styles/responsive' as *;
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  
+  // Mobile-first approach
+  @include mobile-only {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  // Laptop and up
+  @include respond-to(laptop) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--c-background);
+    max-width: none;
+  }
+  
+  // Desktop and up
+  @include respond-to(desktop) {
+    display: block;
+    background: var(--c-background);
+  }
 }

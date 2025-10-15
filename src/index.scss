@@ -1,29 +1,15 @@
+// Import responsive system
+@use 'sass:map';
+@use './styles/variables' as *;
+@use './styles/responsive' as *;
+
 :root {
-  --c-primary: #87CEEB;
-  --c-secondary: #FF9A9E;
-  --c-primary-light: #f0f8ff;
-  --c-surface: #ffffff;
-  --c-background: #f4f4f9;
-  --c-text-primary: #333333;
-  --c-text-secondary: #2d5d7f;
-  --c-text-muted: #999999;
-  --c-border: #e0e0e0;
-  --c-shadow-light: rgba(0, 0, 0, 0.05);
-  --c-shadow-heavy: rgba(0, 0, 0, 0.1);
-  --c-shadow-accent: rgba(135, 206, 235, 0.2);
-
-  --border-radius-sm: 8px;
-  --border-radius-md: 12px;
-  --border-radius-lg: 16px;
-  --app-width: 450px;
-  --app-height: 100vh;
-
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', serif;
-  line-height: 1.5;
-  font-weight: 400;
+  font-family: var(--font-family-primary), sans-serif;
+  line-height: var(--line-height-normal);
+  font-weight: var(--font-weight-normal);
 
   color-scheme: light dark;
-  color: var(--c-text-primary);
+  color: var(--c-text-on-background);
   background-color: var(--c-background);
 
   font-synthesis: none;
@@ -42,75 +28,131 @@ a.text-primary,
 }
 
 .text-danger {
-  color: #d32f2f !important;
+  color: var(--c-danger) !important;
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--c-primary);
   text-decoration: inherit;
 }
 
 a:hover {
-  color: #535bf2;
+  color: var(--c-secondary);
 }
 
-html,
+// Global Reset and Base Styles
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   padding: 0;
   height: 100%;
-}
-
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: var(--f-primary);
+  font-family: var(--font-family-primary), sans-serif;
   background-color: var(--c-background);
+  color: var(--c-text-on-background);
+  
+  // Mobile-first responsive MainLayout
+  @include mobile-only {
+    overflow-x: hidden;
+  }
 }
 
+// Typography - Responsive
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  line-height: var(--line-height-tight);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--spacing-lg) 0;
+  @include font-responsive(var(--font-size-2xl), var(--font-size-3xl), 3.2em);
+}
+
+h2 {
+  line-height: var(--line-height-tight);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-md) 0;
+  @include font-responsive(var(--font-size-xl), var(--font-size-2xl), 2.4em);
 }
 
 h3 {
-  margin: 5px 0;
+  line-height: var(--line-height-normal);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-sm) 0;
+  @include font-responsive(var(--font-size-lg), var(--font-size-xl), 1.8em);
 }
 
+p {
+  line-height: var(--line-height-relaxed);
+  margin: 0 0 var(--spacing-md) 0;
+  @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-base));
+}
+
+// Button - Responsive
 button {
-  border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  font-family: var(--font-family-primary), sans-serif;
+  background-color: var(--c-primary);
+  color: var(--c-text-on-background);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all var(--transition-normal);
+  font-weight: var(--font-weight-medium);
+  @include button-responsive;
+  
+  &:hover {
+    background-color: var(--c-secondary);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &:focus,
+  &:focus-visible {
+    outline: 2px solid var(--c-primary);
+    outline-offset: 2px;
+  }
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
 }
 
-button:hover {
-  border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+// Utility Classes - Responsive
+.container {
+  @include container-mobile;
+  
+  @include respond-to(laptop) {
+    @include container-laptop;
+  }
+  
+  @include respond-to(desktop) {
+    @include container-desktop;
+  }
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--c-text-on-background);
+    background-color: var(--c-background);
   }
 
   a:hover {
-    color: #747bff;
+    color: var(--c-secondary);
   }
 
   button {
-    background-color: #f9f9f9;
+    background-color: var(--c-primary);
   }
 }
