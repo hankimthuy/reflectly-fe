@@ -1,6 +1,6 @@
 // Import responsive system
-@import '../../../../styles/variables';
-@import '../../../../styles/responsive';
+@use '../../../../styles/_variables' as *;
+@use '../../../../styles/_responsive' as *;
 
 .emotion-capture {
   @include flex-col-stretch;
@@ -101,7 +101,7 @@
     border-radius: var(--border-radius-lg);
     cursor: pointer;
     transition: all var(--transition-normal);
-    min-height: 100px;
+    min-height: 70px;
     position: relative;
     overflow: hidden;
     

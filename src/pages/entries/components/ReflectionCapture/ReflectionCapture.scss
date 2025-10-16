@@ -1,6 +1,6 @@
 // Import responsive system
-@import '../../../../styles/variables';
-@import '../../../../styles/responsive';
+@use '../../../../styles/_variables' as *;
+@use '../../../../styles/_responsive' as *;
 
 .reflection-capture {
   @include flex-col-stretch;

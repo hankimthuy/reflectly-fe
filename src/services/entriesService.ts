@@ -1,11 +1,11 @@
 import type { Entry, CreateEntryRequest, UpdateEntryRequest } from '../models/entry';
-import apiClient from './apiClient';
+import { httpClient } from './httpClient';
 
 export const entriesService = {
   // Get all entries for the current user
   async getEntries(): Promise<Entry[]> {
     try {
-      const response = await apiClient.get('/entries');
+      const response = await httpClient.get<Entry[]>('/entries');
       return response.data;
     } catch (error) {
       console.error('Failed to fetch entries:', error);
@@ -16,7 +16,7 @@ export const entriesService = {
   // Get a specific entry by ID
   async getEntry(id: string): Promise<Entry> {
     try {
-      const response = await apiClient.get(`/entries/${id}`);
+      const response = await httpClient.getById<Entry>('/entries', id);
       return response.data;
     } catch (error) {
       console.error('Failed to fetch entry:', error);
@@ -27,7 +27,7 @@ export const entriesService = {
   // Create a new entry
   async createEntry(entry: CreateEntryRequest): Promise<Entry> {
     try {
-      const response = await apiClient.post('/entries', entry);
+      const response = await httpClient.post<Entry, CreateEntryRequest>('/entries', entry);
       return response.data;
     } catch (error) {
       console.error('Failed to create entry:', error);
@@ -39,7 +39,7 @@ export const entriesService = {
   async updateEntry(entry: UpdateEntryRequest): Promise<Entry> {
     try {
       const { id, ...updateData } = entry;
-      const response = await apiClient.put(`/entries/${id}`, updateData);
+      const response = await httpClient.put<Entry, Omit<UpdateEntryRequest, 'id'>>('/entries', id, updateData);
       return response.data;
     } catch (error) {
       console.error('Failed to update entry:', error);
@@ -50,7 +50,7 @@ export const entriesService = {
   // Delete an entry
   async deleteEntry(id: string): Promise<void> {
     try {
-      await apiClient.delete(`/entries/${id}`);
+      await httpClient.delete('/entries', id);
     } catch (error) {
       console.error('Failed to delete entry:', error);
       throw error;
@@ -60,11 +60,9 @@ export const entriesService = {
   // Get entries by date range
   async getEntriesByDateRange(startDate: Date, endDate: Date): Promise<Entry[]> {
     try {
-      const response = await apiClient.get('/entries', {
-        params: {
-          startDate: startDate.toISOString(),
-          endDate: endDate.toISOString()
-        }
+      const response = await httpClient.get<Entry[]>('/entries', {
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString()
       });
       return response.data;
     } catch (error) {
@@ -76,9 +74,7 @@ export const entriesService = {
   // Get entries by emotion
   async getEntriesByEmotion(emotion: string): Promise<Entry[]> {
     try {
-      const response = await apiClient.get('/entries', {
-        params: { emotion }
-      });
+      const response = await httpClient.get<Entry[]>('/entries', { emotion });
       return response.data;
     } catch (error) {
       console.error('Failed to fetch entries by emotion:', error);
