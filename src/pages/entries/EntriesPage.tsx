@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './EntriesPage.scss';
-import EmotionCapture from './components/EmotionCapture/EmotionCapture';
-import ReflectionCapture from './components/ReflectionCapture/ReflectionCapture';
-import type { CreateEntryRequest } from '../../models/entry';
-import { entriesService } from '../../services/entriesService';
-import { Emotion } from '../../models/emotion';
-
-type Step = 'emotion-capture' | 'reflection-capture';
+import DailyReflectionCard from "../home/DailyReflectionCard/DailyReflectionCard.tsx";
+import { IconWrapper } from '../../components/common/IconWrapper/IconWrapper.tsx';
+import { Grid, Typography } from '@mui/material';
+import BaseCard from '../../components/common/BaseCard/BaseCard.tsx';
+import EmojiEmotionsOutlinedIcon from '@mui/icons-material/EmojiEmotionsOutlined';
+import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
+import SentimentSatisfiedOutlinedIcon from '@mui/icons-material/SentimentSatisfiedOutlined';
 
 /**
  * @component EntriesPage
@@ -20,7 +20,7 @@ const EntriesPage: React.FC = () => {
 
   const handleEmotionToggle = (emotion: Emotion) => {
     setSelectedEmotions(prev => {
-      return prev.includes(emotion) 
+      return prev.includes(emotion)
         ? prev.filter(e => e !== emotion)
         : [...prev, emotion];
     });
@@ -45,9 +45,9 @@ const EntriesPage: React.FC = () => {
         emotions: selectedEmotions,
         activities: [] // Can be extended later
       };
-      
+
       await entriesService.createEntry(entry);
-      
+
       // Reset state and go back to emotion capture
       setCurrentStep('emotion-capture');
       setSelectedEmotions([]);
@@ -61,25 +61,82 @@ const EntriesPage: React.FC = () => {
 
 
   return (
-    <div className="entries-page">
-      {currentStep === 'emotion-capture' && (
-        <EmotionCapture
-          selectedEmotions={selectedEmotions}
-          onEmotionToggle={handleEmotionToggle}
-          onNext={handleNext}
-          maxSelections={10}
-        />
-      )}
-      
-      {currentStep === 'reflection-capture' && (
-        <ReflectionCapture
-          selectedEmotions={selectedEmotions}
-          onBack={handleBack}
-          onSave={handleSave}
-          isLoading={isLoading}
-        />
-      )}
-    </div>
+    <main className="main-content">
+      <DailyReflectionCard />
+
+      <Grid container spacing={2}>
+        <Grid size={6}>
+          <BaseCard>
+            <div className="card-header">
+              <IconWrapper variant="secondary">
+                <EmojiEmotionsOutlinedIcon />
+              </IconWrapper>
+              <div>
+                <Typography variant="subtitle1" component="div">
+                  Mood Check
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  {`"Track your daily emotions"`}
+                </Typography>
+              </div>
+            </div>
+          </BaseCard>
+        </Grid>
+
+        <Grid size={6}>
+          <BaseCard>
+            <div className="card-header">
+              <IconWrapper variant="primary">
+                <StarBorderOutlinedIcon />
+              </IconWrapper>
+              <div>
+                <Typography variant="subtitle1" component="div">
+                  Gratitude
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  {`"Three things you're grateful for"`}
+                </Typography>
+              </div>
+            </div>
+          </BaseCard>
+        </Grid>
+
+        <Grid size={12}>
+          <BaseCard>
+            <div className="card-header">
+              <IconWrapper variant="secondary">
+                <SentimentSatisfiedOutlinedIcon />
+              </IconWrapper>
+              <div>
+                <Typography variant="subtitle1" component="div">
+                  Latest Check-in
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  Yesterday: {`"Feeling grateful for the little things in life."`}
+                </Typography>
+              </div>
+            </div>
+          </BaseCard>
+        </Grid>
+      </Grid>
+
+      {/* --- Daily Affirmation BaseCard --- */}
+      <BaseCard>
+        <div className="card-header">
+          <IconWrapper variant="primary">
+            <StarBorderOutlinedIcon />
+          </IconWrapper>
+          <div>
+            <Typography variant="subtitle1" component="div">
+              Daily Affirmation
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              {`"I am worthy of love and happiness."`}
+            </Typography>
+          </div>
+        </div>
+      </BaseCard>      </main>
+
   );
 };
 

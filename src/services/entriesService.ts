@@ -27,7 +27,7 @@ export const entriesService = {
   // Create a new entry
   async createEntry(entry: CreateEntryRequest): Promise<Entry> {
     try {
-      const response = await apiClient.post('/api/entries', entry);
+      const response = await apiClient.post('/entries', entry);
       return response.data;
     } catch (error) {
       console.error('Failed to create entry:', error);

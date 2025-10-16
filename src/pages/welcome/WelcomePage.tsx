@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate, Link } from 'react-router-dom';
 import './WelcomePage.scss';
-import { APP_ROUTES } from '../../config/route';
+import { APP_ROUTES } from '../../constants/route';
 
 import { 
   Typography, 

@@ -25,5 +25,5 @@ dist-ssr
 
 # Secrets and environment variables
 .env
-.env.production
+.env.prod
 .env.dev

@@ -2,12 +2,16 @@
 @import '../../styles/variables';
 @import '../../styles/responsive';
 
-.entries-page {
-  width: 100%;
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
-}
-
-// Entries page specific styles
-// The emotion selection and reflection logging steps handle their own styling
+.main-content {
+    padding: 0 16px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .card-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+  }

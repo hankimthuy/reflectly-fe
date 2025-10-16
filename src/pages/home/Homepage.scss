@@ -1,6 +1,6 @@
 // Import responsive system
-@use '../../styles/variables' as *;
-@use '../../styles/responsive' as *;
+@use '../../styles/_variables' as *;
+@use '../../styles/_responsive' as *;
 
 .main-content {
   flex-grow: 1;
@@ -8,34 +8,25 @@
   background: var(--c-background);
   overflow-y: auto;
   height: 100%;
-  min-height: 0; // Important for flex scrolling
+  min-height: 0;
   @include padding-responsive(
-    0 var(--spacing-md),
-    0 var(--spacing-lg),
-    0 var(--spacing-xl)
+    var(--spacing-md),
+    var(--spacing-lg),
+    var(--spacing-xl)
   );
   @include flex-col-stretch;
   
-  // Mobile adjustments
+  // Mobile
   @include mobile-only {
-    padding-bottom: calc(var(--nav-height-mobile) + var(--spacing-md));
+    padding-bottom: var(--spacing-lg);
   }
   
-  // Tablet adjustments
-  @include respond-between(tablet, ipad-air) {
+  // Laptop
+  @include respond-to(laptop) {
     gap: var(--spacing-lg);
-    padding-bottom: var(--spacing-xl);
-  }
-  
-  // iPad Air adjustments - enhanced layout
-  @include respond-between(ipad-air, laptop-sm) {
-    gap: var(--spacing-xl);
-    padding-bottom: calc(var(--nav-height-ipad-air) + var(--spacing-xl));
+    padding-bottom: var(--spacing-lg);
     
-    // 2-column grid for iPad Air
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: var(--spacing-xl);
+    display: flex;
     align-items: start;
     
     .daily-reflection-card {
@@ -44,16 +35,17 @@
     }
   }
   
-  // Laptop adjustments - simple padding and spacing
-  @include respond-to(laptop-sm) {
-    padding: var(--spacing-xl) var(--spacing-2xl);
-    padding-bottom: calc(80px + var(--spacing-xl)); // Account for bottom navigation
+  // Desktop - constrained width and centered for main content only
+  @include respond-to(desktop) {
+    display: block;
+    width: 100%;
     max-width: none;
-  }
-  
-  @include respond-to(laptop-lg) {
-    padding: var(--spacing-2xl) 4vw;
-    padding-bottom: calc(80px + var(--spacing-2xl));
+    margin: 0;
+    padding: var(--spacing-xl) 25vw;
+    .daily-reflection-card {
+      grid-column: unset;
+      margin-bottom: var(--spacing-lg);
+    }
   }
   
   // Ensure Grid container supports equal height
@@ -89,6 +81,86 @@
   flex-grow: 1;
 }
 
+// New horizontal card MainLayout
+.card-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  height: 100%;
+  @include padding-responsive(var(--spacing-md), var(--spacing-lg), var(--spacing-xl));
+  
+  .card-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    .icon-wrapper {
+      @include mobile-only {
+        width: 40px;
+        height: 40px;
+      }
+      
+      @include respond-to(laptop) {
+        width: 48px;
+        height: 48px;
+      }
+      
+      @include respond-to(desktop) {
+        width: 56px;
+        height: 56px;
+      }
+    }
+  }
+  
+  .card-text {
+    flex: 1;
+    min-width: 0; // Prevent text overflow
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    
+    .card-title {
+      font-family: var(--font-family-primary), sans-serif;
+      font-weight: var(--font-weight-semibold);
+      color: var(--c-text-on-surface);
+      margin: 0;
+      @include font-responsive(var(--font-size-base), var(--font-size-xl), var(--font-size-xl));
+    }
+    
+    // Reset h3 default styles
+    h3.card-title {
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      margin: 0;
+    }
+    
+    // Ensure single line on mobile, allow wrap on larger screens
+    .card-title {
+      @include mobile-only {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    
+    .card-description {
+      color: var(--c-text-muted);
+      line-height: 1.4;
+      margin: 0;
+      @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
+      
+      // Allow text wrapping on all screen sizes
+      & {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+    }
+  }
+}
+
+// Legacy card-header for backward compatibility (if needed)
 .card-header {
   display: flex;
   flex-direction: column;
@@ -111,13 +183,13 @@
     
     .MuiTypography-subtitle1 {
       font-weight: var(--font-weight-semibold);
-      color: var(--c-text-primary);
+      color: var(--c-text-on-surface);
       text-align: center;
       @include font-responsive(var(--font-size-base), var(--font-size-lg), var(--font-size-xl));
     }
     
     .MuiTypography-caption {
-      color: var(--c-text-secondary);
+      color: var(--c-text-muted);
       text-align: center;
       max-width: 200px;
       line-height: 1.4;

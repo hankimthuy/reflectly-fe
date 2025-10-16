@@ -1,6 +1,6 @@
 // Import responsive system
-@use '../../../styles/variables' as *;
-@use '../../../styles/responsive' as *;
+@use '../../styles/_variables' as *;
+@use '../../styles/_responsive' as *;
 
 // Mixins for reusable styles
 @mixin flex-col-center {
@@ -23,17 +23,30 @@
   gap: var(--spacing-2xl); // Add spacing between navigation items
   @include nav-responsive;
   
-  // Mobile layout - fixed bottom navigation
+  // Mobile MainLayout - fixed bottom navigation
   @include mobile-only {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-fixed);
     box-shadow: 0 -4px 16px var(--c-shadow-light);
     backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--c-surface);
     gap: var(--spacing-xl); // Smaller gap on mobile
     @include padding-responsive(var(--spacing-sm) var(--spacing-md));
+    & {
+      height: var(--nav-height-mobile);
+    }
   }
   
-  // Tablet layout - rounded navigation
-  @include respond-between(tablet, ipad-air) {
+  // Laptop MainLayout - rounded navigation
+  @include respond-to(laptop) {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
     border-radius: var(--border-radius-xl);
     border: 1px solid var(--c-border);
     box-shadow: var(--shadow-lg);
@@ -41,19 +54,8 @@
     @include padding-responsive(var(--spacing-md) var(--spacing-lg));
   }
   
-  // iPad Air layout - enhanced navigation
-  @include respond-between(ipad-air, laptop-sm) {
-    border-radius: var(--border-radius-xl);
-    border: 1px solid var(--c-border);
-    box-shadow: var(--shadow-xl);
-    margin: 0 var(--spacing-lg) var(--spacing-lg);
-    backdrop-filter: blur(15px);
-    background: rgba(255, 255, 255, 0.9);
-    @include padding-responsive(var(--spacing-lg) var(--spacing-xl));
-  }
-  
-  // Laptop layout - keep bottom navigation like mobile/tablet
-  @include respond-to(laptop-sm) {
+  // Desktop MainLayout - keep bottom navigation like mobile/tablet
+  @include respond-to(desktop) {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -61,7 +63,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--c-surface);
     backdrop-filter: blur(15px);
     border-top: 1px solid var(--c-border);
     border-radius: 0;
@@ -69,7 +71,7 @@
     padding: var(--spacing-md) var(--spacing-xl);
     box-shadow: 0 -4px 20px var(--c-shadow-light);
     z-index: var(--z-fixed);
-    gap: var(--spacing-2xl); // Reduced gap on laptop
+    gap: var(--spacing-2xl); // Reduced gap on large desktop
   }
 
   .item {
@@ -102,8 +104,8 @@
     }
     
     &:hover:not(.item--active) {
-      color: var(--c-text-primary);
-      background-color: rgba(135, 206, 235, 0.1);
+      color: var(--c-text-on-surface);
+      background-color: var(--c-primary-light);
       transform: translateY(-1px);
     }
     
@@ -139,7 +141,7 @@
       box-shadow: 0 4px 16px var(--c-shadow-accent);
     }
     
-    @include respond-to(tablet) {
+    @include respond-to(laptop) {
       width: 52px;
       height: 52px;
       border-radius: 50%;

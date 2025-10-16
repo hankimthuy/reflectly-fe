@@ -4,12 +4,12 @@
 @use './styles/responsive' as *;
 
 :root {
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-primary), sans-serif;
   line-height: var(--line-height-normal);
   font-weight: var(--font-weight-normal);
 
   color-scheme: light dark;
-  color: var(--c-text-primary);
+  color: var(--c-text-on-background);
   background-color: var(--c-background);
 
   font-synthesis: none;
@@ -28,17 +28,17 @@ a.text-primary,
 }
 
 .text-danger {
-  color: #d32f2f !important;
+  color: var(--c-danger) !important;
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--c-primary);
   text-decoration: inherit;
 }
 
 a:hover {
-  color: #535bf2;
+  color: var(--c-secondary);
 }
 
 // Global Reset and Base Styles
@@ -57,11 +57,11 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: var(--font-family-primary);
+  font-family: var(--font-family-primary), sans-serif;
   background-color: var(--c-background);
-  color: var(--c-text-primary);
+  color: var(--c-text-on-background);
   
-  // Mobile-first responsive layout
+  // Mobile-first responsive MainLayout
   @include mobile-only {
     overflow-x: hidden;
   }
@@ -98,16 +98,16 @@ p {
 // Button - Responsive
 button {
   border: 1px solid transparent;
-  font-family: inherit;
+  font-family: var(--font-family-primary), sans-serif;
   background-color: var(--c-primary);
-  color: var(--c-surface);
+  color: var(--c-text-on-background);
   cursor: pointer;
   transition: all var(--transition-normal);
   font-weight: var(--font-weight-medium);
   @include button-responsive;
   
   &:hover {
-    background-color: var(--c-text-secondary);
+    background-color: var(--c-secondary);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
   }
@@ -133,26 +133,26 @@ button {
 .container {
   @include container-mobile;
   
-  @include respond-to(tablet) {
-    @include container-tablet;
+  @include respond-to(laptop) {
+    @include container-laptop;
   }
   
-  @include respond-to(laptop-sm) {
-    @include container-laptop;
+  @include respond-to(desktop) {
+    @include container-desktop;
   }
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--c-text-on-background);
+    background-color: var(--c-background);
   }
 
   a:hover {
-    color: #747bff;
+    color: var(--c-secondary);
   }
 
   button {
-    background-color: #f9f9f9;
+    background-color: var(--c-primary);
   }
 }

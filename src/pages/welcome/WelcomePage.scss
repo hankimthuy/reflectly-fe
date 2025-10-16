@@ -1,6 +1,6 @@
 // Import responsive system
-@use '../../styles/variables' as *;
-@use '../../styles/responsive' as *;
+@use '../../styles/_variables' as *;
+@use '../../styles/_responsive' as *;
 
 .homepage-container {
   background: var(--c-background);
@@ -21,52 +21,52 @@
     width: 100%;
     max-width: none !important;
     padding: 0 !important;
-    height: 100%; // Đảm bảo container chiếm hết chiều cao
-    overflow: hidden; // Loại bỏ scroll
+    height: 100%;
+    overflow: hidden;
   }
 }
 
-.hero-section {
-  text-align: center;
-  color: var(--c-text-primary);
-  background: linear-gradient(135deg, var(--c-primary-light) 0%, var(--c-surface) 100%);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-xl);
-  transition: all var(--transition-normal);
-  width: 100%;
-  max-width: 600px; // Giảm từ 800px xuống 600px
-  max-height: 90vh; // Giới hạn chiều cao để vừa viewport
-  overflow-y: auto; // Chỉ scroll nội dung bên trong nếu cần
-  @include padding-responsive(var(--spacing-xl) var(--spacing-md), // Giảm padding
-    var(--spacing-2xl) var(--spacing-lg),
-    2.5rem var(--spacing-xl) // Giảm từ 4rem xuống 2.5rem
-  );
-  @include margin-responsive(var(--spacing-md), var(--spacing-lg), var(--spacing-xl)); // Giảm margin
+  .hero-section {
+    text-align: center;
+    color: var(--c-text-on-surface);
+    background: var(--c-surface);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-xl);
+    transition: all var(--transition-normal);
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    @include padding-responsive(var(--spacing-xl) var(--spacing-md),
+      var(--spacing-2xl) var(--spacing-lg),
+      2.5rem var(--spacing-xl)
+    );
+    @include margin-responsive(var(--spacing-md), var(--spacing-lg), var(--spacing-xl));
 
-  // Mobile enhancements
+  // Mobile
   @include mobile-only {
-    margin: var(--spacing-sm); // Giảm margin để vừa màn hình
+    margin: var(--spacing-sm);
     box-shadow: var(--shadow-lg);
-    max-height: 85vh; // Giảm chiều cao trên mobile
-    padding: var(--spacing-lg) var(--spacing-md) !important; // Giảm padding
+    max-height: 85vh;
+    padding: var(--spacing-lg) var(--spacing-md) !important;
   }
 
-  // Tablet and up enhancements
-  @include respond-to(tablet) {
+  // Small Desktop and up
+  @include respond-to(laptop) {
     &:hover {
       transform: translateY(-4px);
       box-shadow: 0 20px 60px var(--c-shadow-heavy);
     }
   }
 
-  // Laptop enhancements
-  @include respond-to(laptop-sm) {
-    max-width: 650px; // Giảm từ 900px xuống 650px
-    margin: 0 auto; // Ensure horizontal centering
+  // Large Desktop
+  @include respond-to(desktop) {
+    max-width: 650px;
+    margin: 0 auto;
 
     &:hover {
       transform: translateY(-6px);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 30px 80px var(--c-shadow-heavy);
     }
   }
 
@@ -74,8 +74,8 @@
     font-weight: var(--font-weight-bold);
     color: var(--c-primary);
     line-height: var(--line-height-tight);
-    @include font-responsive(2rem, 2.5rem, 3rem); // Giảm kích thước font
-    @include margin-responsive(0 0 var(--spacing-sm), 0 0 var(--spacing-md), 0 0 var(--spacing-lg)); // Giảm margin
+    @include font-responsive(2rem, 2.5rem, 3rem);
+    @include margin-responsive(0 0 var(--spacing-sm), 0 0 var(--spacing-md), 0 0 var(--spacing-lg));
 
     // Enhanced mobile readability
     @include mobile-only {
@@ -85,28 +85,28 @@
 
   .hero-subtitle {
     font-weight: var(--font-weight-medium);
-    color: var(--c-text-secondary);
+    color: var(--c-text-on-surface);
     line-height: var(--line-height-normal);
-    @include font-responsive(var(--font-size-base), var(--font-size-lg), var(--font-size-xl)); // Giảm kích thước font
-    @include margin-responsive(0 0 var(--spacing-sm), 0 0 var(--spacing-md), 0 0 var(--spacing-lg)); // Giảm margin
+    @include font-responsive(var(--font-size-base), var(--font-size-lg), var(--font-size-xl));
+    @include margin-responsive(0 0 var(--spacing-sm), 0 0 var(--spacing-md), 0 0 var(--spacing-lg));
   }
 
   .hero-description {
-    max-width: 500px; // Giảm từ 600px xuống 500px
+    max-width: 500px;
     color: var(--c-text-muted);
     line-height: var(--line-height-relaxed);
-    @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg)); // Giảm kích thước font
-    @include margin-responsive(0 auto var(--spacing-lg), 0 auto var(--spacing-xl), 0 auto var(--spacing-2xl)); // Giảm margin
+    @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
+    @include margin-responsive(0 auto var(--spacing-lg), 0 auto var(--spacing-xl), 0 auto var(--spacing-2xl));
 
-    // Enhanced laptop readability
-    @include respond-to(laptop-sm) {
-      max-width: 550px; // Giảm từ 700px xuống 550px
+    // Enhanced large desktop readability
+    @include respond-to(desktop) {
+      max-width: 550px;
     }
   }
 
   .cta-button {
-    background: linear-gradient(45deg, var(--c-primary), var(--c-secondary));
-    color: white;
+    background: var(--c-primary);
+    color: var(--c-text-on-background);
     font-weight: var(--font-weight-semibold);
     border-radius: var(--border-radius-lg);
     text-transform: none;
@@ -114,12 +114,12 @@
     transition: all var(--transition-normal);
     border: none;
     cursor: pointer;
-    @include padding-responsive(var(--spacing-sm) var(--spacing-lg), var(--spacing-md) var(--spacing-xl), var(--spacing-lg) var(--spacing-2xl)); // Giảm padding
-    @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg)); // Giảm kích thước font
+    @include padding-responsive(var(--spacing-sm) var(--spacing-lg), var(--spacing-md) var(--spacing-xl), var(--spacing-lg) var(--spacing-2xl));
+    @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
 
     // Mobile touch optimization
     @include mobile-only {
-      min-height: 48px; // Accessibility - minimum touch target
+      min-height: 48px;
       width: 100%;
       max-width: 280px;
     }
@@ -127,15 +127,15 @@
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 12px 35px var(--c-shadow-accent);
-      background: linear-gradient(45deg, var(--c-secondary), var(--c-primary));
+      background: var(--c-secondary);
     }
 
     &:active {
       transform: translateY(0);
     }
 
-    // Enhanced laptop styling
-    @include respond-to(laptop-sm) {
+    // Enhanced large desktop styling
+    @include respond-to(desktop) {
       &:hover {
         transform: translateY(-3px) scale(1.02);
         box-shadow: 0 15px 45px var(--c-shadow-accent);

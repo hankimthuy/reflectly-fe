@@ -14,15 +14,22 @@ interface BaseCardProps {
 
 const getActionAreaStyles = (active: boolean | undefined): SxProps<Theme> => ({
   borderRadius: 'inherit',
-  backgroundColor: active ? 'action.selected' : 'transparent',
+  backgroundColor: active ? 'var(--c-primary-light)' : 'transparent',
   '&:hover': {
-    backgroundColor: active ? 'action.selected' : 'action.hover',
+    backgroundColor: 'var(--c-primary-light)',
   },
 });
 
 const cardSx: SxProps<Theme> = {
-  border: (theme) => `1px solid ${theme.palette.divider}`,
-  borderRadius: '8px'
+  backgroundColor: 'var(--c-surface)',
+  border: '1px solid var(--c-border)',
+  borderRadius: '16px',
+  boxShadow: '0 4px 12px var(--c-shadow-light)',
+  transition: 'all var(--transition-normal)',
+  '&:hover': {
+    boxShadow: '0 8px 24px var(--c-shadow-heavy)',
+    transform: 'translateY(-3px)',
+  },
 };
 
 const BaseCard: React.FC<BaseCardProps> = ({ active, onClick, children, className }) => (
@@ -30,7 +37,7 @@ const BaseCard: React.FC<BaseCardProps> = ({ active, onClick, children, classNam
         <CardActionArea
             onClick={onClick}
             sx={getActionAreaStyles(active)}>
-            <CardContent>
+            <CardContent className="base-card-content">
                 {children}
             </CardContent>
         </CardActionArea>

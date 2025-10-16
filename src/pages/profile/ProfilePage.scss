@@ -1,6 +1,6 @@
 // Import responsive system
-@use '../../styles/variables' as *;
-@use '../../styles/responsive' as *;
+@use '../../styles/_variables' as *;
+@use '../../styles/_responsive' as *;
 
 .profile-page {
   flex: 1;
@@ -17,14 +17,14 @@
     @include padding-responsive(var(--spacing-lg), var(--spacing-xl), var(--spacing-2xl));
     @include margin-responsive(var(--spacing-md) 0, var(--spacing-lg) 0, var(--spacing-xl) 0);
     
-    // Mobile layout
+    // Mobile MainLayout
     @include mobile-only {
       max-width: 100%;
       margin: var(--spacing-sm);
     }
     
-    // Tablet layout
-    @include respond-to(tablet) {
+    // Small Desktop MainLayout
+    @include respond-to(laptop) {
       max-width: 500px;
       &:hover {
         transform: translateY(-2px);
@@ -32,8 +32,8 @@
       }
     }
     
-    // Laptop layout
-    @include respond-to(laptop-sm) {
+    // Large Desktop MainLayout
+    @include respond-to(desktop) {
       max-width: 600px;
     }
   }
@@ -57,12 +57,12 @@
         height: 100px;
       }
       
-      @include respond-to(tablet) {
+      @include respond-to(laptop) {
         width: 120px;
         height: 120px;
       }
       
-      @include respond-to(laptop-sm) {
+      @include respond-to(desktop) {
         width: 140px;
         height: 140px;
       }
@@ -91,7 +91,7 @@
 
     .profile-name {
       font-weight: var(--font-weight-bold);
-      color: var(--c-text-primary);
+      color: var(--c-text-on-surface);
       line-height: var(--line-height-tight);
       @include font-responsive(var(--font-size-xl), var(--font-size-2xl), var(--font-size-3xl));
       @include margin-responsive(0 0 var(--spacing-xs), 0 0 var(--spacing-sm), 0 0 var(--spacing-md));
@@ -110,7 +110,7 @@
 
       h2 {
         font-weight: var(--font-weight-semibold);
-        color: var(--c-text-primary);
+        color: var(--c-text-on-surface);
         border-bottom: 1px solid var(--c-border);
         @include font-responsive(var(--font-size-lg), var(--font-size-xl), var(--font-size-2xl));
         @include margin-responsive(0 0 var(--spacing-md), 0 0 var(--spacing-lg), 0 0 var(--spacing-lg));
@@ -138,14 +138,14 @@
 
         label {
           font-weight: var(--font-weight-semibold);
-          color: var(--c-text-secondary);
+          color: var(--c-text-on-surface);
           text-transform: uppercase;
           letter-spacing: 0.5px;
           @include font-responsive(10px, 11px, 12px);
         }
 
         span {
-          color: var(--c-text-primary);
+          color: var(--c-text-on-surface);
           font-weight: var(--font-weight-medium);
           @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-base));
         }
@@ -156,7 +156,7 @@
       gap: var(--spacing-sm);
       @include grid-responsive(3, 3, 3);
       
-      @include respond-to(tablet) {
+      @include respond-to(laptop) {
         gap: var(--spacing-md);
       }
 

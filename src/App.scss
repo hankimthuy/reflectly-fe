@@ -14,17 +14,18 @@
     overflow-x: hidden;
   }
   
-  // Tablet and up
-  @include respond-to(tablet) {
+  // Laptop and up
+  @include respond-to(laptop) {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000;
+    background-color: var(--c-background);
     max-width: none;
   }
   
-  // Laptop and up
-  @include respond-to(laptop-sm) {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  // Desktop and up
+  @include respond-to(desktop) {
+    display: block;
+    background: var(--c-background);
   }
 }

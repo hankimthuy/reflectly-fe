@@ -1,18 +1,14 @@
 // Responsive Design System for Reflectly
-// Supporting: Mobile (iPhone 14 Pro, Samsung), Laptop 14", Laptop 15.6"
+// Supporting: Mobile (500px), Small Desktop (1024px), Large Desktop (1025px+)
 
 // Import Sass modules
 @use 'sass:map';
 
 // Breakpoints
 $breakpoints: (
-  mobile: 320px,
-  mobile-lg: 414px,
-  tablet: 768px,
-  ipad-air: 820px,     // iPad Air
-  laptop-sm: 1366px,   // 14" laptop
-  laptop-lg: 1920px,   // 15.6" laptop
-  desktop: 2560px
+  mobile: 500px,       // Smartphones (portrait)
+  laptop: 992px, // Laptop
+  desktop: 1400px  // Desktop, Monitor
 );
 
 // Responsive mixins
@@ -37,20 +33,20 @@ $breakpoints: (
 }
 
 @mixin mobile-only {
-  $tablet-width: map.get($breakpoints, tablet) - 1px;
-  @media screen and (max-width: #{$tablet-width}) {
-    @content;
-  }
-}
-
-@mixin tablet-up {
-  @media screen and (min-width: map.get($breakpoints, tablet)) {
+  $mobile-width: map.get($breakpoints, mobile) - 1px;
+  @media screen and (max-width: #{$mobile-width}) {
     @content;
   }
 }
 
 @mixin laptop-up {
-  @media screen and (min-width: map.get($breakpoints, laptop-sm)) {
+  @media screen and (min-width: map.get($breakpoints, laptop)) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media screen and (min-width: map.get($breakpoints, desktop)) {
     @content;
   }
 }
@@ -62,14 +58,14 @@ $breakpoints: (
   padding: 0 16px;
 }
 
-@mixin container-tablet {
+@mixin container-laptop {
   width: 100%;
-  max-width: 768px;
+  max-width: 1024px;
   padding: 0 24px;
   margin: 0 auto;
 }
 
-@mixin container-laptop {
+@mixin container-desktop {
   width: 100%;
   max-width: 1200px;
   padding: 0 32px;
@@ -122,90 +118,90 @@ $breakpoints: (
 }
 
 // Grid utilities
-@mixin grid-responsive($mobile-cols: 1, $tablet-cols: 2, $laptop-cols: 3) {
+@mixin grid-responsive($mobile-cols: 1, $laptop-cols: 2, $desktop-cols: 3) {
   & {
     display: grid;
     gap: 16px;
     grid-template-columns: repeat($mobile-cols, 1fr);
     
-    @include respond-to(tablet) {
-      grid-template-columns: repeat($tablet-cols, 1fr);
+    @include respond-to(laptop) {
+      grid-template-columns: repeat($laptop-cols, 1fr);
       gap: 24px;
     }
     
-    @include respond-to(laptop-sm) {
-      grid-template-columns: repeat($laptop-cols, 1fr);
+    @include respond-to(desktop) {
+      grid-template-columns: repeat($desktop-cols, 1fr);
       gap: 32px;
     }
   }
 }
 
 // Typography responsive mixins
-@mixin font-responsive($mobile-size, $tablet-size: null, $laptop-size: null) {
+@mixin font-responsive($mobile-size, $laptop-size: null, $desktop-size: null) {
   & {
     font-size: $mobile-size;
     
-    @if $tablet-size {
-      @include respond-to(tablet) {
-        font-size: $tablet-size;
+    @if $laptop-size {
+      @include respond-to(laptop) {
+        font-size: $laptop-size;
       }
     }
     
-    @if $laptop-size {
-      @include respond-to(laptop-sm) {
-        font-size: $laptop-size;
+    @if $desktop-size {
+      @include respond-to(desktop) {
+        font-size: $desktop-size;
       }
     }
   }
 }
 
 // Spacing utilities - Fixed mixed declarations
-@mixin padding-responsive($mobile, $tablet: null, $laptop: null) {
+@mixin padding-responsive($mobile, $laptop: null, $desktop: null) {
   & {
     padding: $mobile;
     
-    @if $tablet {
-      @include respond-to(tablet) {
-        padding: $tablet;
+    @if $laptop {
+      @include respond-to(laptop) {
+        padding: $laptop;
       }
     }
     
-    @if $laptop {
-      @include respond-to(laptop-sm) {
-        padding: $laptop;
+    @if $desktop {
+      @include respond-to(desktop) {
+        padding: $desktop;
       }
     }
   }
 }
 
-@mixin margin-responsive($mobile, $tablet: null, $laptop: null) {
+@mixin margin-responsive($mobile, $laptop: null, $desktop: null) {
   & {
     margin: $mobile;
     
-    @if $tablet {
-      @include respond-to(tablet) {
-        margin: $tablet;
+    @if $laptop {
+      @include respond-to(laptop) {
+        margin: $laptop;
       }
     }
     
-    @if $laptop {
-      @include respond-to(laptop-sm) {
-        margin: $laptop;
+    @if $desktop {
+      @include respond-to(desktop) {
+        margin: $desktop;
       }
     }
   }
 }
 
 // Height utilities using vh for consistent viewport sizing
-@mixin height-responsive($mobile-vh: 100vh, $laptop-vh: null) {
+@mixin height-responsive($mobile-vh: 100vh, $desktop-vh: null) {
   & {
     height: $mobile-vh;
     min-height: $mobile-vh;
     
-    @if $laptop-vh {
-      @include respond-to(laptop-sm) {
-        height: $laptop-vh;
-        min-height: $laptop-vh;
+    @if $desktop-vh {
+      @include respond-to(desktop) {
+        height: $desktop-vh;
+        min-height: $desktop-vh;
       }
     }
   }
@@ -223,7 +219,7 @@ $breakpoints: (
       margin: 0 8px;
     }
     
-    @include respond-to(tablet) {
+    @include respond-to(laptop) {
       border-radius: var(--border-radius-lg);
       box-shadow: 0 8px 32px var(--c-shadow-heavy);
     }
@@ -237,7 +233,7 @@ $breakpoints: (
     @include padding-responsive(12px 16px, 14px 20px, 16px 24px);
     @include font-responsive(14px, 15px, 16px);
     
-    @include respond-to(tablet) {
+    @include respond-to(laptop) {
       border-radius: var(--border-radius-md);
     }
   }
@@ -254,7 +250,7 @@ $breakpoints: (
       z-index: 1000;
     }
     
-    @include respond-to(tablet) {
+    @include respond-to(laptop) {
       position: relative;
       border-radius: var(--border-radius-lg);
       margin: 16px;
@@ -262,16 +258,16 @@ $breakpoints: (
   }
 }
 
-@mixin welcome-height-responsive($mobile-vh: 100vh, $tablet-vh: 100vh, $laptop-vh: 100vh) {
+@mixin welcome-height-responsive($mobile-vh: 100vh, $laptop-vh: 100vh, $desktop-vh: 100vh) {
   & {
     height: $mobile-vh; 
     
-    @include respond-to(tablet) {
-      height: $tablet-vh;
+    @include respond-to(laptop) {
+      height: $laptop-vh;
     }
     
-    @include respond-to(laptop-sm) {
-      height: $laptop-vh;
+    @include respond-to(desktop) {
+      height: $desktop-vh;
     }
   }
 }

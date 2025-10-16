@@ -1,6 +1,6 @@
 // Import responsive system
-@use '../../../styles/variables' as *;
-@use '../../../styles/responsive' as *;
+@use '../../../styles/_variables' as *;
+@use '../../../styles/_responsive' as *;
 
 .daily-reflection-card {
   transition: all var(--transition-normal);
@@ -13,39 +13,48 @@
     box-shadow: var(--shadow-md);
   }
   
-  // Tablet enhancements
-  @include respond-to(tablet) {
+  // Small Desktop
+  @include respond-to(laptop) {
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 12px 40px var(--c-shadow-heavy);
     }
   }
   
-  // Laptop enhancements
-  @include respond-to(laptop-sm) {
+  // Large Desktop
+  @include respond-to(desktop) {
     &:hover {
       transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 20px 60px var(--c-shadow-heavy);
     }
   }
 
   .title {
-    font-family: var(--font-family-primary);
-    font-weight: var(--font-weight-bold);
-    color: var(--c-text-primary);
+    font-family: var(--font-family-primary) !important;
+    font-weight: var(--font-weight-black) !important;
+    color: var(--c-text-on-surface);
     line-height: var(--line-height-tight);
+    margin: 0;
     @include font-responsive(var(--font-size-lg), var(--font-size-xl), var(--font-size-2xl));
     @include margin-responsive(0 0 var(--spacing-sm), 0 0 var(--spacing-md), 0 0 var(--spacing-lg));
+  }
+  
+  // Reset h3 default styles
+  h3.title {
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    margin: 0;
   }
 
   .prompt {
     line-height: var(--line-height-relaxed);
-    color: var(--c-text-secondary);
+    color: var(--c-text-on-surface);
     @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
     @include margin-responsive(0 0 var(--spacing-md), 0 0 var(--spacing-lg), 0 0 var(--spacing-xl));
     
     // Enhanced readability on larger screens
-    @include respond-to(laptop-sm) {
+    @include respond-to(desktop) {
       max-width: 80%;
     }
   }
@@ -63,7 +72,7 @@
     
     &:hover {
       border-color: var(--c-primary);
-      background-color: rgba(135, 206, 235, 0.15);
+      background-color: var(--c-primary-light);
       transform: translateY(-1px);
     }
     
@@ -77,8 +86,8 @@
       min-height: 48px; // Accessibility - minimum touch target
     }
     
-    // Tablet and up enhancements
-    @include respond-to(tablet) {
+    // Small Desktop and up
+    @include respond-to(laptop) {
       gap: var(--spacing-lg);
     }
   }
@@ -91,7 +100,7 @@
     @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
     
     .input-area:hover & {
-      color: var(--c-text-primary);
+      color: var(--c-text-on-surface);
     }
   }
   
@@ -110,19 +119,19 @@
       height: 32px;
     }
     
-    @include respond-to(tablet) {
+    @include respond-to(laptop) {
       width: 36px;
       height: 36px;
     }
     
-    @include respond-to(laptop-sm) {
+    @include respond-to(desktop) {
       width: 40px;
       height: 40px;
     }
     
     &:hover {
       background-color: var(--c-primary);
-      color: var(--c-surface);
+      color: var(--c-text-on-background);
       transform: scale(1.1);
     }
   }
