@@ -52,7 +52,6 @@ const EntriesPage: React.FC = () => {
       setCurrentStep('emotion-capture');
       setSelectedEmotions([]);
     } catch (error) {
-      console.error('Failed to save entry:', error);
       // Handle error (could show toast notification)
     } finally {
       setIsLoading(false);

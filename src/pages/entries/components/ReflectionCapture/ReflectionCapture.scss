@@ -4,18 +4,20 @@
 
 .reflection-capture {
   @include flex-col-stretch;
-  min-height: 100vh;
+  min-height: 70vh;
   background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 100%);
   position: relative;
 
   .step-header {
-    @include padding-responsive(var(--spacing-lg), var(--spacing-xl), var(--spacing-2xl));
+    @include padding-responsive(var(--spacing-md), var(--spacing-lg), var(--spacing-xl));
     position: relative;
     z-index: 2;
+    display: flex;
 
     .header-controls {
       @include flex-between;
-      @include margin-responsive(0 0 var(--spacing-lg), 0 0 var(--spacing-xl), 0 0 var(--spacing-xl));
+      @include margin-responsive(0 var(--spacing-sm), 0 var(--spacing-sm), 0 var(--spacing-sm));
+      @include padding-responsive(0 var(--spacing-sm), 0 var(--spacing-sm), 0 var(--spacing-sm));
 
       .back-button,
       .close-button {
@@ -246,9 +248,9 @@
     .complete-button {
       @include button-responsive;
       @include padding-responsive(
-        var(--spacing-md) var(--spacing-2xl),
-        var(--spacing-lg) var(--spacing-3xl),
-        var(--spacing-xl) var(--spacing-3xl)
+        var(--spacing-md) var(--spacing-xl),
+        var(--spacing-lg) var(--spacing-xl),
+        var(--spacing-lg) var(--spacing-xl)
       );
       background: var(--c-surface);
       color: #FF6B6B;

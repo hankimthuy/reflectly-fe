@@ -28,9 +28,10 @@ export const entriesService = {
   async createEntry(entry: CreateEntryRequest): Promise<Entry> {
     try {
       const response = await httpClient.post<Entry, CreateEntryRequest>('/entries', entry);
+      console.log('📊 [entriesService] Response data:', response.data);
       return response.data;
     } catch (error) {
-      console.error('Failed to create entry:', error);
+      console.error('❌ [entriesService] Failed to create entry:', error);
       throw error;
     }
   },

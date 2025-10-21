@@ -57,7 +57,6 @@ const ReflectionCapture: React.FC<ReflectionCaptureProps> = ({
 
       <div className="step-content">
         <div className="selected-emotions">
-          <h3 className="section-title">Feelings</h3>
           <div className="emotion-tags">
             {selectedEmotionData.map((emotion) => (
               <div
