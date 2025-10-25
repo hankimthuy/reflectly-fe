@@ -4,8 +4,6 @@
 
 .emotion-capture {
   @include flex-col-stretch;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 100%);
   position: relative;
 
   .step-header {
@@ -14,15 +12,15 @@
     text-align: center;
     position: relative;
     z-index: 2;
-    
-    @include respond-to(laptop-sm) {
+
+    @include respond-to(laptop) {
       padding: var(--spacing-md) var(--spacing-lg);
     }
 
-    .mascot {
+    .default-emotion {
       @include margin-responsive(0 0 var(--spacing-lg), 0 0 var(--spacing-xl), 0 0 var(--spacing-md));
-      
-      .mascot-icon {
+
+      .default-emotion-icon {
         width: 80px;
         height: 80px;
         background: var(--c-surface);
@@ -30,13 +28,8 @@
         @include flex-center;
         @include font-responsive(32px, 36px, 28px);
         box-shadow: var(--shadow-lg);
-        
-        @include respond-to(tablet) {
-          width: 90px;
-          height: 90px;
-        }
-        
-        @include respond-to(laptop-sm) {
+
+        @include respond-to(laptop) {
           width: 60px;
           height: 60px;
           font-size: 24px;
@@ -50,8 +43,8 @@
       color: var(--c-surface);
       margin: 0 0 var(--spacing-sm) 0;
       line-height: var(--line-height-tight);
-      
-      @include respond-to(laptop-sm) {
+
+      @include respond-to(laptop) {
         font-size: var(--font-size-base);
         margin: 0 0 var(--spacing-xs) 0;
       }
@@ -62,8 +55,8 @@
       color: rgba(255, 255, 255, 0.8);
       font-weight: var(--font-weight-medium);
       margin: 0;
-      
-      @include respond-to(laptop-sm) {
+
+      @include respond-to(laptop) {
         font-size: var(--font-size-xs);
       }
     }
@@ -78,13 +71,9 @@
     overflow-y: auto;
     overflow-x: hidden;
 
-    @include respond-to(tablet) {
-      gap: var(--spacing-lg);
-    }
-
-    @include respond-to(laptop-sm) {
+    @include respond-to(laptop) {
       gap: 12px;
-      grid-template-columns: repeat(auto-fit, 80px);
+      grid-template-columns: repeat(5, 80px);
       grid-template-rows: 1fr;
       overflow-x: auto;
       overflow-y: hidden;
@@ -104,8 +93,8 @@
     min-height: 70px;
     position: relative;
     overflow: hidden;
-    
-    @include respond-to(laptop-sm) {
+
+    @include respond-to(laptop) {
       height: 80px;
       width: 80px;
       padding: 8px;
@@ -146,8 +135,8 @@
     .emotion-icon {
       @include font-responsive(24px, 28px, 20px);
       @include margin-responsive(0 0 var(--spacing-sm), 0 0 var(--spacing-md), 0 0 var(--spacing-xs));
-      
-      @include respond-to(laptop-sm) {
+
+      @include respond-to(laptop) {
         font-size: 24px;
         margin: 0 0 4px 0;
       }
@@ -158,53 +147,34 @@
       font-weight: var(--font-weight-semibold);
       color: var(--c-text-primary);
       text-align: center;
-      
-      @include respond-to(laptop-sm) {
+
+      @include respond-to(laptop) {
         font-size: 14px;
         line-height: 1.2;
         font-weight: var(--font-weight-bold);
       }
     }
   }
+}
 
-  .step-footer {
-    @include padding-responsive(var(--spacing-lg), var(--spacing-xl), var(--spacing-2xl));
-    @include flex-center;
+.emotion-next-step {
+  @include flex-center;
+  padding-top: var(--spacing-lg);
+}
 
-    .continue-button {
-      @include button-responsive;
-      @include padding-responsive(
-        var(--spacing-md) var(--spacing-2xl),
-        var(--spacing-lg) var(--spacing-3xl),
-        var(--spacing-xl) var(--spacing-3xl)
-      );
-      background: rgba(255, 255, 255, 0.9);
-      color: #FF6B6B;
-      font-weight: var(--font-weight-bold);
-      @include font-responsive(var(--font-size-base), var(--font-size-lg), var(--font-size-xl));
-      border: none;
-      border-radius: var(--border-radius-xl);
-      cursor: pointer;
-      transition: all var(--transition-normal);
-      min-width: 200px;
-
-      &:hover:not(:disabled) {
-        background: var(--c-surface);
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-lg);
-      }
-
-      &:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        transform: none;
-      }
-
-      &:not(:disabled) {
-        background: var(--c-surface);
-        color: #FF6B6B;
-        box-shadow: var(--shadow-md);
-      }
-    }
-  }
+.emotion-next-step-button {
+  @include flex-center;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 10000;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  width: 60px;
+  height: 60px;
+  background-color: #87CEEB;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(135, 206, 235, 0.3);
 }

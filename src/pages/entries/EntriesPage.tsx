@@ -6,15 +6,15 @@ import { Emotion } from '../../models/emotion';
 import type { CreateEntryRequest } from '../../models/entry';
 import { entriesService } from '../../services/entriesService';
 
-type Step = 'emotion-capture' | 'reflection-capture';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Box from '@mui/material/Box';
 
-/**
- * @component EntriesPage
- * @description The entries page that starts with emotion selection and flows to reflection logging.
- * @returns {JSX.Element} The rendered EntriesPage component.
- */
+const steps = ['Select Emotion', 'Write Reflection'];
+
 const EntriesPage: React.FC = () => {
-  const [currentStep, setCurrentStep] = useState<Step>('emotion-capture');
+  const [currentStep, setCurrentStep] = useState(0);
   const [selectedEmotions, setSelectedEmotions] = useState<Emotion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,12 +28,12 @@ const EntriesPage: React.FC = () => {
 
   const handleNext = () => {
     if (selectedEmotions.length > 0) {
-      setCurrentStep('reflection-capture');
+      setCurrentStep(currentStep + 1);
     }
   };
 
   const handleBack = () => {
-    setCurrentStep('emotion-capture');
+    setCurrentStep(currentStep - 1);
   };
 
   const handleSave = async (title: string, reflection: string) => {
@@ -49,7 +49,7 @@ const EntriesPage: React.FC = () => {
       await entriesService.createEntry(entry);
 
       // Reset state and go back to emotion capture
-      setCurrentStep('emotion-capture');
+      setCurrentStep(0);
       setSelectedEmotions([]);
     } catch (error) {
       console.error('Failed to save entry:', error);
@@ -60,8 +60,18 @@ const EntriesPage: React.FC = () => {
   };
 
   return (
-    <main className="main-content">
-      {currentStep === 'emotion-capture' && (
+    <div className="entries-content">
+      <Box sx={{ width: '100%', m: 2 }}> 
+        <Stepper activeStep={currentStep} alternativeLabel>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+      </Box>
+
+      {currentStep === 0 && (
         <EmotionCapture
           selectedEmotions={selectedEmotions}
           onEmotionToggle={handleEmotionToggle}
@@ -69,8 +79,8 @@ const EntriesPage: React.FC = () => {
           maxSelections={10}
         />
       )}
-      
-      {currentStep === 'reflection-capture' && (
+
+      {currentStep === 1 && (
         <ReflectionCapture
           selectedEmotions={selectedEmotions}
           onBack={handleBack}
@@ -78,7 +88,7 @@ const EntriesPage: React.FC = () => {
           isLoading={isLoading}
         />
       )}
-    </main>
+    </div>
   );
 };
 

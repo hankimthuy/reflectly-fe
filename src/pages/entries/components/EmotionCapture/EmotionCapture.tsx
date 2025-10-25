@@ -1,6 +1,8 @@
 import React from 'react';
 import { Emotion, EMOTION_DATA } from '../../../../models/emotion';
 import './EmotionCapture.scss';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import IconWrapper from '../../../../components/IconWrapper/IconWrapper';
 
 interface EmotionCaptureProps {
   selectedEmotions: Emotion[];
@@ -20,21 +22,25 @@ const EmotionCapture: React.FC<EmotionCaptureProps> = ({
 
   const handleEmotionClick = (emotion: Emotion) => {
     if (selectedEmotions.includes(emotion)) {
-      // Remove emotion if already selected
       onEmotionToggle(emotion);
     } else if (canSelectMore) {
-      // Add emotion if under limit
       onEmotionToggle(emotion);
     }
   };
+
+  const onClickEmotionCapture = () => {
+    if (selectedEmotions.length > 0) {
+      onNext();
+    }
+  }
 
   const isSelected = (emotion: Emotion) => selectedEmotions.includes(emotion);
 
   return (
     <div className="emotion-capture">
       <div className="step-header">
-        <div className="mascot">
-          <div className="mascot-icon">
+        <div className="default-emotion">
+          <div className="default-emotion-icon">
             {selectedEmotions.length > 0 ? EMOTION_DATA[selectedEmotions[0]].icon : '😊'}
           </div>
         </div>
@@ -59,46 +65,11 @@ const EmotionCapture: React.FC<EmotionCaptureProps> = ({
         ))}
       </div>
 
-
-      <div style={{ 
-        position: 'fixed',
-        bottom: '100px',
-        left: '0',
-        right: '0',
-        padding: '20px',
-        backgroundColor: 'transparent',
-        zIndex: 9999,
-        display: 'flex',
-        justifyContent: 'center'
-      }}>
-        <button
-          onClick={() => {
-            if (selectedEmotions.length > 0) {
-              onNext();
-            }
-          }}
-          style={{
-            width: '60px',
-            height: '60px',
-            backgroundColor: selectedEmotions.length > 0 ? '#87CEEB' : '#ccc',
-            color: 'white',
-            border: 'none',
-            borderRadius: '50%',
-            fontSize: '24px',
-            fontWeight: 'bold',
-            cursor: selectedEmotions.length > 0 ? 'pointer' : 'not-allowed',
-            boxShadow: selectedEmotions.length > 0 ? '0 4px 15px rgba(135, 206, 235, 0.3)' : 'none',
-            transition: 'all 0.3s ease',
-            position: 'relative',
-            zIndex: 10000,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          {selectedEmotions.length > 0 ? '→' : '○'}
-        </button>
-      </div>
+      {selectedEmotions.length > 0 && (<div className="emotion-next-step">
+        <IconWrapper variant="primary" onClick={onClickEmotionCapture}>
+          <KeyboardArrowRightIcon />
+        </IconWrapper>
+      </div>)}
     </div>
   );
 };

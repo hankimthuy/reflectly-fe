@@ -1,6 +1,8 @@
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import React, { useState } from 'react';
 import { Emotion, EMOTION_DATA } from '../../../../models/emotion';
 import './ReflectionCapture.scss';
+import IconWrapper from '../../../../components/IconWrapper/IconWrapper';
 
 interface ReflectionCaptureProps {
   selectedEmotions: Emotion[];
@@ -25,39 +27,13 @@ const ReflectionCapture: React.FC<ReflectionCaptureProps> = ({
   };
 
   const selectedEmotionData = selectedEmotions.map(emotion => EMOTION_DATA[emotion]);
-  
-  const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true
-  }).toUpperCase();
 
   return (
     <div className="reflection-capture">
-      <div className="step-header">
-        <div className="header-controls">
-          <button className="back-button" onClick={onBack}>
-            ←
-          </button>
-        </div>
-        
-        <div className="date-info">
-          <div className="date-card">
-            <div className="date-icon">📅</div>
-            <div className="date-content">
-              <div className="date-main">{formattedDate}</div>
-              <div className="date-subtitle">Today's Reflection</div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div className="step-content">
         <div className="selected-emotions">
-          <h3 className="section-title">Feelings</h3>
+          <label htmlFor="title-input" className="section-title">Feelings</label>
           <div className="emotion-tags">
             {selectedEmotionData.map((emotion) => (
               <div
@@ -106,14 +82,16 @@ const ReflectionCapture: React.FC<ReflectionCaptureProps> = ({
           </div>
         </div>
       </div>
-
       <div className="step-footer">
+        <IconWrapper variant="primary" onClick={onBack}>
+          <KeyboardArrowLeftIcon />
+        </IconWrapper>
         <button
           className="complete-button"
           onClick={handleSave}
           disabled={!title.trim() || !reflection.trim() || isLoading}
         >
-          {isLoading ? 'SAVING...' : 'COMPLETE CHECK-IN'}
+          {isLoading ? 'Saving...' : 'Check-in'}
         </button>
       </div>
     </div>
