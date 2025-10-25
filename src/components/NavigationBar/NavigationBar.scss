@@ -145,10 +145,11 @@
       width: 52px;
       height: 52px;
       border-radius: 50%;
-      box-shadow: 0 6px 20px var(--c-shadow-accent);
+      box-shadow: var(--c-shadow-heavy);
     }
     
     &:hover {
+      background-color: var(--c-text-secondary);
       transform: translateY(-2px) scale(1.05);
       box-shadow: 0 8px 25px var(--c-shadow-accent);
     }

@@ -105,6 +105,14 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
       sessionStorage.setItem(STORAGE_KEYS.USER_INFO, JSON.stringify(nextUser));
       sessionStorage.setItem(STORAGE_KEYS.ID_TOKEN, nextIdToken);
 
+      // Set authentication cookie for API calls
+      const cookieExpiry = new Date();
+      cookieExpiry.setTime(cookieExpiry.getTime() + (24 * 60 * 60 * 1000)); // 24 hours
+      document.cookie = `auth_token=${nextIdToken}; expires=${cookieExpiry.toUTCString()}; path=/; SameSite=Lax`;
+      document.cookie = `user_id=${nextUser.id}; expires=${cookieExpiry.toUTCString()}; path=/; SameSite=Lax`;
+      
+      console.log('🍪 Authentication cookies set');
+
       // Update state
       setUser(nextUser);
       setIdToken(nextIdToken);
@@ -127,6 +135,12 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
       // Clear storage
       sessionStorage.removeItem(STORAGE_KEYS.USER_INFO);
       sessionStorage.removeItem(STORAGE_KEYS.ID_TOKEN);
+
+      // Clear authentication cookies
+      document.cookie = 'auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = 'user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      
+      console.log('🍪 Authentication cookies cleared');
 
       // Update state
       setUser(null);
