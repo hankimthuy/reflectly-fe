@@ -18,7 +18,7 @@ const NavigationBar = () => {
                 <HomeOutlinedIcon/>
                 <span>Home</span>
             </Link>
-            <Link to={APP_ROUTES.ENTRIES} className="add-button">
+            <Link to={APP_ROUTES.ENTRIES} className={`add-button ${isActive(APP_ROUTES.ENTRIES)}`}>
                 <AddIcon/>
             </Link>
             <Link to={APP_ROUTES.PROFILE} className={`item ${isActive(APP_ROUTES.PROFILE)}`}>

@@ -20,7 +20,7 @@
   align-items: center;
   background-color: var(--c-surface);
   border-top: 1px solid var(--c-border);
-  gap: var(--spacing-2xl); // Add spacing between navigation items
+  gap: var(--spacing-2xl);
   @include nav-responsive;
   
   // Mobile MainLayout - fixed bottom navigation
@@ -54,7 +54,7 @@
     @include padding-responsive(var(--spacing-md) var(--spacing-lg));
   }
   
-  // Desktop MainLayout - keep bottom navigation like mobile/tablet
+  // Desktop MainLayout - keep bottom navigation like mobile
   @include respond-to(desktop) {
     position: fixed;
     bottom: 0;
@@ -145,7 +145,7 @@
       width: 52px;
       height: 52px;
       border-radius: 50%;
-      box-shadow: 0 6px 20px var(--c-shadow-accent);
+      box-shadow: var(--c-shadow-heavy);
     }
     
     &:hover {
