@@ -81,7 +81,8 @@
     text-decoration: none;
     border-radius: var(--border-radius-md);
     transition: all var(--transition-normal);
-    min-width: 44px; // Accessibility - minimum touch target
+    min-width: 44px;
+    flex-shrink: 0;
     @include flex-col-center;
     @include font-responsive(10px, 11px, 12px);
     @include padding-responsive(var(--spacing-xs), var(--spacing-sm), var(--spacing-sm));
@@ -95,22 +96,19 @@
     &--active {
       color: var(--c-text-secondary);
       background-color: var(--c-primary-light);
-      transform: translateY(-2px);
       
       .icon {
         color: var(--c-primary);
-        transform: scale(1.1);
       }
     }
     
     &:hover:not(.item--active) {
       color: var(--c-text-on-surface);
       background-color: var(--c-primary-light);
-      transform: translateY(-1px);
     }
     
     .icon {
-      transition: all var(--transition-normal);
+      transition: color var(--transition-normal);
       @include font-responsive(20px, 22px, 24px);
     }
     
@@ -127,39 +125,10 @@
   }
 
   .add-button {
-    @include place-items-center;
-    background-color: var(--c-primary);
-    color: var(--c-surface);
-    border: none;
-    cursor: pointer;
-    transition: all var(--transition-normal);
-    
-    @include mobile-only {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      box-shadow: 0 4px 16px var(--c-shadow-accent);
-    }
-    
-    @include respond-to(laptop) {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      box-shadow: var(--c-shadow-heavy);
-    }
-    
-    &:hover {
-      background-color: var(--c-text-secondary);
-      transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 8px 25px var(--c-shadow-accent);
-    }
-    
-    &:active {
-      transform: translateY(-1px) scale(1.02);
-    }
-    
-    .icon {
-      @include font-responsive(24px, 26px, 28px);
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    flex-shrink: 0;
   }
 }

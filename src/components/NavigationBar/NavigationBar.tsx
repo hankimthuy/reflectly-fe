@@ -4,6 +4,7 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import {Link, useLocation} from 'react-router-dom';
 import {APP_ROUTES} from '../../constants/route';
+import IconWrapper from '../IconWrapper/IconWrapper';
 
 const NavigationBar = () => {
     const location = useLocation();
@@ -18,8 +19,10 @@ const NavigationBar = () => {
                 <HomeOutlinedIcon/>
                 <span>Home</span>
             </Link>
-            <Link to={APP_ROUTES.ENTRIES} className={`add-button ${isActive(APP_ROUTES.ENTRIES)}`}>
-                <AddIcon/>
+            <Link to={APP_ROUTES.ENTRIES} className="add-button">
+                <IconWrapper variant="primary">
+                    <AddIcon/>
+                </IconWrapper>
             </Link>
             <Link to={APP_ROUTES.PROFILE} className={`item ${isActive(APP_ROUTES.PROFILE)}`}>
                 <PersonOutlinedIcon/>
