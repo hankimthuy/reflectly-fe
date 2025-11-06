@@ -8,7 +8,6 @@ export const entriesService = {
       const response = await httpClient.get<Entry[]>('/entries');
       return response.data;
     } catch (error) {
-      console.error('Failed to fetch entries:', error);
       throw error;
     }
   },
@@ -19,7 +18,6 @@ export const entriesService = {
       const response = await httpClient.getById<Entry>('/entries', id);
       return response.data;
     } catch (error) {
-      console.error('Failed to fetch entry:', error);
       throw error;
     }
   },
@@ -28,10 +26,8 @@ export const entriesService = {
   async createEntry(entry: CreateEntryRequest): Promise<Entry> {
     try {
       const response = await httpClient.post<Entry, CreateEntryRequest>('/entries', entry);
-      console.log('📊 [entriesService] Response data:', response.data);
       return response.data;
     } catch (error) {
-      console.error('❌ [entriesService] Failed to create entry:', error);
       throw error;
     }
   },
@@ -43,7 +39,6 @@ export const entriesService = {
       const response = await httpClient.put<Entry, Omit<UpdateEntryRequest, 'id'>>('/entries', id, updateData);
       return response.data;
     } catch (error) {
-      console.error('Failed to update entry:', error);
       throw error;
     }
   },
@@ -53,7 +48,6 @@ export const entriesService = {
     try {
       await httpClient.delete('/entries', id);
     } catch (error) {
-      console.error('Failed to delete entry:', error);
       throw error;
     }
   },
@@ -67,7 +61,6 @@ export const entriesService = {
       });
       return response.data;
     } catch (error) {
-      console.error('Failed to fetch entries by date range:', error);
       throw error;
     }
   },
@@ -78,7 +71,6 @@ export const entriesService = {
       const response = await httpClient.get<Entry[]>('/entries', { emotion });
       return response.data;
     } catch (error) {
-      console.error('Failed to fetch entries by emotion:', error);
       throw error;
     }
   }

@@ -40,14 +40,9 @@ axiosInstance.interceptors.request.use(
     // Ensure cookies are sent with request
     config.withCredentials = true;
     
-    console.log(`🌐 API Request: ${config.method?.toUpperCase()} ${config.url}`, { 
-      hasToken: !!idToken, 
-      hasCookie: !!authCookie 
-    });
     return config;
   },
   (error) => {
-    console.error('API Request Error:', error);
     return Promise.reject(error);
   }
 );
@@ -55,20 +50,15 @@ axiosInstance.interceptors.request.use(
 // Add response interceptor for error handling
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log(`✅ API Response: ${response.status} ${response.config.url}`);
     return response;
   },
   (error) => {
-    console.error('API Response Error:', error.response?.status, error.response?.data);
-    
     // Handle specific error cases
     if (error.response?.status === 401) {
       // Unauthorized - redirect to login
-      console.log('🔐 401 Unauthorized - redirecting to /login');
       window.location.href = '/login';
     } else if (error.response?.status === 403) {
       // Forbidden - show error message
-      console.error('❌ Access forbidden. Please check your permissions.');
     }
     
     return Promise.reject(error);
