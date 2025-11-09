@@ -1,6 +1,6 @@
 // Create a configured Axios instance
 import {type AxiosResponse} from "axios";
-import axiosInstance from "./axiosSetup.ts";
+import axiosInstance from "./axiosSetup";
 
 export const httpClient = {
   get: <T>(url: string, params?: object): Promise<AxiosResponse<T>> => {

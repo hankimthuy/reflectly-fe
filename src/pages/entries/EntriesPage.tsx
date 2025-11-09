@@ -4,7 +4,7 @@ import EmotionCapture from './components/EmotionCapture/EmotionCapture';
 import ReflectionCapture from './components/ReflectionCapture/ReflectionCapture';
 import { Emotion } from '../../models/emotion';
 import type { CreateEntryRequest } from '../../models/entry';
-import { entriesService } from '../../services/entriesService';
+import { entriesService } from '../../services/entries/entriesService';
 
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -51,7 +51,7 @@ const EntriesPage: React.FC = () => {
       // Reset state and go back to emotion capture
       setCurrentStep(0);
       setSelectedEmotions([]);
-    } catch (error) {
+    } catch {
       // Handle error (could show toast notification)
     } finally {
       setIsLoading(false);

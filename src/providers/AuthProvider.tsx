@@ -1,10 +1,10 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import type { User } from "../models/user.ts";
+import CookieService from '../services/auth/cookieService';
 
 interface AuthContextValue {
     user: User | null;
-    idToken: string | null;
     isLoading: boolean;
     isAuthenticated: boolean;
     error: string | null;
@@ -13,16 +13,9 @@ interface AuthContextValue {
     clearError: () => void;
 }
 
-// Constants
-const STORAGE_KEYS = {
-  USER_INFO: 'google_user_info',
-  ID_TOKEN: 'google_id_token',
-} as const;
-
 // Context
 const AuthContext = createContext<AuthContextValue>({
     user: null,
-    idToken: null,
     isLoading: false,
     isAuthenticated: false,
     error: null,
@@ -43,44 +36,57 @@ export const useAuth = (): AuthContextValue => {
 // Main Provider Component
 export const AuthProvider = ({ children }: {children: ReactNode;}) => {
   const [user, setUser] = useState<User | null>(null);
-  const [idToken, setIdToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   // Computed values
   const isAuthenticated = useMemo(() => !!user, [user]);
 
-  // Initialize auth state from storage
+  // Initialize auth state - decode JWT from cookie
   useEffect(() => {
     const initializeAuth = (): void => {
       try {
         setIsLoading(true);
-        const storedUserJSON = sessionStorage.getItem(STORAGE_KEYS.USER_INFO);
-        const storedIdToken = sessionStorage.getItem(STORAGE_KEYS.ID_TOKEN);
-
-        if (storedUserJSON && storedIdToken) {
-          const parsedUser = JSON.parse(storedUserJSON) as User;
-          setUser(parsedUser);
-          setIdToken(storedIdToken);
+        
+        // Decode user info directly from JWT in cookie
+        const userFromToken = CookieService.getUserFromToken();
+        
+        if (userFromToken) {
+          setUser(userFromToken);
         } else {
-          // Clear invalid data
-          sessionStorage.removeItem(STORAGE_KEYS.USER_INFO);
-          sessionStorage.removeItem(STORAGE_KEYS.ID_TOKEN);
+          setUser(null);
         }
       } catch (error) {
+        console.error('Failed to initialize authentication:', error);
         setError('Failed to initialize authentication');
-        // Clear corrupted data
-        sessionStorage.removeItem(STORAGE_KEYS.USER_INFO);
-        sessionStorage.removeItem(STORAGE_KEYS.ID_TOKEN);
+        CookieService.removeToken();
+        setUser(null);
       } finally {
         setIsLoading(false);
       }
     };
 
     initializeAuth();
-  }, []);
 
-  // Login function
+    // Poll for authentication changes (token expiration or external logout)
+    // Decode JWT each time to ensure user data is always in sync with token
+    const authCheckInterval = setInterval(() => {
+      const userFromToken = CookieService.getUserFromToken();
+      
+      // If token expired or removed, clear user state
+      if (!userFromToken && user) {
+        setUser(null);
+      }
+      // If token exists but user state is stale, update it
+      else if (userFromToken && (!user || user.id !== userFromToken.id)) {
+        setUser(userFromToken);
+      }
+    }, 1000); // Check every second
+
+    return () => clearInterval(authCheckInterval);
+  }, [user]);
+
+  // Login function - Set cookie and decode user from JWT
   const login = useCallback(async (nextUser: User, nextIdToken: string): Promise<void> => {
     try {
       setIsLoading(true);
@@ -100,45 +106,39 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
         throw new Error('Invalid user data structure');
       }
 
-      // Store in sessionStorage
-      sessionStorage.setItem(STORAGE_KEYS.USER_INFO, JSON.stringify(nextUser));
-      sessionStorage.setItem(STORAGE_KEYS.ID_TOKEN, nextIdToken);
+      // Set JWT token in cookie (backend reads this)
+      CookieService.setToken(nextIdToken);
 
-      // Set authentication cookie for API calls
-      const cookieExpiry = new Date();
-      cookieExpiry.setTime(cookieExpiry.getTime() + (24 * 60 * 60 * 1000)); // 24 hours
-      document.cookie = `auth_token=${nextIdToken}; expires=${cookieExpiry.toUTCString()}; path=/; SameSite=Lax`;
-      document.cookie = `user_id=${nextUser.id}; expires=${cookieExpiry.toUTCString()}; path=/; SameSite=Lax`;
+      // Decode user from JWT to ensure sync
+      const userFromToken = CookieService.getUserFromToken();
+      if (!userFromToken) {
+        throw new Error('Failed to decode user from token');
+      }
       
-      // Update state
-      setUser(nextUser);
-      setIdToken(nextIdToken);
+      // Update state with decoded user
+      setUser(userFromToken);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Login failed';
       setError(errorMessage);
+      // Clean up on error
+      CookieService.removeToken();
       throw error;
     } finally {
       setIsLoading(false);
     }
   }, []);
 
-  // Logout function
+  // Logout function - Clear cookie and user state
   const logout = useCallback(async (): Promise<void> => {
     try {
       setIsLoading(true);
       setError(null);
 
-      // Clear storage
-      sessionStorage.removeItem(STORAGE_KEYS.USER_INFO);
-      sessionStorage.removeItem(STORAGE_KEYS.ID_TOKEN);
-
-      // Clear authentication cookies
-      document.cookie = 'auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-      document.cookie = 'user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      // Clear JWT cookie
+      CookieService.removeToken();
       
       // Update state
       setUser(null);
-      setIdToken(null);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Logout failed';
       setError(errorMessage);
@@ -156,7 +156,6 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
   const contextValue = useMemo(
     () => ({
       user,
-      idToken,
       isLoading,
       isAuthenticated,
       error,
@@ -164,7 +163,7 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
       logout,
       clearError,
     }),
-    [user, idToken, isLoading, isAuthenticated, error, login, logout, clearError]
+    [user, isLoading, isAuthenticated, error, login, logout, clearError]
   );
 
   return (

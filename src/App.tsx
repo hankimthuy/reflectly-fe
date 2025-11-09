@@ -1,10 +1,11 @@
 import './App.scss';
-import {lazy, Suspense} from "react";
-import {Navigate, Route, Routes} from "react-router-dom";
+import {lazy, Suspense, useEffect} from "react";
+import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
 import {APP_ROUTES} from "./constants/route.ts";
 import Loading from "./components/Loading/Loading.tsx";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.tsx";
 import MainLayout from "./components/MainLayout/MainLayout.tsx";
+import NavigationService from "./services/utils/navigationService";
 
 const WelcomePage = lazy(() => import('./pages/welcome/WelcomePage'));
 const HomePage = lazy(() => import('./pages/home/Homepage'));
@@ -15,6 +16,12 @@ const ProfilePage = lazy(() => import('./pages/profile/ProfilePage'));
 const LoadingFallback = () => <Loading message="Loading page..." fullHeight />;
 
 const App = () => {
+    const navigate = useNavigate();
+
+    // Register navigation function for NavigationService (used by axios interceptor)
+    useEffect(() => {
+        NavigationService.setNavigate(navigate);
+    }, [navigate]);
 
     return (
         <Suspense fallback={<LoadingFallback />}>

@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { type CredentialResponse } from "@react-oauth/google";
 import { useNavigate } from 'react-router-dom';
-import { loginWithGoogleIdToken } from '../services/authService';
+import { loginWithGoogleIdToken } from '../services/auth/authService';
 import { useAuth } from '../providers/AuthProvider';
 
 interface UseGoogleAuthOptions {
