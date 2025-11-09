@@ -44,7 +44,7 @@ const HomeHeader = () => {
     const handleLogout = async () => {
         setIsLogoMenuOpen(false);
         await logout();
-        navigate('/');
+        navigate(APP_ROUTES.WELCOME);
     };
 
     return (

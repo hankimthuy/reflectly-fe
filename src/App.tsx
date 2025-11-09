@@ -6,6 +6,7 @@ import Loading from "./components/Loading/Loading.tsx";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.tsx";
 import MainLayout from "./components/MainLayout/MainLayout.tsx";
 import NavigationService from "./services/utils/navigationService";
+import {useAuth} from "./providers/AuthProvider";
 
 const WelcomePage = lazy(() => import('./pages/welcome/WelcomePage'));
 const HomePage = lazy(() => import('./pages/home/Homepage'));
@@ -17,47 +18,67 @@ const LoadingFallback = () => <Loading message="Loading page..." fullHeight />;
 
 const App = () => {
     const navigate = useNavigate();
+    const {isLoading} = useAuth();
 
-    // Register navigation function for NavigationService (used by axios interceptor)
     useEffect(() => {
         NavigationService.setNavigate(navigate);
     }, [navigate]);
 
     return (
-        <Suspense fallback={<LoadingFallback />}>
+        <>
+            {isLoading && (
+                <div className="loading-overlay">
+                    <Loading message="Please wait..." />
+                </div>
+            )}
             <Routes>
-                {/* Public ProtectedRoute - accessible without authentication */}
-                <Route path={APP_ROUTES.LOGIN} element={<LoginPage />} />
+            <Route path={APP_ROUTES.LOGIN} element={
+                <Suspense fallback={<LoadingFallback />}>
+                    <LoginPage />
+                </Suspense>
+            } />
 
-                {/* Routes with MainLayout */}
-                <Route path={APP_ROUTES.WELCOME} element={<MainLayout />}>
-                    {/* WelcomePage - Public but redirects if authenticated */}
-                    <Route index element={<WelcomePage />} />
+            <Route path={APP_ROUTES.WELCOME} element={
+                <MainLayout>
+                    <Suspense fallback={<LoadingFallback />}>
+                        <WelcomePage />
+                    </Suspense>
+                </MainLayout>
+            } />
 
-                    {/* Protected ProtectedRoute - require authentication */}
-                    <Route path="home" element={
+            <Route path={APP_ROUTES.HOME} element={
+                <MainLayout>
+                    <Suspense fallback={<LoadingFallback />}>
                         <ProtectedRoute>
                             <HomePage />
                         </ProtectedRoute>
-                    } />
+                    </Suspense>
+                </MainLayout>
+            } />
 
-                    <Route path="entries" element={
+            <Route path={APP_ROUTES.ENTRIES} element={
+                <MainLayout>
+                    <Suspense fallback={<LoadingFallback />}>
                         <ProtectedRoute>
                             <EntriesPage />
                         </ProtectedRoute>
-                    } />
+                    </Suspense>
+                </MainLayout>
+            } />
 
-                    <Route path="profile" element={
+            <Route path={APP_ROUTES.PROFILE} element={
+                <MainLayout>
+                    <Suspense fallback={<LoadingFallback />}>
                         <ProtectedRoute>
                             <ProfilePage />
                         </ProtectedRoute>
-                    } />
-                </Route>
+                    </Suspense>
+                </MainLayout>
+            } />
 
-                {/* Catch all route - redirect to home */}
-                <Route path="*" element={<Navigate to={APP_ROUTES.HOME} replace />} />
-            </Routes>
-        </Suspense>
+            <Route path="*" element={<Navigate to={APP_ROUTES.HOME} replace />} />
+        </Routes>
+        </>
     );
 };
 

@@ -1,12 +1,7 @@
 import { useState, useCallback } from 'react';
 import { type CredentialResponse } from "@react-oauth/google";
-import { useNavigate } from 'react-router-dom';
 import { loginWithGoogleIdToken } from '../services/auth/authService';
 import { useAuth } from '../providers/AuthProvider';
-
-interface UseGoogleAuthOptions {
-  intendedDestination?: string;
-}
 
 interface UseGoogleAuthReturn {
   isLoggingIn: boolean;
@@ -19,14 +14,11 @@ interface UseGoogleAuthReturn {
 /**
  * Custom hook for handling Google authentication
  */
-export const useGoogleAuth = (options?: UseGoogleAuthOptions): UseGoogleAuthReturn => {
-  const navigate = useNavigate();
+export const useGoogleAuth = (): UseGoogleAuthReturn => {
   const { login, clearError: clearAuthError } = useAuth();
   
   const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  
-  const intendedDestination = options?.intendedDestination || '/';
 
   const clearError = useCallback((): void => {
     setError(null);
@@ -50,10 +42,8 @@ export const useGoogleAuth = (options?: UseGoogleAuthOptions): UseGoogleAuthRetu
       const backendResponse = await loginWithGoogleIdToken(idToken);
       
       // Use AuthContext to persist and update app state
+      // Navigation will be handled by LoginPage useEffect when isAuthenticated changes
       await login(backendResponse.user, idToken);
-      
-      // Navigate to intended destination after successful login
-      navigate(intendedDestination, { replace: true });
 
     } catch (error) {
       const errorMessage = error instanceof Error 
@@ -64,7 +54,7 @@ export const useGoogleAuth = (options?: UseGoogleAuthOptions): UseGoogleAuthRetu
     } finally {
       setIsLoggingIn(false);
     }
-  }, [login, navigate, clearAuthError, intendedDestination]);
+  }, [login, clearAuthError]);
 
   const handleGoogleError = useCallback((): void => {
     const errorMsg = 'Google authentication failed. Please try again.';

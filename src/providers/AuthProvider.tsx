@@ -67,24 +67,30 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
     };
 
     initializeAuth();
+  }, []);
 
-    // Poll for authentication changes (token expiration or external logout)
-    // Decode JWT each time to ensure user data is always in sync with token
+  // Poll for authentication changes (token expiration or external logout)
+  useEffect(() => {
     const authCheckInterval = setInterval(() => {
       const userFromToken = CookieService.getUserFromToken();
       
-      // If token expired or removed, clear user state
-      if (!userFromToken && user) {
-        setUser(null);
-      }
-      // If token exists but user state is stale, update it
-      else if (userFromToken && (!user || user.id !== userFromToken.id)) {
-        setUser(userFromToken);
-      }
-    }, 1000); // Check every second
+      // Compare with current user state
+      setUser(currentUser => {
+        // If token expired but user exists → logout
+        if (!userFromToken && currentUser) {
+          return null;
+        }
+        // If token exists but user is null or different → update
+        if (userFromToken && (!currentUser || currentUser.id !== userFromToken.id)) {
+          return userFromToken;
+        }
+        // No change needed
+        return currentUser;
+      });
+    }, 1000);
 
     return () => clearInterval(authCheckInterval);
-  }, [user]);
+  }, []);
 
   // Login function - Set cookie and decode user from JWT
   const login = useCallback(async (nextUser: User, nextIdToken: string): Promise<void> => {
