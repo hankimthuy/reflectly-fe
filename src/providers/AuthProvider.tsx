@@ -68,7 +68,6 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
           sessionStorage.removeItem(STORAGE_KEYS.ID_TOKEN);
         }
       } catch (error) {
-        console.error('Error initializing auth:', error);
         setError('Failed to initialize authentication');
         // Clear corrupted data
         sessionStorage.removeItem(STORAGE_KEYS.USER_INFO);
@@ -111,15 +110,12 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
       document.cookie = `auth_token=${nextIdToken}; expires=${cookieExpiry.toUTCString()}; path=/; SameSite=Lax`;
       document.cookie = `user_id=${nextUser.id}; expires=${cookieExpiry.toUTCString()}; path=/; SameSite=Lax`;
       
-      console.log('🍪 Authentication cookies set');
-
       // Update state
       setUser(nextUser);
       setIdToken(nextIdToken);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Login failed';
       setError(errorMessage);
-      console.error('Login error:', error);
       throw error;
     } finally {
       setIsLoading(false);
@@ -140,15 +136,12 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
       document.cookie = 'auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       document.cookie = 'user_id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       
-      console.log('🍪 Authentication cookies cleared');
-
       // Update state
       setUser(null);
       setIdToken(null);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Logout failed';
       setError(errorMessage);
-      console.error('Logout error:', error);
     } finally {
       setIsLoading(false);
     }

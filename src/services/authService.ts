@@ -25,7 +25,6 @@ const getUserProfile = async (idToken?: string): Promise<BackendAuthResponse> =>
         const response = await axiosInstance.get<BackendAuthResponse>('/users/profile', {headers});
         return response.data;
     } catch (error) {
-        console.error('Error getting user profile from backend:', error);
         throw error;
     }
 };
@@ -52,7 +51,6 @@ export const loginWithGoogleIdToken = async (idToken: string): Promise<GoogleLog
             user: userData
         };
     } catch (error) {
-        console.error('Error sending Google ID Token to backend:', error);
         throw error;
     }
 };

@@ -37,7 +37,6 @@ export const useGoogleAuth = (options?: UseGoogleAuthOptions): UseGoogleAuthRetu
     if (!credentialResponse.credential) {
       const errorMsg = 'Did not receive credential from Google.';
       setError(errorMsg);
-      console.error(errorMsg);
       return;
     }
 
@@ -49,7 +48,6 @@ export const useGoogleAuth = (options?: UseGoogleAuthOptions): UseGoogleAuthRetu
       clearAuthError();
 
       const backendResponse = await loginWithGoogleIdToken(idToken);
-      console.log('Response from Backend:', backendResponse);
       
       // Use AuthContext to persist and update app state
       await login(backendResponse.user, idToken);
@@ -63,7 +61,6 @@ export const useGoogleAuth = (options?: UseGoogleAuthOptions): UseGoogleAuthRetu
         : 'Login failed during backend authentication step.';
       
       setError(errorMessage);
-      console.error('Login error:', error);
     } finally {
       setIsLoggingIn(false);
     }
@@ -72,7 +69,6 @@ export const useGoogleAuth = (options?: UseGoogleAuthOptions): UseGoogleAuthRetu
   const handleGoogleError = useCallback((): void => {
     const errorMsg = 'Google authentication failed. Please try again.';
     setError(errorMsg);
-    console.error('Google Login Failed');
   }, []);
 
   return {
