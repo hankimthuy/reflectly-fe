@@ -43,7 +43,6 @@ const EntriesPage: React.FC = () => {
         title,
         reflection,
         emotions: selectedEmotions,
-        activities: [] // Can be extended later
       };
 
       await entriesService.createEntry(entry);
