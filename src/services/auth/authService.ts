@@ -12,15 +12,20 @@ export const getUserProfile = async (): Promise<User> => {
 };
 
 export const loginWithGoogleIdToken = async (idToken: string): Promise<GoogleLoginResponse> => {
-    CookieService.setToken(idToken);
+    try {
+        CookieService.setToken(idToken);
+        
+        const userData = await getUserProfile();
 
-    const userData = await getUserProfile();
+        if (!userData.id || !userData.email || !userData.fullName || !userData.pictureUrl) {
+            throw new Error('Missing required fields in backend response');
+        }
 
-    if (!userData.id || !userData.email || !userData.fullName || !userData.pictureUrl) {
-        throw new Error('Missing required fields in backend response');
+        return {
+            user: userData
+        };
+    } catch (error) {
+        CookieService.removeToken();
+        throw error;
     }
-
-    return {
-        user: userData
-    };
 };
