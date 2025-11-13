@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import type { ReactNode } from 'react';
 import type { User } from "../models/user.ts";
 import CookieService from '../services/auth/cookieService';
+import { getUserProfile } from '../services/auth/authService';
 
 interface AuthContextValue {
     user: User | null;
@@ -13,7 +14,6 @@ interface AuthContextValue {
     clearError: () => void;
 }
 
-// Context
 const AuthContext = createContext<AuthContextValue>({
     user: null,
     isLoading: false,
@@ -33,32 +33,28 @@ export const useAuth = (): AuthContextValue => {
   return context;
 };
 
-// Main Provider Component
 export const AuthProvider = ({ children }: {children: ReactNode;}) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Computed values
   const isAuthenticated = useMemo(() => !!user, [user]);
 
-  // Initialize auth state - decode JWT from cookie
   useEffect(() => {
-    const initializeAuth = (): void => {
+    const initializeAuth = async (): Promise<void> => {
       try {
         setIsLoading(true);
         
-        // Decode user info directly from JWT in cookie
-        const userFromToken = CookieService.getUserFromToken();
+        const token = CookieService.getToken();
         
-        if (userFromToken) {
-          setUser(userFromToken);
+        if (token) {
+          const userData = await getUserProfile();
+          setUser(userData);
         } else {
           setUser(null);
         }
       } catch (error) {
         console.error('Failed to initialize authentication:', error);
-        setError('Failed to initialize authentication');
         CookieService.removeToken();
         setUser(null);
       } finally {
@@ -69,22 +65,14 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
     initializeAuth();
   }, []);
 
-  // Poll for authentication changes (token expiration or external logout)
   useEffect(() => {
     const authCheckInterval = setInterval(() => {
-      const userFromToken = CookieService.getUserFromToken();
+      const token = CookieService.getToken();
       
-      // Compare with current user state
       setUser(currentUser => {
-        // If token expired but user exists → logout
-        if (!userFromToken && currentUser) {
+        if (!token && currentUser) {
           return null;
         }
-        // If token exists but user is null or different → update
-        if (userFromToken && (!currentUser || currentUser.id !== userFromToken.id)) {
-          return userFromToken;
-        }
-        // No change needed
         return currentUser;
       });
     }, 1000);
@@ -92,41 +80,25 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
     return () => clearInterval(authCheckInterval);
   }, []);
 
-  // Login function - Set cookie and decode user from JWT
   const login = useCallback(async (nextUser: User, nextIdToken: string): Promise<void> => {
     try {
       setIsLoading(true);
       setError(null);
 
-      // Validate inputs
-      if (!nextUser) {
-        throw new Error('Invalid user data');
+      if (!nextUser || !nextIdToken) {
+        throw new Error('Invalid user data or token');
       }
 
-      if (!nextIdToken) {
-        throw new Error('Invalid ID token');
-      }
-
-      // Validate user object structure
       if (!nextUser.id || !nextUser.email || !nextUser.fullName || nextUser.pictureUrl === undefined) {
         throw new Error('Invalid user data structure');
       }
 
-      // Set JWT token in cookie (backend reads this)
       CookieService.setToken(nextIdToken);
-
-      // Decode user from JWT to ensure sync
-      const userFromToken = CookieService.getUserFromToken();
-      if (!userFromToken) {
-        throw new Error('Failed to decode user from token');
-      }
       
-      // Update state with decoded user
-      setUser(userFromToken);
+      setUser(nextUser);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Login failed';
       setError(errorMessage);
-      // Clean up on error
       CookieService.removeToken();
       throw error;
     } finally {
@@ -140,10 +112,8 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
       setIsLoading(true);
       setError(null);
 
-      // Clear JWT cookie
       CookieService.removeToken();
       
-      // Update state
       setUser(null);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Logout failed';
@@ -153,12 +123,10 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
     }
   }, []);
 
-  // Clear error function
   const clearError = useCallback((): void => {
     setError(null);
   }, []);
 
-  // Memoized context value
   const contextValue = useMemo(
     () => ({
       user,
