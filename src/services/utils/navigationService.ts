@@ -10,7 +10,6 @@ type NavigateFunction = (path: string, options?: { replace?: boolean; state?: un
 class NavigationService {
   private static navigateCallback: NavigateFunction | null = null;
 
-  /** Register navigation function from React Router Call this in App component with useNavigate hook */
   static setNavigate(navigateFn: NavigateFunction): void {
     this.navigateCallback = navigateFn;
   }
@@ -20,7 +19,6 @@ class NavigationService {
     if (this.navigateCallback) {
       this.navigateCallback(path, options);
     } else {
-      // Fallback to hard redirect if navigate not registered
       console.warn('NavigationService: navigate callback not registered, using fallback');
       window.location.href = path;
     }

@@ -12,11 +12,11 @@ const axiosInstance = axios.create({
 });
 
 // Request interceptor - Cookie is sent automatically by browser
+let isRedirecting = false;
+
 axiosInstance.interceptors.request.use(
   (config) => {
-    // Ensure cookies are sent with request
     config.withCredentials = true;
-    
     return config;
   },
   (error) => {
@@ -30,13 +30,16 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response?.status === 401) {
-      // Token expired or invalid - clear JWT cookie
+    if (error.response?.status === 401 && !isRedirecting) {
+      isRedirecting = true;
       CookieService.removeToken();
       
-      // Use NavigationService to redirect properly
       const currentPath = window.location.pathname;
-      NavigationService.navigateToLogin(currentPath); // No page reload, proper SPA navigation
+      NavigationService.navigateToLogin(currentPath);
+      
+      setTimeout(() => {
+        isRedirecting = false;
+      }, 2000);
     }
     
     return Promise.reject(error);

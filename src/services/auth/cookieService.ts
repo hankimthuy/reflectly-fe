@@ -2,29 +2,27 @@ import { jwtDecode } from 'jwt-decode';
 import type { User } from '../../models/user';
 
 interface GoogleJWTPayload {
-  sub: string;           // Google user ID
   email: string;
   name: string;
   picture: string;
+  sub: string;           // Google user ID
   exp: number;          // Expiration timestamp
-  iat: number;          // Issued at timestamp
+  iat: number;          // Issued at timestamp - for security audit
 }
 
-/**
- * CookieService - JWT token storage in cookies (stateless auth)
- */
+/** * CookieService - JWT token storage in cookies (stateless auth) */
 class CookieService {
   private static readonly COOKIE_NAME = 'auth_token';
-  private static readonly EXPIRATION_DAYS = 1;
+  private static readonly EXPIRATION_DAYS = 7;
 
   /** Set JWT token in cookie */
   static setToken(token: string): void {
     const expires = new Date();
     expires.setTime(expires.getTime() + (this.EXPIRATION_DAYS * 24 * 60 * 60 * 1000));
-    
+
     const isProduction = window.location.protocol === 'https:';
     const secureFlag = isProduction ? 'Secure;' : '';
-    
+
     document.cookie = `${this.COOKIE_NAME}=${token}; expires=${expires.toUTCString()}; path=/; SameSite=Strict; ${secureFlag}`;
   }
 
@@ -33,7 +31,7 @@ class CookieService {
     const name = `${this.COOKIE_NAME}=`;
     const decodedCookie = decodeURIComponent(document.cookie);
     const cookieArray = decodedCookie.split(';');
-    
+
     for (let i = 0; i < cookieArray.length; i++) {
       let cookie = cookieArray[i];
       while (cookie.charAt(0) === ' ') {
@@ -55,7 +53,7 @@ class CookieService {
   static isAuthenticated(): boolean {
     const token = this.getToken();
     if (!token) return false;
-    
+
     try {
       const decoded = jwtDecode<GoogleJWTPayload>(token);
       // Check if token is expired
@@ -73,7 +71,7 @@ class CookieService {
 
     try {
       const decoded = jwtDecode<GoogleJWTPayload>(token);
-      
+
       // Check if token is expired
       const now = Date.now() / 1000;
       if (decoded.exp <= now) {

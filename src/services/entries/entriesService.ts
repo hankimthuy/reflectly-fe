@@ -1,49 +1,46 @@
 import type { Entry, CreateEntryRequest, UpdateEntryRequest } from '../../models/entry';
-import { httpClient } from '../core/httpClient';
+import axiosInstance from '../core/axiosSetup';
 
 export const entriesService = {
-  // Get all entries for the current user
   async getEntries(): Promise<Entry[]> {
-    const response = await httpClient.get<Entry[]>('/entries');
-    return response.data;
+    const { data } = await axiosInstance.get<Entry[]>('/entries');
+    return data;
   },
 
-  // Get a specific entry by ID
   async getEntry(id: string): Promise<Entry> {
-    const response = await httpClient.getById<Entry>('/entries', id);
-    return response.data;
+    const { data } = await axiosInstance.get<Entry>(`/entries/${id}`);
+    return data;
   },
 
-  // Create a new entry
   async createEntry(entry: CreateEntryRequest): Promise<Entry> {
-    const response = await httpClient.post<Entry, CreateEntryRequest>('/entries', entry);
-    return response.data;
+    const { data } = await axiosInstance.post<Entry>('/entries', entry);
+    return data;
   },
 
-  // Update an existing entry
   async updateEntry(entry: UpdateEntryRequest): Promise<Entry> {
     const { id, ...updateData } = entry;
-    const response = await httpClient.put<Entry, Omit<UpdateEntryRequest, 'id'>>('/entries', id, updateData);
-    return response.data;
+    const { data } = await axiosInstance.put<Entry>(`/entries/${id}`, updateData);
+    return data;
   },
 
-  // Delete an entry
   async deleteEntry(id: string): Promise<void> {
-    await httpClient.delete('/entries', id);
+    await axiosInstance.delete(`/entries/${id}`);
   },
 
-  // Get entries by date range
   async getEntriesByDateRange(startDate: Date, endDate: Date): Promise<Entry[]> {
-    const response = await httpClient.get<Entry[]>('/entries', {
-      startDate: startDate.toISOString(),
-      endDate: endDate.toISOString()
+    const { data } = await axiosInstance.get<Entry[]>('/entries', {
+      params: {
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString()
+      }
     });
-    return response.data;
+    return data;
   },
 
-  // Get entries by emotion
   async getEntriesByEmotion(emotion: string): Promise<Entry[]> {
-    const response = await httpClient.get<Entry[]>('/entries', { emotion });
-    return response.data;
+    const { data } = await axiosInstance.get<Entry[]>('/entries', {
+      params: { emotion }
+    });
+    return data;
   }
 };
