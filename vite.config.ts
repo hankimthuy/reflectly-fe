@@ -9,19 +9,19 @@ export default defineConfig({
     host: true,
     cors: true, 
   },
-  build: {
-    outDir: 'E:\\01_Working\\IT_Project\\reflectly-be\\src\\main\\resources\\static',
-    emptyOutDir: true, 
-    sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks: () => 'app',
-        entryFileNames: 'assets/app.js',
-        chunkFileNames: 'assets/app.js',
-        assetFileNames: 'assets/[name].[ext]'
-      },
-    },
-  },
+  // build: {
+  //   outDir: 'E:\\01_Working\\IT_Project\\reflectly-be\\src\\main\\resources\\static',
+  //   emptyOutDir: true, 
+  //   sourcemap: false,
+  //   rollupOptions: {
+  //     output: {
+  //       manualChunks: () => 'app',
+  //       entryFileNames: 'assets/app.js',
+  //       chunkFileNames: 'assets/app.js',
+  //       assetFileNames: 'assets/[name].[ext]'
+  //     },
+  //   },
+  // },
   define: {
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
   },
