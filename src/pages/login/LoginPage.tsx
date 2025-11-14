@@ -20,16 +20,14 @@ const LoginPage = () => {
         handleGoogleSuccess,
         handleGoogleError,
         clearError
-    } = useGoogleAuth({intendedDestination});
+    } = useGoogleAuth();
 
     // Handle redirects for authenticated users
     useEffect(() => {
-        if (isAuthenticated) {
-            // If user came from a protected route, redirect back to that route
-            // Otherwise redirect to home
+        if (isAuthenticated && !isLoading) {
             navigate(intendedDestination, {replace: true});
         }
-    }, [isAuthenticated, navigate, intendedDestination]);
+    }, [isAuthenticated, isLoading, navigate, intendedDestination]);
 
     // Clear errors when component mounts
     useEffect(() => {

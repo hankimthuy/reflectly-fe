@@ -112,54 +112,15 @@
   }
 }
 
-.loading-container {
-  &.primary {
-    .spinner {
-      border-top-color: var(--c-primary);
-    }
-    
-    .loading-message {
-      color: var(--c-primary);
-    }
-  }
-
-  &.secondary {
-    .spinner {
-      border-top-color: var(--c-secondary);
-    }
-    
-    .loading-message {
-      color: var(--c-secondary);
-    }
-  }
-
-  &.success {
-    .spinner {
-      border-top-color: var(--c-success);
-    }
-    
-    .loading-message {
-      color: var(--c-success);
-    }
-  }
-
-  &.warning {
-    .spinner {
-      border-top-color: var(--c-warning);
-    }
-    
-    .loading-message {
-      color: var(--c-warning);
-    }
-  }
-
-  &.danger {
-    .spinner {
-      border-top-color: var(--c-danger);
-    }
-    
-    .loading-message {
-      color: var(--c-danger);
-    }
-  }
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
