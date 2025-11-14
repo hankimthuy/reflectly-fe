@@ -1,4 +1,4 @@
-import './HomePage.scss';
+import './Homepage.scss';
 import {Grid} from '@mui/material';
 import IconWrapper from '../../components/IconWrapper/IconWrapper.tsx';
 import BaseCard from '../../components/BaseCard/BaseCard.tsx';
