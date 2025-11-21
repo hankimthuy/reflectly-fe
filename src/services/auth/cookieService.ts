@@ -1,6 +1,6 @@
 class CookieService {
   private static readonly COOKIE_NAME = 'auth_token';
-  private static readonly EXPIRATION_DAYS = 7;
+  private static readonly EXPIRATION_DAYS = 1;
 
   static setToken(token: string): void {
     const expires = new Date();

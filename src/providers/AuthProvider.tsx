@@ -49,6 +49,18 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
         
         if (token) {
           const userData = await getUserProfile();
+          
+          // Check if token is expired
+          if (userData.tokenExpiresAt) {
+            const currentTime = Math.floor(Date.now() / 1000);
+            if (currentTime >= userData.tokenExpiresAt) {
+              console.log('Token expired, clearing authentication');
+              CookieService.removeToken();
+              setUser(null);
+              return;
+            }
+          }
+          
           setUser(userData);
         } else {
           setUser(null);
@@ -70,9 +82,21 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
       const token = CookieService.getToken();
       
       setUser(currentUser => {
+        // If no token but user exists, clear user
         if (!token && currentUser) {
           return null;
         }
+        
+        // Check token expiration
+        if (currentUser && currentUser.tokenExpiresAt) {
+          const currentTime = Math.floor(Date.now() / 1000);
+          if (currentTime >= currentUser.tokenExpiresAt) {
+            console.log('Token expired during session, logging out');
+            CookieService.removeToken();
+            return null;
+          }
+        }
+        
         return currentUser;
       });
     }, 1000);
