@@ -1,7 +1,7 @@
 import React from 'react';
 import {Navigate, useLocation} from 'react-router-dom';
-import {useAuth} from '../../providers/AuthProvider';
-import Loading from '../Loading/Loading';
+import {useAuth} from '../providers/AuthProvider';
+import CookieService from '../services/auth/cookieService';
 
 type ProtectedRouteProps = {
     children: React.ReactNode;
@@ -9,14 +9,13 @@ type ProtectedRouteProps = {
 }
 
 const ProtectedRoute = ({children, redirectTo = '/login'}: ProtectedRouteProps) => {
-    const {isAuthenticated, isLoading} = useAuth();
+    const {isAuthenticated} = useAuth();
     const location = useLocation();
 
-    if (isLoading) {
-        return <Loading message="Checking authentication..." fullHeight/>;
+    if (!CookieService.checkCookieExists()) {
+        return <Navigate to={redirectTo} state={{from: location.pathname}} replace/>;
     }
 
-    // Redirect to log in if not authenticated, preserving the current path
     if (!isAuthenticated) {
         return <Navigate to={redirectTo} state={{from: location.pathname}} replace/>;
     }
@@ -25,3 +24,4 @@ const ProtectedRoute = ({children, redirectTo = '/login'}: ProtectedRouteProps) 
 };
 
 export default ProtectedRoute;
+

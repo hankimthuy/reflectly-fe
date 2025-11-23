@@ -45,29 +45,15 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
       try {
         setIsLoading(true);
         
-        const token = CookieService.getToken();
-        
-        if (token) {
-          const userData = await getUserProfile();
-          
-          // Check if token is expired
-          if (userData.tokenExpiresAt) {
-            const currentTime = Math.floor(Date.now() / 1000);
-            if (currentTime >= userData.tokenExpiresAt) {
-              console.log('Token expired, clearing authentication');
-              CookieService.removeToken();
-              setUser(null);
-              return;
-            }
-          }
-          
-          setUser(userData);
-        } else {
+        if (!CookieService.checkCookieExists()) {
           setUser(null);
+          return;
         }
+        
+        const userData = await getUserProfile();
+        setUser(userData);
       } catch (error) {
         console.error('Failed to initialize authentication:', error);
-        CookieService.removeToken();
         setUser(null);
       } finally {
         setIsLoading(false);
@@ -75,33 +61,6 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
     };
 
     initializeAuth();
-  }, []);
-
-  useEffect(() => {
-    const authCheckInterval = setInterval(() => {
-      const token = CookieService.getToken();
-      
-      setUser(currentUser => {
-        // If no token but user exists, clear user
-        if (!token && currentUser) {
-          return null;
-        }
-        
-        // Check token expiration
-        if (currentUser && currentUser.tokenExpiresAt) {
-          const currentTime = Math.floor(Date.now() / 1000);
-          if (currentTime >= currentUser.tokenExpiresAt) {
-            console.log('Token expired during session, logging out');
-            CookieService.removeToken();
-            return null;
-          }
-        }
-        
-        return currentUser;
-      });
-    }, 1000);
-
-    return () => clearInterval(authCheckInterval);
   }, []);
 
   const login = useCallback(async (nextUser: User, nextIdToken: string): Promise<void> => {
@@ -118,7 +77,6 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
       }
 
       CookieService.setToken(nextIdToken);
-      
       setUser(nextUser);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Login failed';
@@ -130,14 +88,12 @@ export const AuthProvider = ({ children }: {children: ReactNode;}) => {
     }
   }, []);
 
-  // Logout function - Clear cookie and user state
   const logout = useCallback(async (): Promise<void> => {
     try {
       setIsLoading(true);
       setError(null);
 
       CookieService.removeToken();
-      
       setUser(null);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Logout failed';

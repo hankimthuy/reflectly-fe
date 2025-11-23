@@ -3,5 +3,4 @@ export interface User {
     email: string;
     pictureUrl: string;
     fullName: string;
-    tokenExpiresAt?: number; // Unix timestamp (seconds) from backend
 }

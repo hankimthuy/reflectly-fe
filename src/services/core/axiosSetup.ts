@@ -7,12 +7,28 @@ const axiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true, // Enable sending cookies automatically
+  withCredentials: true,
   timeout: 10000,
 });
 
-// Request interceptor - Cookie is sent automatically by browser
 let isRedirecting = false;
+const REDIRECT_DEBOUNCE_MS = 2000;
+
+const handleUnauthorizedError = (): void => {
+  if (isRedirecting) {
+    return;
+  }
+
+  isRedirecting = true;
+  CookieService.removeToken();
+
+  const currentPath = window.location.pathname;
+  NavigationService.navigateToLogin(currentPath);
+
+  setTimeout(() => {
+    isRedirecting = false;
+  }, REDIRECT_DEBOUNCE_MS);
+};
 
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -24,24 +40,15 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// Response interceptor - Handle authentication errors
 axiosInstance.interceptors.response.use(
   (response) => {
     return response;
   },
   (error) => {
-    if (error.response?.status === 401 && !isRedirecting) {
-      isRedirecting = true;
-      CookieService.removeToken();
-      
-      const currentPath = window.location.pathname;
-      NavigationService.navigateToLogin(currentPath);
-      
-      setTimeout(() => {
-        isRedirecting = false;
-      }, 2000);
+    if (error.response?.status === 401) {
+      handleUnauthorizedError();
     }
-    
+
     return Promise.reject(error);
   }
 );

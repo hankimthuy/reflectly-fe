@@ -1,15 +1,12 @@
 class CookieService {
   private static readonly COOKIE_NAME = 'auth_token';
-  private static readonly EXPIRATION_DAYS = 1;
+  private static readonly COOKIE_MAX_AGE = 86400;
 
   static setToken(token: string): void {
-    const expires = new Date();
-    expires.setTime(expires.getTime() + (this.EXPIRATION_DAYS * 24 * 60 * 60 * 1000));
-
     const isProduction = window.location.protocol === 'https:';
     const secureFlag = isProduction ? 'Secure;' : '';
 
-    document.cookie = `${this.COOKIE_NAME}=${token}; expires=${expires.toUTCString()}; path=/; SameSite=Strict; ${secureFlag}`;
+    document.cookie = `${this.COOKIE_NAME}=${token}; max-age=${this.COOKIE_MAX_AGE}; path=/; SameSite=Lax; ${secureFlag}`;
   }
 
   static getToken(): string | null {
@@ -27,6 +24,10 @@ class CookieService {
       }
     }
     return null;
+  }
+
+  static checkCookieExists(): boolean {
+    return document.cookie.includes(`${this.COOKIE_NAME}=`);
   }
 
   static removeToken(): void {

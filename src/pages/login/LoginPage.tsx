@@ -1,16 +1,15 @@
+import { GoogleLogin } from "@react-oauth/google";
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { APP_ROUTES } from '../../constants/route';
+import { useGoogleAuth } from '../../hooks/useGoogleAuth';
+import { useAuth } from '../../providers/AuthProvider';
 import './LoginPage.scss';
-import {useEffect} from 'react';
-import {GoogleLogin} from "@react-oauth/google";
-import {useNavigate, useLocation} from 'react-router-dom';
-import {useAuth} from '../../providers/AuthProvider';
-import {useGoogleAuth} from '../../hooks/useGoogleAuth';
-import Loading from '../../components/Loading/Loading';
-import {APP_ROUTES} from '../../constants/route';
 
 const LoginPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const {isLoading, error, isAuthenticated} = useAuth();
+    const {error, isAuthenticated} = useAuth();
 
     const intendedDestination = location.state?.from || APP_ROUTES.HOME;
 
@@ -22,29 +21,17 @@ const LoginPage = () => {
         clearError
     } = useGoogleAuth();
 
-    // Handle redirects for authenticated users
     useEffect(() => {
-        if (isAuthenticated && !isLoading) {
+        if (isAuthenticated) {
             navigate(intendedDestination, {replace: true});
         }
-    }, [isAuthenticated, isLoading, navigate, intendedDestination]);
+    }, [isAuthenticated, navigate, intendedDestination]);
 
-    // Clear errors when component mounts
     useEffect(() => {
         clearError();
     }, [clearError]);
 
-    // Get the current error (from auth context or google auth hook)
     const currentError = error || googleError;
-
-    // Show loading if auth is initializing
-    if (isLoading) {
-        return (
-            <main className="main-content">
-                <Loading message="Initializing..." fullHeight/>
-            </main>
-        );
-    }
 
     return (
         <main className="main-content">
