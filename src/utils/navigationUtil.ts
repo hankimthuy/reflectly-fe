@@ -7,7 +7,7 @@
 
 type NavigateFunction = (path: string, options?: { replace?: boolean; state?: unknown }) => void;
 
-class NavigationService {
+class NavigationUtil {
   private static navigateCallback: NavigateFunction | null = null;
 
   static setNavigate(navigateFn: NavigateFunction): void {
@@ -24,12 +24,12 @@ class NavigationService {
     }
   }
 
-  /** Navigate to login with current location preserved   */
+  /** Navigate to log in with current location preserved   */
   static navigateToLogin(currentPath?: string): void {
     const state = currentPath ? { from: currentPath } : undefined;
     this.navigate('/login', { replace: true, state });
   }
 }
 
-export default NavigationService;
+export default NavigationUtil;
 

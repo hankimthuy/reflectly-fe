@@ -1,5 +1,5 @@
-import type { Entry, CreateEntryRequest, UpdateEntryRequest } from '../../models/entry';
-import axiosInstance from '../core/axiosSetup';
+import type { Entry, CreateEntryRequest, UpdateEntryRequest } from '../models/entry';
+import axiosInstance from './axiosSetup';
 
 export const entriesService = {
   async getEntries(): Promise<Entry[]> {

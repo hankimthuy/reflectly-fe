@@ -13,7 +13,7 @@ const todayDate = `Today, ${new Date().toLocaleString('en-US', {
 
 const HomeHeader = () => {
     const navigate = useNavigate();
-    const {user, logout} = useAuth();
+    const {currentUser, logout} = useAuth();
     const [isLogoMenuOpen, setIsLogoMenuOpen] = useState<boolean>(false);
     const logoRef = useRef<HTMLDivElement | null>(null);
     const [avatarError, setAvatarError] = useState<boolean>(false);
@@ -38,12 +38,12 @@ const HomeHeader = () => {
 
     const handleGoProfile = () => {
         setIsLogoMenuOpen(false);
-        navigate('/profile');
+        navigate(APP_ROUTES.PROFILE);
     };
 
     const handleLogout = async () => {
         setIsLogoMenuOpen(false);
-        await logout();
+        logout();
         navigate(APP_ROUTES.WELCOME);
     };
 
@@ -66,14 +66,14 @@ const HomeHeader = () => {
                         </button>
                     </div>
                 )}
-                {user ? (
+                {currentUser ? (
                     // Login success
                     <div className="user-info" onMouseDown={(e) => e.stopPropagation()} onClick={handleLogoClick}>
-                        <span className="profile-name">{user.fullName}</span>
-                        {user.pictureUrl && !avatarError && (
+                        <span className="profile-name">{currentUser.fullName}</span>
+                        {currentUser.pictureUrl && !avatarError && (
                             <img
-                                src={user.pictureUrl}
-                                alt={`Avatar ${user.fullName}`}
+                                src={currentUser.pictureUrl}
+                                alt={`Avatar ${currentUser.fullName}`}
                                 className="profile-avatar"
                                 referrerPolicy="no-referrer"
                                 onError={() => setAvatarError(true)}

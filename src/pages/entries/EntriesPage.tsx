@@ -4,7 +4,7 @@ import EmotionCapture from './components/EmotionCapture/EmotionCapture';
 import ReflectionCapture from './components/ReflectionCapture/ReflectionCapture';
 import { Emotion } from '../../models/emotion';
 import type { CreateEntryRequest } from '../../models/entry';
-import { entriesService } from '../../services/entries/entriesService';
+import { entriesService } from '../../services/entriesService';
 
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';

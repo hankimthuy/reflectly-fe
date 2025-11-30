@@ -1,22 +1,22 @@
 import './MainLayout.scss';
 import HomeHeader from "../Header/Header.tsx";
 import NavigationBar from "../NavigationBar/NavigationBar.tsx";
-import type { ReactNode } from 'react';
+import type {ReactNode} from 'react';
 
 interface MainLayoutProps {
-  children: ReactNode;
+    children: ReactNode;
 }
 
-const MainLayout = ({ children }: MainLayoutProps) => {
-  return (
-      <div className="main-layout-page">
-        <div className="main-layout-container">
-          <HomeHeader />
-          {children}
-          <NavigationBar />
+const MainLayout = ({children}: MainLayoutProps) => {
+    return (
+        <div className="main-layout-page">
+            <div className="main-layout-container">
+                <HomeHeader/>
+                {children}
+                <NavigationBar/>
+            </div>
         </div>
-      </div>
-  );
+    );
 };
 
 export default MainLayout;
