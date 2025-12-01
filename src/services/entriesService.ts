@@ -1,77 +1,46 @@
 import type { Entry, CreateEntryRequest, UpdateEntryRequest } from '../models/entry';
-import { httpClient } from './httpClient';
+import axiosInstance from './axiosSetup';
 
 export const entriesService = {
-  // Get all entries for the current user
   async getEntries(): Promise<Entry[]> {
-    try {
-      const response = await httpClient.get<Entry[]>('/entries');
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const { data } = await axiosInstance.get<Entry[]>('/entries');
+    return data;
   },
 
-  // Get a specific entry by ID
   async getEntry(id: string): Promise<Entry> {
-    try {
-      const response = await httpClient.getById<Entry>('/entries', id);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const { data } = await axiosInstance.get<Entry>(`/entries/${id}`);
+    return data;
   },
 
-  // Create a new entry
   async createEntry(entry: CreateEntryRequest): Promise<Entry> {
-    try {
-      const response = await httpClient.post<Entry, CreateEntryRequest>('/entries', entry);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const { data } = await axiosInstance.post<Entry>('/entries', entry);
+    return data;
   },
 
-  // Update an existing entry
   async updateEntry(entry: UpdateEntryRequest): Promise<Entry> {
-    try {
-      const { id, ...updateData } = entry;
-      const response = await httpClient.put<Entry, Omit<UpdateEntryRequest, 'id'>>('/entries', id, updateData);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const { id, ...updateData } = entry;
+    const { data } = await axiosInstance.put<Entry>(`/entries/${id}`, updateData);
+    return data;
   },
 
-  // Delete an entry
   async deleteEntry(id: string): Promise<void> {
-    try {
-      await httpClient.delete('/entries', id);
-    } catch (error) {
-      throw error;
-    }
+    await axiosInstance.delete(`/entries/${id}`);
   },
 
-  // Get entries by date range
   async getEntriesByDateRange(startDate: Date, endDate: Date): Promise<Entry[]> {
-    try {
-      const response = await httpClient.get<Entry[]>('/entries', {
+    const { data } = await axiosInstance.get<Entry[]>('/entries', {
+      params: {
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString()
-      });
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+      }
+    });
+    return data;
   },
 
-  // Get entries by emotion
   async getEntriesByEmotion(emotion: string): Promise<Entry[]> {
-    try {
-      const response = await httpClient.get<Entry[]>('/entries', { emotion });
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    const { data } = await axiosInstance.get<Entry[]>('/entries', {
+      params: { emotion }
+    });
+    return data;
   }
 };

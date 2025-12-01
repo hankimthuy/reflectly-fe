@@ -43,7 +43,6 @@ const EntriesPage: React.FC = () => {
         title,
         reflection,
         emotions: selectedEmotions,
-        activities: [] // Can be extended later
       };
 
       await entriesService.createEntry(entry);
@@ -51,7 +50,7 @@ const EntriesPage: React.FC = () => {
       // Reset state and go back to emotion capture
       setCurrentStep(0);
       setSelectedEmotions([]);
-    } catch (error) {
+    } catch {
       // Handle error (could show toast notification)
     } finally {
       setIsLoading(false);

@@ -1,51 +1,48 @@
-import './LoginPage.scss';
-import {useEffect} from 'react';
-import {GoogleLogin} from "@react-oauth/google";
-import {useNavigate, useLocation} from 'react-router-dom';
-import {useAuth} from '../../providers/AuthProvider';
-import {useGoogleAuth} from '../../hooks/useGoogleAuth';
-import Loading from '../../components/Loading/Loading';
+import {type CredentialResponse, GoogleLogin} from "@react-oauth/google";
+import {useEffect, useState} from 'react';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {APP_ROUTES} from '../../constants/route';
+import {useAuth} from '../../providers/AuthProvider';
+import './LoginPage.scss';
 
 const LoginPage = () => {
+    const [error, setError] = useState('');
+    const [isLoggingIn, setIsLoggingIn] = useState(false);
+
     const navigate = useNavigate();
     const location = useLocation();
-    const {isLoading, error, isAuthenticated} = useAuth();
+    const {isAuthenticated, login} = useAuth();
 
     const intendedDestination = location.state?.from || APP_ROUTES.HOME;
 
-    const {
-        isLoggingIn,
-        error: googleError,
-        handleGoogleSuccess,
-        handleGoogleError,
-        clearError
-    } = useGoogleAuth({intendedDestination});
-
-    // Handle redirects for authenticated users
     useEffect(() => {
         if (isAuthenticated) {
-            // If user came from a protected route, redirect back to that route
-            // Otherwise redirect to home
             navigate(intendedDestination, {replace: true});
         }
     }, [isAuthenticated, navigate, intendedDestination]);
 
-    // Clear errors when component mounts
-    useEffect(() => {
-        clearError();
-    }, [clearError]);
+    const handleOnSuccess = (credentialResponse: CredentialResponse) => {
+        if (!credentialResponse.credential) {
+            const errorMsg = 'Did not receive credential from Google.';
+            setError(errorMsg);
+            return;
+        }
+        try {
+            const idToken = credentialResponse.credential;
+            login(idToken);
+        } catch (error) {
+            const errorMessage = error instanceof Error
+                ? error.message
+                : 'Login failed during backend authentication step.';
 
-    // Get the current error (from auth context or google auth hook)
-    const currentError = error || googleError;
+            setError(errorMessage);
+        } finally {
+            setIsLoggingIn(false);
+        }
+    }
 
-    // Show loading if auth is initializing
-    if (isLoading) {
-        return (
-            <main className="main-content">
-                <Loading message="Initializing..." fullHeight/>
-            </main>
-        );
+    const handleOnError = () => {
+        setError('Google authentication failed. Please try again.');
     }
 
     return (
@@ -55,16 +52,16 @@ const LoginPage = () => {
                     <p>Sign in to continue to your account</p>
 
                     {/* Error Display */}
-                    {currentError && (
+                    {error !== '' && (
                         <div className="error-message">
-                            {currentError}
+                            {error}
                         </div>
                     )}
 
                     <div className="google-button-wrapper">
                         <GoogleLogin
-                            onSuccess={handleGoogleSuccess}
-                            onError={handleGoogleError}
+                            onSuccess={handleOnSuccess}
+                            onError={handleOnError}
                             theme="outline"
                             size="large"
                             width="100%"
