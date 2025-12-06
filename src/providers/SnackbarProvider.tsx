@@ -2,22 +2,11 @@ import React, { createContext, useContext, useState, useCallback, type ReactNode
 import SnackbarComponent, { type SnackbarType } from '../components/Snackbar/Snackbar';
 
 interface SnackbarContextValue {
-  showSnackbar: (message: string, type: SnackbarType, duration?: number, title?: string) => void;
   showSuccess: (message: string, duration?: number, title?: string) => void;
   showError: (message: string, duration?: number, title?: string) => void;
   showWarning: (message: string, duration?: number, title?: string) => void;
   showInfo: (message: string, duration?: number, title?: string) => void;
 }
-
-const SnackbarContext = createContext<SnackbarContextValue | null>(null);
-
-export const useSnackbar = () => {
-  const context = useContext(SnackbarContext);
-  if (!context) {
-    throw new Error('useSnackbar must be used within a SnackbarProvider');
-  }
-  return context;
-};
 
 interface SnackbarState {
   open: boolean;
@@ -27,6 +16,16 @@ interface SnackbarState {
   duration?: number;
 }
 
+const SnackbarContext = createContext<SnackbarContextValue | null>(null);
+
+export const useSnackbar = (): SnackbarContextValue => {
+  const context = useContext(SnackbarContext);
+  if (!context) {
+    throw new Error('useSnackbar must be used within a SnackbarProvider');
+  }
+  return context;
+};
+
 export const SnackbarProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [snackbar, setSnackbar] = useState<SnackbarState>({
     open: false,
@@ -35,13 +34,7 @@ export const SnackbarProvider: React.FC<{ children: ReactNode }> = ({ children }
   });
 
   const showSnackbar = useCallback((message: string, type: SnackbarType, duration = 3000, title?: string) => {
-    setSnackbar({
-      open: true,
-      message,
-      title,
-      type,
-      duration,
-    });
+    setSnackbar({ open: true, message, title, type, duration });
   }, []);
 
   const showSuccess = useCallback((message: string, duration?: number, title?: string) => {
@@ -64,16 +57,8 @@ export const SnackbarProvider: React.FC<{ children: ReactNode }> = ({ children }
     setSnackbar((prev) => ({ ...prev, open: false }));
   }, []);
 
-  const contextValue: SnackbarContextValue = {
-    showSnackbar,
-    showSuccess,
-    showError,
-    showWarning,
-    showInfo,
-  };
-
   return (
-    <SnackbarContext.Provider value={contextValue}>
+    <SnackbarContext.Provider value={{ showSuccess, showError, showWarning, showInfo }}>
       {children}
       <SnackbarComponent
         open={snackbar.open}
