@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import './EntriesPage.scss';
-import EmotionCapture from './components/EmotionCapture/EmotionCapture';
-import ReflectionCapture from './components/ReflectionCapture/ReflectionCapture';
-import { Emotion } from '../../models/emotion';
-import type { CreateEntryRequest } from '../../models/entry';
-import { entriesService } from '../../services/entriesService';
-
+import './NewEntryPage.scss';
+import EmotionCapture from '../components/EmotionCapture/EmotionCapture';
+import ReflectionCapture from '../components/ReflectionCapture/ReflectionCapture';
+import { Emotion } from '../../../models/emotion';
+import type { CreateEntryRequest } from '../../../models/entry';
+import { entriesService } from '../../../services/entriesService';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
@@ -13,7 +12,7 @@ import Box from '@mui/material/Box';
 
 const steps = ['Select Emotion', 'Write Reflection'];
 
-const EntriesPage: React.FC = () => {
+const NewEntryPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedEmotions, setSelectedEmotions] = useState<Emotion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -90,4 +89,4 @@ const EntriesPage: React.FC = () => {
   );
 };
 
-export default EntriesPage;
+export default NewEntryPage;
