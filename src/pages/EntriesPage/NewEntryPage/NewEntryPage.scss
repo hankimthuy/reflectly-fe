@@ -12,6 +12,69 @@
     font-style: var(--c-text-primary);
 }
 
+.entry-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: var(--spacing-sm);
+    @include padding-responsive(var(--spacing-md), var(--spacing-lg), var(--spacing-lg));
+    padding-top: var(--spacing-md);
+
+    .back-button {
+        color: var(--c-text-on-background);
+        flex-shrink: 0;
+    }
+
+    .stepper-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        min-width: 0;
+
+        .MuiStepper-root {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .step-label {
+            @include mobile-only {
+                font-size: var(--font-size-xs);
+            }
+        }
+    }
+
+    .header-action {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        min-width: 60px;
+        justify-content: flex-end;
+    }
+
+    .header-placeholder {
+        width: 60px;
+    }
+
+    @include mobile-only {
+        gap: var(--spacing-xs);
+        padding: var(--spacing-sm) var(--spacing-md);
+
+        .stepper-container {
+            .MuiStepper-root {
+                padding: 0 var(--spacing-xs);
+            }
+
+            .MuiStepLabel-label {
+                display: none;
+            }
+
+            .MuiStepLabel-iconContainer {
+                padding: 0;
+            }
+        }
+    }
+}
+
 .card-header {
     display: flex;
     align-items: center;

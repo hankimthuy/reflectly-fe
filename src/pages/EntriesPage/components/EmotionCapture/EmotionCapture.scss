@@ -17,26 +17,6 @@
       padding: var(--spacing-md) var(--spacing-lg);
     }
 
-    .default-emotion {
-      @include margin-responsive(0 0 var(--spacing-lg), 0 0 var(--spacing-xl), 0 0 var(--spacing-md));
-
-      .default-emotion-icon {
-        width: 80px;
-        height: 80px;
-        background: var(--c-surface);
-        border-radius: 50%;
-        @include flex-center;
-        @include font-responsive(32px, 36px, 28px);
-        box-shadow: var(--shadow-lg);
-
-        @include respond-to(laptop) {
-          width: 60px;
-          height: 60px;
-          font-size: 24px;
-        }
-      }
-    }
-
     .question {
       @include font-responsive(var(--font-size-xl), var(--font-size-2xl), var(--font-size-lg));
       font-weight: var(--font-weight-bold);
@@ -155,26 +135,4 @@
       }
     }
   }
-}
-
-.emotion-next-step {
-  @include flex-center;
-  padding-top: var(--spacing-lg);
-}
-
-.emotion-next-step-button {
-  @include flex-center;
-  transition: all 0.3s ease;
-  position: relative;
-  z-index: 10000;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  font-size: 24px;
-  font-weight: bold;
-  width: 60px;
-  height: 60px;
-  background-color: #87CEEB;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(135, 206, 235, 0.3);
 }

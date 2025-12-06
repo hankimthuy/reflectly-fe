@@ -8,10 +8,14 @@ import type { CreateEntryRequest } from '../../../models/entry';
 import { entriesService } from '../../../services/entriesService';
 import { APP_ROUTES } from '../../../constants/route';
 import { useSnackbar } from '../../../providers/SnackbarProvider';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import SaveIcon from '@mui/icons-material/Save';
+import Button from '@mui/joy/Button';
+import IconButton from '@mui/joy/IconButton';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import Box from '@mui/material/Box';
 
 const steps = ['Select Emotion', 'Write Reflection'];
 
@@ -21,6 +25,8 @@ const NewEntryPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedEmotions, setSelectedEmotions] = useState<Emotion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [reflectionTitle, setReflectionTitle] = useState('');
+  const [reflectionText, setReflectionText] = useState('');
 
   const handleEmotionToggle = (emotion: Emotion) => {
     setSelectedEmotions(prev => {
@@ -40,12 +46,16 @@ const NewEntryPage: React.FC = () => {
     setCurrentStep(currentStep - 1);
   };
 
-  const handleSave = async (title: string, reflection: string) => {
+  const handleSave = async () => {
+    if (!reflectionTitle.trim() || !reflectionText.trim()) {
+      return;
+    }
+
     setIsLoading(true);
     try {
       const entry: CreateEntryRequest = {
-        title,
-        reflection,
+        title: reflectionTitle.trim(),
+        reflection: reflectionText.trim(),
         emotions: selectedEmotions,
       };
 
@@ -58,23 +68,64 @@ const NewEntryPage: React.FC = () => {
     }
   };
 
+  const handleFormChange = (title: string, reflection: string) => {
+    setReflectionTitle(title);
+    setReflectionText(reflection);
+  };
+
   return (
     <div className="entries-content">
-      <Box sx={{ width: '100%', m: 2 }}> 
-        <Stepper activeStep={currentStep} alternativeLabel>
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-      </Box>
+      <div className="entry-header">
+        <IconButton
+          variant="plain"
+          onClick={currentStep === 0 ? () => navigate(APP_ROUTES.HOME) : handleBack}
+          className="back-button"
+        >
+          <ArrowBackIcon />
+        </IconButton>
+        
+        <div className="stepper-container">
+          <Stepper activeStep={currentStep} alternativeLabel>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel className="step-label">{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        </div>
+
+        <div className="header-action">
+          {currentStep === 0 && selectedEmotions.length > 0 ? (
+            <Button
+              variant="solid"
+              color="primary"
+              endDecorator={<KeyboardArrowRightIcon />}
+              onClick={handleNext}
+              size="sm">
+              Next
+            </Button>
+          ) : currentStep === 1 ? (
+            <Button
+              variant="solid"
+              color="primary"
+              startDecorator={<SaveIcon />}
+              onClick={handleSave}
+              disabled={!reflectionTitle.trim() || !reflectionText.trim() || isLoading}
+              loading={isLoading}
+              size="sm"
+            >
+              Save
+            </Button>
+          ) : (
+            <div className="header-placeholder" />
+          )}
+        </div>
+      </div>
 
       {currentStep === 0 && (
         <EmotionCapture
           selectedEmotions={selectedEmotions}
           onEmotionToggle={handleEmotionToggle}
-          onNext={handleNext}
           maxSelections={10}
         />
       )}
@@ -82,9 +133,7 @@ const NewEntryPage: React.FC = () => {
       {currentStep === 1 && (
         <ReflectionCapture
           selectedEmotions={selectedEmotions}
-          onBack={handleBack}
-          onSave={handleSave}
-          isLoading={isLoading}
+          onFormChange={handleFormChange}
         />
       )}
     </div>
