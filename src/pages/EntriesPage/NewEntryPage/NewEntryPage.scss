@@ -20,7 +20,8 @@
     @include padding-responsive(var(--spacing-md), var(--spacing-lg), var(--spacing-lg));
     padding-top: var(--spacing-md);
 
-    .back-button {
+    .back-button,
+    .next-button {
         color: var(--c-text-on-background);
         flex-shrink: 0;
     }
@@ -86,15 +87,47 @@
     margin-bottom: 6px !important;
 }
 
-.MuiStepIcon-root.Mui-completed {
-  color: var(--c-primary);
+.MuiStepper-root {
+  .MuiStepConnector-root {
+    .MuiStepConnector-line {
+      border-color: var(--c-border);
+    }
+  }
+
+  .MuiStepConnector-active {
+    .MuiStepConnector-line {
+      border-color: var(--c-secondary);
+    }
+  }
+
+  .MuiStepConnector-completed {
+    .MuiStepConnector-line {
+      border-color: var(--c-secondary);
+    }
+  }
 }
 
-.MuiStepIcon-root.Mui-active {
-  color: var(--c-secondary);
+.MuiStepIcon-root {
+  color: var(--c-border);
+
+  &.Mui-completed {
+    color: var(--c-secondary);
+  }
+
+  &.Mui-active {
+    color: var(--c-secondary);
+  }
 }
 
-.MuiStepLabel-label.Mui-active {
-  color: var(--c-secondary);
-  font-weight: bold;
+.MuiStepLabel-label {
+  color: var(--c-text-muted);
+
+  &.Mui-active {
+    color: var(--c-secondary);
+    font-weight: bold;
+  }
+
+  &.Mui-completed {
+    color: var(--c-text-muted);
+  }
 }

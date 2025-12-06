@@ -1,4 +1,3 @@
-// Import responsive system
 @use '../../../../styles/_variables' as *;
 @use '../../../../styles/_responsive' as *;
 
@@ -11,7 +10,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     min-height: 0;
-    padding-bottom: 100px;
+    padding-bottom: 10px;
 
     .selected-emotions {
       @include margin-responsive(0 0 var(--spacing-lg), 0 0 var(--spacing-xl), 0 0 var(--spacing-xl));
@@ -26,6 +25,7 @@
       .emotion-tags {
         @include flex-wrap;
         gap: var(--spacing-sm);
+        justify-content: center;
 
         .emotion-tag {
           @include flex-center;
@@ -92,14 +92,14 @@
         }
 
         .reflection-input {
-          min-height: 120px;
+          min-height: 80px;
           font-family: inherit;
           line-height: var(--line-height-relaxed);
           resize: vertical;
-          max-height: 300px;
+          max-height: 200px;
 
           @include respond-to(laptop) {
-            max-height: 250px;
+            max-height: 180px;
           }
         }
       }

@@ -9,7 +9,7 @@ import { entriesService } from '../../../services/entriesService';
 import { APP_ROUTES } from '../../../constants/route';
 import { useSnackbar } from '../../../providers/SnackbarProvider';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import SaveIcon from '@mui/icons-material/Save';
 import Button from '@mui/joy/Button';
 import IconButton from '@mui/joy/IconButton';
@@ -96,14 +96,12 @@ const NewEntryPage: React.FC = () => {
 
         <div className="header-action">
           {currentStep === 0 && selectedEmotions.length > 0 ? (
-            <Button
-              variant="solid"
-              color="primary"
-              endDecorator={<KeyboardArrowRightIcon />}
+            <IconButton
+              variant="plain"
               onClick={handleNext}
-              size="sm">
-              Next
-            </Button>
+              className="next-button">
+              <ArrowForwardIcon />
+            </IconButton>
           ) : currentStep === 1 ? (
             <Button
               variant="solid"

@@ -62,7 +62,7 @@ const ReflectionCapture: React.FC<ReflectionCaptureProps> = ({
               placeholder="Add some notes ..."
               value={reflection}
               onChange={(e) => setReflection(e.target.value)}
-              rows={6}
+              rows={4}
               maxLength={1000}
             />
           </div>
