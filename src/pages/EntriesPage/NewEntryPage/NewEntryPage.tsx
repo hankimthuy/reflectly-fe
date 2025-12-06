@@ -7,6 +7,7 @@ import { Emotion } from '../../../models/emotion';
 import type { CreateEntryRequest } from '../../../models/entry';
 import { entriesService } from '../../../services/entriesService';
 import { APP_ROUTES } from '../../../constants/route';
+import { useSnackbar } from '../../../providers/SnackbarProvider';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
@@ -16,6 +17,7 @@ const steps = ['Select Emotion', 'Write Reflection'];
 
 const NewEntryPage: React.FC = () => {
   const navigate = useNavigate();
+  const { showSuccess } = useSnackbar();
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedEmotions, setSelectedEmotions] = useState<Emotion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,6 +51,7 @@ const NewEntryPage: React.FC = () => {
 
       await entriesService.createEntry(entry);
       
+      showSuccess('Your reflection has been saved successfully!', undefined, 'Well done!');
       navigate(APP_ROUTES.ENTRIES_LIST);
     } finally {
       setIsLoading(false);
