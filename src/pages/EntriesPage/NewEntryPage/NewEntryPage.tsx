@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './NewEntryPage.scss';
 import EmotionCapture from '../components/EmotionCapture/EmotionCapture';
 import ReflectionCapture from '../components/ReflectionCapture/ReflectionCapture';
 import { Emotion } from '../../../models/emotion';
 import type { CreateEntryRequest } from '../../../models/entry';
 import { entriesService } from '../../../services/entriesService';
+import { APP_ROUTES } from '../../../constants/route';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
@@ -13,6 +15,7 @@ import Box from '@mui/material/Box';
 const steps = ['Select Emotion', 'Write Reflection'];
 
 const NewEntryPage: React.FC = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedEmotions, setSelectedEmotions] = useState<Emotion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,12 +48,8 @@ const NewEntryPage: React.FC = () => {
       };
 
       await entriesService.createEntry(entry);
-
-      // Reset state and go back to emotion capture
-      setCurrentStep(0);
-      setSelectedEmotions([]);
-    } catch {
-      // Handle error (could show toast notification)
+      
+      navigate(APP_ROUTES.ENTRIES_LIST);
     } finally {
       setIsLoading(false);
     }
