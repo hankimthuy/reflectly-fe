@@ -1,13 +1,76 @@
 @use '../../../styles/_variables' as *;
 @use '../../../styles/_responsive' as *;
 
-.entries-content {
-    padding: 0 16px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    align-items: center;
-    background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 100%);
-    font-style: var(--c-text-primary);
+.entries-list-frame {
+    width: 100%;
+    min-height: 100%;
+    background: var(--c-white);
+    @include padding-responsive(
+        var(--spacing-md),
+        var(--spacing-lg),
+        var(--spacing-xl)
+    );
+    @include flex-col-stretch;
+    gap: var(--spacing-sm);
+}
+
+.entries-list-title {
+    font-weight: var(--font-weight-bold);
+    color: var(--c-page-title);
+    line-height: var(--line-height-tight);
+    margin: 0;
+    letter-spacing: -0.5px;
+    @include font-responsive(
+        2.5rem,
+        3rem,
+        3.5rem
+    );
+    margin: 0;
+}
+
+.entries-list-content {
+    flex: 1;
+    width: 100%;
+    @include flex-col-stretch;
+    gap: var(--spacing-md);
+}
+
+.stats-grid {
+    gap: var(--spacing-sm);
+    @include grid-responsive(3, 3, 3);
+
+    @include respond-to(laptop) {
+        gap: var(--spacing-md);
+    }
+
+    .stat-item {
+        text-align: center;
+        background: var(--c-primary-light);
+        border-radius: var(--border-radius-md);
+        border: 1px solid var(--c-border);
+        transition: all var(--transition-normal);
+        padding: var(--spacing-md);
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            background: var(--c-surface);
+        }
+
+        .stat-number {
+            font-weight: var(--font-weight-bold);
+            color: var(--c-primary);
+            line-height: var(--line-height-tight);
+            @include font-responsive(var(--font-size-xl), var(--font-size-2xl), var(--font-size-3xl));
+            @include margin-responsive(0 0 var(--spacing-xs), 0 0 var(--spacing-sm), 0 0 var(--spacing-sm));
+        }
+
+        .stat-label {
+            color: var(--c-text-muted);
+            font-weight: var(--font-weight-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            @include font-responsive(9px, 10px, 11px);
+        }
+    }
 }

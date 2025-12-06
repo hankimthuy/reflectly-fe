@@ -51,24 +51,6 @@ const ProfilePage: React.FC = () => {
                             </div>
                         </div>
                     </div>
-
-                    <div className="profile-section">
-                        <h2>Account Statistics</h2>
-                        <div className="stats-grid">
-                            <div className="stat-item">
-                                <div className="stat-number">0</div>
-                                <div className="stat-label">Total Entries</div>
-                            </div>
-                            <div className="stat-item">
-                                <div className="stat-number">0</div>
-                                <div className="stat-label">Days Active</div>
-                            </div>
-                            <div className="stat-item">
-                                <div className="stat-number">0</div>
-                                <div className="stat-label">Reflections</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

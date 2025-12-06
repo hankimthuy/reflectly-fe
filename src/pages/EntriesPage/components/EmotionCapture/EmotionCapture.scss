@@ -20,7 +20,7 @@
     .question {
       @include font-responsive(var(--font-size-xl), var(--font-size-2xl), var(--font-size-lg));
       font-weight: var(--font-weight-bold);
-      color: var(--c-surface);
+      color: var(--c-text-on-background);
       margin: 0 0 var(--spacing-sm) 0;
       line-height: var(--line-height-tight);
 
@@ -32,7 +32,7 @@
 
     .instruction {
       @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-sm));
-      color: rgba(255, 255, 255, 0.8);
+      color: var(--c-text-on-background);
       font-weight: var(--font-weight-medium);
       margin: 0;
 

@@ -1,20 +1,23 @@
-// Design System Variables - Responsive
-// Optimized for Mobile (500px), Small Desktop (1024px), Large Desktop (1025px+)
-
 :root {
   // Core Palette
   --c-primary: #DDA7A2;
   --c-secondary: #89A5B3;
+  --c-tertiary: #F6E9E8;
 
   // Surfaces & Backgrounds
   --c-background: #FBFBF8;
   --c-surface: #FDF6EC;
   --c-primary-light: #F6E9E8;
 
+  // Basic Colors
+  --c-black: #000000;
+  --c-white: #FFFFFF;
+
   // Text Colors
   --c-text-on-surface: #6B4F4F;
   --c-text-on-background: #6B4F4F;
   --c-text-muted: #A1927E;
+  --c-page-title: rgba(0, 0, 0, 0.15);
 
   // UI Elements
   --c-border: #DED8CC;
@@ -28,6 +31,7 @@
   --c-danger: #d32f2f;
   --c-success: #2e7d32;
   --c-warning: #f57c00;
+  --c-info: #0288d1;
 
   // Border Radius - Responsive
   --border-radius-xs: 4px;
@@ -86,7 +90,7 @@
   // Navigation Heights
   --nav-height-mobile: 60px;
   --nav-height-laptop: 70px;
-  --nav-height-desktop: 80px; // Keep navigation on desktop
+  --nav-height-desktop: 80px;
 
   // Z-index Scale
   --z-dropdown: 1000;
