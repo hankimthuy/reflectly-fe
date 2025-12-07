@@ -23,7 +23,8 @@
         line-height: var(--line-height-relaxed);
         color: var(--c-text-on-surface);
         @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
-        padding-left: var(--spacing-sm);        
+        padding-left: var(--spacing-sm);  
+        font-weight: var(--font-weight-medium);      
         @include respond-to(desktop) {
           max-width: 80%;
         }
