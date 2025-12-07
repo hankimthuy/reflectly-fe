@@ -7,17 +7,20 @@ const ProfilePage: React.FC = () => {
 
     if (!currentUser) {
         return (
-            <div className="profile-page">
-                <div className="profile-container">
-                    <p>Please log in to view your profile.</p>
+            <div className="main-content">
+                <div className="profile-frame">
+                    <div className="profile-container">
+                        <p>Please log in to view your profile.</p>
+                    </div>
                 </div>
             </div>
         );
     }
 
     return (
-        <div className="profile-page">
-            <div className="profile-container">
+        <div className="main-content">
+            <div className="profile-frame">
+                <div className="profile-container">
                 <div className="profile-header">
                     <div className="profile-avatar-large">
                         {currentUser.pictureUrl ? (
@@ -34,12 +37,10 @@ const ProfilePage: React.FC = () => {
                         )}
                     </div>
                     <h1 className="profile-name">{currentUser.fullName}</h1>
-                    <p className="profile-email">{currentUser.email}</p>
                 </div>
 
                 <div className="profile-content">
                     <div className="profile-section">
-                        <h2>Personal Information</h2>
                         <div className="info-grid">
                             <div className="info-item">
                                 <label>Full Name</label>
@@ -51,6 +52,7 @@ const ProfilePage: React.FC = () => {
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>

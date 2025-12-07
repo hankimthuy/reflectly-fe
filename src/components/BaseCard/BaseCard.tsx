@@ -15,8 +15,12 @@ interface BaseCardProps {
 const getActionAreaStyles = (active: boolean | undefined): SxProps<Theme> => ({
   borderRadius: 'inherit',
   backgroundColor: active ? 'var(--c-primary-light)' : 'transparent',
+  height: 'auto',
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
   '&:hover': {
-    backgroundColor: 'var(--c-primary-light)',
+    backgroundColor: 'transparent',
   },
 });
 
@@ -26,6 +30,10 @@ const cardSx: SxProps<Theme> = {
   borderRadius: '16px',
   boxShadow: '0 4px 12px var(--c-shadow-light)',
   transition: 'all var(--transition-normal)',
+  height: 'auto',
+  width: 'auto',
+  display: 'flex',
+  flexDirection: 'column',
   '&:hover': {
     boxShadow: '0 8px 24px var(--c-shadow-heavy)',
     transform: 'translateY(-3px)',
@@ -37,7 +45,14 @@ const BaseCard: React.FC<BaseCardProps> = ({ active, onClick, children, classNam
         <CardActionArea
             onClick={onClick}
             sx={getActionAreaStyles(active)}>
-            <CardContent className="base-card-content">
+            <CardContent 
+                className="base-card-content"
+                sx={{
+                    height: 'auto',
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                }}>
                 {children}
             </CardContent>
         </CardActionArea>

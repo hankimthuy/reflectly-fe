@@ -1,6 +1,10 @@
 @use '../../../styles/_variables' as *;
 @use '../../../styles/_responsive' as *;
 
+.new-entry-frame {
+    @include page-frame;
+}
+
 .entries-content {
     flex-grow: 1;
     display: flex;

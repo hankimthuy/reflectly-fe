@@ -156,3 +156,18 @@ button {
     background-color: var(--c-primary);
   }
 }
+
+.main-content {
+  flex-grow: 1;
+  background: var(--c-background);
+  overflow-y: auto;
+  height: 100%;
+  min-height: 0;
+  padding: var(--spacing-md);
+  @include flex-col-stretch;
+  
+  // Mobile
+  @include mobile-only {
+    padding-bottom: var(--spacing-lg);
+  }
+}

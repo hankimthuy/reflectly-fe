@@ -74,8 +74,9 @@ const NewEntryPage: React.FC = () => {
   };
 
   return (
-    <div className="entries-content">
-      <div className="entry-header">
+    <div className="main-content">
+      <div className="new-entry-frame">
+        <div className="entry-header">
         <IconButton
           variant="plain"
           onClick={currentStep === 0 ? () => navigate(APP_ROUTES.HOME) : handleBack}
@@ -134,6 +135,7 @@ const NewEntryPage: React.FC = () => {
           onFormChange={handleFormChange}
         />
       )}
+      </div>
     </div>
   );
 };

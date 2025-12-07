@@ -2,16 +2,7 @@
 @use '../../../styles/_responsive' as *;
 
 .entries-list-frame {
-    width: 100%;
-    min-height: 100%;
-    background: var(--c-white);
-    @include padding-responsive(
-        var(--spacing-md),
-        var(--spacing-lg),
-        var(--spacing-xl)
-    );
-    @include flex-col-stretch;
-    gap: var(--spacing-sm);
+    @include page-frame;
 }
 
 .entries-list-title {
