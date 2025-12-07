@@ -2,21 +2,16 @@
 @use '../../styles/_variables' as *;
 @use '../../styles/_responsive' as *;
 
-.homepage-frame {
-  @include page-frame;
-}
-
 .main-content {
   @include flex-center;
   gap: var(--spacing-md);
   
+  .homepage-frame {
+    @include page-frame;
+  }
+
   // Laptop
   @include respond-to(laptop) {
-    gap: var(--spacing-lg);
-    
-    display: flex;
-    align-items: start;
-    
     .daily-reflection-card {
       grid-column: 1 / -1;
       margin-bottom: var(--spacing-lg);
@@ -32,6 +27,7 @@
     max-width: none;
     margin: 0;
     padding: var(--spacing-xl) 25vw;
+    
     .daily-reflection-card {
       grid-column: unset;
       margin-bottom: var(--spacing-lg);

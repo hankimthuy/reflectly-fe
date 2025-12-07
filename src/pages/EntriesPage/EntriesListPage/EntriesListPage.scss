@@ -1,67 +1,150 @@
 @use '../../../styles/_variables' as *;
 @use '../../../styles/_responsive' as *;
 
-.entries-list-frame {
-    @include page-frame;
-}
-
-.entries-list-title {
-    font-weight: var(--font-weight-bold);
-    color: var(--c-page-title);
-    line-height: var(--line-height-tight);
-    margin: 0;
-    letter-spacing: -0.5px;
-    @include font-responsive(
-        2.5rem,
-        3rem,
-        3.5rem
-    );
-    margin: 0;
-}
-
-.entries-list-content {
-    flex: 1;
-    width: 100%;
-    @include flex-col-stretch;
-    gap: var(--spacing-md);
-}
-
-.stats-grid {
-    gap: var(--spacing-sm);
-    @include grid-responsive(3, 3, 3);
-
-    @include respond-to(laptop) {
-        gap: var(--spacing-md);
+.main-content {
+    
+    .entries-list-frame {
+        @include page-frame;
+    }
+    
+    .entries-list-title {
+        font-weight: var(--font-weight-bold);
+        color: var(--c-page-title);
+        line-height: var(--line-height-tight);
+        margin: 0;
+        letter-spacing: -0.5px;
+        @include font-responsive(2.5rem,
+            3rem,
+            3.5rem);
+        margin: 0;
     }
 
-    .stat-item {
-        text-align: center;
-        background: var(--c-primary-light);
-        border-radius: var(--border-radius-md);
-        border: 1px solid var(--c-border);
-        transition: all var(--transition-normal);
-        padding: var(--spacing-md);
-
-        &:hover {
-            transform: translateY(-2px);
+    .entries-list-subtitle {
+        line-height: var(--line-height-relaxed);
+        color: var(--c-text-on-surface);
+        @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
+        padding-left: var(--spacing-sm);        
+        @include respond-to(desktop) {
+          max-width: 80%;
+        }
+    }
+    
+    .stats-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-md);
+        width: min-content;
+        margin-bottom: var(--spacing-lg);
+        padding: var(--spacing-xs);
+    
+        .stat-card-dark {
+            background-color: var(--c-black);
+            color: var(--c-white);
+            border-radius: var(--border-radius-xl);
+            padding: var(--spacing-md);
+            @include flex-col-between;
+            aspect-ratio: 1 / 1;
+            cursor: pointer;
+            box-shadow: var(--c-shadow-heavy);
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-2xl);
+            }
+    
+            .icon-box {
+                @include flex-center;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: rgba(255, 255, 255, 0.15);
+    
+                svg {
+                    width: 24px;
+                    height: 24px;
+                    color: var(--c-warning);
+                }
+            }
+    
+            .stat-content {
+                display: flex;
+                flex-direction: column;
+                gap: var(--spacing-xs);
+            }
+    
+            .stat-value {
+                font-size: var(--font-size-3xl);
+                font-weight: var(--font-weight-black);
+                line-height: var(--line-height-tight);
+            }
+    
+            .stat-label {
+                font-size: var(--font-size-xs);
+                font-weight: var(--font-weight-bold);
+                color: var(--c-text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+        }
+    
+        .stat-card-light {
+            background-color: var(--c-white);
+            color: var(--c-text-on-background);
+            border: 1px solid var(--c-border);
+            border-radius: var(--border-radius-xl);
+            padding: var(--spacing-md);
+            @include flex-col-between;
+            aspect-ratio: 1 / 1;
+            cursor: pointer;
             box-shadow: var(--shadow-md);
-            background: var(--c-surface);
+            transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+    
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-xl);
+            }
+    
+            .icon-box {
+                @include flex-center;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: var(--c-surface);
+    
+                svg {
+                    width: 24px;
+                    height: 24px;
+                    color: var(--c-warning);
+                }
+            }
+    
+            .stat-content {
+                display: flex;
+                flex-direction: column;
+                gap: var(--spacing-xs);
+            }
+    
+            .stat-value {
+                font-size: var(--font-size-2xl);
+                font-weight: var(--font-weight-bold);
+                line-height: var(--line-height-tight);
+                color: var(--c-text-on-background);
+            }
+    
+            .stat-label {
+                font-size: var(--font-size-xs);
+                font-weight: var(--font-weight-bold);
+                color: var(--c-text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
         }
-
-        .stat-number {
-            font-weight: var(--font-weight-bold);
-            color: var(--c-primary);
-            line-height: var(--line-height-tight);
-            @include font-responsive(var(--font-size-xl), var(--font-size-2xl), var(--font-size-3xl));
-            @include margin-responsive(0 0 var(--spacing-xs), 0 0 var(--spacing-sm), 0 0 var(--spacing-sm));
-        }
-
-        .stat-label {
-            color: var(--c-text-muted);
-            font-weight: var(--font-weight-medium);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            @include font-responsive(9px, 10px, 11px);
-        }
+    }
+    
+    .entries-list-content {
+        padding-bottom: var(--spacing-3xl);
+        padding-left: var(--spacing-xs);
+        padding-right: var(--spacing-xs);
     }
 }

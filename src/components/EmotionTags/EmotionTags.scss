@@ -1,0 +1,33 @@
+@use '../../../src/styles/variables' as *;
+
+.emotion-tag-wrapper {
+    color: var(--c-text-on-surface);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    padding: 6px var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast);
+    cursor: default;
+    background-color: var(--c-background);
+
+    &:hover {
+        transform: scale(1.05);
+    }
+
+    .emotion-tag-label {
+        white-space: nowrap;
+        filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+    }
+}
+
+
+.emotion-tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}

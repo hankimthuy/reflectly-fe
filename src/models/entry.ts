@@ -8,6 +8,11 @@ export interface Entry {
   emotions: Emotion[];
   createdAt: Date;
   updatedAt: Date;
+  dayDisplay?: {
+    dayName: string;
+    month: string;
+    date: string;
+  };
 }
 
 export interface CreateEntryRequest {

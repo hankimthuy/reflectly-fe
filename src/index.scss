@@ -166,8 +166,22 @@ button {
   padding: var(--spacing-md);
   @include flex-col-stretch;
   
-  // Mobile
   @include mobile-only {
     padding-bottom: var(--spacing-lg);
+  }
+
+  @include respond-to(laptop) {
+    gap: var(--spacing-lg);
+    
+    display: flex;
+    align-items: start;
+  }
+
+  @include respond-to(desktop) {
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: var(--spacing-xl) 25vw;
   }
 }
