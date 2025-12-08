@@ -15,6 +15,16 @@ export interface Entry {
   };
 }
 
+export interface ApiEntry {
+  id: string;
+  userId: string;
+  title: string;
+  reflection: string;
+  emotions: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface CreateEntryRequest {
   title: string;
   reflection: string;
@@ -26,4 +36,15 @@ export interface UpdateEntryRequest {
   title?: string;
   reflection?: string;
   emotions?: Emotion[];
+}
+
+export interface PaginatedResponse<T> {
+  content: T[];
+  totalPages: number;
+  totalElements: number;
+  last: boolean;
+  size: number;
+  number: number;
+  first: boolean;
+  empty: boolean;
 }

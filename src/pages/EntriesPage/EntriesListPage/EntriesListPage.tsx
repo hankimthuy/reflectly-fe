@@ -1,10 +1,12 @@
 import LandscapeIcon from '@mui/icons-material/Landscape';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Emotion } from '../../../models/emotion';
 import type { Entry } from '../../../models/entry';
 import EntryCard from '../components/EntryCard/EntryCard';
 import './EntriesListPage.scss';
 import { Flame } from 'lucide-react';
+import { entriesService, mapApiEntryToModel } from '../../../services/entriesService';
+import { useSnackbar } from '../../../providers/SnackbarProvider';
 
 const INITIAL_DATA: Entry[] = [
   {
@@ -51,6 +53,36 @@ const INITIAL_DATA: Entry[] = [
 ];
 
 const EntriesListPage: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const { showError } = useSnackbar();
+  const [entries, setEntries] = useState<Entry[]>([]);
+
+  const fetchEntries = async () => {
+    setIsLoading(true);
+    try {
+      const response = await entriesService.getEntries();
+    
+      if (response && Array.isArray(response.content)) {
+        const formattedData = response.content.map(mapApiEntryToModel);          
+        setEntries(formattedData);
+      } else {
+          setEntries([]); 
+      }
+    } catch (err) {
+      showError('Failed to load entries');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchEntries();
+  }, []);
+
+  const handleRefresh = () => {
+    fetchEntries();
+  };
+
   return (
     <div className="main-content">
       <div className="entries-list-frame">
@@ -82,10 +114,16 @@ const EntriesListPage: React.FC = () => {
         </div>
 
         {/* List of Journal Cards */}
+
         <div className="entries-list-content">
-          {INITIAL_DATA.map((entry) => (
+          {/* {INITIAL_DATA.map((entry) => (
             <EntryCard key={entry.id} entry={entry} />
-          ))}
+          ))} */}
+          {entries.length > 0 && (
+            entries.map((entry) => (
+              <EntryCard key={entry.id} entry={entry} />
+            ))
+          )}
         </div>
 
       </div>

@@ -1,9 +1,31 @@
-import type { Entry, CreateEntryRequest, UpdateEntryRequest } from '../models/entry';
+import { Emotion } from '../models/emotion';
+import type { Entry, CreateEntryRequest, UpdateEntryRequest, PaginatedResponse, ApiEntry } from '../models/entry';
 import axiosInstance from './axiosSetup';
 
+export const mapApiEntryToModel = (apiItem: ApiEntry): Entry => {  
+  const dateObj = new Date(apiItem.createdAt);
+  
+  return {
+    id: apiItem.id,
+    userId: apiItem.userId,
+    title: apiItem.title,
+    reflection: apiItem.reflection,
+    emotions: apiItem.emotions.filter((emotion: string): emotion is Emotion => {
+      return Object.values(Emotion).includes(emotion as Emotion);
+    }),    
+    createdAt: dateObj,
+    updatedAt: new Date(apiItem.updatedAt),
+    dayDisplay: {
+      month: dateObj.toLocaleString('en-US', { month: 'short' }).toUpperCase(),
+      date: dateObj.getDate().toString().padStart(2, '0'),
+      dayName: dateObj.toLocaleString('en-US', { weekday: 'long' })
+    }
+  };
+};
+
 export const entriesService = {
-  async getEntries(): Promise<Entry[]> {
-    const { data } = await axiosInstance.get<Entry[]>('/entries');
+  async getEntries(): Promise<PaginatedResponse<ApiEntry>> {
+    const { data } = await axiosInstance.get<PaginatedResponse<ApiEntry>>('/entries');
     return data;
   },
 
