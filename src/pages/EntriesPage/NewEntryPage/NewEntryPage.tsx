@@ -21,7 +21,7 @@ const steps = ['Select Emotion', 'Write Reflection'];
 
 const NewEntryPage: React.FC = () => {
   const navigate = useNavigate();
-  const { showSuccess } = useSnackbar();
+  const { showSnackbar } = useSnackbar();
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedEmotions, setSelectedEmotions] = useState<Emotion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -61,7 +61,7 @@ const NewEntryPage: React.FC = () => {
 
       await entriesService.createEntry(entry);
       
-      showSuccess('Your reflection has been saved successfully!', undefined, 'Well done!');
+      showSnackbar('Your reflection has been saved successfully!', 'success', undefined, 'Well done!');
       navigate(APP_ROUTES.ENTRIES_LIST);
     } finally {
       setIsLoading(false);

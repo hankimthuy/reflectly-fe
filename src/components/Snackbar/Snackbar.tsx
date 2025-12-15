@@ -1,11 +1,11 @@
 import React from 'react';
-import Snackbar from '@mui/joy/Snackbar';
-import Typography from '@mui/joy/Typography';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 import WarningIcon from '@mui/icons-material/Warning';
 import InfoIcon from '@mui/icons-material/Info';
 import './Snackbar.scss';
+import { Alert, Snackbar } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 export type SnackbarType = 'success' | 'error' | 'warning' | 'info';
 
@@ -59,22 +59,34 @@ const SnackbarComponent: React.FC<SnackbarProps> = ({
     <Snackbar
       open={open}
       autoHideDuration={autoHideDuration}
-      onClose={onClose}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       color={getColor(type)}
-      variant="soft"
-      startDecorator={getIcon()}
     >
-      <div className="snackbar-content">
-        {title && (
-          <Typography level="title-sm" className="snackbar-title">
-            {title}
+      <Alert
+        onClose={onClose}
+        severity={type}
+        variant="filled"
+        sx={{ width: '100%' }}
+      >
+        <div className="snackbar-content">
+          {title && (
+            <Typography
+              className="snackbar-title"
+              variant="h6"
+              component="span"
+            >
+              {title}
+            </Typography>
+          )}
+          <Typography
+            className="snackbar-message"
+            variant="body2"
+            component="span"
+          >
+            {message}
           </Typography>
-        )}
-        <Typography level="body-sm" className="snackbar-message">
-          {message}
-        </Typography>
-      </div>
+        </div>
+      </Alert>
     </Snackbar>
   );
 };

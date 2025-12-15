@@ -1,11 +1,12 @@
 import { lazy } from 'react';
-import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
+import NotFoundPage from '../components/NotFound/NotFound';
 import { APP_ROUTES } from '../constants/route';
 import MainLayout from '../layouts/MainLayout/MainLayout';
-import ProtectedRoute from './ProtectedRoute';
 import EntriesListPage from '../pages/EntriesPage/EntriesListPage/EntriesListPage';
-import StatisticsPage from '../pages/StatisticsPage/StatisticsPage';
 import QuotesPage from '../pages/QuotesPage/QuotesPage';
+import StatisticsPage from '../pages/StatisticsPage/StatisticsPage';
+import ProtectedRoute from './ProtectedRoute';
 
 const WelcomePage = lazy(() => import('../pages/WelcomePage/WelcomePage'));
 const HomePage = lazy(() => import('../pages/Homepage/Homepage'));
@@ -57,7 +58,7 @@ export const AppRoutes = () => {
                     </ProtectedRoute>
                 } />
             </Route>
-            <Route path="*" element={<Navigate to={APP_ROUTES.HOME} replace />} />
+            <Route path="*" element={<NotFoundPage />} />
         </Routes>
     );
 };

@@ -2,10 +2,7 @@ import React, { createContext, useContext, useState, useCallback, type ReactNode
 import SnackbarComponent, { type SnackbarType } from '../components/Snackbar/Snackbar';
 
 interface SnackbarContextValue {
-  showSuccess: (message: string, duration?: number, title?: string) => void;
-  showError: (message: string, duration?: number, title?: string) => void;
-  showWarning: (message: string, duration?: number, title?: string) => void;
-  showInfo: (message: string, duration?: number, title?: string) => void;
+  showSnackbar: (message: string, type: SnackbarType, duration?: number, title?: string) => void;
 }
 
 interface SnackbarState {
@@ -37,28 +34,12 @@ export const SnackbarProvider: React.FC<{ children: ReactNode }> = ({ children }
     setSnackbar({ open: true, message, title, type, duration });
   }, []);
 
-  const showSuccess = useCallback((message: string, duration?: number, title?: string) => {
-    showSnackbar(message, 'success', duration, title);
-  }, [showSnackbar]);
-
-  const showError = useCallback((message: string, duration?: number, title?: string) => {
-    showSnackbar(message, 'error', duration, title);
-  }, [showSnackbar]);
-
-  const showWarning = useCallback((message: string, duration?: number, title?: string) => {
-    showSnackbar(message, 'warning', duration, title);
-  }, [showSnackbar]);
-
-  const showInfo = useCallback((message: string, duration?: number, title?: string) => {
-    showSnackbar(message, 'info', duration, title);
-  }, [showSnackbar]);
-
   const handleClose = useCallback(() => {
     setSnackbar((prev) => ({ ...prev, open: false }));
   }, []);
 
   return (
-    <SnackbarContext.Provider value={{ showSuccess, showError, showWarning, showInfo }}>
+    <SnackbarContext.Provider value={{ showSnackbar }}>
       {children}
       <SnackbarComponent
         open={snackbar.open}
