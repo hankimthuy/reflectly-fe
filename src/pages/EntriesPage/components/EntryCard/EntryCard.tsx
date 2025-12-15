@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import BaseCard from '../../../../components/BaseCard/BaseCard';
-import type { Entry } from '../../../../models/entry';
-import './EntryCard.scss';
 import { EmotionTags } from '../../../../components/EmotionTags/EmotionTags';
-import { ChevronUp, Eye, Heart } from 'lucide-react';
+import type { Entry } from '../../../../models/entry';
+import { LuChevronUp } from "react-icons/lu";
+import { LuEye } from "react-icons/lu";
+import { LuHeart } from "react-icons/lu";
+import './EntryCard.scss';
 
 interface EntryCardProps {
   entry: Entry;
@@ -34,8 +35,8 @@ const EntryCard: React.FC<EntryCardProps> = ({ entry }: { entry: Entry }) => {
             <span>Details</span>
             {
               expanded ? (
-                <ChevronUp size={16} className="icon arrow-up" />
-              ) : (<Eye size={16} className="icon eye" />)
+                <LuChevronUp size={16} className="icon arrow-up" />
+              ) : (<LuEye size={16} className="icon eye" />)
             }
           </button>
 
@@ -48,7 +49,7 @@ const EntryCard: React.FC<EntryCardProps> = ({ entry }: { entry: Entry }) => {
       {expanded && (
         <div className="card-reflection">
           <div className="reflection-label">
-            <Heart size={14} />
+            <LuHeart size={14} />
             <span>
               Reflection
             </span>

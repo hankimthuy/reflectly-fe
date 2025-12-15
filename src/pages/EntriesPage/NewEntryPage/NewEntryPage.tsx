@@ -11,11 +11,11 @@ import { useSnackbar } from '../../../providers/SnackbarProvider';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import SaveIcon from '@mui/icons-material/Save';
-import Button from '@mui/joy/Button';
-import IconButton from '@mui/joy/IconButton';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
+import { Button } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 
 const steps = ['Select Emotion', 'Write Reflection'];
 
@@ -78,7 +78,6 @@ const NewEntryPage: React.FC = () => {
       <div className="new-entry-frame">
         <div className="entry-header">
         <IconButton
-          variant="plain"
           onClick={currentStep === 0 ? () => navigate(APP_ROUTES.HOME) : handleBack}
           className="back-button"
         >
@@ -98,21 +97,17 @@ const NewEntryPage: React.FC = () => {
         <div className="header-action">
           {currentStep === 0 && selectedEmotions.length > 0 ? (
             <IconButton
-              variant="plain"
               onClick={handleNext}
               className="next-button">
               <ArrowForwardIcon />
             </IconButton>
           ) : currentStep === 1 ? (
             <Button
-              variant="solid"
               color="primary"
-              startDecorator={<SaveIcon />}
+              startIcon={<SaveIcon />}
               onClick={handleSave}
               disabled={!reflectionTitle.trim() || !reflectionText.trim() || isLoading}
-              loading={isLoading}
-              size="sm"
-            >
+              loading={isLoading}>
               Save
             </Button>
           ) : (

@@ -4,7 +4,7 @@ import { Emotion } from '../../../models/emotion';
 import type { Entry } from '../../../models/entry';
 import EntryCard from '../components/EntryCard/EntryCard';
 import './EntriesListPage.scss';
-import { Flame } from 'lucide-react';
+import { IoFlameSharp } from "react-icons/io5";
 import { entriesService, mapApiEntryToModel } from '../../../services/entriesService';
 import { useSnackbar } from '../../../providers/SnackbarProvider';
 
@@ -54,7 +54,7 @@ const INITIAL_DATA: Entry[] = [
 
 const EntriesListPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { showError } = useSnackbar();
+  const { showSnackbar } = useSnackbar();
   const [entries, setEntries] = useState<Entry[]>([]);
 
   const fetchEntries = async () => {
@@ -69,7 +69,7 @@ const EntriesListPage: React.FC = () => {
           setEntries([]); 
       }
     } catch (err) {
-      showError('Failed to load entries');
+      showSnackbar('Failed to load entries', 'error');
     } finally {
       setIsLoading(false);
     }
@@ -78,10 +78,6 @@ const EntriesListPage: React.FC = () => {
   useEffect(() => {
     fetchEntries();
   }, []);
-
-  const handleRefresh = () => {
-    fetchEntries();
-  };
 
   return (
     <div className="main-content">
@@ -95,7 +91,7 @@ const EntriesListPage: React.FC = () => {
         <div className="stats-section">
           <div className="stat-card-dark">
             <div className="icon-box">
-              <Flame />
+              <IoFlameSharp />
             </div>
             <div className="stat-content">
               <div className="stat-value">0</div>
