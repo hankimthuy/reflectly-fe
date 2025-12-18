@@ -24,7 +24,7 @@ const SnackbarComponent: React.FC<SnackbarProps> = ({
   title,
   type,
   onClose,
-  autoHideDuration = 3000,
+  autoHideDuration,
 }) => {
   const getColor = (type: SnackbarType): 'success' | 'danger' | 'warning' | 'primary' => {
     switch (type) {

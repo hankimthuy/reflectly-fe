@@ -61,7 +61,7 @@ const NewEntryPage: React.FC = () => {
 
       await entriesService.createEntry(entry);
       
-      showSnackbar('Your reflection has been saved successfully!', 'success', undefined, 'Well done!');
+      showSnackbar('Your reflection has been saved successfully!', 'success', 5000, 'Well done!');
       navigate(APP_ROUTES.ENTRIES_LIST);
     } finally {
       setIsLoading(false);
