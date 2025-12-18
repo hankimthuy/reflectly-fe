@@ -1,0 +1,13 @@
+@use '../../../styles/_variables' as *;
+@use '../../../styles/_responsive' as *;
+
+.entries-content {
+    padding: 0 16px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 100%);
+    font-style: var(--c-text-primary);
+}

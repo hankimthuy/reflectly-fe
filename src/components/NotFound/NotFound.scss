@@ -1,0 +1,56 @@
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #f9fafb;
+    color: #333;
+    padding: 20px;
+  }
+  
+  .code {
+    font-size: 6rem;
+    font-weight: bold;
+    color: #cbd5e1;
+    margin: 0;
+    line-height: 1;
+  }
+  
+  .title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 10px 0;
+  }
+  
+  .message {
+    font-size: 1rem;
+    color: #64748b;
+    max-width: 500px;
+    margin-bottom: 30px;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s;
+  
+    &.primary {
+      background-color: #2563eb;
+      color: white;
+    }
+  
+    &.secondary {
+      background-color: #e2e8f0;
+      color: #475569;
+    }
+  }
