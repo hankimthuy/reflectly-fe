@@ -2,9 +2,9 @@ import { Emotion } from '../models/emotion';
 import type { Entry, CreateEntryRequest, UpdateEntryRequest, PaginatedResponse, ApiEntry } from '../models/entry';
 import axiosInstance from './axiosSetup';
 
-export const mapApiEntryToModel = (apiItem: ApiEntry): Entry => {  
+export const mapApiEntryToModel = (apiItem: ApiEntry): Entry => {
   const dateObj = new Date(apiItem.createdAt);
-  
+
   return {
     id: apiItem.id,
     userId: apiItem.userId,
@@ -12,7 +12,7 @@ export const mapApiEntryToModel = (apiItem: ApiEntry): Entry => {
     reflection: apiItem.reflection,
     emotions: apiItem.emotions.filter((emotion: string): emotion is Emotion => {
       return Object.values(Emotion).includes(emotion as Emotion);
-    }),    
+    }),
     createdAt: dateObj,
     updatedAt: new Date(apiItem.updatedAt),
     dayDisplay: {
@@ -24,8 +24,14 @@ export const mapApiEntryToModel = (apiItem: ApiEntry): Entry => {
 };
 
 export const entriesService = {
-  async getEntries(): Promise<PaginatedResponse<ApiEntry>> {
-    const { data } = await axiosInstance.get<PaginatedResponse<ApiEntry>>('/entries');
+  async getEntries(url?: string | null): Promise<PaginatedResponse<ApiEntry>> {
+    let requestUrl = url || '/entries?page=0&size=5';
+
+    if (requestUrl.startsWith('/api')) {
+      requestUrl = requestUrl.substring(4);
+    } // remove /api
+
+    const { data } = await axiosInstance.get<PaginatedResponse<ApiEntry>>(requestUrl);
     return data;
   },
 

@@ -40,11 +40,6 @@ export interface UpdateEntryRequest {
 
 export interface PaginatedResponse<T> {
   content: T[];
-  totalPages: number;
-  totalElements: number;
-  last: boolean;
-  size: number;
-  number: number;
-  first: boolean;
-  empty: boolean;
+  total: number;
+  nextLink: string | null;
 }

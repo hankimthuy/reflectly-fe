@@ -1,72 +1,36 @@
 import LandscapeIcon from '@mui/icons-material/Landscape';
 import React, { useEffect, useState } from 'react';
-import { Emotion } from '../../../models/emotion';
+import { IoFlameSharp } from "react-icons/io5";
 import type { Entry } from '../../../models/entry';
+import { useSnackbar } from '../../../providers/SnackbarProvider';
+import { entriesService, mapApiEntryToModel } from '../../../services/entriesService';
 import EntryCard from '../components/EntryCard/EntryCard';
 import './EntriesListPage.scss';
-import { IoFlameSharp } from "react-icons/io5";
-import { entriesService, mapApiEntryToModel } from '../../../services/entriesService';
-import { useSnackbar } from '../../../providers/SnackbarProvider';
-
-const INITIAL_DATA: Entry[] = [
-  {
-    id: 'entry-1',
-    userId: 'user-1',
-    title: 'A day of mixed emotions',
-    reflection: 'Received good news from family early in the morning, felt very warm. But by noon, work piled up, and the boss pushing deadlines made me terribly stressed. Went for a walk in the evening, the cool breeze cleared my mind. Cooked a nice meal at home, felt everything was stable and peaceful again.',
-    emotions: [
-      Emotion.BLESSED,
-      Emotion.ANXIOUS,
-      Emotion.GOOD,
-      Emotion.HAPPY
-    ],
-    createdAt: new Date('2023-07-25T21:00:00'),
-    updatedAt: new Date('2023-07-25T21:00:00'),
-    dayDisplay: { dayName: 'Today', month: 'Jul', date: '25' },
-  },
-  {
-    id: 'entry-2',
-    userId: 'user-1',
-    title: 'Absolutely amazing day!',
-    reflection: 'Nothing to complain about. Everything went smoothly. Achieved my goals and still had time for the gym. Feeling full of positive energy.',
-    emotions: [
-      Emotion.HAPPY,
-      Emotion.GOOD
-    ],
-    createdAt: new Date('2023-07-24T20:00:00'),
-    updatedAt: new Date('2023-07-24T20:00:00'),
-    dayDisplay: { dayName: 'Yesterday', month: 'Jul', date: '24' },
-  },
-  {
-    id: 'entry-3',
-    userId: 'user-1',
-    title: 'Sleep deprived and tired',
-    reflection: 'Felt low energy all day today. Probably because I didn\'t sleep enough yesterday, only got about 4 hours. Just want to lie around. Hope to sleep better tonight to recover for tomorrow.',
-    emotions: [
-      Emotion.DOWN,
-      Emotion.BORED
-    ],
-    createdAt: new Date('2023-07-23T19:00:00'),
-    updatedAt: new Date('2023-07-23T19:00:00'),
-    dayDisplay: { dayName: 'Tuesday', month: 'Jul', date: '23' },
-  }
-];
+import { Box, Button, CircularProgress, Typography } from '@mui/material';
 
 const EntriesListPage: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const { showSnackbar } = useSnackbar();
   const [entries, setEntries] = useState<Entry[]>([]);
+  const [nextLink, setNextLink] = useState<string | null>(null);
+  const [total, setTotal] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const fetchEntries = async () => {
+  const fetchEntries = async (url?: string, isLoadMore: boolean = false) => {
     setIsLoading(true);
     try {
-      const response = await entriesService.getEntries();
-    
+      const response = await entriesService.getEntries(url);
+
       if (response && Array.isArray(response.content)) {
-        const formattedData = response.content.map(mapApiEntryToModel);          
-        setEntries(formattedData);
+        const formattedData = response.content.map(mapApiEntryToModel);
+        if (isLoadMore) {
+          setEntries(prev => [...prev, ...formattedData]);
+        } else {
+          setEntries(formattedData);
+        }
+        setNextLink(response.nextLink);
+        setTotal(response.total);
       } else {
-          setEntries([]); 
+        if (!isLoadMore) setEntries([]);
       }
     } catch (err) {
       showSnackbar('Failed to load entries', 'error');
@@ -78,6 +42,12 @@ const EntriesListPage: React.FC = () => {
   useEffect(() => {
     fetchEntries();
   }, []);
+
+  const handleLoadMore = () => {
+    if (nextLink) {
+      fetchEntries(nextLink, true);
+    }
+  };
 
   return (
     <div className="main-content">
@@ -122,6 +92,23 @@ const EntriesListPage: React.FC = () => {
           )}
         </div>
 
+      </div>
+      <div className="load-more-wrapper">
+        {isLoading && <CircularProgress size={30} sx={{ mb: 2 }} />}
+
+        {!isLoading && nextLink && (
+          <Button
+            variant="outlined"
+            onClick={handleLoadMore}
+            className="load-more-btn"
+          >
+            Load More
+          </Button>
+        )}
+
+        <Typography variant="caption" className="load-more-text">
+          Showing {entries.length} of {total} entries
+        </Typography>
       </div>
     </div>
   );
