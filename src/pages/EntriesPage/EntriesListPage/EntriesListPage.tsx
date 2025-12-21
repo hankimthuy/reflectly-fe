@@ -1,51 +1,52 @@
 import LandscapeIcon from '@mui/icons-material/Landscape';
-import React, { useEffect, useState } from 'react';
+import { Button, CircularProgress, Typography } from '@mui/material';
+import { useInfiniteQuery, type InfiniteData } from '@tanstack/react-query';
+import React, { useEffect } from 'react';
 import { IoFlameSharp } from "react-icons/io5";
-import type { Entry } from '../../../models/entry';
+import type { Entry, PaginatedResponse } from '../../../models/entry';
 import { useSnackbar } from '../../../providers/SnackbarProvider';
 import { entriesService, mapApiEntryToModel } from '../../../services/entriesService';
 import EntryCard from '../components/EntryCard/EntryCard';
 import './EntriesListPage.scss';
-import { Box, Button, CircularProgress, Typography } from '@mui/material';
 
 const EntriesListPage: React.FC = () => {
   const { showSnackbar } = useSnackbar();
-  const [entries, setEntries] = useState<Entry[]>([]);
-  const [nextLink, setNextLink] = useState<string | null>(null);
-  const [total, setTotal] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const fetchEntries = async (url?: string, isLoadMore: boolean = false) => {
-    setIsLoading(true);
-    try {
-      const response = await entriesService.getEntries(url);
-
-      if (response && Array.isArray(response.content)) {
-        const formattedData = response.content.map(mapApiEntryToModel);
-        if (isLoadMore) {
-          setEntries(prev => [...prev, ...formattedData]);
-        } else {
-          setEntries(formattedData);
-        }
-        setNextLink(response.nextLink);
-        setTotal(response.total);
-      } else {
-        if (!isLoadMore) setEntries([]);
-      }
-    } catch (err) {
-      showSnackbar('Failed to load entries', 'error');
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const {
+    data,
+    isLoading,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage
+  } = useInfiniteQuery<PaginatedResponse<Entry>, Error, InfiniteData<PaginatedResponse<Entry>>, string[], string | null>({
+    queryKey: ['entries'],
+    initialPageParam: null,
+    queryFn: async ({ pageParam: nextLink }) => {
+      const response = await entriesService.getEntries(nextLink as string | undefined);
+      return {
+        ...response,
+        content: response.content?.map(mapApiEntryToModel) || [],
+        nextLink: response.nextLink || null,
+        total: response.total || 0
+      };
+    },
+    getNextPageParam: (lastPage) => {
+      return lastPage.nextLink || undefined;
+    },
+  });
 
   useEffect(() => {
-    fetchEntries();
-  }, []);
+    if (isError) {
+      showSnackbar('Failed to load entries', 'error');
+    }
+  }, [isError, showSnackbar]);
+
+  const entries = data?.pages.flatMap((page) => page.content) || [];
+  const total = data?.pages[0]?.total || 0;
 
   const handleLoadMore = () => {
-    if (nextLink) {
-      fetchEntries(nextLink, true);
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
     }
   };
 
@@ -94,9 +95,9 @@ const EntriesListPage: React.FC = () => {
 
       </div>
       <div className="load-more-wrapper">
-        {isLoading && <CircularProgress size={30} sx={{ mb: 2 }} />}
+        {(isFetchingNextPage || isLoading) && (<CircularProgress size={30} sx={{ mb: 2 }} />)}
 
-        {!isLoading && nextLink && (
+        {!isLoading && hasNextPage && (
           <Button
             variant="outlined"
             onClick={handleLoadMore}
