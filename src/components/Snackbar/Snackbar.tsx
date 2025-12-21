@@ -59,6 +59,7 @@ const SnackbarComponent: React.FC<SnackbarProps> = ({
     <Snackbar
       open={open}
       autoHideDuration={autoHideDuration}
+      onClose={onClose}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       color={getColor(type)}
     >
