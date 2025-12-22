@@ -1,36 +1,60 @@
 import LandscapeIcon from '@mui/icons-material/Landscape';
+import { Button, CircularProgress, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { IoFlameSharp } from "react-icons/io5";
-import type { Entry } from '../../../models/entry';
+import { Emotion } from '../../../models/emotion';
+import type { ApiEntry, Entry } from '../../../models/entry';
 import { useSnackbar } from '../../../providers/SnackbarProvider';
-import { entriesService, mapApiEntryToModel } from '../../../services/entriesService';
+import { entriesService } from '../../../services/entriesService';
 import EntryCard from '../components/EntryCard/EntryCard';
 import './EntriesListPage.scss';
-import { Box, Button, CircularProgress, Typography } from '@mui/material';
+
+const mapApiEntryToModel = (apiItem: ApiEntry): Entry => {
+  const dateObj = new Date(apiItem.createdAt);
+
+  return {
+    id: apiItem.id,
+    userId: apiItem.userId,
+    title: apiItem.title,
+    reflection: apiItem.reflection,
+    emotions: apiItem.emotions.filter((emotion: string): emotion is Emotion => {
+      return Object.values(Emotion).includes(emotion as Emotion);
+    }),
+    createdAt: dateObj,
+    updatedAt: new Date(apiItem.updatedAt),
+    dayDisplay: {
+      month: dateObj.toLocaleString('en-US', { month: 'short' }).toUpperCase(),
+      date: dateObj.getDate().toString().padStart(2, '0'),
+      dayName: dateObj.toLocaleString('en-US', { weekday: 'long' })
+    }
+  };
+};
 
 const EntriesListPage: React.FC = () => {
   const { showSnackbar } = useSnackbar();
-  const [entries, setEntries] = useState<Entry[]>([]);
+  const [entries, setEntries] = useState<ApiEntry[]>([]);
   const [nextLink, setNextLink] = useState<string | null>(null);
   const [total, setTotal] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const fetchEntries = async (url?: string, isLoadMore: boolean = false) => {
+  const fetchEntries = async (url?: string) => {
     setIsLoading(true);
     try {
       const response = await entriesService.getEntries(url);
 
       if (response && Array.isArray(response.content)) {
-        const formattedData = response.content.map(mapApiEntryToModel);
-        if (isLoadMore) {
+        const formattedData = response.content;
+
+        if (url) {
           setEntries(prev => [...prev, ...formattedData]);
         } else {
           setEntries(formattedData);
         }
+
         setNextLink(response.nextLink);
         setTotal(response.total);
       } else {
-        if (!isLoadMore) setEntries([]);
+        if (!url) setEntries([]);
       }
     } catch (err) {
       showSnackbar('Failed to load entries', 'error');
@@ -45,7 +69,7 @@ const EntriesListPage: React.FC = () => {
 
   const handleLoadMore = () => {
     if (nextLink) {
-      fetchEntries(nextLink, true);
+      fetchEntries(nextLink);
     }
   };
 
@@ -82,9 +106,6 @@ const EntriesListPage: React.FC = () => {
         {/* List of Journal Cards */}
 
         <div className="entries-list-content">
-          {/* {INITIAL_DATA.map((entry) => (
-            <EntryCard key={entry.id} entry={entry} />
-          ))} */}
           {entries.length > 0 && (
             entries.map((entry) => (
               <EntryCard key={entry.id} entry={entry} />

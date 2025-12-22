@@ -37,9 +37,3 @@ export interface UpdateEntryRequest {
   reflection?: string;
   emotions?: Emotion[];
 }
-
-export interface PaginatedResponse<T> {
-  content: T[];
-  total: number;
-  nextLink: string | null;
-}

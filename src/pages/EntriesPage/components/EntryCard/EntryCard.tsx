@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { EmotionTags } from '../../../../components/EmotionTags/EmotionTags';
 import type { Entry } from '../../../../models/entry';
 import { LuChevronUp } from "react-icons/lu";
 import { LuEye } from "react-icons/lu";
 import { LuHeart } from "react-icons/lu";
 import './EntryCard.scss';
+import EmotionTags from '../../../../components/EmotionTags/EmotionTags';
 
 interface EntryCardProps {
   entry: Entry;
