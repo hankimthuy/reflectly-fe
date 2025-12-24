@@ -23,7 +23,7 @@ export const useUserProfile = () => {
       // Allow retry for server errors (5xx) or network errors
       return true;
     },
-    staleTime: 1000 * 60 * 60 * 24, 
+    staleTime: 1000 * 60 * 60 * 24, // 1 day
     enabled: hasToken,
   });
 };
