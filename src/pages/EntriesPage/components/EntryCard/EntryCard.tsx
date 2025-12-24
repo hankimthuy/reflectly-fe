@@ -12,6 +12,7 @@ import EmotionTags from '../../../../components/EmotionTags/EmotionTags';
 import { Emotion } from '../../../../models/emotion';
 import { useUpdateEntryMutation, useDeleteEntryMutation } from '../../../../queries/entriesQueryHook';
 import ConfirmDialog from '../../../../components/ConfirmDialog/ConfirmDialog';
+import { useSnackbar } from '../../../../providers/SnackbarProvider';
 
 interface EntryCardProps {
   entry: Entry;
@@ -24,6 +25,7 @@ const EntryCard: React.FC<EntryCardProps> = ({ entry }: { entry: Entry }) => {
   const [editedReflection, setEditedReflection] = useState(entry.reflection || '');
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   
+  const { showSnackbar } = useSnackbar();
   const updateEntryMutation = useUpdateEntryMutation();
   const deleteEntryMutation = useDeleteEntryMutation();
 
@@ -93,7 +95,8 @@ const EntryCard: React.FC<EntryCardProps> = ({ entry }: { entry: Entry }) => {
       },
       onError: (error) => {
         console.error('Failed to delete entry:', error);
-        showSnackbar('Failed to delete entry: ' + error, 'error', 5000, 'Error');
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        showSnackbar(`Failed to delete entry: ${errorMessage}`, 'error', 5000, 'Error');
         setDeleteDialogOpen(false);
       }
     });
@@ -245,7 +248,4 @@ const EntryCard: React.FC<EntryCardProps> = ({ entry }: { entry: Entry }) => {
 };
 
 export default EntryCard;
-function showSnackbar(arg0: string, arg1: string, arg2: number, arg3: string) {
-  throw new Error('Function not implemented.');
-}
 

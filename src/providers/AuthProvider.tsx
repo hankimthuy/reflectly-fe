@@ -1,14 +1,13 @@
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { createContext, type ReactNode, useContext, useMemo } from 'react';
 import { COOKIE_KEYS } from "../constants/storage.ts";
 import type { User } from "../models/user.ts";
-import { getUserProfile } from '../services/userService.ts';
+import { useUserProfile } from "../queries/authQueryHook.ts";
 import CookieUtil from "../utils/cookieUtil.ts";
 
 interface AuthContextValue {
     currentUser: User | null;
-    setCurrentUser: (user: User | null) => void;
     isAuthenticated: boolean;
     login: (idToken: string) => void;
     logout: () => void;
@@ -27,19 +26,9 @@ export const useAuth = (): AuthContextValue => {
 export const AuthProvider = ({children}: { children: ReactNode }) => {
     const queryClient = useQueryClient();
 
-    const { data: currentUser = null } = useQuery({
-        queryKey: ['userProfile'],
-        queryFn: getUserProfile,
-        retry: false,
-        staleTime: Infinity,
-        enabled: !!CookieUtil.getCookie(COOKIE_KEYS.AUTH_TOKEN),
-    });
+    const { data: currentUser = null, isLoading } = useUserProfile();
 
     const isAuthenticated = useMemo(() => !!currentUser, [currentUser]);
-
-    const setCurrentUser = (user: User | null) => {
-        queryClient.setQueryData(['userProfile'], user);
-    };
 
     const login = async (idToken: string) => {
         CookieUtil.setCookie(COOKIE_KEYS.AUTH_TOKEN, idToken, 1);
@@ -49,15 +38,16 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
     const logout = () => {
         CookieUtil.deleteCookie(COOKIE_KEYS.AUTH_TOKEN);
         queryClient.setQueryData(['userProfile'], null);
+        queryClient.removeQueries({ queryKey: ['userProfile'] });
     }
 
     const contextValue = useMemo(() => ({
         currentUser,
-        setCurrentUser,
+        isLoading,
         isAuthenticated,
         login,
         logout,
-    }), [currentUser, isAuthenticated, queryClient]);
+    }), [currentUser, isAuthenticated, isLoading, queryClient]);
 
     return (
         <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
