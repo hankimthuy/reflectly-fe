@@ -1,16 +1,15 @@
 import LandscapeIcon from '@mui/icons-material/Landscape';
 import { Button, CircularProgress, Typography } from '@mui/material';
-import { useInfiniteQuery, type InfiniteData } from '@tanstack/react-query';
 import React, { useEffect } from 'react';
 import { IoFlameSharp } from "react-icons/io5";
-import type { Entry, PaginatedResponse } from '../../../models/entry';
 import { useSnackbar } from '../../../providers/SnackbarProvider';
-import { entriesService, mapApiEntryToModel } from '../../../services/entriesService';
+import { useEntriesInfiniteQuery } from '../../../queries/entriesQueryHook';
 import EntryCard from '../components/EntryCard/EntryCard';
 import './EntriesListPage.scss';
 
 const EntriesListPage: React.FC = () => {
   const { showSnackbar } = useSnackbar();
+
   const {
     data,
     isLoading,
@@ -18,22 +17,7 @@ const EntriesListPage: React.FC = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage
-  } = useInfiniteQuery<PaginatedResponse<Entry>, Error, InfiniteData<PaginatedResponse<Entry>>, string[], string | null>({
-    queryKey: ['entries'],
-    initialPageParam: null,
-    queryFn: async ({ pageParam: nextLink }) => {
-      const response = await entriesService.getEntries(nextLink as string | undefined);
-      return {
-        ...response,
-        content: response.content?.map(mapApiEntryToModel) || [],
-        nextLink: response.nextLink || null,
-        total: response.total || 0
-      };
-    },
-    getNextPageParam: (lastPage) => {
-      return lastPage.nextLink || undefined;
-    },
-  });
+  } = useEntriesInfiniteQuery();
 
   useEffect(() => {
     if (isError) {
@@ -41,9 +25,12 @@ const EntriesListPage: React.FC = () => {
     }
   }, [isError, showSnackbar]);
 
-  const entries = data?.pages.flatMap((page) => page.content) || [];
-  const total = data?.pages[0]?.total || 0;
+  const entries = React.useMemo(() => {
+    return data?.pages.flatMap(page => page.content) || [];
+  }, [data]);
 
+  const total = data?.pages[0]?.total || 0;
+  
   const handleLoadMore = () => {
     if (hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
