@@ -5,21 +5,6 @@ export interface Entry {
   userId: string;
   title: string;
   reflection: string;
-  emotions: Emotion[];
-  createdAt: Date;
-  updatedAt: Date;
-  dayDisplay?: {
-    dayName: string;
-    month: string;
-    date: string;
-  };
-}
-
-export interface ApiEntry {
-  id: string;
-  userId: string;
-  title: string;
-  reflection: string;
   emotions: string[];
   createdAt: string;
   updatedAt: string;
