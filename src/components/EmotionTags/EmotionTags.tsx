@@ -1,6 +1,6 @@
 import { EMOTION_DATA, type Emotion } from "../../models/emotion";
 
-export const EmotionTag = ({ emotion }: { emotion: Emotion }) => {
+const EmotionTag = ({ emotion }: { emotion: Emotion }) => {
     const emotionData = EMOTION_DATA[emotion];
 
     if (!emotionData) return null;
@@ -14,7 +14,7 @@ export const EmotionTag = ({ emotion }: { emotion: Emotion }) => {
     )
 }
 
-export const EmotionTags = ({ emotions }: { emotions: Emotion[] }) => {
+const EmotionTags = ({ emotions }: { emotions: Emotion[] }) => {
     if (!emotions || emotions.length === 0) return null;
 
     return (
@@ -25,3 +25,5 @@ export const EmotionTags = ({ emotions }: { emotions: Emotion[] }) => {
         </div>
     )
 }
+
+export default EmotionTags;

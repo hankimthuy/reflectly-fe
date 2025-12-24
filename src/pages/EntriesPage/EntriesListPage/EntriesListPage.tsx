@@ -81,11 +81,7 @@ const EntriesListPage: React.FC = () => {
         </div>
 
         {/* List of Journal Cards */}
-
         <div className="entries-list-content">
-          {/* {INITIAL_DATA.map((entry) => (
-            <EntryCard key={entry.id} entry={entry} />
-          ))} */}
           {entries.length > 0 && (
             entries.map((entry) => (
               <EntryCard key={entry.id} entry={entry} />

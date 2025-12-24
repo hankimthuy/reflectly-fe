@@ -63,7 +63,10 @@ const NewEntryPage: React.FC = () => {
       
       showSnackbar('Your reflection has been saved successfully!', 'success', 5000, 'Well done!');
       navigate(APP_ROUTES.ENTRIES_LIST);
-    } finally {
+    } catch {
+      showSnackbar('Your reflection has not been saved yet!', 'error', 5000, 'Error');
+    } 
+    finally {
       setIsLoading(false);
     }
   };

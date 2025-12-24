@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { EmotionTags } from '../../../../components/EmotionTags/EmotionTags';
+import React, { useMemo, useState } from 'react';
 import type { Entry } from '../../../../models/entry';
 import { LuChevronUp } from "react-icons/lu";
 import { LuEye } from "react-icons/lu";
 import { LuHeart } from "react-icons/lu";
 import './EntryCard.scss';
+import EmotionTags from '../../../../components/EmotionTags/EmotionTags';
+import { Emotion } from '../../../../models/emotion';
 
 interface EntryCardProps {
   entry: Entry;
@@ -12,7 +13,19 @@ interface EntryCardProps {
 
 const EntryCard: React.FC<EntryCardProps> = ({ entry }: { entry: Entry }) => {
   const [expanded, setExpand] = useState(false);
-  const { dayDisplay } = entry;
+  const { dayDisplay, emotions } = useMemo(() => {
+    const dateObj = new Date(entry.createdAt);
+    return {
+      dayDisplay: {
+        month: dateObj.toLocaleString('en-US', { month: 'short' }).toUpperCase(),
+        date: dateObj.getDate().toString().padStart(2, '0'),
+        dayName: dateObj.toLocaleString('en-US', { weekday: 'long' })
+      },
+      emotions: entry.emotions.filter((e): e is any => 
+        Object.values(Emotion).includes(e as any)
+      )
+    };
+  }, [entry.createdAt, entry.emotions]);
   return (
     <div className="entry-card">
       {/* --- Main Card Section --- */}
@@ -42,7 +55,7 @@ const EntryCard: React.FC<EntryCardProps> = ({ entry }: { entry: Entry }) => {
 
         </div>
 
-        <EmotionTags emotions={entry.emotions} />
+        <EmotionTags emotions={emotions} />
       </div>
 
       {/* --- Expanded Section: Reflection --- */}
