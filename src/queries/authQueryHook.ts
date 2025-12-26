@@ -13,15 +13,7 @@ export const useUserProfile = () => {
 
       if (failureCount > 2) return false;
 
-      const status = error?.response?.status;
-      
-      // Don't retry on client errors (4xx) 
-      if (status === 400 || status === 401 || status === 403 || status === 404) {
-        return false;
-      }
-      
-      // Allow retry for server errors (5xx) or network errors
-      return true;
+      return error?.response?.status >= 500;
     },
     staleTime: 1000 * 60 * 60 * 24, // 1 day
     enabled: hasToken,

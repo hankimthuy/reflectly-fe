@@ -49,10 +49,7 @@ export const useCreateEntryMutation = () => {
   return useMutation({
     mutationFn: (entry: CreateEntryRequest) => entriesService.createEntry(entry),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['entries'] });
-    },
-    onError: (error) => {
-      console.error("Failed to create entry:", error);
+      queryClient.refetchQueries({ queryKey: ['entries'] });
     }
   });
 };
@@ -64,8 +61,8 @@ export const useUpdateEntryMutation = () => {
     mutationFn: (entry: UpdateEntryRequest) => entriesService.updateEntry(entry),
     retry: 3,
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['entries'] });
-      queryClient.invalidateQueries({ queryKey: ['entries', data.id] });
+      queryClient.refetchQueries({ queryKey: ['entries'] });
+      queryClient.refetchQueries({ queryKey: ['entries', data.id] });
     },
   });
 };
@@ -77,7 +74,7 @@ export const useDeleteEntryMutation = () => {
     mutationFn: (id: string) => entriesService.deleteEntry(id),
     retry: 3,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['entries'] });
+      queryClient.refetchQueries({ queryKey: ['entries'] });
     },
   });
 };
