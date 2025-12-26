@@ -39,6 +39,19 @@ $breakpoints: (
   }
 }
 
+@mixin page-frame {
+  width: 100%;
+  min-height: 100%;
+  background: var(--c-surface);
+  @include padding-responsive(
+    var(--spacing-md),
+    var(--spacing-lg),
+    var(--spacing-xl)
+  );
+  @include flex-col-stretch;
+  gap: var(--spacing-sm);
+}
+
 @mixin laptop-up {
   @media screen and (min-width: map.get($breakpoints, laptop)) {
     @content;
@@ -102,6 +115,14 @@ $breakpoints: (
     display: flex;
     flex-direction: column;
     align-items: stretch;
+  }
+}
+
+@mixin flex-col-between {
+  & {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }
 
@@ -210,17 +231,14 @@ $breakpoints: (
 // Card responsive design - Fixed mixed declarations
 @mixin card-responsive {
   & {
-    border-radius: var(--border-radius-md);
     box-shadow: 0 4px 16px var(--c-shadow-light);
-    background: var(--c-surface);
+    background: var(--c-white);
     
     @include mobile-only {
-      border-radius: var(--border-radius-sm);
       margin: 0 8px;
     }
     
     @include respond-to(laptop) {
-      border-radius: var(--border-radius-lg);
       box-shadow: 0 8px 32px var(--c-shadow-heavy);
     }
   }

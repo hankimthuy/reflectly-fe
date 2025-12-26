@@ -8,10 +8,8 @@
   align-items: center;
   flex-shrink: 0;
   
-  // Perfect circle
   border-radius: 50%;
   
-  // Responsive sizing
   @include mobile-only {
     width: 40px;
     height: 40px;
@@ -27,27 +25,21 @@
     height: 56px;
   }
   
-  // Subtle shadow và border như trong mẫu
   & {
     box-shadow: 0 2px 8px rgba(var(--c-shadow-color-rgb), 0.1);
     border: 2px solid var(--c-border-white);
     transition: var(--transition-normal);
   }
   
-  // Icon styling
   svg {
     color: var(--c-text-on-surface);
-    width: 60%;
-    height: 60%;
   }
   
-  // Hover effect
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(var(--c-shadow-color-rgb), 0.15);
   }
 
-  // Variants sử dụng màu từ bảng màu chuẩn
   &--primary {
     background-color: var(--c-primary);
   }
@@ -57,20 +49,16 @@
   }
 
   &--gradient {
-    background: linear-gradient(135deg, 
-      var(--c-primary-light) 0%, 
-      var(--c-surface) 100%
-    );
+    background: var(--c-tertiary);
   }
   
-  // Thêm variant mới dựa trên bảng màu
   &--accent {
-    background-color: var(--c-background); // #FBFBF8
+    background-color: var(--c-background);
     border: 2px solid var(--c-border-subtle);
   }
 
   &--muted {
-    background-color: var(--c-border); // #DED8CC
+    background-color: var(--c-border);
     border: 2px solid rgba(255, 255, 255, 0.6);
   }
 }

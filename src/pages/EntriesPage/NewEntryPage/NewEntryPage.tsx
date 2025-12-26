@@ -8,10 +8,14 @@ import type { CreateEntryRequest } from '../../../models/entry';
 import { entriesService } from '../../../services/entriesService';
 import { APP_ROUTES } from '../../../constants/route';
 import { useSnackbar } from '../../../providers/SnackbarProvider';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import SaveIcon from '@mui/icons-material/Save';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import Box from '@mui/material/Box';
+import { Button } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 
 const steps = ['Select Emotion', 'Write Reflection'];
 
@@ -21,6 +25,8 @@ const NewEntryPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [selectedEmotions, setSelectedEmotions] = useState<Emotion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [reflectionTitle, setReflectionTitle] = useState('');
+  const [reflectionText, setReflectionText] = useState('');
 
   const handleEmotionToggle = (emotion: Emotion) => {
     setSelectedEmotions(prev => {
@@ -40,41 +46,83 @@ const NewEntryPage: React.FC = () => {
     setCurrentStep(currentStep - 1);
   };
 
-  const handleSave = async (title: string, reflection: string) => {
+  const handleSave = async () => {
+    if (!reflectionTitle.trim() || !reflectionText.trim()) {
+      return;
+    }
+
     setIsLoading(true);
     try {
       const entry: CreateEntryRequest = {
-        title,
-        reflection,
+        title: reflectionTitle.trim(),
+        reflection: reflectionText.trim(),
         emotions: selectedEmotions,
       };
 
       await entriesService.createEntry(entry);
       
-      showSnackbar('Your reflection has been saved successfully!', 'success', undefined, 'Well done!');
+      showSnackbar('Your reflection has been saved successfully!', 'success', 5000, 'Well done!');
       navigate(APP_ROUTES.ENTRIES_LIST);
-    } finally {
+    } catch {
+      showSnackbar('Your reflection has not been saved yet!', 'error', 5000, 'Error');
+    } 
+    finally {
       setIsLoading(false);
     }
   };
 
+  const handleFormChange = (title: string, reflection: string) => {
+    setReflectionTitle(title);
+    setReflectionText(reflection);
+  };
+
   return (
-    <div className="entries-content">
-      <Box sx={{ width: '100%', m: 2 }}> 
-        <Stepper activeStep={currentStep} alternativeLabel>
-          {steps.map((label) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-            </Step>
-          ))}
-        </Stepper>
-      </Box>
+    <div className="main-content">
+      <div className="new-entry-frame">
+        <div className="entry-header">
+        <IconButton
+          onClick={currentStep === 0 ? () => navigate(APP_ROUTES.HOME) : handleBack}
+          className="back-button"
+        >
+          <ArrowBackIcon />
+        </IconButton>
+        
+        <div className="stepper-container">
+          <Stepper activeStep={currentStep} alternativeLabel>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel className="step-label">{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+        </div>
+
+        <div className="header-action">
+          {currentStep === 0 && selectedEmotions.length > 0 ? (
+            <IconButton
+              onClick={handleNext}
+              className="next-button">
+              <ArrowForwardIcon />
+            </IconButton>
+          ) : currentStep === 1 ? (
+            <Button
+              color="primary"
+              startIcon={<SaveIcon />}
+              onClick={handleSave}
+              disabled={!reflectionTitle.trim() || !reflectionText.trim() || isLoading}
+              loading={isLoading}>
+              Save
+            </Button>
+          ) : (
+            <div className="header-placeholder" />
+          )}
+        </div>
+      </div>
 
       {currentStep === 0 && (
         <EmotionCapture
           selectedEmotions={selectedEmotions}
           onEmotionToggle={handleEmotionToggle}
-          onNext={handleNext}
           maxSelections={10}
         />
       )}
@@ -82,11 +130,10 @@ const NewEntryPage: React.FC = () => {
       {currentStep === 1 && (
         <ReflectionCapture
           selectedEmotions={selectedEmotions}
-          onBack={handleBack}
-          onSave={handleSave}
-          isLoading={isLoading}
+          onFormChange={handleFormChange}
         />
       )}
+      </div>
     </div>
   );
 };

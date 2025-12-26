@@ -30,7 +30,7 @@ export const SnackbarProvider: React.FC<{ children: ReactNode }> = ({ children }
     type: 'info',
   });
 
-  const showSnackbar = useCallback((message: string, type: SnackbarType, duration = 3000, title?: string) => {
+  const showSnackbar = useCallback((message: string, type: SnackbarType, duration?: number, title?: string) => {
     setSnackbar({ open: true, message, title, type, duration });
   }, []);
 

@@ -5,12 +5,6 @@ import {Link, useNavigate} from "react-router-dom";
 import {useAuth} from '../../providers/AuthProvider.tsx';
 import {APP_ROUTES} from '../../constants/route';
 
-const todayDate = `Today, ${new Date().toLocaleString('en-US', {
-    timeZone: 'Asia/Ho_Chi_Minh',
-    month: 'long',
-    day: 'numeric',
-})}`;
-
 const HomeHeader = () => {
     const navigate = useNavigate();
     const {currentUser, logout} = useAuth();
@@ -89,7 +83,6 @@ const HomeHeader = () => {
                     </div>
                 )}
             </div>
-            <h1 className="date">{todayDate}</h1>
         </header>
     );
 };

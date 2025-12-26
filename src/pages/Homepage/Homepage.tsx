@@ -16,11 +16,12 @@ const HomePage = () => {
 
     return (
         <main className="main-content">
-            {/* Daily Reflection Card - Full Width */}
-            <DailyReflectionCard/>
+            <div className="homepage-frame">
+                {/* Daily Reflection Card - Full Width */}
+                <DailyReflectionCard/>
 
-            {/* Cards Grid Layout */}
-            <Grid container spacing={2}>
+                {/* Cards Grid Layout */}
+                <Grid container spacing={2}>
                 {/* First Row - Mood Check & Gratitude (2 cards side by side) */}
                 <Grid size={{xs: 12, sm: 6}}>
                     <BaseCard>
@@ -104,6 +105,7 @@ const HomePage = () => {
                     </BaseCard>
                 </Grid>
             </Grid>
+            </div>
         </main>
 
     );

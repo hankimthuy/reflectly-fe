@@ -2,14 +2,22 @@ import './DailyReflectionCard.scss'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import IconWrapper from '../../../components/IconWrapper/IconWrapper';
+import BaseCard from '../../../components/BaseCard/BaseCard';
+import { useNavigate } from 'react-router-dom';
+import { APP_ROUTES } from '../../../constants/route';
 
 /**
  * @component DailyReflectionCard
  * @description Displays the daily reflection prompt and input area.
  */
 const DailyReflectionCard = () => {
+    const navigate = useNavigate();
+    const handleNavigateToNewEntry = () => {
+        navigate(APP_ROUTES.ENTRIES_NEW, { state: { from: APP_ROUTES.HOME } });
+    };
+    
     return (
-        <section className="daily-reflection-card">
+        <BaseCard className="daily-reflection-card" onClick={handleNavigateToNewEntry}>
             <h1 className="title">
               Daily Reflection
             </h1>
@@ -25,7 +33,7 @@ const DailyReflectionCard = () => {
                     <KeyboardArrowRightIcon />
                 </IconWrapper>
             </div>
-        </section>
+        </BaseCard>
     );
 };
 
