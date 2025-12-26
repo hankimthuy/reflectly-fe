@@ -1,16 +1,12 @@
 import type { PaginatedResponse } from '../models/base';
-import type { ApiEntry, CreateEntryRequest, Entry, UpdateEntryRequest } from '../models/entry';
+import type { CreateEntryRequest, Entry, UpdateEntryRequest } from '../models/entry';
 import axiosInstance from './axiosSetup';
 
 export const entriesService = {
-  async getEntries(url?: string | null): Promise<PaginatedResponse<ApiEntry>> {
-    let requestUrl = url || '/entries?page=0&size=5';
+  async getEntries(url?: string | null): Promise<PaginatedResponse<Entry>> {
+    const requestUrl = url || '/entries?page=0&size=5';
 
-    if (requestUrl.startsWith('/api')) {
-      requestUrl = requestUrl.substring(4);
-    } // remove /api
-
-    const { data } = await axiosInstance.get<PaginatedResponse<ApiEntry>>(requestUrl);
+    const { data } = await axiosInstance.get<PaginatedResponse<Entry>>(requestUrl);
     return data;
   },
 
