@@ -1,14 +1,13 @@
-import {type ReactNode, useEffect} from 'react';
-import {createContext, useContext, useMemo, useState} from 'react';
-import type {User} from "../models/user.ts";
-import {getUserProfile} from '../services/userService.ts';
-import {GoogleOAuthProvider} from "@react-oauth/google";
-import {COOKIE_KEYS} from "../constants/storage.ts";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { useQueryClient } from '@tanstack/react-query';
+import { createContext, type ReactNode, useContext, useMemo } from 'react';
+import { COOKIE_KEYS } from "../constants/storage.ts";
+import type { User } from "../models/user.ts";
+import { useUserProfile } from "../queries/authQueryHook.ts";
 import CookieUtil from "../utils/cookieUtil.ts";
 
 interface AuthContextValue {
     currentUser: User | null;
-    setCurrentUser: (user: User | null) => void;
     isAuthenticated: boolean;
     login: (idToken: string) => void;
     logout: () => void;
@@ -16,7 +15,6 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = (): AuthContextValue => {
     const context = useContext(AuthContext);
     if (!context) {
@@ -26,34 +24,30 @@ export const useAuth = (): AuthContextValue => {
 };
 
 export const AuthProvider = ({children}: { children: ReactNode }) => {
-    const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const queryClient = useQueryClient();
+
+    const { data: currentUser = null, isLoading } = useUserProfile();
 
     const isAuthenticated = useMemo(() => !!currentUser, [currentUser]);
 
-    useEffect(() => {
-        const token = CookieUtil.getCookie(COOKIE_KEYS.AUTH_TOKEN);
-        if (token) {
-            getUserProfile().then(res => setCurrentUser(res));
-        }
-    }, []);
-
-    const login = (idToken: string) => {
+    const login = async (idToken: string) => {
         CookieUtil.setCookie(COOKIE_KEYS.AUTH_TOKEN, idToken, 1);
-        getUserProfile().then(res => setCurrentUser(res));
+        await queryClient.invalidateQueries({ queryKey: ['userProfile'] });
     }
 
     const logout = () => {
         CookieUtil.deleteCookie(COOKIE_KEYS.AUTH_TOKEN);
-        setCurrentUser(null);
+        queryClient.setQueryData(['userProfile'], null);
+        queryClient.removeQueries({ queryKey: ['userProfile'] });
     }
 
     const contextValue = useMemo(() => ({
         currentUser,
-        setCurrentUser,
+        isLoading,
         isAuthenticated,
         login,
         logout,
-    }), [currentUser, isAuthenticated]);
+    }), [currentUser, isAuthenticated, isLoading, queryClient]);
 
     return (
         <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
