@@ -1,7 +1,6 @@
-import React, { Activity, useState } from 'react';
+import { useState } from 'react';
+import { LuActivity, LuBrainCircuit, LuChevronRight, LuCompass, LuLayers, LuMap, LuShield, LuUsers, LuZap } from 'react-icons/lu';
 import './PillarsSection.scss';
-import { ChevronRight } from '@mui/icons-material';
-import { LuShield, LuCompass, LuLayers, LuUsers, LuZap, LuMap, LuChevronRight, LuBrainCircuit, LuActivity } from 'react-icons/lu';
 
 const PillarsSection = () => {
   const [activePillar, setActivePillar] = useState(0);
