@@ -14,7 +14,7 @@ interface BaseCardProps {
 
 const getActionAreaStyles = (active: boolean | undefined): SxProps<Theme> => ({
   borderRadius: 'inherit',
-  backgroundColor: active ? 'var(--c-primary-light)' : 'transparent',
+  backgroundColor: active ? 'var(--c-surface-subtle)' : 'transparent',
   height: 'auto',
   width: '100%',
   display: 'flex',

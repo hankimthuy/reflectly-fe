@@ -44,7 +44,7 @@
     @include padding-responsive(var(--spacing-xs), var(--spacing-sm), var(--spacing-md));
     
     &:hover {
-      background-color: var(--c-primary-light);
+      background-color: var(--c-surface-subtle);
       transform: translateY(-1px);
     }
     
@@ -146,7 +146,7 @@
   @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-base));
   
   &:hover {
-    background-color: var(--c-primary-light);
+    background-color: var(--c-surface-subtle);
     color: var(--c-text-on-surface);
     transform: translateX(2px);
   }

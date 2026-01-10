@@ -8,11 +8,11 @@ import QuotesPage from '../pages/QuotesPage/QuotesPage';
 import StatisticsPage from '../pages/StatisticsPage/StatisticsPage';
 import ProtectedRoute from './ProtectedRoute';
 
-const WelcomePage = lazy(() => import('../pages/WelcomePage/WelcomePage'));
-const HomePage = lazy(() => import('../pages/Homepage/Homepage'));
+// const HomePage = lazy(() => import('../pages/Homepage/Homepage'));
 const NewEntryPage = lazy(() => import('../pages/EntriesPage/NewEntryPage/NewEntryPage'));
 const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
 const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
+const MimoLandingPage = lazy(() => import('../pages/MimoLandingPage/MimoLandingPage'));
 
 export const AppRoutes = () => {
     return (
@@ -26,10 +26,10 @@ export const AppRoutes = () => {
                     <Outlet />
                 </MainLayout>
             }>
-                <Route path={APP_ROUTES.WELCOME} element={<WelcomePage />} />
+                <Route path={APP_ROUTES.WELCOME} element={<MimoLandingPage />} />
                 <Route path={APP_ROUTES.HOME} element={
                     <ProtectedRoute>
-                        <HomePage />
+                        <MimoLandingPage />
                     </ProtectedRoute>
                 } />
                 <Route path={APP_ROUTES.STATISTICS} element={

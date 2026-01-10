@@ -95,7 +95,7 @@
 
     &--active {
       color: var(--c-text-secondary);
-      background-color: var(--c-primary-light);
+      background-color: var(--c-surface-subtle);
       
       .icon {
         color: var(--c-primary);
@@ -104,7 +104,7 @@
     
     &:hover:not(.item--active) {
       color: var(--c-text-on-surface);
-      background-color: var(--c-primary-light);
+      background-color: var(--c-surface-subtle);
     }
     
     .icon {

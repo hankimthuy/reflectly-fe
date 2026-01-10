@@ -4,63 +4,32 @@
 .main-layout-page {
   width: 100%;
   background-color: var(--c-background);
-  @include height-responsive(100vh, 100vh);
-  
-  // Mobile and laptop - full screen MainLayout
-  @include mobile-only {
-    display: block;
-  }
-  
-  // Laptop - centered container
-  @include respond-to(laptop) {
-    background: var(--c-background);
-    padding: var(--spacing-xl);
-    @include flex-center;
-  }
-  
-  // Desktop - full screen with gradient background
-  @include respond-to(desktop) {
-    display: block;
-    background: var(--c-background);
-    padding: 0;
-  }
+  overflow: hidden;
+  height: 100vh;
 
   .main-layout-container {
     position: relative;
     background-color: var(--c-background);
-    @include flex-col-stretch;
-    
-    // Mobile MainLayout - full screen
-    @include mobile-only {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      padding-bottom: var(--nav-height-mobile);
-    }
-    
-    
-    // Laptop MainLayout - constrained width with container
-    @include respond-to(laptop) {
-      width: var(--app-width-laptop);
-      height: var(--app-height);
-      border-radius: var(--border-radius-xl);
-      box-shadow: var(--shadow-2xl);
-      overflow: hidden;
-      padding-bottom: var(--nav-height-laptop);
-    }
-    
-    // Desktop MainLayout - full width container, only main-content will be constrained
-    @include respond-to(desktop) {
-      width: 100vw;
-      height: 100vh;
-      overflow: auto;
-      border-radius: 0;
-      box-shadow: none;
-      padding-bottom: var(--nav-height-desktop);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .main-content-scroll {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      position: relative;
+
+      .content-wrapper {
+        width: 100%;
+        padding-bottom: calc(var(--nav-height-desktop) + 40px);
+
+        @include mobile-only {
+          padding-bottom: calc(var(--nav-height-mobile) + 32px);
+        }
+      }
     }
   }
 }
-
-

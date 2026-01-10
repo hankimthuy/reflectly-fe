@@ -1,37 +1,107 @@
 :root {
-  // Core Palette
-  --c-primary: #DDA7A2;
-  --c-secondary: #89A5B3;
-  --c-tertiary: #F6E9E8;
+  /* --- CORE PALETTE (REMAPPED) --- */
+  /* Primary is now "Outerverse Action" (Was Emerald) */
+  --c-primary: #F97316; /* Orange 500 - Social Orange */
+  --c-primary-hover: #EA580C; /* Orange 600 */
+  
+  /* Secondary is now "Innerverse Depth" (Was Teal) */
+  --c-secondary: #4F46E5; /* Indigo 600 - Psychology Indigo */
+  --c-secondary-hover: #4338CA; /* Indigo 700 */
 
-  // Surfaces & Backgrounds
-  --c-background: #FBFBF8;
-  --c-surface: #FDF6EC;
-  --c-primary-light: #F6E9E8;
+  /* Tertiary is now "Innerverse Accent" (Refined Teal) */
+  --c-tertiary: #2DD4BF; /* Teal 400 - Refined Minty Teal */
 
-  // Basic Colors
+  /* Warm Accent */
+  --c-accent-warm: #FACC15; /* Yellow 400 - Action Yellow */
+
+  /* The Bridge */
+  --c-gradient-bridge: linear-gradient(135deg, #6366F1 0%, #A855F7 50%, #FB923C 100%);
+
+
+  /* --- SURFACES & BACKGROUNDS --- */
+  /* Main Background (Outerverse Default) */
+  --c-background: #FFF7ED; /* Orange 50 (Warm Reality) - Was Green Tint */
+  
+  /* Dark Background (Innerverse Default) */
+  --c-background-dark: #0F172A; /* Slate 900 (Deep Void) */
+
+  --c-surface: #FFFFFF; /* White cards */
+  
+  /* Surface Subtle is now Inner Surface */
+  --c-surface-subtle: rgba(30, 41, 59, 0.5); /* Slate 800/50 - Glass effect */
+
+
+  /* --- BASIC COLORS --- */
   --c-black: #000000;
   --c-white: #FFFFFF;
 
-  // Text Colors
-  --c-text-on-surface: #6B4F4F;
-  --c-text-on-background: #6B4F4F;
-  --c-text-muted: #A1927E;
-  --c-page-title: rgba(0, 0, 0, 0.15);
 
-  // UI Elements
-  --c-border: #DED8CC;
-  --c-border-subtle: rgba(107, 79, 79, 0.1);
+  /* --- TEXT COLORS --- */
+  --c-text-on-surface: #1E293B; /* Slate 800 */
+  --c-text-on-background: #0F172A; /* Slate 900 */
+  --c-text-muted: #64748B; /* Slate 500 */
+  --c-page-title: rgba(15, 23, 42, 0.15); 
+  
+  /* Text on Dark Background */
+  --c-text-on-dark: #F1F5F9; /* Slate 100 */
+  --c-text-muted-on-dark: #94A3B8; /* Slate 400 */
+
+
+  /* --- UI ELEMENTS --- */
+  --c-border: #E2E8F0; /* Slate 200 */
+  
+  /* Subtle Border adapts to Warmth */
+  --c-border-subtle: rgba(249, 115, 22, 0.1); /* Orange based */
+  
+  /* Dark Border (for Innerverse) */
+  --c-border-dark: rgba(255, 255, 255, 0.1); 
+
   --c-border-white: rgba(255, 255, 255, 0.8);
-  --c-shadow-color-rgb: 107, 79, 79;
+
+
+  /* --- SHADOWS (Context Aware) --- */
+  /* Shadow Base Color -> Orange tinted for Warmth */
+  --c-shadow-color-rgb: 249, 115, 22; /* Orange 500 RGB */
+  
+  /* Inner Glow RGB -> Teal tinted for Depth */
+  --c-glow-color-rgb: 20, 184, 166; /* Teal 500 RGB */
+
   --c-shadow-light: 0 2px 8px rgba(var(--c-shadow-color-rgb), 0.08), 0 1px 3px rgba(var(--c-shadow-color-rgb), 0.06);
   --c-shadow-heavy: 0 4px 16px rgba(var(--c-shadow-color-rgb), 0.12), 0 2px 6px rgba(var(--c-shadow-color-rgb), 0.08);
 
+  /* Neon Glow Shadow for Innerverse */
+  --shadow-neon: 0 0 15px rgba(var(--c-glow-color-rgb), 0.3);
+
+
+  /* --- SHADOW SCALES (Updated Tint) --- */
+  --shadow-sm: 0 1px 2px rgba(var(--c-shadow-color-rgb), 0.05);
+  --shadow-md: 0 4px 6px rgba(var(--c-shadow-color-rgb), 0.07);
+  --shadow-lg: 0 10px 15px rgba(var(--c-shadow-color-rgb), 0.1);
+  --shadow-xl: 0 20px 25px rgba(var(--c-shadow-color-rgb), 0.15);
+  --shadow-2xl: 0 25px 50px rgba(var(--c-shadow-color-rgb), 0.25);
+
+
+  /* --- REFINED PALETTE ADDITIONS--- */
+  /* Refined Innerverse Gradient */
+  --grad-inner-text: linear-gradient(135deg, #F8FAFC 0%, #2DD4BF 50%, #818CF8 100%);
+  
+  /* Outerverse Gradient */
+  --grad-outer-text: linear-gradient(135deg, #EA580C 0%, #F97316 50%, #F59E0B 100%);
+
+  /* Badge Backgrounds (Glassmorphism) */
+  --badge-inner-bg: rgba(45, 212, 191, 0.15);
+  --badge-inner-text: #5EEAD4;
+  
+  --badge-outer-bg: rgba(249, 115, 22, 0.15);
+  --badge-outer-text: #FB923C;
+
+  /* --- UTILS --- */
   // Semantic Colors (Standard)
-  --c-danger: #d32f2f;
-  --c-success: #2e7d32;
-  --c-warning: #f57c00;
-  --c-info: #0288d1;
+  --c-danger: #F43F5E; // Rose 500
+  --c-success: #10B981; // Emerald 500
+  --c-warning: #F59E0B; // Amber 500
+  --c-info: #0EA5E9; // Sky 500
+
 
   // Border Radius - Responsive
   --border-radius-xs: 4px;
@@ -105,13 +175,6 @@
   --transition-fast: 0.15s ease-in-out;
   --transition-normal: 0.25s ease-in-out;
   --transition-slow: 0.35s ease-in-out;
-
-  // Shadows - Enhanced for different screen sizes
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
-  --shadow-2xl: 0 25px 50px rgba(0, 0, 0, 0.25);
 }
 
 // Small Desktop

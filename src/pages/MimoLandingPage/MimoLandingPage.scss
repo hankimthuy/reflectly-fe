@@ -1,0 +1,230 @@
+// Import responsive system
+@use '../../styles/_variables' as *;
+@use '../../styles/_responsive' as *;
+
+.landing-page {
+  min-height: 100vh;
+  background-color: var(--c-background);
+
+  ::selection {
+    background-color: #99f6e4;
+    color: black;
+  }
+}
+
+/* --- HERO SECTION --- */
+.hero-split {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+
+  /* LEFT SIDE */
+  &__left {
+    position: relative;
+    width: 100%;
+    min-height: 60vh;
+    background: var(--c-background-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1.5rem;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+    h1 {
+      color: var(--c-text-on-dark);
+    }
+
+    @media (min-width: 768px) {
+      width: 50%;
+      min-height: 100vh;
+      justify-content: flex-end;
+      padding: 0;
+      border-bottom: none;
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .bg-blob {
+      position: absolute;
+      top: 25%;
+      left: 25%;
+      width: 250px;
+      height: 250px;
+      background: var(--c-secondary);
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.5;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 28rem;
+
+      @media (min-width: 768px) {
+        text-align: right;
+        margin-right: 2.5rem;
+      }
+    }
+  }
+
+  /* RIGHT SIDE */
+  &__right {
+    position: relative;
+    width: 100%;
+    min-height: 60vh;
+    background: var(--c-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1.5rem;
+    overflow: hidden;
+
+    @media (min-width: 768px) {
+      width: 50%;
+      min-height: 100vh;
+      justify-content: flex-start;
+      padding: 0;
+    }
+
+    .bg-blob {
+      position: absolute;
+      bottom: 25%;
+      right: 25%;
+      width: 250px;
+      height: 250px;
+      background: #fdba74;
+      /* Orange 300 */
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.5;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 28rem;
+
+      @media (min-width: 768px) {
+        text-align: left;
+        margin-left: 2.5rem;
+      }
+    }
+  }
+
+  /* SHARED TEXT STYLES */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 12px;
+    margin-bottom: 24px;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+
+    &--inner {
+      border: 1px solid rgba(99, 102, 241, 0.5);
+      background: rgba(49, 46, 129, 0.3);
+      color: #5eead4;
+    }
+
+    &--outer {
+      border: 1px solid #fdba74;
+      background: #ffedd5;
+      color: #c2410c;
+    }
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 24px;
+
+    span.gradient-text {
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+
+      &.inner {
+        background-image: linear-gradient(to right, #a5b4fc, #5eead4);
+      }
+
+      &.outer {
+        background-image: linear-gradient(to right, var(--c-primary), #ca8a04);
+      }
+    }
+
+    @media (min-width: 768px) {
+      font-size: 3.75rem;
+    }
+  }
+
+  p.desc {
+    font-size: 1.125rem;
+    margin-bottom: 32px;
+    line-height: 1.6;
+
+    &.inner {
+      color: #94a3b8;
+    }
+
+    &.outer {
+      color: #475569;
+    }
+  }
+
+  .tags {
+    display: none;
+    gap: 8px;
+    font-size: 0.875rem;
+    font-weight: 700;
+
+    @media (min-width: 768px) {
+      display: flex;
+    }
+
+    &.inner {
+      justify-content: flex-end;
+      color: var(--c-tertiary);
+    }
+
+    &.outer {
+      justify-content: flex-start;
+      color: var(--c-primary);
+    }
+  }
+
+  /* MIMO CENTER */
+  .mimo-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20;
+    cursor: pointer;
+    transition: transform 0.5s;
+
+    &:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+  }
+}
+
+.footer {
+  color: var(--c-text-muted);
+  padding: 0;
+  text-align: center;
+  font-weight: 500;
+}
