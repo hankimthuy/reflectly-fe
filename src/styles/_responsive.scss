@@ -1,0 +1,297 @@
+// Responsive Design System for Reflectly
+// Supporting: Mobile (500px), Small Desktop (1024px), Large Desktop (1025px+)
+
+// Import Sass modules
+@use 'sass:map';
+
+// Breakpoints
+$breakpoints: (
+  mobile: 500px, // Smartphones (portrait)
+  laptop: 992px, // Laptop
+  desktop: 1400px  // Desktop, Monitor
+);
+
+// Responsive mixins
+@mixin respond-to($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media screen and (min-width: map.get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Unknown breakpoint: #{$breakpoint}";
+  }
+}
+
+@mixin respond-between($min, $max) {
+  @if map.has-key($breakpoints, $min) and map.has-key($breakpoints, $max) {
+    $min-width: map.get($breakpoints, $min);
+    $max-width: map.get($breakpoints, $max) - 1px;
+    @media screen and (min-width: #{$min-width}) and (max-width: #{$max-width}) {
+      @content;
+    }
+  }
+}
+
+@mixin mobile-only {
+  $mobile-width: map.get($breakpoints, mobile) - 1px;
+  @media screen and (max-width: #{$mobile-width}) {
+    @content;
+  }
+}
+
+@mixin page-frame {
+  width: 100%;
+  min-height: 100%;
+  background: var(--c-surface);
+  @include padding-responsive(
+    var(--spacing-md),
+    var(--spacing-lg),
+    var(--spacing-xl)
+  );
+  @include flex-col-stretch;
+  gap: var(--spacing-sm);
+}
+
+@mixin laptop-up {
+  @media screen and (min-width: map.get($breakpoints, laptop)) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media screen and (min-width: map.get($breakpoints, desktop)) {
+    @content;
+  }
+}
+
+// Container mixins for different screen sizes
+@mixin container-mobile {
+  width: 100%;
+  max-width: 100vw;
+  padding: 0 16px;
+}
+
+@mixin container-laptop {
+  width: 100%;
+  max-width: 1024px;
+  padding: 0 24px;
+  margin: 0 auto;
+}
+
+@mixin container-desktop {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 32px;
+  margin: 0 auto;
+}
+
+// Flexbox utilities
+@mixin flex-center {
+  & {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@mixin flex-between {
+  & {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@mixin flex-col-center {
+  & {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@mixin flex-col-stretch {
+  & {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@mixin flex-col-between {
+  & {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+@mixin flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@mixin place-items-center {
+  & {
+    display: grid;
+    place-items: center;
+  }
+}
+
+// Grid utilities
+@mixin grid-responsive($mobile-cols: 1, $laptop-cols: 2, $desktop-cols: 3) {
+  & {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat($mobile-cols, 1fr);
+    
+    @include respond-to(laptop) {
+      grid-template-columns: repeat($laptop-cols, 1fr);
+      gap: 24px;
+    }
+    
+    @include respond-to(desktop) {
+      grid-template-columns: repeat($desktop-cols, 1fr);
+      gap: 32px;
+    }
+  }
+}
+
+// Typography responsive mixins
+@mixin font-responsive($mobile-size, $laptop-size: null, $desktop-size: null) {
+  & {
+    font-size: $mobile-size;
+    
+    @if $laptop-size {
+      @include respond-to(laptop) {
+        font-size: $laptop-size;
+      }
+    }
+    
+    @if $desktop-size {
+      @include respond-to(desktop) {
+        font-size: $desktop-size;
+      }
+    }
+  }
+}
+
+// Spacing utilities - Fixed mixed declarations
+@mixin padding-responsive($mobile, $laptop: null, $desktop: null) {
+  & {
+    padding: $mobile;
+    
+    @if $laptop {
+      @include respond-to(laptop) {
+        padding: $laptop;
+      }
+    }
+    
+    @if $desktop {
+      @include respond-to(desktop) {
+        padding: $desktop;
+      }
+    }
+  }
+}
+
+@mixin margin-responsive($mobile, $laptop: null, $desktop: null) {
+  & {
+    margin: $mobile;
+    
+    @if $laptop {
+      @include respond-to(laptop) {
+        margin: $laptop;
+      }
+    }
+    
+    @if $desktop {
+      @include respond-to(desktop) {
+        margin: $desktop;
+      }
+    }
+  }
+}
+
+// Height utilities using vh for consistent viewport sizing
+@mixin height-responsive($mobile-vh: 100vh, $desktop-vh: null) {
+  & {
+    height: $mobile-vh;
+    min-height: $mobile-vh;
+    
+    @if $desktop-vh {
+      @include respond-to(desktop) {
+        height: $desktop-vh;
+        min-height: $desktop-vh;
+      }
+    }
+  }
+}
+
+// Card responsive design - Fixed mixed declarations
+@mixin card-responsive {
+  & {
+    box-shadow: 0 4px 16px var(--c-shadow-light);
+    background: var(--c-white);
+    
+    @include mobile-only {
+      margin: 0 8px;
+    }
+    
+    @include respond-to(laptop) {
+      box-shadow: 0 8px 32px var(--c-shadow-heavy);
+    }
+  }
+}
+
+// Button responsive design - Fixed mixed declarations
+@mixin button-responsive {
+  & {
+    border-radius: var(--border-radius-sm);
+    @include padding-responsive(12px 16px, 14px 20px, 16px 24px);
+    @include font-responsive(14px, 15px, 16px);
+    
+    @include respond-to(laptop) {
+      border-radius: var(--border-radius-md);
+    }
+  }
+}
+
+// Navigation responsive - Fixed mixed declarations
+@mixin nav-responsive {
+  & {
+    @include mobile-only {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+    }
+    
+    @include respond-to(laptop) {
+      position: relative;
+      border-radius: var(--border-radius-lg);
+      margin: 16px;
+    }
+  }
+}
+
+@mixin welcome-height-responsive($mobile-vh: 100vh, $laptop-vh: 100vh, $desktop-vh: 100vh) {
+  & {
+    height: $mobile-vh; 
+    
+    @include respond-to(laptop) {
+      height: $laptop-vh;
+    }
+    
+    @include respond-to(desktop) {
+      height: $desktop-vh;
+    }
+  }
+}
+
+@mixin maxWidth {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}

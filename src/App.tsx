@@ -1,30 +1,22 @@
 import './App.scss';
-import {BrowserRouter} from "react-router-dom";
-import AppRoutes from "./routes/AppRoutes";
-import {GoogleOAuthProvider} from "@react-oauth/google"; 
-import { AuthProvider } from './providers/AuthProvider.tsx';
-import ErrorPage from './components/common/ErrorPage/ErrorPage';
+import {Suspense, useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import Loading from "./components/Loading/Loading.tsx";
+import NavigationUtil from "./utils/navigationUtil.ts";
+import {AppRoutes} from "./routes/AppRoutes";
 
-const App: React.FC = () => {
-  const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+const App = () => {
+    const navigate = useNavigate();
 
-  if (!googleClientId) {
+    useEffect(() => {
+        NavigationUtil.setNavigate(navigate);
+    }, [navigate]);
+
     return (
-      <ErrorPage 
-        title="App is temporarily unavailable"
-        message="We're experiencing some technical difficulties. Please try again later or contact support if the problem persists."
-        tip="💡 Try refreshing the page in a few minutes"
-      />
-    );
-  }
-  return (
-      <GoogleOAuthProvider clientId={googleClientId}>
-        <AuthProvider>
-          <BrowserRouter>
+        <Suspense fallback={<Loading message="Loading page..." fullHeight />}>
             <AppRoutes />
-          </BrowserRouter>
-        </AuthProvider>
-      </GoogleOAuthProvider>
-  );
+        </Suspense>
+    );
 };
+
 export default App

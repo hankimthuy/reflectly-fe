@@ -1,56 +1,65 @@
-// src/routes/index.tsx
-import { Suspense, lazy } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Loading from '../components/common/Loading/Loading';
+import { lazy } from 'react';
+import { Outlet, Route, Routes } from 'react-router-dom';
+import NotFoundPage from '../components/NotFound/NotFound';
+import { APP_ROUTES } from '../constants/route';
+import MainLayout from '../layouts/MainLayout/MainLayout';
+import EntriesListPage from '../pages/EntriesPage/EntriesListPage/EntriesListPage';
+import QuotesPage from '../pages/QuotesPage/QuotesPage';
+import StatisticsPage from '../pages/StatisticsPage/StatisticsPage';
 import ProtectedRoute from './ProtectedRoute';
-import { APP_ROUTES } from '../config/route';
 
-const MainLayout = lazy(() => import('../components/layout/MainLayout'));
-const WelcomePage = lazy(() => import('../pages/welcome/WelcomePage'));
-const HomePage = lazy(() => import('../pages/home/Homepage'));
-const EntriesPage = lazy(() => import('../pages/entries/EntriesPage'));
-const LoginPage = lazy(() => import('../pages/login/LoginPage'));
-const ProfilePage = lazy(() => import('../pages/profile/ProfilePage'));
+// const HomePage = lazy(() => import('../pages/Homepage/Homepage'));
+const NewEntryPage = lazy(() => import('../pages/EntriesPage/NewEntryPage/NewEntryPage'));
+const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
+const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
+const MimoLandingPage = lazy(() => import('../pages/MimoLandingPage/MimoLandingPage'));
 
-const LoadingFallback = () => <Loading message="Loading page..." fullHeight />;
+export const AppRoutes = () => {
+    return (
+        <Routes>
+            <Route
+                path={APP_ROUTES.LOGIN}
+                element={<LoginPage />}
+            />
+            <Route element={
+                <MainLayout>
+                    <Outlet />
+                </MainLayout>
+            }>
+                <Route path={APP_ROUTES.WELCOME} element={<MimoLandingPage />} />
+                <Route path={APP_ROUTES.HOME} element={
+                    <ProtectedRoute>
+                        <MimoLandingPage />
+                    </ProtectedRoute>
+                } />
+                <Route path={APP_ROUTES.STATISTICS} element={
+                    <ProtectedRoute>
+                        <StatisticsPage />
+                    </ProtectedRoute>
+                } />
+                <Route path={APP_ROUTES.QUOTES} element={
+                    <ProtectedRoute>
+                        <QuotesPage />
+                    </ProtectedRoute>
+                } />
+                <Route path={APP_ROUTES.PROFILE} element={
+                    <ProtectedRoute>
+                        <ProfilePage />
+                    </ProtectedRoute>
+                } />
+                <Route path={APP_ROUTES.ENTRIES_NEW} element={
+                    <ProtectedRoute>
+                        <NewEntryPage />
+                    </ProtectedRoute>
+                } />
+                <Route path={APP_ROUTES.ENTRIES_LIST} element={
+                    <ProtectedRoute>
+                        <EntriesListPage />
+                    </ProtectedRoute>
+                } />
+            </Route>
+            <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+    );
+};
 
-function AppRoutes() {
-  return (
-    <Suspense fallback={<LoadingFallback />}>
-      <Routes>
-        {/* Public routes - accessible without authentication */}
-        <Route path={APP_ROUTES.LOGIN} element={<LoginPage />} />
-        
-        {/* Routes with MainLayout */}
-        <Route path={APP_ROUTES.WELCOME} element={<MainLayout />}>
-          {/* WelcomePage - Public but redirects if authenticated */}
-          <Route index element={<WelcomePage />} />
-          
-          {/* Protected routes - require authentication */}
-          <Route path="home" element={
-            <ProtectedRoute>
-              <HomePage />
-            </ProtectedRoute>
-          } />
-          
-          <Route path="entries" element={
-            <ProtectedRoute>
-              <EntriesPage />
-            </ProtectedRoute>
-          } />
-          
-          <Route path="profile" element={
-            <ProtectedRoute>
-              <ProfilePage />
-            </ProtectedRoute>
-          } />
-        </Route>
-        
-        {/* Catch all route - redirect to home */}
-        <Route path="*" element={<Navigate to={APP_ROUTES.HOME} replace />} />
-      </Routes>
-    </Suspense>
-  );
-}
-
-export default AppRoutes;

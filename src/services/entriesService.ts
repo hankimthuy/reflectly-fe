@@ -1,38 +1,49 @@
-// src/services/entry.service.ts
-import { httpClient } from './httpClient.ts';
-import type {AxiosResponse} from 'axios';
+import type { PaginatedResponse } from '../models/base';
+import type { CreateEntryRequest, Entry, UpdateEntryRequest } from '../models/entry';
+import axiosInstance from './axiosSetup';
 
-// TypeScript interfaces based on your database schema
-export interface JournalEntry {
-  entryId: string;
-  entryDate: string;
-  content: string;
-  moodId: number;
-}
+export const entriesService = {
+  async getEntries(url?: string | null): Promise<PaginatedResponse<Entry>> {
+    const requestUrl = url || '/entries?page=0&size=5';
 
-// Data Transfer Object for creating or updating an entry
-export type JournalEntryDto = Omit<JournalEntry, 'entryId'>;
-
-const resource = '/entries';
-
-export const EntryService = {
-  getAll: (): Promise<AxiosResponse<JournalEntry[]>> => {
-    return httpClient.get<JournalEntry[]>(resource);
+    const { data } = await axiosInstance.get<PaginatedResponse<Entry>>(requestUrl);
+    return data;
   },
 
-  getById: (id: string): Promise<AxiosResponse<JournalEntry>> => {
-    return httpClient.getById<JournalEntry>(resource, id);
+  async getEntry(id: string): Promise<Entry> {
+    const { data } = await axiosInstance.get<Entry>(`/entries/${id}`);
+    return data;
   },
 
-  create: (data: JournalEntryDto): Promise<AxiosResponse<JournalEntry>> => {
-    return httpClient.post<JournalEntry, JournalEntryDto>(resource, data);
+  async createEntry(entry: CreateEntryRequest): Promise<Entry> {
+    const { data } = await axiosInstance.post<Entry>('/entries', entry);
+    return data;
   },
 
-  update: (id: string, data: JournalEntryDto): Promise<AxiosResponse<JournalEntry>> => {
-    return httpClient.put<JournalEntry, JournalEntryDto>(resource, id, data);
+  async updateEntry(entry: UpdateEntryRequest): Promise<Entry> {
+    const { id, ...updateData } = entry;
+    const { data } = await axiosInstance.put<Entry>(`/entries/${id}`, updateData);
+    return data;
   },
 
-  delete: (id: string): Promise<AxiosResponse<void>> => {
-    return httpClient.delete(resource, id);
+  async deleteEntry(id: string): Promise<void> {
+    await axiosInstance.delete(`/entries/${id}`);
   },
+
+  async getEntriesByDateRange(startDate: Date, endDate: Date): Promise<Entry[]> {
+    const { data } = await axiosInstance.get<Entry[]>('/entries', {
+      params: {
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString()
+      }
+    });
+    return data;
+  },
+
+  async getEntriesByEmotion(emotion: string): Promise<Entry[]> {
+    const { data } = await axiosInstance.get<Entry[]>('/entries', {
+      params: { emotion }
+    });
+    return data;
+  }
 };

@@ -1,0 +1,108 @@
+@use '../../../../styles/_variables' as *;
+@use '../../../../styles/_responsive' as *;
+
+.reflection-capture {
+  @include flex-col-stretch;
+  position: relative;
+
+  .step-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
+    padding-bottom: 10px;
+
+    .selected-emotions {
+      @include margin-responsive(0 0 var(--spacing-lg), 0 0 var(--spacing-xl), 0 0 var(--spacing-xl));
+
+      .section-title {
+        @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
+        font-weight: var(--font-weight-semibold);
+        color: var(--c-black);
+        margin: 0 0 var(--spacing-sm) 0;
+      }
+
+      .emotion-tags {
+        @include flex-wrap;
+        gap: var(--spacing-sm);
+        justify-content: center;
+
+        .emotion-tag {
+          @include flex-center;
+          gap: var(--spacing-xs);
+          @include padding-responsive(var(--spacing-xs) var(--spacing-sm),
+            var(--spacing-sm) var(--spacing-md),
+            var(--spacing-sm) var(--spacing-md));
+          background: var(--c-surface);
+          border: 2px solid var(--emotion-color);
+          border-radius: var(--border-radius-lg);
+          @include font-responsive(var(--font-size-xs), var(--font-size-sm), var(--font-size-sm));
+          font-weight: var(--font-weight-medium);
+          color: var(--c-text-primary);
+          box-shadow: var(--shadow-sm);
+
+          .emotion-icon {
+            @include font-responsive(14px, 16px, 18px);
+          }
+        }
+      }
+    }
+
+    .reflection-form {
+      @include flex-col-stretch;
+      gap: var(--spacing-lg);
+
+      .input-group {
+        @include flex-col-stretch;
+
+        .input-label {
+          @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
+          font-weight: var(--font-weight-semibold);
+          color: var(--c-black);
+          margin: 0 0 var(--spacing-sm) 0;
+        }
+
+        .title-input,
+        .reflection-input {
+          @include padding-responsive(var(--spacing-md),
+            var(--spacing-lg),
+            var(--spacing-lg));
+          background: var(--c-white);
+          border: 2px solid transparent;
+          border-radius: var(--border-radius-lg);
+          @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
+          color: var(--c-text-primary);
+          transition: all var(--transition-normal);
+          resize: vertical;
+
+          &::placeholder {
+            color: var(--c-text-muted);
+          }
+
+          &:focus {
+            outline: none;
+            border-color: var(--c-primary);
+            background: var(--c-surface);
+            box-shadow: 0 0 0 3px var(--c-info);
+          }
+        }
+
+        .title-input {
+          min-height: 50px;
+        }
+
+        .reflection-input {
+          min-height: 80px;
+          font-family: inherit;
+          line-height: var(--line-height-relaxed);
+          resize: vertical;
+          max-height: 200px;
+
+          @include respond-to(laptop) {
+            max-height: 180px;
+          }
+        }
+      }
+    }
+  }
+}

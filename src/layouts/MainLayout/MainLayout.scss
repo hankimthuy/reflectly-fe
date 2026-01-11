@@ -1,0 +1,35 @@
+@use '../../styles/_variables' as *;
+@use '../../styles/_responsive' as *;
+
+.main-layout-page {
+  width: 100%;
+  background-color: var(--c-background);
+  overflow: hidden;
+  height: 100vh;
+
+  .main-layout-container {
+    position: relative;
+    background-color: var(--c-background);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .main-content-scroll {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      position: relative;
+
+      .content-wrapper {
+        width: 100%;
+        padding-bottom: calc(var(--nav-height-desktop) + 40px);
+
+        @include mobile-only {
+          padding-bottom: calc(var(--nav-height-mobile) + 32px);
+        }
+      }
+    }
+  }
+}

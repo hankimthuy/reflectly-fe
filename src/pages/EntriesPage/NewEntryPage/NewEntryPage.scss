@@ -1,0 +1,135 @@
+@use '../../../styles/_variables' as *;
+@use '../../../styles/_responsive' as *;
+
+.new-entry-frame {
+    @include page-frame;
+}
+
+.entries-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    font-style: var(--c-text-on-background);
+}
+
+.entry-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: var(--spacing-sm);
+    @include padding-responsive(var(--spacing-md), var(--spacing-lg), var(--spacing-lg));
+    padding-top: var(--spacing-md);
+
+    .back-button,
+    .next-button {
+        color: var(--c-text-on-background);
+        flex-shrink: 0;
+    }
+
+    .stepper-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        min-width: 0;
+
+        .MuiStepper-root {
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .step-label {
+            @include mobile-only {
+                font-size: var(--font-size-xs);
+            }
+        }
+    }
+
+    .header-action {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        min-width: 60px;
+        justify-content: flex-end;
+    }
+
+    .header-placeholder {
+        width: 60px;
+    }
+
+    @include mobile-only {
+        gap: var(--spacing-xs);
+        padding: var(--spacing-sm) var(--spacing-md);
+
+        .stepper-container {
+            .MuiStepper-root {
+                padding: 0 var(--spacing-xs);
+            }
+
+            .MuiStepLabel-label {
+                display: none;
+            }
+
+            .MuiStepLabel-iconContainer {
+                padding: 0;
+            }
+        }
+    }
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.step-container {
+    width: 100% !important;
+    margin-bottom: 6px !important;
+}
+
+.MuiStepper-root {
+  .MuiStepConnector-root {
+    .MuiStepConnector-line {
+      border-color: var(--c-border);
+    }
+  }
+
+  .MuiStepConnector-active {
+    .MuiStepConnector-line {
+      border-color: var(--c-secondary);
+    }
+  }
+
+  .MuiStepConnector-completed {
+    .MuiStepConnector-line {
+      border-color: var(--c-secondary);
+    }
+  }
+}
+
+.MuiStepIcon-root {
+  color: var(--c-border);
+
+  &.Mui-completed {
+    color: var(--c-secondary);
+  }
+
+  &.Mui-active {
+    color: var(--c-secondary);
+  }
+}
+
+.MuiStepLabel-label {
+  color: var(--c-text-muted);
+
+  &.Mui-active {
+    color: var(--c-secondary);
+    font-weight: bold;
+  }
+
+  &.Mui-completed {
+    color: var(--c-text-muted);
+  }
+}

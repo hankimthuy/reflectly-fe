@@ -1,0 +1,138 @@
+// Import responsive system
+@use '../../../../styles/_variables' as *;
+@use '../../../../styles/_responsive' as *;
+
+.emotion-capture {
+  @include flex-col-stretch;
+  position: relative;
+
+  .step-header {
+    @include flex-col-center;
+    @include padding-responsive(var(--spacing-xl), var(--spacing-2xl), var(--spacing-lg));
+    text-align: center;
+    position: relative;
+    z-index: 2;
+
+    @include respond-to(laptop) {
+      padding: var(--spacing-md) var(--spacing-lg);
+    }
+
+    .question {
+      @include font-responsive(var(--font-size-xl), var(--font-size-2xl), var(--font-size-lg));
+      font-weight: var(--font-weight-bold);
+      color: var(--c-text-on-background);
+      margin: 0 0 var(--spacing-sm) 0;
+      line-height: var(--line-height-tight);
+
+      @include respond-to(laptop) {
+        font-size: var(--font-size-base);
+        margin: 0 0 var(--spacing-xs) 0;
+      }
+    }
+
+    .instruction {
+      @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-sm));
+      color: var(--c-text-on-background);
+      font-weight: var(--font-weight-medium);
+      margin: 0;
+
+      @include respond-to(laptop) {
+        font-size: var(--font-size-xs);
+      }
+    }
+  }
+
+  .emotions-grid {
+    @include grid-responsive(3, 4, 5);
+    gap: var(--spacing-md);
+    @include padding-responsive(0 var(--spacing-md), 0 var(--spacing-lg), 0 var(--spacing-xl));
+    flex: 1;
+    align-content: start;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @include respond-to(laptop) {
+      gap: 12px;
+      grid-template-columns: repeat(5, 80px);
+      grid-template-rows: 1fr;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 10px;
+      justify-content: center;
+    }
+  }
+
+  .emotion-button {
+    @include flex-col-center;
+    @include padding-responsive(var(--spacing-md), var(--spacing-lg), var(--spacing-sm));
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid transparent;
+    border-radius: var(--border-radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    min-height: 70px;
+    position: relative;
+    overflow: hidden;
+
+    @include respond-to(laptop) {
+      height: 80px;
+      width: 80px;
+      padding: 8px;
+    }
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      background: var(--c-surface);
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    &.selected {
+      background: var(--c-surface);
+      border-color: var(--emotion-color);
+      box-shadow: 0 0 0 3px rgba(var(--emotion-color), 0.2);
+      transform: translateY(-2px);
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--emotion-color);
+      }
+    }
+
+    &:disabled:not(.selected) {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .emotion-icon {
+      @include font-responsive(24px, 28px, 20px);
+      @include margin-responsive(0 0 var(--spacing-sm), 0 0 var(--spacing-md), 0 0 var(--spacing-xs));
+
+      @include respond-to(laptop) {
+        font-size: 24px;
+        margin: 0 0 4px 0;
+      }
+    }
+
+    .emotion-label {
+      @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-xs));
+      font-weight: var(--font-weight-semibold);
+      color: var(--c-text-primary);
+      text-align: center;
+
+      @include respond-to(laptop) {
+        font-size: 14px;
+        line-height: 1.2;
+        font-weight: var(--font-weight-bold);
+      }
+    }
+  }
+}

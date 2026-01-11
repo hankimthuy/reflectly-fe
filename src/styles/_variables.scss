@@ -1,0 +1,232 @@
+:root {
+  /* --- CORE PALETTE (REMAPPED) --- */
+  /* Primary is now "Outerverse Action" (Was Emerald) */
+  --c-primary: #F97316; /* Orange 500 - Social Orange */
+  --c-primary-hover: #EA580C; /* Orange 600 */
+  
+  /* Secondary is now "Innerverse Depth" (Was Teal) */
+  --c-secondary: #4F46E5; /* Indigo 600 - Psychology Indigo */
+  --c-secondary-hover: #4338CA; /* Indigo 700 */
+
+  /* Tertiary is now "Innerverse Accent" (Refined Teal) */
+  --c-tertiary: #2DD4BF; /* Teal 400 - Refined Minty Teal */
+
+  /* Warm Accent */
+  --c-accent-warm: #FACC15; /* Yellow 400 - Action Yellow */
+
+  /* The Bridge */
+  --c-gradient-bridge: linear-gradient(135deg, #6366F1 0%, #A855F7 50%, #FB923C 100%);
+
+
+  /* --- SURFACES & BACKGROUNDS --- */
+  /* Main Background (Outerverse Default) */
+  --c-background: #FFF7ED; /* Orange 50 (Warm Reality) - Was Green Tint */
+  
+  /* Dark Background (Innerverse Default) */
+  --c-background-dark: #0F172A; /* Slate 900 (Deep Void) */
+
+  --c-surface: #FFFFFF; /* White cards */
+  
+  /* Surface Subtle is now Inner Surface */
+  --c-surface-subtle: rgba(30, 41, 59, 0.5); /* Slate 800/50 - Glass effect */
+
+
+  /* --- BASIC COLORS --- */
+  --c-black: #000000;
+  --c-white: #FFFFFF;
+
+
+  /* --- TEXT COLORS --- */
+  --c-text-on-surface: #1E293B; /* Slate 800 */
+  --c-text-on-background: #0F172A; /* Slate 900 */
+  --c-text-muted: #64748B; /* Slate 500 */
+  --c-page-title: rgba(15, 23, 42, 0.15); 
+  
+  /* Text on Dark Background */
+  --c-text-on-dark: #F1F5F9; /* Slate 100 */
+  --c-text-muted-on-dark: #94A3B8; /* Slate 400 */
+
+
+  /* --- UI ELEMENTS --- */
+  --c-border: #E2E8F0; /* Slate 200 */
+  
+  /* Subtle Border adapts to Warmth */
+  --c-border-subtle: rgba(249, 115, 22, 0.1); /* Orange based */
+  
+  /* Dark Border (for Innerverse) */
+  --c-border-dark: rgba(255, 255, 255, 0.1); 
+
+  --c-border-white: rgba(255, 255, 255, 0.8);
+
+
+  /* --- SHADOWS (Context Aware) --- */
+  /* Shadow Base Color -> Orange tinted for Warmth */
+  --c-shadow-color-rgb: 249, 115, 22; /* Orange 500 RGB */
+  
+  /* Inner Glow RGB -> Teal tinted for Depth */
+  --c-glow-color-rgb: 20, 184, 166; /* Teal 500 RGB */
+
+  --c-shadow-light: 0 2px 8px rgba(var(--c-shadow-color-rgb), 0.08), 0 1px 3px rgba(var(--c-shadow-color-rgb), 0.06);
+  --c-shadow-heavy: 0 4px 16px rgba(var(--c-shadow-color-rgb), 0.12), 0 2px 6px rgba(var(--c-shadow-color-rgb), 0.08);
+
+  /* Neon Glow Shadow for Innerverse */
+  --shadow-neon: 0 0 15px rgba(var(--c-glow-color-rgb), 0.3);
+
+
+  /* --- SHADOW SCALES (Updated Tint) --- */
+  --shadow-sm: 0 1px 2px rgba(var(--c-shadow-color-rgb), 0.05);
+  --shadow-md: 0 4px 6px rgba(var(--c-shadow-color-rgb), 0.07);
+  --shadow-lg: 0 10px 15px rgba(var(--c-shadow-color-rgb), 0.1);
+  --shadow-xl: 0 20px 25px rgba(var(--c-shadow-color-rgb), 0.15);
+  --shadow-2xl: 0 25px 50px rgba(var(--c-shadow-color-rgb), 0.25);
+
+
+  /* --- REFINED PALETTE ADDITIONS--- */
+  /* Refined Innerverse Gradient */
+  --grad-inner-text: linear-gradient(135deg, #F8FAFC 0%, #2DD4BF 50%, #818CF8 100%);
+  
+  /* Outerverse Gradient */
+  --grad-outer-text: linear-gradient(135deg, #EA580C 0%, #F97316 50%, #F59E0B 100%);
+
+  /* Badge Backgrounds (Glassmorphism) */
+  --badge-inner-bg: rgba(45, 212, 191, 0.15);
+  --badge-inner-text: #5EEAD4;
+  
+  --badge-outer-bg: rgba(249, 115, 22, 0.15);
+  --badge-outer-text: #FB923C;
+
+  /* --- UTILS --- */
+  // Semantic Colors (Standard)
+  --c-danger: #F43F5E; // Rose 500
+  --c-success: #10B981; // Emerald 500
+  --c-warning: #F59E0B; // Amber 500
+  --c-info: #0EA5E9; // Sky 500
+
+
+  // Border Radius - Responsive
+  --border-radius-xs: 4px;
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 24px;
+
+  // Spacing Scale - Mobile First
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+
+  // Typography Scale - Mobile First
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 32px;
+
+  // Line Heights
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  // Font Weights
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  // Container Widths
+  --container-mobile: 100%;
+  --container-laptop: 1024px;
+  --container-desktop: 1200px;
+
+  // App Layout - Responsive
+  --app-width-mobile: 100vw;
+  --app-width-laptop: 1024px;
+  --app-width-desktop: 1200px;
+  --app-height: 100vh;
+  --app-min-height: 100vh;
+
+  // Header Heights
+  --header-height-mobile: 60px;
+  --header-height-laptop: 70px;
+  --header-height-desktop: 80px;
+
+  // Navigation Heights
+  --nav-height-mobile: 60px;
+  --nav-height-laptop: 70px;
+  --nav-height-desktop: 80px;
+
+  // Z-index Scale
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+
+  // Transitions
+  --transition-fast: 0.15s ease-in-out;
+  --transition-normal: 0.25s ease-in-out;
+  --transition-slow: 0.35s ease-in-out;
+}
+
+// Small Desktop
+@media screen and (min-width: 1024px) {
+  :root {
+    --spacing-md: 20px;
+    --spacing-lg: 28px;
+    --spacing-xl: 40px;
+    --spacing-2xl: 56px;
+    --spacing-3xl: 80px;
+
+    --font-size-sm: 15px;
+    --font-size-base: 17px;
+    --font-size-lg: 19px;
+    --font-size-xl: 22px;
+    --font-size-2xl: 28px;
+    --font-size-3xl: 36px;
+
+    --border-radius-sm: 10px;
+    --border-radius-md: 14px;
+    --border-radius-lg: 18px;
+    --border-radius-xl: 28px;
+  }
+}
+
+
+// Large Desktop
+@media screen and (min-width: 1025px) {
+  :root {
+    --spacing-md: 16px;
+    --spacing-lg: 20px;
+    --spacing-xl: 28px;
+    --spacing-2xl: 36px;
+    --spacing-3xl: 48px;
+
+    --font-size-sm: 16px;
+    --font-size-base: 18px;
+    --font-size-lg: 20px;
+    --font-size-xl: 24px;
+    --font-size-2xl: 32px;
+    --font-size-3xl: 40px;
+
+    --border-radius-sm: 12px;
+    --border-radius-md: 16px;
+    --border-radius-lg: 20px;
+    --border-radius-xl: 32px;
+  }
+}
+
+// Font Family
+:root {
+  --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+  --font-family-mono: 'Inter Mono', Consolas, 'Courier New', monospace;
+  --font-family-secondary: 'Inter', sans-serif;
+}

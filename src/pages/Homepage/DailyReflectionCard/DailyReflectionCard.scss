@@ -1,0 +1,113 @@
+  // Import responsive system
+  @use '../../../styles/_variables' as *;
+  @use '../../../styles/_responsive' as *;
+
+  .daily-reflection-card {
+    transition: all var(--transition-normal);
+    @include card-responsive;
+    padding: var(--spacing-md);
+    
+    // Enhanced mobile experience
+    @include mobile-only {
+      margin: 0 var(--spacing-xs);
+      box-shadow: var(--shadow-md);
+    }
+
+    .title {
+      font-family: var(--font-family-primary) !important;
+      font-weight: var(--font-weight-black) !important;
+      color: var(--c-text-on-surface);
+      line-height: var(--line-height-tight);
+      margin: 0;
+      @include font-responsive(var(--font-size-lg), var(--font-size-xl), var(--font-size-2xl));
+      @include margin-responsive(0 0 var(--spacing-sm), 0 0 var(--spacing-md), 0 0 var(--spacing-lg));
+    }
+    
+    // Reset h3 default styles
+    h3.title {
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      margin: 0;
+    }
+
+    .prompt {
+      line-height: var(--line-height-relaxed);
+      color: var(--c-text-on-surface);
+      @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
+      @include margin-responsive(0 0 var(--spacing-md), 0 0 var(--spacing-lg), 0 0 var(--spacing-xl));
+      
+      @include respond-to(desktop) {
+        max-width: 80%;
+      }
+    }
+
+    .input-area {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      background-color: var(--c-surface-subtle);
+      border-radius: var(--border-radius-lg);
+      border: 2px solid transparent;
+      transition: all var(--transition-normal);
+      cursor: pointer;
+      @include padding-responsive(var(--spacing-sm), var(--spacing-md), var(--spacing-lg));
+    
+      
+      &:focus-within {
+        border-color: var(--c-primary);
+        box-shadow: 0 0 0 3px var(--c-shadow-accent);
+      }
+      
+      // Mobile touch optimization
+      @include mobile-only {
+        min-height: 48px; // Accessibility - minimum touch target
+      }
+      
+      // Small Desktop and up
+      @include respond-to(laptop) {
+        gap: var(--spacing-lg);
+      }
+    }
+
+    .placeholder {
+      flex-grow: 1;
+      font-weight: var(--font-weight-medium);
+      color: var(--c-text-muted);
+      transition: color var(--transition-normal);
+      @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
+      
+    }
+    
+    .action-button {
+      color: var(--c-primary);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-normal);
+      border-radius: 50%;
+      @include place-items-center;
+      @include font-responsive(18px, 20px, 22px);
+      
+      @include mobile-only {
+        width: 32px;
+        height: 32px;
+      }
+      
+      @include respond-to(laptop) {
+        width: 36px;
+        height: 36px;
+      }
+      
+      @include respond-to(desktop) {
+        width: 40px;
+        height: 40px;
+      }
+      
+      &:hover {
+        background-color: var(--c-primary) !important;
+        color: var(--c-text-on-background) !important;
+        transform: scale(1.5) !important;
+      }
+    }
+  }

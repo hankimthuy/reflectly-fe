@@ -1,30 +1,22 @@
 import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../providers/AuthProvider';
-import Loading from '../components/common/Loading/Loading';
+import {Navigate, useLocation} from 'react-router-dom';
+import {useAuth} from '../providers/AuthProvider';
 
-interface ProtectedRouteProps {
-  children: React.ReactNode;
-  redirectTo?: string;
+type ProtectedRouteProps = {
+    children: React.ReactNode;
+    redirectTo?: string;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ 
-  children, 
-  redirectTo = '/login' 
-}) => {
-  const { isAuthenticated, isLoading } = useAuth();
-  const location = useLocation();
+const ProtectedRoute = ({children, redirectTo = '/login'}: ProtectedRouteProps) => {
+    const {isAuthenticated} = useAuth();
+    const location = useLocation();
 
-  if (isLoading) {
-    return <Loading message="Checking authentication..." fullHeight />;
-  }
+    if (!isAuthenticated) {
+        return <Navigate to={redirectTo} state={{from: location.pathname}} replace/>;
+    }
 
-  // Redirect to login if not authenticated, preserving the current path
-  if (!isAuthenticated) {
-    return <Navigate to={redirectTo} state={{ from: location.pathname }} replace />;
-  }
-
-  return <>{children}</>;
+    return children;
 };
 
 export default ProtectedRoute;
+

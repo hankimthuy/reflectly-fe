@@ -1,0 +1,105 @@
+// Import responsive system
+@use '../../styles/_variables' as *;
+@use '../../styles/_responsive' as *;
+
+.login-container {
+  background: var(--c-background);
+  @include flex-center;
+  @include height-responsive(100vh, 80vh);
+  @include padding-responsive(var(--spacing-lg), var(--spacing-xl), var(--spacing-2xl));
+
+  .login-card {
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    @include card-responsive;
+    @include padding-responsive(var(--spacing-xl), var(--spacing-2xl), var(--spacing-3xl));
+    
+    // Enhanced mobile experience
+    @include mobile-only {
+      margin: var(--spacing-md);
+      max-width: calc(100vw - 2 * var(--spacing-md));
+    }
+    
+    // Small Desktop and up
+    @include respond-to(laptop) {
+      max-width: 450px;
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 60px var(--c-shadow-heavy);
+      }
+    }
+    
+    // Large Desktop
+    @include respond-to(desktop) {
+      max-width: 500px;
+    }
+
+    h2 {
+      color: var(--c-text-primary);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+      @include margin-responsive(0 0 var(--spacing-sm), 0 0 var(--spacing-md), 0 0 var(--spacing-lg));
+      @include font-responsive(var(--font-size-2xl), var(--font-size-3xl), 2.5rem);
+    }
+
+    p {
+      color: var(--c-text-secondary);
+      line-height: var(--line-height-relaxed);
+      @include margin-responsive(0 0 var(--spacing-lg), 0 0 var(--spacing-xl), 0 0 var(--spacing-2xl));
+      @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
+    }
+
+    .error-message {
+      background-color: var(--c-surface-subtle);
+      border: 1px solid var(--c-border);
+      border-radius: var(--border-radius-sm);
+      color: var(--c-text-on-surface);
+      border-left: 4px solid var(--c-primary);
+      @include padding-responsive(var(--spacing-sm), var(--spacing-md), var(--spacing-md));
+      @include margin-responsive(0 0 var(--spacing-md), 0 0 var(--spacing-lg), 0 0 var(--spacing-lg));
+      @include font-responsive(var(--font-size-xs), var(--font-size-sm), var(--font-size-sm));
+    }
+
+    .google-button-wrapper {
+      width: 100%;
+      
+      // Enhanced button styling
+      button {
+        width: 100%;
+        font-weight: var(--font-weight-medium);
+        border-radius: var(--border-radius-md);
+        transition: all var(--transition-normal);
+        @include padding-responsive(var(--spacing-md), var(--spacing-lg), var(--spacing-lg));
+        @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-base));
+        
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-lg);
+        }
+      }
+    }
+
+    .loading-indicator {
+      color: var(--c-text-muted);
+      @include margin-responsive(var(--spacing-md) 0 0, var(--spacing-lg) 0 0, var(--spacing-lg) 0 0);
+      @include font-responsive(var(--font-size-xs), var(--font-size-sm), var(--font-size-sm));
+    }
+
+    .terms-text {
+      color: var(--c-text-muted);
+      line-height: var(--line-height-relaxed);
+      @include margin-responsive(var(--spacing-lg) 0 0, var(--spacing-xl) 0 0, var(--spacing-xl) 0 0);
+      @include font-responsive(10px, 11px, 12px);
+      
+      a {
+        color: var(--c-primary);
+        text-decoration: none;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

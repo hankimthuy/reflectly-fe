@@ -1,0 +1,64 @@
+// Import responsive system
+@use '../../styles/_variables' as *;
+@use '../../styles/_responsive' as *;
+
+.icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  
+  border-radius: 50%;
+  
+  @include mobile-only {
+    width: 40px;
+    height: 40px;
+  }
+  
+  @include respond-to(laptop) {
+    width: 48px;
+    height: 48px;
+  }
+  
+  @include respond-to(desktop) {
+    width: 56px;
+    height: 56px;
+  }
+  
+  & {
+    box-shadow: 0 2px 8px rgba(var(--c-shadow-color-rgb), 0.1);
+    border: 2px solid var(--c-border-white);
+    transition: var(--transition-normal);
+  }
+  
+  svg {
+    color: var(--c-text-on-surface);
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--c-shadow-color-rgb), 0.15);
+  }
+
+  &--primary {
+    background-color: var(--c-primary);
+  }
+
+  &--secondary {
+    background-color: var(--c-surface-subtle);
+  }
+
+  &--gradient {
+    background: var(--c-tertiary);
+  }
+  
+  &--accent {
+    background-color: var(--c-background);
+    border: 2px solid var(--c-border-subtle);
+  }
+
+  &--muted {
+    background-color: var(--c-border);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+  }
+}
