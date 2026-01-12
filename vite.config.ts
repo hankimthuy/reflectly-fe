@@ -1,9 +1,8 @@
-/// <reference types="vite/client" />
+/// <reference types="vitest/config" />
 
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
@@ -11,20 +10,10 @@ export default defineConfig({
     host: true,
     cors: true, 
   },
-  // build: {
-  //   outDir: 'E:\\01_Working\\IT_Project\\reflectly-be\\src\\main\\resources\\static',
-  //   emptyOutDir: true, 
-  //   sourcemap: false,
-  //   rollupOptions: {
-  //     output: {
-  //       manualChunks: () => 'app',
-  //       entryFileNames: 'assets/app.js',
-  //       chunkFileNames: 'assets/app.js',
-  //       assetFileNames: 'assets/[name].[ext]'
-  //     },
-  //   },
-  // },
-  // define: {
-  //   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-  // },
+  test: {
+    globals: true, 
+    environment: 'jsdom',
+    setupFiles: './src/setupTests.ts', 
+    css: true, 
+  },
 })
