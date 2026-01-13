@@ -1,0 +1,49 @@
+name: Deploy Frontend to EC2
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install & Build
+        run: |
+          npm install
+          npm run build
+
+      - name: Copy Dist to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          source: "dist/"
+          target: "/var/www/mimose/temp_frontend"
+
+      - name: Update Nginx Folder
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo rm -rf /var/www/mimose/client/*
+            
+            sudo mkdir -p /var/www/mimose/client
+            
+            sudo mv /var/www/mimose/temp_frontend/dist/* /var/www/mimose/client/
+            
+            rm -rf /var/www/mimose/temp_frontend
