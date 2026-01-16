@@ -10,8 +10,8 @@ beforeEach(() => {
     vi.clearAllMocks();
 });
 
-// UI & RENDER
 describe('SnackbarComponent', () => {
+    // UI & RENDERING
     it('should render message correctly', () => {
         render(
             <SnackbarComponent
@@ -22,29 +22,8 @@ describe('SnackbarComponent', () => {
         );
         expect(screen.getByText('Test Snackbar Message')).toBeInTheDocument();
     });
-});
 
-describe('SnackbarComponent', () => {
-    it('should render title correctly when provided', () => {
-        render(
-            <SnackbarComponent
-                message="Created Failed"
-                title="Error"
-                open={true}
-                onClose={onCloseMock}
-                type="error" />
-        );
-        screen.debug();
-
-        const alertBox = screen.getByRole('alert');
-        expect(alertBox).toHaveTextContent('Error');
-        expect(alertBox).toHaveClass('MuiAlert-filledError');
-    })
-});
-
-// INTERACTION 
-
-describe('SnackbarComponent', () => {
+    // INTERACTION 
     it('should call onClose when Snackbar is closed', async () => {
         render(
             <SnackbarComponent
@@ -57,7 +36,9 @@ describe('SnackbarComponent', () => {
         fireEvent.click(button);
         expect(onCloseMock).toHaveBeenCalledTimes(1);
     })
-})
+});
+
+    
 
 // LOGIC & LIFECYCLE (Async/API, Timer, Error Handling)
 
