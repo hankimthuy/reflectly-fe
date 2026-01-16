@@ -1,9 +1,9 @@
 export const APP_ROUTES = {
-    // Public ProtectedRoute
+    // Public
     LOGIN: '/login',
     WELCOME: '/',
     
-    // Main ProtectedRoute
+    // Main
     HOME: '/home',
     ENTRIES: '/entries',
     PROFILE: '/profile',
