@@ -1,7 +1,6 @@
 import React from 'react';
 import { LuAperture } from "react-icons/lu";
 import './BridgeSection.scss';
-import MimoCharacter from '../../../components/MimoCharacter/MimoCharacter';
 
 const BridgeSection = () => {
   return (
@@ -38,10 +37,9 @@ const BridgeSection = () => {
 
           {/* Center Character */}
           <div className="center-piece">
-             {/* Character Component - Đã ignore theo yêu cầu, giữ placeholder */}
              <div className="mimo-placeholder">
                 <div className="glow-effect"></div>
-                <MimoCharacter theme="bridge" className="character-svg" />
+                {/* <MimoCharacter theme="bridge" className="character-svg" /> */}
              </div>
           </div>
 
