@@ -1,4 +1,71 @@
-# React + TypeScript + Vite
+# MimoSe — Frontend Client
+
+> **"Leading Self"** — A dual-mode ecosystem for introspection (Innerverse) and action (Outerverse).
+
+This repository contains the **Frontend Client** for MimoSe, built with modern web technologies and designed for smooth, animated transitions between modes.
+
+---
+
+## Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| **React 18** | UI library |
+| **TypeScript** | Type safety |
+| **Vite** | Build tool & dev server |
+| **Framer Motion** | Animations (Bridge transitions) |
+
+---
+
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [PRD Summary](./documentation/00-Product-Context/PRD-Summary.md) | Product context, modes, and Bridge mechanics |
+| [Component Tree](./documentation/01-UX-UI-Specs/Component-Tree.md) | View and component hierarchy |
+| [Design System](./documentation/01-UX-UI-Specs/Design-System.md) | Colors, typography, and theme tokens |
+| [User Flows](./documentation/01-UX-UI-Specs/User-Flows.md) | Navigation paths and user journeys |
+| [API Contracts](./documentation/02-Integration/API-Contracts.md) | Backend API endpoints and responses |
+
+---
+
+## Getting Started
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+---
+
+## Project Structure
+
+```
+src/
+├── components/       # Reusable UI components
+├── layouts/          # Innerverse & Outerverse layouts
+├── views/            # Page-level components
+├── hooks/            # Custom React hooks
+├── contexts/         # Theme & mode context providers
+├── services/         # API integration layer
+└── styles/           # Global styles & theme tokens
+```
+
+---
+
+## Related Repositories
+
+- **Backend API** — *(link to backend repo)*
+
+---
+
+## Vite Configuration
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
