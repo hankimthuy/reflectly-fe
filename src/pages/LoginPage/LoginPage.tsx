@@ -13,13 +13,11 @@ const LoginPage = () => {
     const location = useLocation();
     const {isAuthenticated, login, isLoading} = useAuth();
 
-    const intendedDestination = location.state?.from || APP_ROUTES.HOME;
+    const intendedDestination = location.state?.from || APP_ROUTES.HOME || '/';
 
     useEffect(() => {
-        console.log('Mobile debug: useEffect triggered', { isLoading, isAuthenticated, intendedDestination });
         // Only navigate if not loading and authenticated
         if (!isLoading && isAuthenticated) {
-            console.log('Mobile debug: Navigating to', intendedDestination);
             navigate(intendedDestination, {replace: true});
         }
     }, [isAuthenticated, isLoading, navigate, intendedDestination]);
@@ -36,12 +34,9 @@ const LoginPage = () => {
         
         try {
             const idToken = credentialResponse.credential;
-            console.log('Mobile debug: Attempting login with token');
             await login(idToken);
-            console.log('Mobile debug: Login completed, checking navigation');
             // Navigation will happen automatically via useEffect when isAuthenticated changes
         } catch (error) {
-            console.error('Mobile debug: Login failed:', error);
             const errorMessage = error instanceof Error
                 ? error.message
                 : 'Login failed during backend authentication step.';
