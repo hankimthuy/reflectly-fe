@@ -57,9 +57,13 @@ const HeroSection = () => {
         <div className="hero-split__bridge" aria-hidden="true">
           <div className="hero-split__bridge-line"></div>
 
-          <div className="hero-split__bridge-tile">
+          <div className="hero-split__bridge-node">
+            <div className="hero-split__bridge-ping" aria-hidden="true"></div>
+            <div className="hero-split__bridge-pulse" aria-hidden="true"></div>
+            <div className="hero-split__bridge-ring" aria-hidden="true"></div>
+
             <div className="hero-split__bridge-icon">
-              <LuInfinity size={32} strokeWidth={1.5} className="text-slate-400 group-hover:text-indigo-600 transition-colors" />
+              <LuInfinity size={32} strokeWidth={1.5} />
             </div>
 
             <div className="hero-split__bridge-hint hero-split__bridge-hint--left">
