@@ -46,10 +46,13 @@ const LoginPage = () => {
     }
 
     return (
-        <main className="main-content">
+        <main className="login-page">
             <div className="login-container">
                 <div className="login-card">
-                    <p>Sign in to continue to your account</p>
+                    <div className="login-header">
+                        <h2>Welcome to MimoSe</h2>
+                        <p className="login-subtitle">Join the bridge between worlds.</p>
+                    </div>
 
                     {/* Error Display */}
                     {error !== '' && (
