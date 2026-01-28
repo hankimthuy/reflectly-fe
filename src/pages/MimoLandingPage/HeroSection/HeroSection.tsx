@@ -142,7 +142,6 @@ const HeroSection = () => {
           </div>
 
           <h1 className="mobile-title">
-            {activeTab === 'inner' ? 'Explore Your' : 'Master Your'} <br />
             <span className={`gradient-text ${activeTab}`}>
               {activeTab === 'inner' ? 'Innerverse.' : 'Outerverse.'}
             </span>
