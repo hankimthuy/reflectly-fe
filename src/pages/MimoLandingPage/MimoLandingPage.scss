@@ -5,6 +5,11 @@
 .landing-page {
   min-height: 100vh;
   background-color: var(--c-background);
+  margin-top: calc(-1 * var(--header-height-desktop));
+
+  @include mobile-only {
+    margin-top: calc(-1 * var(--header-height-mobile));
+  }
 
   ::selection {
     background-color: #99f6e4;
@@ -13,7 +18,7 @@
 }
 
 /* --- HERO SECTION --- */
-.hero-split {
+.landing-page__legacy-hero-split {
   position: relative;
   width: 100%;
   display: flex;
@@ -186,13 +191,15 @@
   }
 
   .tags {
-    display: none;
+    display: flex;
     gap: 8px;
     font-size: 0.875rem;
     font-weight: 700;
+    flex-wrap: wrap;
+    justify-content: center;
 
     @media (min-width: 768px) {
-      display: flex;
+      justify-content: flex-start;
     }
 
     &.inner {
@@ -203,6 +210,12 @@
     &.outer {
       justify-content: flex-start;
       color: var(--c-primary);
+    }
+
+    @include mobile-only {
+      font-size: 0.75rem;
+      gap: 6px;
+      row-gap: 6px;
     }
   }
 
@@ -227,4 +240,8 @@
   padding: 0;
   text-align: center;
   font-weight: 500;
+
+  @include mobile-only {
+    display: none;
+  }
 }

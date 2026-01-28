@@ -14,9 +14,22 @@
   &--scrolled {
     padding: 12px 0;
     backdrop-filter: blur(12px);
-    // Use color-mix to create 80% opacity from base surface color
+    // Default fallback (split)
     background: color-mix(in srgb, var(--c-surface), transparent 20%);
     box-shadow: var(--shadow-md);
+  }
+
+  // Keep scrolled background consistent with selected theme
+  &.mimo-header--inner.mimo-header--scrolled {
+    background: color-mix(in srgb, var(--c-background-dark), transparent 12%);
+  }
+
+  &.mimo-header--outer.mimo-header--scrolled {
+    background: color-mix(in srgb, var(--c-background), transparent 12%);
+  }
+
+  &.mimo-header--split.mimo-header--scrolled {
+    background: transparent;
   }
 
   // --- THEME: INNERVERSE (Dark Mode) ---
@@ -53,14 +66,7 @@
   // --- THEME: TRANSPARENT/SPLIT ---
   &--split {
     background: transparent;
-
-    .btn-cta {
-      background: var(--c-white);
-      color: var(--c-text-on-background);
-    }
-
-    background: transparent;
-    color: var(--c-text-on-background);
+    color: var(--c-text-on-surface);
 
     .btn-cta {
       background: var(--c-text-on-background);
@@ -69,6 +75,14 @@
 
     .mimo-header__logo {
       color: var(--c-white);
+    }
+
+    .mimo-header__nav {
+      color: var(--c-text-on-surface);
+    }
+
+    .mimo-header__toggle {
+      color: var(--c-text-on-surface);
     }
   }
 

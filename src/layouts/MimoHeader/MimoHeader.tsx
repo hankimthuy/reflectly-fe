@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// Giả định đường dẫn tới provider và constants của bạn
-import { useAuth } from '../../providers/AuthProvider'; 
-import { APP_ROUTES } from '../../constants/route'; 
+import { LuLogOut, LuMenu, LuUser, LuX } from 'react-icons/lu';
+import { APP_ROUTES } from '../../constants/route';
+import { useAuth } from '../../providers/AuthProvider';
 import './MimoHeader.scss';
-import { LuChevronDown, LuUser, LuLogOut, LuX, LuMenu } from 'react-icons/lu';
 
 interface MimoHeaderProps {
   activeTheme?: 'split' | 'inner' | 'outer';
@@ -51,7 +50,6 @@ const MimoHeader = ({ activeTheme = 'split', scrolled = false }: MimoHeaderProps
       <div className="mimo-header__container">
         {/* LOGO */}
         <div className="mimo-header__logo" onClick={() => navigate('/')}>
-          <div className="mimo-header__logo-icon">M</div>
           <span>MimoSe</span>
         </div>
         

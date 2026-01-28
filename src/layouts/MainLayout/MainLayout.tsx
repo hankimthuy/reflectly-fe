@@ -1,6 +1,7 @@
-import { useEffect, useState, useRef, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import MimoHeader from '../MimoHeader/MimoHeader.tsx';
-import NavigationBar from "../NavigationBar/NavigationBar.tsx";
+import MobileFooter from '../MobileFooter/MobileFooter';
+import { useTheme } from '../../providers/ThemeContext';
 import './MainLayout.scss';
 
 interface MainLayoutProps {
@@ -10,8 +11,17 @@ interface MainLayoutProps {
 const MainLayout = ({children}: MainLayoutProps) => {
     const [scrolled, setScrolled] = useState(false);
     const [activeTheme, setActiveTheme] = useState<'split' | 'inner' | 'outer'>('split');
+    const [isMobile, setIsMobile] = useState(false);
+    const { mobileTab } = useTheme();
     
     const scrollRef = useRef<HTMLDivElement>(null); 
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     useEffect(() => {
         const scrollElement = scrollRef.current;
@@ -36,10 +46,12 @@ const MainLayout = ({children}: MainLayoutProps) => {
         return () => scrollElement.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const headerTheme = isMobile ? mobileTab : activeTheme;
+
     return (
         <div className="main-layout-page">
             <div className="main-layout-container">
-                <MimoHeader activeTheme={activeTheme} scrolled={scrolled} />
+                <MimoHeader activeTheme={headerTheme} scrolled={scrolled} />
                 
                 <main className="main-content-scroll" ref={scrollRef}>
                     <div className="content-wrapper">
@@ -47,7 +59,7 @@ const MainLayout = ({children}: MainLayoutProps) => {
                     </div>
                 </main>
 
-                <NavigationBar/>
+                <MobileFooter />
             </div>
         </div>
     );

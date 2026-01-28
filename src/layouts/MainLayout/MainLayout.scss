@@ -21,12 +21,19 @@
       overflow-x: hidden;
       scroll-behavior: smooth;
       position: relative;
+      scrollbar-gutter: stable;
+
+      @supports not (scrollbar-gutter: stable) {
+        overflow-y: scroll;
+      }
 
       .content-wrapper {
         width: 100%;
+        padding-top: var(--header-height-desktop);
         padding-bottom: calc(var(--nav-height-desktop) + 40px);
 
         @include mobile-only {
+          padding-top: var(--header-height-mobile);
           padding-bottom: calc(var(--nav-height-mobile) + 32px);
         }
       }
