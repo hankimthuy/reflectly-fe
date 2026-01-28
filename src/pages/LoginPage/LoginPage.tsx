@@ -11,25 +11,31 @@ const LoginPage = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const {isAuthenticated, login} = useAuth();
+    const {isAuthenticated, login, isLoading} = useAuth();
 
     const intendedDestination = location.state?.from || APP_ROUTES.HOME;
 
     useEffect(() => {
-        if (isAuthenticated) {
+        // Only navigate if not loading and authenticated
+        if (!isLoading && isAuthenticated) {
             navigate(intendedDestination, {replace: true});
         }
-    }, [isAuthenticated, navigate, intendedDestination]);
+    }, [isAuthenticated, isLoading, navigate, intendedDestination]);
 
-    const handleOnSuccess = (credentialResponse: CredentialResponse) => {
+    const handleOnSuccess = async (credentialResponse: CredentialResponse) => {
         if (!credentialResponse.credential) {
             const errorMsg = 'Did not receive credential from Google.';
             setError(errorMsg);
             return;
         }
+        
+        setIsLoggingIn(true);
+        setError('');
+        
         try {
             const idToken = credentialResponse.credential;
-            login(idToken);
+            await login(idToken);
+            // Navigation will happen automatically via useEffect when isAuthenticated changes
         } catch (error) {
             const errorMessage = error instanceof Error
                 ? error.message
@@ -43,6 +49,21 @@ const LoginPage = () => {
 
     const handleOnError = () => {
         setError('Google authentication failed. Please try again.');
+    }
+
+    // Show loading spinner while checking authentication status
+    if (isLoading) {
+        return (
+            <main className="login-page">
+                <div className="login-container">
+                    <div className="login-card">
+                        <div className="loading-indicator">
+                            Login...
+                        </div>
+                    </div>
+                </div>
+            </main>
+        );
     }
 
     return (

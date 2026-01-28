@@ -12,6 +12,7 @@ interface AuthContextValue {
     isAuthenticated: boolean;
     login: (idToken: string) => void;
     logout: () => void;
+    isLoading: boolean;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -27,23 +28,63 @@ export const useAuth = (): AuthContextValue => {
 
 export const AuthProvider = ({children}: { children: ReactNode }) => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     const isAuthenticated = useMemo(() => !!currentUser, [currentUser]);
 
+    // Check for existing token and load profile data
     useEffect(() => {
-        const token = CookieUtil.getCookie(COOKIE_KEYS.AUTH_TOKEN);
-        if (token) {
-            getUserProfile().then(res => setCurrentUser(res));
-        }
+        const initializeAuth = async () => {
+            const token = CookieUtil.getCookie(COOKIE_KEYS.AUTH_TOKEN);
+            
+            if (token) {
+                // User is authenticated by token, allow access immediately
+                // Try to load profile from cookie first
+                const storedProfile = CookieUtil.getCookie(COOKIE_KEYS.USER_PROFILE);
+                if (storedProfile) {
+                    try {
+                        const user = JSON.parse(storedProfile);
+                        setCurrentUser(user);
+                    } catch (error) {
+                        console.error('Failed to parse stored profile:', error);
+                    }
+                }
+                
+                // Load fresh profile data asynchronously
+                try {
+                    const profile = await getUserProfile();
+                    setCurrentUser(profile);
+                    // Store profile in cookie for future use
+                    CookieUtil.setCookie(COOKIE_KEYS.USER_PROFILE, JSON.stringify(profile), 1);
+                } catch (error) {
+                    console.error('Failed to load user profile:', error);
+                    // Don't log out user on profile load failure, they're still authenticated
+                }
+            }
+            
+            setIsLoading(false);
+        };
+
+        initializeAuth();
     }, []);
 
-    const login = (idToken: string) => {
+    const login = async (idToken: string) => {
         CookieUtil.setCookie(COOKIE_KEYS.AUTH_TOKEN, idToken, 1);
-        getUserProfile().then(res => setCurrentUser(res));
+        
+        try {
+            const profile = await getUserProfile();
+            setCurrentUser(profile);
+            // Store profile in cookie
+            CookieUtil.setCookie(COOKIE_KEYS.USER_PROFILE, JSON.stringify(profile), 1);
+        } catch (error) {
+            console.error('Failed to load profile during login:', error);
+            // Still consider user logged in even if profile fails
+        }
     }
 
     const logout = () => {
         CookieUtil.deleteCookie(COOKIE_KEYS.AUTH_TOKEN);
+        CookieUtil.deleteCookie(COOKIE_KEYS.USER_PROFILE);
         setCurrentUser(null);
     }
 
@@ -53,7 +94,8 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
         isAuthenticated,
         login,
         logout,
-    }), [currentUser, isAuthenticated]);
+        isLoading,
+    }), [currentUser, isAuthenticated, isLoading]);
 
     return (
         <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
