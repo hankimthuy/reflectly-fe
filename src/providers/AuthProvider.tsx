@@ -30,7 +30,10 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    const isAuthenticated = useMemo(() => !!currentUser, [currentUser]);
+    const isAuthenticated = useMemo(() => {
+        const hasToken = !!CookieUtil.getCookie(COOKIE_KEYS.AUTH_TOKEN);
+        return hasToken;
+    }, []);
 
     // Check for existing token and load profile data
     useEffect(() => {
@@ -95,7 +98,7 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
         login,
         logout,
         isLoading,
-    }), [currentUser, isAuthenticated, isLoading]);
+    }), [currentUser, isLoading]);
 
     return (
         <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
