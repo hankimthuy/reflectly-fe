@@ -29,11 +29,12 @@ export const useAuth = (): AuthContextValue => {
 export const AuthProvider = ({children}: { children: ReactNode }) => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [token, setToken] = useState<string | null>(null);
 
     const isAuthenticated = useMemo(() => {
         const hasToken = !!CookieUtil.getCookie(COOKIE_KEYS.AUTH_TOKEN);
         return hasToken;
-    }, []);
+    }, [token]);
 
     // Check for existing token and load profile data
     useEffect(() => {
@@ -73,6 +74,7 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
 
     const login = async (idToken: string) => {
         CookieUtil.setCookie(COOKIE_KEYS.AUTH_TOKEN, idToken, 1);
+        setToken(idToken); // Trigger re-render for isAuthenticated
         
         try {
             const profile = await getUserProfile();
@@ -89,6 +91,7 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
         CookieUtil.deleteCookie(COOKIE_KEYS.AUTH_TOKEN);
         CookieUtil.deleteCookie(COOKIE_KEYS.USER_PROFILE);
         setCurrentUser(null);
+        setToken(null); // Trigger re-render for isAuthenticated
     }
 
     const contextValue = useMemo(() => ({
@@ -98,7 +101,7 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
         login,
         logout,
         isLoading,
-    }), [currentUser, isLoading]);
+    }), [currentUser, isLoading, isAuthenticated]);
 
     return (
         <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
