@@ -1,8 +1,22 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { LuAperture } from "react-icons/lu";
+import { useAuth } from '../../../providers/AuthProvider';
+import { APP_ROUTES } from '../../../constants/route';
 import './BridgeSection.scss';
 
 const BridgeSection = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+
+  const handleCTAClick = () => {
+    if (isAuthenticated) {
+      navigate(APP_ROUTES.ENTRIES_LIST);
+    } else {
+      navigate(APP_ROUTES.LOGIN);
+    }
+  };
+
   return (
     <section className="bridge-section">
       <div className="bridge-section-container">
@@ -55,7 +69,7 @@ const BridgeSection = () => {
         </div>
 
         {/* --- CTA BUTTON --- */}
-        <button className="btn-primary">
+        <button className="btn-primary" onClick={handleCTAClick}>
           Start Leading Yourself
         </button>
 

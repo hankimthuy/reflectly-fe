@@ -125,7 +125,22 @@ const MimoHeader = ({ activeTheme = 'split', scrolled = false }: MimoHeaderProps
           {currentUser ? (
              <>
                 <div className="mobile-user-info">
-                    {currentUser.fullName}
+                    <div className="mobile-avatar-wrapper">
+                        {currentUser.pictureUrl && !avatarError ? (
+                            <img 
+                                src={currentUser.pictureUrl} 
+                                alt="User Avatar" 
+                                className="mobile-avatar-img"
+                                onError={() => setAvatarError(true)}
+                                referrerPolicy="no-referrer"
+                            />
+                        ) : (
+                            <div className="mobile-avatar-placeholder">
+                                {currentUser.fullName?.charAt(0).toUpperCase() || 'U'}
+                            </div>
+                        )}
+                    </div>
+                    <span className="mobile-user-name">{currentUser.fullName}</span>
                 </div>
                 <button onClick={handleGoProfile} className="mobile-item">My Profile</button>
                 <button onClick={handleLogout} className="mobile-item text-red">Logout</button>
