@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { LuLogOut, LuMenu, LuUser, LuX } from 'react-icons/lu';
 import { APP_ROUTES } from '../../constants/route';
 import { useAuth } from '../../providers/AuthProvider';
+import LanguageSwitcher from '../../components/LanguageSwitcher/LanguageSwitcher';
 import './MimoHeader.scss';
 
 interface MimoHeaderProps {
@@ -91,6 +92,10 @@ const MimoHeader = ({ activeTheme = 'split', scrolled = false }: MimoHeaderProps
                     <span className="user-email">{currentUser.email}</span>
                   </div>
                   <div className="dropdown-divider"></div>
+                  <div className="dropdown-item language-switcher-item">
+                    <LanguageSwitcher />
+                  </div>
+                  <div className="dropdown-divider"></div>
                   <button onClick={handleGoProfile} className="dropdown-item">
                     <LuUser size={16} /> My Profile
                   </button>
@@ -103,9 +108,12 @@ const MimoHeader = ({ activeTheme = 'split', scrolled = false }: MimoHeaderProps
             </div>
           ) : (
             // CASE 2: NOT LOGGED IN
-            <button className="btn-cta" onClick={handleLogin}>
-              Start Journey
-            </button>
+            <div className="mimo-header__auth-section">
+              <LanguageSwitcher />
+              <button className="btn-cta" onClick={handleLogin}>
+                Start Journey
+              </button>
+            </div>
           )}
         </div>
         
@@ -121,6 +129,10 @@ const MimoHeader = ({ activeTheme = 'split', scrolled = false }: MimoHeaderProps
           <a href="#inner" onClick={() => setIsMenuOpen(false)}>The Innerverse</a>
           <a href="#outer" onClick={() => setIsMenuOpen(false)}>The Outerverse</a>
           <a href="#pillars" onClick={() => setIsMenuOpen(false)}>The 6 Pillars</a>
+          <div className="divider"></div>
+          <div className="mobile-language-switcher">
+            <LanguageSwitcher />
+          </div>
           <div className="divider"></div>
           {currentUser ? (
              <>

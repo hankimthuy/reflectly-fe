@@ -77,62 +77,83 @@ const NewEntryPage: React.FC = () => {
   };
 
   return (
-    <div className="main-content">
-      <div className="new-entry-frame">
-        <div className="entry-header">
-        <IconButton
-          onClick={currentStep === 0 ? () => navigate(APP_ROUTES.HOME) : handleBack}
-          className="back-button"
-        >
-          <ArrowBackIcon />
-        </IconButton>
-        
-        <div className="stepper-container">
-          <Stepper activeStep={currentStep} alternativeLabel>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel className="step-label">{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-        </div>
-
-        <div className="header-action">
-          {currentStep === 0 && selectedEmotions.length > 0 ? (
-            <IconButton
-              onClick={handleNext}
-              className="next-button">
-              <ArrowForwardIcon />
-            </IconButton>
-          ) : currentStep === 1 ? (
-            <Button
-              color="primary"
-              startIcon={<SaveIcon />}
-              onClick={handleSave}
-              disabled={!reflectionTitle.trim() || !reflectionText.trim() || isLoading}
-              loading={isLoading}>
-              Save
-            </Button>
-          ) : (
-            <div className="header-placeholder" />
-          )}
+    <div className="entries-page">
+      {/* LEFT SIDE - Dark section */}
+      <div className="entries-page__left">
+        <div className="bg-blob"></div>
+        <div className="content">
+          <h1 style={{ color: 'var(--c-text-on-dark)', fontSize: '2.5rem', fontWeight: '800', marginBottom: '1rem' }}>
+            New Entry
+          </h1>
+          <p style={{ color: '#94a3b8', fontSize: '1.125rem', lineHeight: '1.6' }}>
+            Capture your thoughts and emotions in this moment of reflection.
+          </p>
         </div>
       </div>
 
-      {currentStep === 0 && (
-        <EmotionCapture
-          selectedEmotions={selectedEmotions}
-          onEmotionToggle={handleEmotionToggle}
-          maxSelections={10}
-        />
-      )}
+      {/* RIGHT SIDE - Light section */}
+      <div className="entries-page__right">
+        <div className="bg-blob"></div>
+        <div className="content">
+          <div className="new-entry-frame">
+            <div className="entry-header">
+            <IconButton
+              onClick={currentStep === 0 ? () => navigate(APP_ROUTES.HOME) : handleBack}
+              className="back-button"
+            >
+              <ArrowBackIcon />
+            </IconButton>
+            
+            <div className="stepper-container">
+              <Stepper activeStep={currentStep} alternativeLabel>
+                {steps.map((label) => (
+                  <Step key={label}>
+                    <StepLabel className="step-label">{label}</StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
+            </div>
 
-      {currentStep === 1 && (
-        <ReflectionCapture
-          selectedEmotions={selectedEmotions}
-          onFormChange={handleFormChange}
-        />
-      )}
+            <div className="header-action">
+              {currentStep === 0 && selectedEmotions.length > 0 ? (
+                <IconButton
+                  onClick={handleNext}
+                  className="next-button">
+                  <ArrowForwardIcon />
+                </IconButton>
+              ) : currentStep === 1 ? (
+                <Button
+                  color="primary"
+                  startIcon={<SaveIcon />}
+                  onClick={handleSave}
+                  disabled={!reflectionTitle.trim() || !reflectionText.trim() || isLoading}
+                  loading={isLoading}>
+                  Save
+                </Button>
+              ) : (
+                <div className="header-placeholder" />
+              )}
+            </div>
+          </div>
+
+          <div className="entries-content">
+            {currentStep === 0 && (
+              <EmotionCapture
+                selectedEmotions={selectedEmotions}
+                onEmotionToggle={handleEmotionToggle}
+                maxSelections={10}
+              />
+            )}
+
+            {currentStep === 1 && (
+              <ReflectionCapture
+                selectedEmotions={selectedEmotions}
+                onFormChange={handleFormChange}
+              />
+            )}
+          </div>
+          </div>
+        </div>
       </div>
     </div>
   );

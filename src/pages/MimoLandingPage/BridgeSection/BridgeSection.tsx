@@ -1,4 +1,4 @@
-import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { LuAperture } from "react-icons/lu";
 import { useAuth } from '../../../providers/AuthProvider';
@@ -8,6 +8,7 @@ import './BridgeSection.scss';
 const BridgeSection = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+  const { t } = useTranslation();
 
   const handleCTAClick = () => {
     if (isAuthenticated) {
@@ -25,16 +26,16 @@ const BridgeSection = () => {
         <div className="bridge-header">
           <div className="badge-pill">
             <LuAperture size={14} /> 
-            <span>The Mimo Method</span>
+            <span>{t('bridgeSection.badge')}</span>
           </div>
           
-          <h2>
-            From Insight to <span className="highlight">Action.</span>
-          </h2>
+          <h2
+            dangerouslySetInnerHTML={{ __html: t('bridgeSection.title') }}
+          />
           
-          <p className="description">
-            Mimo bridges the gap. We take the raw data from your <strong>Innerverse</strong> and convert it into actionable steps for your <strong>Outerverse</strong>.
-          </p>
+          <p className="description"
+            dangerouslySetInnerHTML={{ __html: t('bridgeSection.description') }}
+          />
         </div>
 
         {/* --- PROCESS VISUAL BLOCK --- */}
@@ -42,8 +43,8 @@ const BridgeSection = () => {
           
           {/* Card 1: Awareness */}
           <div className="step-card start">
-            <h4>1. Awareness</h4>
-            <p>I feel anxious.</p>
+            <h4>{t('bridgeSection.steps.awareness.title')}</h4>
+            <p>{t('bridgeSection.steps.awareness.example')}</p>
           </div>
 
           {/* Left Connector */}
@@ -62,15 +63,15 @@ const BridgeSection = () => {
 
           {/* Card 2: Regulation */}
           <div className="step-card end">
-            <h4>2. Regulation</h4>
-            <p>I will set a boundary.</p>
+            <h4>{t('bridgeSection.steps.regulation.title')}</h4>
+            <p>{t('bridgeSection.steps.regulation.example')}</p>
           </div>
 
         </div>
 
         {/* --- CTA BUTTON --- */}
         <button className="btn-primary" onClick={handleCTAClick}>
-          Start Leading Yourself
+          {t('bridgeSection.cta')}
         </button>
 
       </div>

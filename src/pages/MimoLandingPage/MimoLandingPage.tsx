@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 
 // Components
 
@@ -8,12 +9,11 @@ import './MimoLandingPage.scss';
 import PillarsSection from './PillarsSection/PillarsSection';
 
 const MimoLandingPage = () => {
+  const { t } = useTranslation();
 
   return (
     <div className="landing-page">
       
-      {/* Header with Theme Prop */}
-
       {/* --- HERO SECTION --- */}
       <HeroSection />
 
@@ -25,7 +25,7 @@ const MimoLandingPage = () => {
 
       {/* --- Footer --- */}
       <footer className="footer">
-        <span>© 2026 MimoSe Inc. - The Science of Leading Self.</span>
+        <span>{t('landingPage.footer.copyright')}</span>
       </footer>
     </div>
   );

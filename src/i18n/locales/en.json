@@ -1,0 +1,80 @@
+{
+  "landingPage": {
+    "footer": {
+      "copyright": "© 2026 MimoSe Inc. - The Science of Leading Self."
+    }
+  },
+  "heroSection": {
+    "internalAwareness": "Internal Awareness",
+    "innerverse": "Innerverse.",
+    "innerDescription": "Dive into the depths of your thoughts and emotions with clarity. No noise, just signal.",
+    "innerTags": {
+      "safeSpace": "Safe Space",
+      "coreValues": "Core Values",
+      "patterns": "Patterns"
+    },
+    "externalAction": "External Action",
+    "outerverse": "Outerverse.",
+    "outerDescription": "Translate insights into tangible actions. Set boundaries, communicate, and lead.",
+    "outerTags": {
+      "socialMirror": "Social Mirror",
+      "regulation": "Regulation",
+      "growth": "Growth"
+    },
+    "bridge": {
+      "insight": "Insight",
+      "action": "Action"
+    }
+  },
+  "pillarsSection": {
+    "title": "The Pillars of Self-Leadership",
+    "subtitle": "Hover over the pillars to explore the structure of your mind.",
+    "pillars": {
+      "safeSpace": {
+        "title": "Safe Space",
+        "description": "Unmask yourself. A private, judgment-free zone to vent, cry, or celebrate."
+      },
+      "innerCompass": {
+        "title": "Inner Compass",
+        "description": "Define your Core Values. Understand the 'Why' behind your 'Who'."
+      },
+      "senseConnection": {
+        "title": "Sense Connection",
+        "description": "Connect the dots. Detect hidden patterns in your mood and behaviors."
+      },
+      "socialMirror": {
+        "title": "Social Mirror",
+        "description": "Visualize your network. Who fuels your growth and who drains it?"
+      },
+      "selfRegulation": {
+        "title": "Self-Regulation",
+        "description": "Turn insight into Action. Master your impulses and set boundaries."
+      },
+      "growthVision": {
+        "title": "Growth Vision",
+        "description": "Map your evolution. Set a clear trajectory for your future self."
+      }
+    },
+    "groups": {
+      "innerPsychology": "Inner Psychology",
+      "externalBehavior": "External Behavior"
+    },
+    "learnMore": "Learn More"
+  },
+  "bridgeSection": {
+    "badge": "The Mimo Method",
+    "title": "From Insight to <span class=\"highlight\">Action.</span>",
+    "description": "Mimo bridges the gap. We take the raw data from your <strong>Innerverse</strong> and convert it into actionable steps for your <strong>Outerverse</strong>.",
+    "steps": {
+      "awareness": {
+        "title": "1. Awareness",
+        "example": "I feel anxious."
+      },
+      "regulation": {
+        "title": "2. Regulation",
+        "example": "I will set a boundary."
+      }
+    },
+    "cta": "Start Leading Yourself"
+  }
+}

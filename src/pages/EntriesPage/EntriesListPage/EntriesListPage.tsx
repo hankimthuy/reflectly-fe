@@ -74,7 +74,7 @@ const EntriesListPage: React.FC = () => {
   };
 
   return (
-    <div className="main-content">
+    <div className="entries-page">
       <div className="entries-list-frame">
         <div className="entry-title">
           <h2 className="entries-list-title">Journal</h2>

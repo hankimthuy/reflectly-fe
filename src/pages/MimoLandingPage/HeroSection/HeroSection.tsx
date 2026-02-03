@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import MimoCharacter from '../../../components/MimoCharacter/MimoCharacter';
 import { useTheme } from '../../../providers/ThemeContext';
 import './HeroSection.scss';
 import { LuInfinity } from 'react-icons/lu';
 
 const HeroSection = () => {
+  const { t } = useTranslation();
   const { mobileTab, setMobileTab } = useTheme();
   const [activeTab, setActiveTab] = useState<'inner' | 'outer'>(mobileTab as 'inner' | 'outer');
   const [isMobile, setIsMobile] = useState(false);
@@ -37,19 +39,19 @@ const HeroSection = () => {
           <div className="content">
             <div className="kicker kicker--inner">
               <span className="kicker__line" />
-              <span className="kicker__text">Internal Awareness</span>
+              <span className="kicker__text">{t('heroSection.internalAwareness')}</span>
             </div>
 
             <h1>
-              <span className="gradient-text inner">Innerverse.</span>
+              <span className="gradient-text inner">{t('heroSection.innerverse')}</span>
             </h1>
 
             <p className="desc inner">
-              Dive into the depths of your thoughts and emotions with clarity. No noise, just signal.
+              {t('heroSection.innerDescription')}
             </p>
 
             <div className="tags inner">
-              <span>Safe Space</span> • <span>Core Values</span> • <span>Patterns</span>
+              <span>{t('heroSection.innerTags.safeSpace')}</span> • <span>{t('heroSection.innerTags.coreValues')}</span> • <span>{t('heroSection.innerTags.patterns')}</span>
             </div>
           </div>
         </div>
@@ -67,7 +69,7 @@ const HeroSection = () => {
             </div>
 
             <div className="hero-split__bridge-hint hero-split__bridge-hint--left">
-              <span className="hero-split__bridge-label hero-split__bridge-label--input">Insight</span>
+              <span className="hero-split__bridge-label hero-split__bridge-label--input">{t('heroSection.bridge.insight')}</span>
               <div className="hero-split__bridge-seg hero-split__bridge-seg--indigo"></div>
               <div className="hero-split__bridge-dot hero-split__bridge-dot--indigo"></div>
             </div>
@@ -75,7 +77,7 @@ const HeroSection = () => {
             <div className="hero-split__bridge-hint hero-split__bridge-hint--right">
               <div className="hero-split__bridge-dot hero-split__bridge-dot--orange"></div>
               <div className="hero-split__bridge-seg hero-split__bridge-seg--orange"></div>
-              <span className="hero-split__bridge-label hero-split__bridge-label--output">Action</span>
+              <span className="hero-split__bridge-label hero-split__bridge-label--output">{t('heroSection.bridge.action')}</span>
             </div>
           </div>
         </div>
@@ -89,20 +91,20 @@ const HeroSection = () => {
 
           <div className="hero-content">
             <div className="kicker kicker--outer">
-              <span className="kicker__text">External Action</span>
+              <span className="kicker__text">{t('heroSection.externalAction')}</span>
               <span className="kicker__line" />
             </div>
 
             <h1>
-              <span className="gradient-text outer">Outerverse.</span>
+              <span className="gradient-text outer">{t('heroSection.outerverse')}</span>
             </h1>
 
             <p className="desc outer">
-              Translate insights into tangible actions. Set boundaries, communicate, and lead.
+              {t('heroSection.outerDescription')}
             </p>
 
             <div className="tags outer">
-              <span>Social Mirror</span> • <span>Regulation</span> • <span>Growth</span>
+              <span>{t('heroSection.outerTags.socialMirror')}</span> • <span>{t('heroSection.outerTags.regulation')}</span> • <span>{t('heroSection.outerTags.growth')}</span>
             </div>
           </div>
         </div>
@@ -118,13 +120,13 @@ const HeroSection = () => {
               onClick={() => handleTabChange('inner')}
               className={`tab-btn ${activeTab === 'inner' ? 'tab-btn--active-inner' : ''}`}
             >
-              Innerverse
+              {t('heroSection.innerverse')}
             </button>
             <button
               onClick={() => handleTabChange('outer')}
               className={`tab-btn ${activeTab === 'outer' ? 'tab-btn--active-outer' : ''}`}
             >
-              Outerverse
+              {t('heroSection.outerverse')}
             </button>
           </div>
         </div>
@@ -136,32 +138,32 @@ const HeroSection = () => {
           <div className={`kicker-mobile kicker-mobile--${activeTab}`}>
             <span className="kicker-mobile__line" />
             <span className="kicker-mobile__text">
-              {activeTab === 'inner' ? 'Internal Awareness' : 'External Action'}
+              {activeTab === 'inner' ? t('heroSection.internalAwareness') : t('heroSection.externalAction')}
             </span>
             <span className="kicker-mobile__line" />
           </div>
 
           <h1 className="mobile-title">
             <span className={`gradient-text ${activeTab}`}>
-              {activeTab === 'inner' ? 'Innerverse.' : 'Outerverse.'}
+              {activeTab === 'inner' ? t('heroSection.innerverse') : t('heroSection.outerverse')}
             </span>
           </h1>
 
           <p className="mobile-desc">
             {activeTab === 'inner'
-              ? 'Dive into the depths of your thoughts and emotions with clarity. No noise, just signal.'
-              : 'Translate insights into tangible actions. Set boundaries, communicate, and lead.'
+              ? t('heroSection.innerDescription')
+              : t('heroSection.outerDescription')
             }
           </p>
 
           <div className={`tags-mobile ${activeTab}`}>
             {activeTab === 'inner' ? (
               <>
-                <span>Safe Space</span> • <span>Core Values</span> • <span>Patterns</span>
+                <span>{t('heroSection.innerTags.safeSpace')}</span> • <span>{t('heroSection.innerTags.coreValues')}</span> • <span>{t('heroSection.innerTags.patterns')}</span>
               </>
             ) : (
               <>
-                <span>Social Mirror</span> • <span>Regulation</span> • <span>Growth</span>
+                <span>{t('heroSection.outerTags.socialMirror')}</span> • <span>{t('heroSection.outerTags.regulation')}</span> • <span>{t('heroSection.outerTags.growth')}</span>
               </>
             )}
           </div>

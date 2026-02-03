@@ -1,15 +1,40 @@
 @use '../../../styles/_variables' as *;
 @use '../../../styles/_responsive' as *;
 
-.main-content {
+.entries-page {
+    background-color: var(--c-background-dark);
+    min-height: 100vh;
 
     .entries-list-frame {
         @include page-frame;
     }
+    
+    // Override MimoHeader for dark background
+    :global(.mimo-header) {
+        background-color: var(--c-background-dark) !important;
+        color: var(--c-text-on-dark) !important;
+        border-bottom: 1px solid var(--c-border-dark) !important;
+        
+        .mimo-header__logo {
+            color: var(--c-text-on-dark) !important;
+        }
+        
+        .mimo-header__nav {
+            color: var(--c-text-on-dark) !important;
+            
+            a {
+                color: inherit !important;
+            }
+        }
+        
+        .mimo-header__toggle {
+            color: var(--c-text-on-dark) !important;
+        }
+    }
 
     .entries-list-title {
         font-weight: var(--font-weight-bold);
-        color: var(--c-page-title);
+        color: var(--c-text-on-dark);
         line-height: var(--line-height-tight);
         margin: 0;
         letter-spacing: -0.5px;
@@ -21,7 +46,7 @@
 
     .entries-list-subtitle {
         line-height: var(--line-height-relaxed);
-        color: var(--c-text-on-surface);
+        color: var(--c-text-muted);
         @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
         padding-left: var(--spacing-sm);
         font-weight: var(--font-weight-medium);

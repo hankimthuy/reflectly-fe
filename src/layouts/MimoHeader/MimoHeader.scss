@@ -120,11 +120,15 @@
   }
 
   &__nav {
-    display: none;
+    display: flex;
     align-items: center;
     gap: 32px;
-    font-size: 0.95rem;
-    font-weight: 600;
+
+    .mimo-header__auth-section {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
 
     a {
       text-decoration: none;
@@ -274,6 +278,15 @@
           background: #fef2f2;
         }
       }
+
+      &.language-switcher-item {
+        padding: 8px 12px;
+        justify-content: flex-start;
+        
+        &:hover {
+          background: transparent;
+        }
+      }
     }
   }
 
@@ -387,6 +400,12 @@
       width: 100%;
       border: none;
       margin-top: 12px;
+    }
+
+    .mobile-language-switcher {
+      display: flex;
+      justify-content: center;
+      padding: 8px 0;
     }
   }
 }
