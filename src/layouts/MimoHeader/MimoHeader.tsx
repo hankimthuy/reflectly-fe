@@ -43,7 +43,8 @@ const MimoHeader = ({ activeTheme = 'split', scrolled = false }: MimoHeaderProps
   };
 
   const handleLogin = () => {
-    navigate(APP_ROUTES.LOGIN || '/login');
+    setIsMenuOpen(false);
+    navigate(APP_ROUTES.LOGIN || '/login', { state: { explicit: true } });
   };
 
   return (

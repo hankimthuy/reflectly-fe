@@ -8,19 +8,32 @@ import './LoginPage.scss';
 const LoginPage = () => {
     const [error, setError] = useState('');
     const [isLoggingIn, setIsLoggingIn] = useState(false);
+    const [staleAuthCleared, setStaleAuthCleared] = useState(false);
 
     const navigate = useNavigate();
     const location = useLocation();
-    const {isAuthenticated, login, isLoading} = useAuth();
+    const {isAuthenticated, login, logout, isLoading} = useAuth();
 
+    const isExplicitLogin = location.state?.explicit === true;
     const intendedDestination = location.state?.from || APP_ROUTES.HOME || '/';
 
+    // If user explicitly clicked "Login", clear any stale auth so they can re-authenticate
     useEffect(() => {
-        // Only navigate if not loading and authenticated
+        if (isExplicitLogin && isAuthenticated) {
+            logout();
+        }
+        setStaleAuthCleared(true);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        // Wait until the stale-auth check on mount has completed
+        if (!staleAuthCleared) return;
+
+        // Only navigate if not loading and authenticated (fresh login completed)
         if (!isLoading && isAuthenticated) {
             navigate(intendedDestination, {replace: true});
         }
-    }, [isAuthenticated, isLoading, navigate, intendedDestination]);
+    }, [isAuthenticated, isLoading, navigate, intendedDestination, staleAuthCleared]);
 
     const handleOnSuccess = async (credentialResponse: CredentialResponse) => {
         if (!credentialResponse.credential) {
