@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Box, IconButton } from '@mui/material';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
@@ -53,19 +52,15 @@ const NAV_ITEMS: NavItem[] = [
 
 const MobileFooter = () => {
     const location = useLocation();
-    const [navIndex, setNavIndex] = useState(() => {
-        const currentIndex = NAV_ITEMS.findIndex(item => item.path === location.pathname);
-        return currentIndex >= 0 ? currentIndex : 0;
-    });
 
-    const isActive = (path: string, idx: number) => {
-        return location.pathname === path || navIndex === idx;
+    const isActive = (path: string) => {
+        return location.pathname === path;
     };
 
     return (
         <Box className="mobile-footer">
             <Box className="mobile-footer__container">
-                {NAV_ITEMS.map((item, idx) => (
+                {NAV_ITEMS.map((item) => (
                     item.isFab ? (
                         <Link 
                             key={item.id} 
@@ -80,11 +75,10 @@ const MobileFooter = () => {
                         <Link
                             key={item.id}
                             to={item.path}
-                            onClick={() => setNavIndex(idx)}
-                            className={`mobile-footer__item ${isActive(item.path, idx) ? 'mobile-footer__item--active' : ''}`}
+                            className={`mobile-footer__item ${isActive(item.path) ? 'mobile-footer__item--active' : ''}`}
                         >
-                            {isActive(item.path, idx) ? item.activeIcon : item.icon}
-                            {isActive(item.path, idx) && <span className="mobile-footer__indicator"></span>}
+                            {isActive(item.path) ? item.activeIcon : item.icon}
+                            {isActive(item.path) && <span className="mobile-footer__indicator"></span>}
                         </Link>
                     )
                 ))}

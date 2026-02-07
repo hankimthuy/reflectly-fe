@@ -5,6 +5,7 @@ import {getUserProfile} from '../services/userService.ts';
 import {GoogleOAuthProvider} from "@react-oauth/google";
 import {COOKIE_KEYS} from "../constants/storage.ts";
 import CookieUtil from "../utils/cookieUtil.ts";
+import {setAuthInitializing} from '../services/axiosSetup.ts';
 
 interface AuthContextValue {
     currentUser: User | null;
@@ -39,11 +40,16 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
     // Check for existing token and load profile data
     useEffect(() => {
         const initializeAuth = async () => {
-            const token = CookieUtil.getCookie(COOKIE_KEYS.AUTH_TOKEN);
+            // Suppress 401 redirects during initial auth check
+            setAuthInitializing(true);
             
-            if (token) {
-                // User is authenticated by token, allow access immediately
-                // Try to load profile from cookie first
+            const existingToken = CookieUtil.getCookie(COOKIE_KEYS.AUTH_TOKEN);
+            
+            if (existingToken) {
+                // Sync token state so isAuthenticated becomes true immediately
+                setToken(existingToken);
+                
+                // Try to load profile from cookie first for instant UI
                 const storedProfile = CookieUtil.getCookie(COOKIE_KEYS.USER_PROFILE);
                 if (storedProfile) {
                     try {
@@ -60,13 +66,22 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
                     setCurrentUser(profile);
                     // Store profile in cookie for future use
                     CookieUtil.setCookie(COOKIE_KEYS.USER_PROFILE, JSON.stringify(profile), 1);
-                } catch (error) {
+                } catch (error: unknown) {
                     console.error('Failed to load user profile:', error);
-                    // Don't log out user on profile load failure, they're still authenticated
+                    // If 401, token is truly invalid — clean up
+                    const axiosError = error as { response?: { status?: number } };
+                    if (axiosError?.response?.status === 401) {
+                        CookieUtil.deleteCookie(COOKIE_KEYS.AUTH_TOKEN);
+                        CookieUtil.deleteCookie(COOKIE_KEYS.USER_PROFILE);
+                        setCurrentUser(null);
+                        setToken(null);
+                    }
+                    // For other errors (network, 500, etc.), keep user authenticated
                 }
             }
             
             setIsLoading(false);
+            setAuthInitializing(false);
         };
 
         initializeAuth();
