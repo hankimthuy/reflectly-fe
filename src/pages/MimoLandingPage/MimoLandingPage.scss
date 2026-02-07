@@ -240,6 +240,7 @@
   padding: 0;
   text-align: center;
   font-weight: 500;
+  margin-bottom: 16px;
 
   @include mobile-only {
     display: none;
