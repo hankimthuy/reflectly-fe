@@ -61,6 +61,44 @@
     },
     "learnMore": "Tìm hiểu thêm"
   },
+  "mobileFooter": {
+    "authDialog": {
+      "title": "Yêu cầu Đăng nhập",
+      "message": "Bạn cần đăng nhập để tạo hoặc xem các bài viết của mình.",
+      "confirm": "Đăng nhập",
+      "cancel": "Để sau"
+    }
+  },
+  "profilePage": {
+    "loginRequired": "Vui lòng đăng nhập để xem hồ sơ của bạn.",
+    "stats": {
+      "dayStreak": "Chuỗi ngày",
+      "topMood": "Cảm xúc chính"
+    },
+    "emotionOverview": {
+      "title": "Tổng quan Cảm xúc",
+      "subtitle": "{{entries}} bài viết, {{emotions}} cảm xúc được gắn",
+      "empty": "Bắt đầu viết nhật ký để xem mẫu hình cảm xúc của bạn."
+    },
+    "settings": {
+      "title": "Cài đặt",
+      "language": "Ngôn ngữ",
+      "theme": "Giao diện"
+    },
+    "logout": "Đăng xuất",
+    "logoutDialog": {
+      "title": "Đăng xuất",
+      "message": "Bạn có chắc chắn muốn đăng xuất không?",
+      "confirm": "Đăng xuất",
+      "cancel": "Hủy"
+    }
+  },
+  "entriesPage": {
+    "title": "Nhật ký",
+    "subtitle": "Hành trình Cảm xúc",
+    "loadMore": "Tải thêm",
+    "showing": "Hiển thị {{current}} trong {{total}} bài viết"
+  },
   "bridgeSection": {
     "badge": "Phương pháp Mimo",
     "title": "Từ Thấu hiểu đến <span class=\"highlight\">Hành động.</span>",

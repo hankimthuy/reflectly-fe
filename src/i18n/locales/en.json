@@ -61,6 +61,44 @@
     },
     "learnMore": "Learn More"
   },
+  "mobileFooter": {
+    "authDialog": {
+      "title": "Login Required",
+      "message": "You need to log in to create or view your entries.",
+      "confirm": "Log In",
+      "cancel": "Later"
+    }
+  },
+  "profilePage": {
+    "loginRequired": "Please log in to view your profile.",
+    "stats": {
+      "dayStreak": "Day Streak",
+      "topMood": "Top Mood"
+    },
+    "emotionOverview": {
+      "title": "Emotion Overview",
+      "subtitle": "{{entries}} entries, {{emotions}} emotions tagged",
+      "empty": "Start journaling to see your emotion patterns."
+    },
+    "settings": {
+      "title": "Settings",
+      "language": "Language",
+      "theme": "Theme"
+    },
+    "logout": "Log Out",
+    "logoutDialog": {
+      "title": "Log Out",
+      "message": "Are you sure you want to log out?",
+      "confirm": "Log Out",
+      "cancel": "Cancel"
+    }
+  },
+  "entriesPage": {
+    "title": "Journal",
+    "subtitle": "Emotional Journey",
+    "loadMore": "Load More",
+    "showing": "Showing {{current}} of {{total}} entries"
+  },
   "bridgeSection": {
     "badge": "The Mimo Method",
     "title": "From Insight to <span class=\"highlight\">Action.</span>",

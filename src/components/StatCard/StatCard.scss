@@ -1,0 +1,93 @@
+@use '../../styles/_variables' as *;
+@use '../../styles/_responsive' as *;
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-md);
+  aspect-ratio: 1 / 1;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  cursor: default;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  &__value {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-black);
+    line-height: var(--line-height-tight);
+  }
+
+  &__label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  // --- Glass Dark variant (for dark backgrounds) ---
+  &--glass-dark {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+
+    &:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .stat-card__icon {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-card__value {
+      color: #F1F5F9;
+    }
+
+    .stat-card__label {
+      color: #94A3B8;
+    }
+  }
+
+  // --- Glass Light variant (for light backgrounds) ---
+  &--glass-light {
+    background: var(--c-white);
+    border: 1px solid var(--c-border);
+    box-shadow: var(--shadow-md);
+
+    &:hover {
+      box-shadow: var(--shadow-xl);
+    }
+
+    .stat-card__icon {
+      background-color: var(--c-surface);
+    }
+
+    .stat-card__value {
+      color: var(--c-text-on-background);
+    }
+
+    .stat-card__label {
+      color: var(--c-text-muted);
+    }
+  }
+}

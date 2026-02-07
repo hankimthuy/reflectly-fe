@@ -1,14 +1,17 @@
-import LandscapeIcon from '@mui/icons-material/Landscape';
 import { Button, CircularProgress, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
-import { IoFlameSharp } from "react-icons/io5";
+import React, { useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSnackbar } from '../../../providers/SnackbarProvider';
 import { useEntriesInfiniteQuery } from '../../../queries/entriesQueryHook';
+import { calculateDayStreak, getTopMood } from '../../../utils/statsUtil';
+import { EMOTION_DATA } from '../../../models/emotion';
+import StatCard from '../../../components/StatCard/StatCard';
 import EntryCard from '../components/EntryCard/EntryCard';
 import './EntriesListPage.scss';
 
 const EntriesListPage: React.FC = () => {
   const { showSnackbar } = useSnackbar();
+  const { t } = useTranslation();
 
   const {
     data,
@@ -25,11 +28,14 @@ const EntriesListPage: React.FC = () => {
     }
   }, [isError, showSnackbar]);
 
-  const entries = React.useMemo(() => {
+  const entries = useMemo(() => {
     return data?.pages.flatMap(page => page.content) || [];
   }, [data]);
 
   const total = data?.pages[0]?.total || 0;
+
+  const streak = useMemo(() => calculateDayStreak(entries), [entries]);
+  const topMood = useMemo(() => getTopMood(entries), [entries]);
   
   const handleLoadMore = () => {
     if (hasNextPage && !isFetchingNextPage) {
@@ -41,30 +47,26 @@ const EntriesListPage: React.FC = () => {
     <div className="entries-page">
       <div className="entries-list-frame">
         <div className="entry-title">
-          <h2 className="entries-list-title">Journal</h2>
-          <span className="entries-list-subtitle">Emotional Journey</span>
+          <h2 className="entries-list-title">{t('entriesPage.title')}</h2>
+          <span className="entries-list-subtitle">{t('entriesPage.subtitle')}</span>
         </div>
 
         {/* Quick Stats */}
         <div className="stats-section">
-          <div className="stat-card-dark">
-            <div className="icon-box">
-              <IoFlameSharp />
-            </div>
-            <div className="stat-content">
-              <div className="stat-value">0</div>
-              <div className="stat-label">Day Streak</div>
-            </div>
-          </div>
-          <div className="stat-card-light">
-            <div className="icon-box">
-              <LandscapeIcon />
-            </div>
-            <div className="stat-content">
-              <div className="stat-value">Happy</div>
-              <div className="stat-label">Top Mood</div>
-            </div>
-          </div>
+          <StatCard
+            icon={<span>{streak.icon}</span>}
+            value={streak.count}
+            label={t('profilePage.stats.dayStreak')}
+            variant="glass-dark"
+            accentColor={streak.color}
+          />
+          <StatCard
+            icon={<span>{topMood ? topMood.icon : (EMOTION_DATA.happy?.icon || '😊')}</span>}
+            value={topMood ? topMood.label : '—'}
+            label={t('profilePage.stats.topMood')}
+            variant="glass-dark"
+            accentColor={topMood?.color}
+          />
         </div>
 
         {/* List of Journal Cards */}
@@ -86,12 +88,12 @@ const EntriesListPage: React.FC = () => {
             onClick={handleLoadMore}
             className="load-more-btn"
           >
-            Load More
+            {t('entriesPage.loadMore')}
           </Button>
         )}
 
         <Typography variant="caption" className="load-more-text">
-          Showing {entries.length} of {total} entries
+          {t('entriesPage.showing', { current: entries.length, total })}
         </Typography>
       </div>
     </div>

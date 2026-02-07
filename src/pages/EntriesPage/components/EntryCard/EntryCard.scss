@@ -286,3 +286,100 @@
     }
   }
 }
+
+// === Dark variant for entries page (dark background) ===
+.entries-page .entry-card {
+  background-color: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .entry-main-card-wrapper {
+    .date-group {
+      .date-box {
+        background-color: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.1);
+
+        .month { color: #94A3B8; }
+        .date { color: #F1F5F9; }
+      }
+
+      .title-info {
+        .day-name { color: #94A3B8; }
+        .entry-title { color: #F1F5F9; }
+
+        .entry-title-input {
+          color: #F1F5F9;
+          background-color: rgba(255, 255, 255, 0.06);
+          border-color: rgba(255, 255, 255, 0.15);
+        }
+      }
+    }
+
+    .btn-details {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #CBD5E1;
+      outline-color: rgba(255, 255, 255, 0.12);
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.14);
+      }
+    }
+  }
+
+  .card-reflection {
+    background-color: rgba(15, 23, 42, 0.5);
+    border-top-color: rgba(255, 255, 255, 0.06);
+
+    .reflection-label {
+      span { color: #94A3B8; }
+    }
+
+    .reflection-text-box {
+      background-color: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.08);
+
+      p { color: #CBD5E1; }
+
+      .reflection-textarea {
+        color: #F1F5F9;
+        background-color: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.12);
+
+        &::placeholder { color: #64748B; }
+      }
+    }
+
+    .empty-state { color: #64748B; }
+
+    .btn-action {
+      outline-color: rgba(255, 255, 255, 0.12);
+
+      &.btn-edit {
+        background-color: rgba(255, 255, 255, 0.06);
+        color: #FB923C;
+        outline-color: rgba(249, 115, 22, 0.3);
+      }
+
+      &.btn-delete {
+        background-color: rgba(255, 255, 255, 0.06);
+        color: #F87171;
+        outline-color: rgba(248, 113, 113, 0.3);
+      }
+
+      &.btn-save {
+        background-color: var(--c-primary);
+        color: var(--c-white);
+      }
+
+      &.btn-cancel {
+        background-color: rgba(255, 255, 255, 0.06);
+        color: #94A3B8;
+        outline-color: rgba(255, 255, 255, 0.12);
+      }
+    }
+  }
+}
