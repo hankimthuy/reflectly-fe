@@ -5,10 +5,10 @@
 .landing-page {
   min-height: 100vh;
   background-color: var(--c-background);
-  margin-top: calc(-1 * var(--header-height-desktop));
+  margin-top: calc(-1 * var(--header-height-mobile));
 
-  @include mobile-only {
-    margin-top: calc(-1 * var(--header-height-mobile));
+  @media (min-width: 768px) {
+    margin-top: calc(-1 * var(--header-height-desktop));
   }
 
   ::selection {
