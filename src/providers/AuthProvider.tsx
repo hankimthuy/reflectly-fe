@@ -1,15 +1,14 @@
-import {type ReactNode, useEffect} from 'react';
-import {createContext, useContext, useMemo, useState} from 'react';
-import type {User} from "../models/user.ts";
-import {getUserProfile} from '../services/userService.ts';
-import {GoogleOAuthProvider} from "@react-oauth/google";
-import {COOKIE_KEYS} from "../constants/storage.ts";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { COOKIE_KEYS } from "../constants/storage.ts";
+import type { User } from "../models/user.ts";
+import { setAuthInitializing } from '../services/axiosSetup.ts';
 import CookieUtil from "../utils/cookieUtil.ts";
-import {setAuthInitializing} from '../services/axiosSetup.ts';
+import { getUserProfile } from "../services/userService.ts";
 
 interface AuthContextValue {
     currentUser: User | null;
-    setCurrentUser: (user: User | null) => void;
     isAuthenticated: boolean;
     login: (idToken: string) => void;
     logout: () => void;
@@ -18,7 +17,6 @@ interface AuthContextValue {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = (): AuthContextValue => {
     const context = useContext(AuthContext);
     if (!context) {
@@ -27,96 +25,100 @@ export const useAuth = (): AuthContextValue => {
     return context;
 };
 
+/** Cache key for the user profile query */
+const USER_PROFILE_QUERY_KEY = ['userProfile'] as const;
+
 export const AuthProvider = ({children}: { children: ReactNode }) => {
-    const [currentUser, setCurrentUser] = useState<User | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [token, setToken] = useState<string | null>(null);
+    const queryClient = useQueryClient();
+    const [token, setToken] = useState<string | null>(() =>
+        CookieUtil.getCookie(COOKIE_KEYS.AUTH_TOKEN) || null
+    );
 
-    const isAuthenticated = useMemo(() => {
-        const hasToken = !!CookieUtil.getCookie(COOKIE_KEYS.AUTH_TOKEN);
-        return hasToken;
-    }, [token]);
+    const isAuthenticated = useMemo(() => !!token, [token]);
 
-    // Check for existing token and load profile data
+    // Suppress 401 interceptor redirects while the initial profile query runs
     useEffect(() => {
-        const initializeAuth = async () => {
-            // Suppress 401 redirects during initial auth check
+        if (token) {
             setAuthInitializing(true);
-            
-            const existingToken = CookieUtil.getCookie(COOKIE_KEYS.AUTH_TOKEN);
-            
-            if (existingToken) {
-                // Sync token state so isAuthenticated becomes true immediately
-                setToken(existingToken);
-                
-                // Try to load profile from cookie first for instant UI
-                const storedProfile = CookieUtil.getCookie(COOKIE_KEYS.USER_PROFILE);
-                if (storedProfile) {
-                    try {
-                        const user = JSON.parse(storedProfile);
-                        setCurrentUser(user);
-                    } catch (error) {
-                        console.error('Failed to parse stored profile:', error);
-                    }
-                }
-                
-                // Load fresh profile data asynchronously
-                try {
-                    const profile = await getUserProfile();
-                    setCurrentUser(profile);
-                    // Store profile in cookie for future use
-                    CookieUtil.setCookie(COOKIE_KEYS.USER_PROFILE, JSON.stringify(profile), 1);
-                } catch (error: unknown) {
-                    console.error('Failed to load user profile:', error);
-                    // If 401, token is truly invalid — clean up
-                    const axiosError = error as { response?: { status?: number } };
-                    if (axiosError?.response?.status === 401) {
-                        CookieUtil.deleteCookie(COOKIE_KEYS.AUTH_TOKEN);
-                        CookieUtil.deleteCookie(COOKIE_KEYS.USER_PROFILE);
-                        setCurrentUser(null);
-                        setToken(null);
-                    }
-                    // For other errors (network, 500, etc.), keep user authenticated
-                }
-            }
-            
-            setIsLoading(false);
-            setAuthInitializing(false);
-        };
+        }
+    }, []); // only on mount
 
-        initializeAuth();
+    // Try to hydrate cached profile from cookie as initialData
+    const cachedProfile = useMemo<User | undefined>(() => {
+        const stored = CookieUtil.getCookie(COOKIE_KEYS.USER_PROFILE);
+        if (stored) {
+            try { return JSON.parse(stored) as User; } catch { /* ignore */ }
+        }
+        return undefined;
     }, []);
 
-    const login = async (idToken: string) => {
-        CookieUtil.setCookie(COOKIE_KEYS.AUTH_TOKEN, idToken, 1);
-        setToken(idToken); // Trigger re-render for isAuthenticated
-        
-        try {
+    const {
+        data: currentUser = null,
+        isLoading: isProfileLoading,
+        isFetched,
+    } = useQuery<User | null>({
+        queryKey: USER_PROFILE_QUERY_KEY,
+        queryFn: async () => {
             const profile = await getUserProfile();
-            setCurrentUser(profile);
-            // Store profile in cookie
+            // Persist fresh profile to cookie
             CookieUtil.setCookie(COOKIE_KEYS.USER_PROFILE, JSON.stringify(profile), 1);
-        } catch (error) {
-            console.error('Failed to load profile during login:', error);
-            // Still consider user logged in even if profile fails
-        }
-    }
+            return profile;
+        },
+        enabled: !!token,
+        initialData: cachedProfile ?? undefined,
+        staleTime: 5 * 60 * 1000, // 5 minutes
+        retry: (failureCount, error) => {
+            const status = (error as { response?: { status?: number } })?.response?.status;
+            // Don't retry on 401 — token is invalid
+            if (status === 401) return false;
+            return failureCount < 2;
+        },
+    });
 
-    const logout = () => {
+    // After the profile query settles, release the interceptor guard
+    useEffect(() => {
+        if (!token || isFetched) {
+            setAuthInitializing(false);
+        }
+    }, [token, isFetched]);
+
+    // Handle 401 from profile query — clean up invalid token
+    const profileQueryState = queryClient.getQueryState(USER_PROFILE_QUERY_KEY);
+    useEffect(() => {
+        if (profileQueryState?.status === 'error') {
+            const error = profileQueryState.error as { response?: { status?: number } };
+            if (error?.response?.status === 401) {
+                CookieUtil.deleteCookie(COOKIE_KEYS.AUTH_TOKEN);
+                CookieUtil.deleteCookie(COOKIE_KEYS.USER_PROFILE);
+                setToken(null);
+            }
+        }
+    }, [profileQueryState?.status, profileQueryState?.error, queryClient]);
+
+    // isLoading = true only while we're still determining auth state
+    const isLoading = !!token && isProfileLoading && !cachedProfile;
+
+    const login = useCallback(async (idToken: string) => {
+        CookieUtil.setCookie(COOKIE_KEYS.AUTH_TOKEN, idToken, 1);
+        setToken(idToken);
+        // Refetch profile with the new token
+        await queryClient.invalidateQueries({ queryKey: USER_PROFILE_QUERY_KEY });
+    }, [queryClient]);
+
+    const logout = useCallback(() => {
         CookieUtil.deleteCookie(COOKIE_KEYS.AUTH_TOKEN);
         CookieUtil.deleteCookie(COOKIE_KEYS.USER_PROFILE);
-        setCurrentUser(null);
-        setToken(null); // Trigger re-render for isAuthenticated
-    }
+        setToken(null);
+        queryClient.removeQueries({ queryKey: USER_PROFILE_QUERY_KEY });
+    }, [queryClient]);
 
     const contextValue = useMemo(() => ({
         currentUser,
-        setCurrentUser,
         isAuthenticated,
         login,
         logout,
         isLoading,
-    }), [currentUser, isLoading, isAuthenticated]);
+    }), [currentUser, isAuthenticated, login, logout, isLoading]);
 
     return (
         <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
