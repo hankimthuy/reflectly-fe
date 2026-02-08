@@ -1,0 +1,64 @@
+@use '../../styles/_variables' as *;
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-sm);
+  flex-wrap: wrap;
+
+  &__link {
+    cursor: pointer;
+    font-weight: var(--font-weight-medium);
+    transition: color var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  &__separator {
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+
+  &__current {
+    font-weight: var(--font-weight-bold);
+    white-space: nowrap;
+  }
+
+  // ── Light variant (for light bg pages) ──
+  &--light {
+    .breadcrumb__link {
+      color: var(--c-text-muted);
+
+      &:hover {
+        color: var(--c-primary);
+      }
+    }
+
+    .breadcrumb__separator {
+      color: var(--c-text-muted);
+    }
+
+    .breadcrumb__current {
+      color: var(--c-text-on-surface);
+    }
+  }
+
+  // ── Dark variant (for dark bg pages) ──
+  &--dark {
+    .breadcrumb__link {
+      color: var(--c-text-muted-on-dark);
+
+      &:hover {
+        color: var(--c-tertiary);
+      }
+    }
+
+    .breadcrumb__separator {
+      color: var(--c-text-muted-on-dark);
+    }
+
+    .breadcrumb__current {
+      color: var(--c-text-on-dark);
+    }
+  }
+}

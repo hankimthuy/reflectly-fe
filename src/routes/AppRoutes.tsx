@@ -10,6 +10,7 @@ import ProtectedRoute from './ProtectedRoute';
 
 // const HomePage = lazy(() => import('../pages/Homepage/Homepage'));
 const NewEntryPage = lazy(() => import('../pages/EntriesPage/NewEntryPage/NewEntryPage'));
+const EditEntryPage = lazy(() => import('../pages/EntriesPage/EditEntryPage/EditEntryPage'));
 const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
 const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
 const MimoLandingPage = lazy(() => import('../pages/MimoLandingPage/MimoLandingPage'));
@@ -56,6 +57,11 @@ export const AppRoutes = () => {
                 <Route path={APP_ROUTES.ENTRIES_NEW} element={
                     <ProtectedRoute>
                         <NewEntryPage />
+                    </ProtectedRoute>
+                } />
+                <Route path={APP_ROUTES.ENTRIES_EDIT} element={
+                    <ProtectedRoute>
+                        <EditEntryPage />
                     </ProtectedRoute>
                 } />
                 <Route path={APP_ROUTES.ENTRIES_LIST} element={

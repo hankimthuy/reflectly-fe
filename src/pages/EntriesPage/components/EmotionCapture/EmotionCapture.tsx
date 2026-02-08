@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Emotion, EMOTION_DATA } from '../../../../models/emotion';
 import './EmotionCapture.scss';
 
@@ -13,6 +14,7 @@ const EmotionCapture: React.FC<EmotionCaptureProps> = ({
   onEmotionToggle,
   maxSelections = 10
 }) => {
+  const { t } = useTranslation();
   const emotions = Object.values(EMOTION_DATA);
   const canSelectMore = selectedEmotions.length < maxSelections;
 
@@ -27,8 +29,8 @@ const EmotionCapture: React.FC<EmotionCaptureProps> = ({
   return (
     <div className="emotion-capture">
       <div className="step-header">
-        <h2 className="question">How are you feeling today?</h2>
-        <p className="instruction">SELECT UP TO {maxSelections} FEELINGS</p>
+        <h2 className="question">{t('newEntryPage.emotionQuestion')}</h2>
+        <p className="instruction">{t('newEntryPage.emotionInstruction')}</p>
       </div>
 
       <div className="emotions-grid">

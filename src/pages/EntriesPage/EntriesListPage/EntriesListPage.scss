@@ -1,100 +1,290 @@
 @use '../../../styles/_variables' as *;
 @use '../../../styles/_responsive' as *;
 
+// ── ENTRIES PAGE — Full-screen Innerverse dark theme ──
 .entries-page {
-    background-color: var(--c-background-dark);
-    min-height: 100vh;
+  position: relative;
+  min-height: 100vh;
+  background: var(--c-background-dark);
+  color: var(--c-text-on-dark);
+  display: flex;
+  flex-direction: column;
+  margin-top: calc(-1 * var(--header-height-mobile));
+  margin-bottom: calc(-1 * (var(--nav-height-mobile) + 32px));
+  padding-bottom: calc(var(--nav-height-mobile) + 32px);
 
-    .entries-list-frame {
-        @include page-frame;
-        padding-top: 100px;
-        background: transparent;
+  @media (min-width: 768px) {
+    margin-top: calc(-1 * var(--header-height-desktop));
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  // Ambient indigo glow
+  &__glow {
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--c-secondary), transparent 90%) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  // ── SLIM HEADER ──
+  &__header {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: calc(var(--header-height-mobile) + 1rem) var(--spacing-md) var(--spacing-sm);
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+
+    @media (min-width: 768px) {
+      padding-top: calc(var(--header-height-desktop) + 1.5rem);
+      padding-left: var(--spacing-lg);
+      padding-right: var(--spacing-lg);
     }
-    
-    // Override MimoHeader for dark background
-    :global(.mimo-header) {
-        background-color: var(--c-background-dark) !important;
-        color: var(--c-text-on-dark) !important;
-        border-bottom: 1px solid var(--c-border-dark) !important;
-        
-        .mimo-header__logo {
-            color: var(--c-text-on-dark) !important;
-        }
-        
-        .mimo-header__nav {
-            color: var(--c-text-on-dark) !important;
-            
-            a {
-                color: inherit !important;
-            }
-        }
-        
-        .mimo-header__toggle {
-            color: var(--c-text-on-dark) !important;
-        }
+  }
+
+  &__title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    margin: 0;
+    color: var(--c-text-on-dark);
+
+    @media (min-width: 768px) {
+      font-size: var(--font-size-2xl);
+    }
+  }
+
+  &__subtitle {
+    font-size: var(--font-size-xs);
+    color: var(--c-text-muted-on-dark);
+    margin: 2px 0 0;
+    font-style: italic;
+    max-width: 500px;
+  }
+
+  // ── FILTER TOOLBAR + SEARCH ──
+  &__toolbar {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  &__filters {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+
+  &__filter-pill {
+    padding: 4px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+    background: transparent;
+    color: #94A3B8;
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      color: #CBD5E1;
     }
 
-    .entries-list-title {
-        font-weight: var(--font-weight-bold);
-        color: var(--c-text-on-dark);
-        line-height: var(--line-height-tight);
-        margin: 0;
-        letter-spacing: -0.5px;
-        @include font-responsive(2.5rem, 3rem, 3.5rem);
+    &--active {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #F1F5F9;
+    }
+  }
+
+  &__search {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-sm);
+    padding: 6px 10px;
+    min-width: 0;
+
+    @media (min-width: 768px) {
+      width: 200px;
+      flex-shrink: 0;
+    }
+  }
+
+  &__search-icon {
+    color: #64748B;
+    flex-shrink: 0;
+  }
+
+  &__search-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #F1F5F9;
+    font-size: 12px;
+    width: 100%;
+    min-width: 0;
+
+    &::placeholder {
+      color: #64748B;
+    }
+  }
+
+  // ── CONTENT ──
+  &__content {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 var(--spacing-md) var(--spacing-xl);
+
+    @media (min-width: 768px) {
+      padding: 0 var(--spacing-lg) var(--spacing-xl);
+    }
+  }
+
+  // ── CALENDAR GRID ──
+  &__grid {
+    width: 100%;
+    max-width: 900px;
+    display: grid;
+    gap: var(--spacing-sm);
+
+    // Mobile: single column list (Google Calendar day-view style)
+    grid-template-columns: minmax(0, 1fr);
+
+    // Tablet: 3 columns
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .entries-list-subtitle {
-        line-height: var(--line-height-relaxed);
-        color: var(--c-text-muted-on-dark);
-        @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-lg));
-        padding-left: var(--spacing-sm);
-        font-weight: var(--font-weight-medium);
+    // Laptop: 4 columns
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
 
-        @include respond-to(desktop) {
-            max-width: 80%;
-        }
+  // ── EMPTY STATES ──
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--spacing-xl) var(--spacing-md);
+    max-width: 400px;
+  }
+
+  &__empty-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--c-text-on-dark);
+    margin: 0 0 var(--spacing-sm);
+    line-height: var(--line-height-normal);
+  }
+
+  &__empty-hint {
+    font-size: var(--font-size-sm);
+    color: var(--c-text-muted-on-dark);
+    margin: 0;
+    line-height: var(--line-height-relaxed);
+  }
+
+  // ── CTA BUTTON (solid + outline variants) ──
+  &__cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: 1.5px solid transparent;
+    border-radius: var(--border-radius-md);
+    background: var(--c-secondary);
+    color: var(--c-white);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+
+    &:hover {
+      background: var(--c-secondary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px color-mix(in srgb, var(--c-secondary), transparent 60%);
     }
 
-    .stats-section {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: var(--spacing-md);
-        max-width: 320px;
-        margin-bottom: var(--spacing-lg);
+    &--outline {
+      background: transparent;
+      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--c-text-on-dark);
+      margin-top: 0;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.4);
+        box-shadow: none;
+        transform: translateY(-1px);
+      }
+    }
+  }
+
+  // ── LOAD MORE ──
+  &__load-more {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+    padding-bottom: 60px;
+    width: 100%;
+  }
+
+  &__load-more-text {
+    color: var(--c-text-muted-on-dark);
+    font-size: 12px;
+  }
+
+  // Override MimoHeader for dark background
+  :global(.mimo-header) {
+    background-color: var(--c-background-dark) !important;
+    color: var(--c-text-on-dark) !important;
+    border-bottom: 1px solid var(--c-border-dark) !important;
+
+    .mimo-header__logo {
+      color: var(--c-text-on-dark) !important;
     }
 
-    .entries-list-content {
-        padding-bottom: var(--spacing-3xl);
+    .mimo-header__nav {
+      color: var(--c-text-on-dark) !important;
+      a { color: inherit !important; }
     }
 
-    .load-more-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 24px;
-        padding-bottom: 120px;
-        width: 100%;
-
-        .load-more-btn {
-            border-radius: 20px;
-            text-transform: none;
-            min-width: 150px;
-            font-weight: 600;
-            border-width: 1.5px;
-            color: var(--c-text-on-dark);
-            border-color: rgba(255, 255, 255, 0.2);
-
-            &:hover {
-                border-width: 1.5px;
-                background-color: rgba(255, 255, 255, 0.06);
-                border-color: rgba(255, 255, 255, 0.4);
-            }
-        }
-
-        .load-more-text {
-            margin-top: 8px;
-            color: var(--c-text-muted-on-dark);
-            font-size: 12px;
-        }
+    .mimo-header__toggle {
+      color: var(--c-text-on-dark) !important;
     }
+  }
 }

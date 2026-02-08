@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { LuShield, LuCompass, LuLayers, LuArrowRight, LuBrainCircuit, LuLock } from 'react-icons/lu';
+import { LuShield, LuCompass, LuLayers, LuPenLine, LuBrainCircuit, LuLock, LuBookOpen } from 'react-icons/lu';
 import { useAuth } from '../../providers/AuthProvider';
 import { APP_ROUTES } from '../../constants/route';
 import './InnerversePage.scss';
@@ -18,6 +18,10 @@ const InnerversePage = () => {
 
   const handleSafeSpace = () => {
     navigate(isAuthenticated ? APP_ROUTES.ENTRIES_NEW : APP_ROUTES.LOGIN);
+  };
+
+  const handleViewJournal = () => {
+    navigate(isAuthenticated ? APP_ROUTES.ENTRIES_LIST : APP_ROUTES.LOGIN);
   };
 
   return (
@@ -50,19 +54,23 @@ const InnerversePage = () => {
               <h3>{t(`innerversePage.sections.${section.key}.title`)}</h3>
               <p>{t(`innerversePage.sections.${section.key}.description`)}</p>
 
-              <div className="iv-card__cta">
-                {section.actionable ? (
-                  <>
+              {section.actionable ? (
+                <div className="iv-card__actions">
+                  <button className="iv-card__cta iv-card__cta--primary" onClick={(e) => { e.stopPropagation(); handleSafeSpace(); }}>
+                    <LuPenLine size={16} />
                     <span>{t(`innerversePage.sections.${section.key}.cta`)}</span>
-                    <LuArrowRight size={16} />
-                  </>
-                ) : (
-                  <>
-                    <LuLock size={14} />
-                    <span>{t(`innerversePage.sections.${section.key}.cta`)}</span>
-                  </>
-                )}
-              </div>
+                  </button>
+                  <button className="iv-card__cta iv-card__cta--secondary" onClick={(e) => { e.stopPropagation(); handleViewJournal(); }}>
+                    <LuBookOpen size={16} />
+                    <span>{t(`innerversePage.sections.${section.key}.ctaView`)}</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="iv-card__cta">
+                  <LuLock size={14} />
+                  <span>{t(`innerversePage.sections.${section.key}.cta`)}</span>
+                </div>
+              )}
 
               {/* Placeholder dashboard widget for non-actionable cards */}
               {!section.actionable && (

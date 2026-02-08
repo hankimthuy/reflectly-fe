@@ -11,6 +11,16 @@
     padding-bottom: var(--spacing-lg);
   }
 
+  &__breadcrumb {
+    max-width: 900px;
+    margin: 0 auto var(--spacing-sm);
+    padding: 0 var(--spacing-md);
+
+    @media (min-width: 768px) {
+      padding: 0 var(--spacing-lg);
+    }
+  }
+
   &__hero-content {
     display: flex;
     flex-direction: column;

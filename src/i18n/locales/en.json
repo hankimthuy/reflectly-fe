@@ -1,4 +1,12 @@
 {
+  "breadcrumb": {
+    "home": "Home",
+    "innerverse": "The Innerverse",
+    "outerverse": "The Outerverse",
+    "safeSpace": "Safe Space",
+    "journal": "Journal",
+    "profile": "Profile"
+  },
   "landingPage": {
     "footer": {
       "copyright": "© 2026 MimoSe Inc. - The Science of Leading Self."
@@ -94,11 +102,50 @@
       "cancel": "Cancel"
     }
   },
+  "newEntryPage": {
+    "title": "Your Safe Space",
+    "subtitle": "Right here, right now — how are you?",
+    "emotionQuestion": "What's present for you right now?",
+    "emotionInstruction": "Tap what resonates. No wrong answers.",
+    "reflectionStep": "Speak Your Truth",
+    "titlePlaceholder": "Give this moment a name...",
+    "reflectionPlaceholder": "What would you tell your future self about right now?",
+    "save": "Seal This Moment",
+    "saving": "Saving...",
+    "privacy": "Private & encrypted",
+    "successMessage": "Your moment has been sealed safely.",
+    "successTitle": "Sealed",
+    "errorMessage": "Your reflection has not been saved yet!",
+    "errorTitle": "Error"
+  },
   "entriesPage": {
     "title": "Journal",
-    "subtitle": "Emotional Journey",
+    "subtitle": "Every entry is a step toward understanding yourself.",
     "loadMore": "Load More",
-    "showing": "Showing {{current}} of {{total}} entries"
+    "showing": "Showing {{current}} of {{total}} entries",
+    "emptyState": "The courage to begin is the courage to grow.",
+    "emptyStateHint": "Start your first journal entry and take the first step.",
+    "loginRequired": "Log in to begin your journey of self-understanding.",
+    "loginRequiredHint": "Your journal is private, encrypted, and waiting for you.",
+    "laoTzuQuote": "A journey of a thousand miles begins with a single step — yours starts right here.",
+    "searchPlaceholder": "Search entries...",
+    "filterAll": "All",
+    "filterToday": "Today",
+    "filterWeek": "This Week",
+    "filterMonth": "This Month",
+    "filterYear": "This Year",
+    "noResults": "No entries match your search.",
+    "edit": "Edit Entry",
+    "deleteConfirmTitle": "Delete Entry",
+    "deleteConfirmMessage": "Are you sure you want to delete this entry?",
+    "deleteConfirmBtn": "Delete",
+    "deleteCancel": "Cancel",
+    "editTitle": "Edit Entry",
+    "editSubtitle": "Revisit and refine your reflection.",
+    "updateSuccess": "Your entry has been updated.",
+    "updateError": "Failed to update entry.",
+    "deleteSuccess": "Entry deleted.",
+    "deleteError": "Failed to delete entry."
   },
   "mimoMethodPage": {
     "hero": {
@@ -159,7 +206,8 @@
       "safeSpace": {
         "title": "Safe Space",
         "description": "A private, judgment-free zone to express your raw thoughts and emotions. No filters, no noise — just honest self-expression.",
-        "cta": "Log Your Innerverse"
+        "cta": "Log Your Innerverse",
+        "ctaView": "View Your Journal"
       },
       "innerCompass": {
         "title": "Inner Compass",

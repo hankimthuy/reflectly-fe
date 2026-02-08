@@ -145,6 +145,13 @@
     flex: 1;
   }
 
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+  }
+
   &__cta {
     display: inline-flex;
     align-items: center;
@@ -155,6 +162,28 @@
     border-radius: 9999px;
     width: fit-content;
     transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
+
+    &--primary {
+      background: color-mix(in srgb, var(--c-tertiary), transparent 85%);
+      color: var(--c-tertiary);
+
+      &:hover {
+        background: var(--c-tertiary);
+        color: var(--c-background-dark);
+      }
+    }
+
+    &--secondary {
+      background: color-mix(in srgb, var(--c-white), transparent 92%);
+      color: var(--c-text-muted-on-dark);
+
+      &:hover {
+        background: color-mix(in srgb, var(--c-white), transparent 85%);
+        color: var(--c-text-on-dark);
+      }
+    }
   }
 
   &__placeholder {

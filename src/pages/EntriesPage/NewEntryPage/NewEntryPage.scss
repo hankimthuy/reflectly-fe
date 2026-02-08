@@ -1,126 +1,184 @@
 @use '../../../styles/_variables' as *;
 @use '../../../styles/_responsive' as *;
 
-.entries-page {
+// ── SAFE SPACE — Full-screen Innerverse dark theme ──
+.safe-space {
   position: relative;
-  width: 100%;
+  min-height: 100vh;
+  background: var(--c-background-dark);
+  color: var(--c-text-on-dark);
   display: flex;
   flex-direction: column;
-  min-height: 112vh;
-  background-color: var(--c-background);
-  margin-top: calc(-1 * var(--header-height-desktop));
-
-  @include mobile-only {
-    margin-top: calc(-1 * var(--header-height-mobile));
-  }
+  margin-top: calc(-1 * var(--header-height-mobile));
 
   @media (min-width: 768px) {
-    flex-direction: row;
+    margin-top: calc(-1 * var(--header-height-desktop));
   }
 
-  /* LEFT SIDE - Dark section */
-  &__left {
-    position: relative;
-    width: 100%;
-    background: var(--c-background-dark);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 1.5rem;
-    overflow: hidden;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    min-height: 112vh;
-
-    @media (min-width: 768px) {
-      width: 50%;
-      min-height: 112vh;
-      justify-content: flex-end;
-      padding: 0;
-      border-bottom: none;
-      border-right: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .bg-blob {
-      position: absolute;
-      top: 25%;
-      left: 25%;
-      width: 250px;
-      height: 250px;
-      background: var(--c-secondary);
-      border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.5;
-    }
-
-    .content {
-      position: relative;
-      z-index: 10;
-      text-align: center;
-      max-width: 28rem;
-
-      @media (min-width: 768px) {
-        text-align: right;
-        margin-right: 2.5rem;
-      }
-    }
+  // Ambient indigo glow
+  &__glow {
+    position: fixed;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--c-secondary), transparent 90%) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
   }
 
-  /* RIGHT SIDE - Light section */
-  &__right {
+  // ── HEADER ──
+  &__header {
     position: relative;
-    width: 100%;
-    min-height: 112vh;
-    background: var(--c-background);
+    z-index: 2;
     display: flex;
     flex-direction: column;
-    padding: 2rem 1.5rem;
-    overflow: hidden;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: calc(var(--header-height-mobile) + 1rem) var(--spacing-md) var(--spacing-md);
+    text-align: center;
 
     @media (min-width: 768px) {
-      width: 50%;
-      min-height: 112vh;
-      justify-content: flex-start;
-      padding: 0;
+      padding-top: calc(var(--header-height-desktop) + 1.5rem);
+      padding-left: var(--spacing-lg);
+      padding-right: var(--spacing-lg);
     }
+  }
 
-    .bg-blob {
-      position: absolute;
-      bottom: 25%;
-      right: 25%;
-      width: 250px;
-      height: 250px;
-      background: #fdba74;
-      border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.5;
+  &__title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    margin: 0;
+    color: var(--c-text-on-dark);
+
+    @media (min-width: 768px) {
+      font-size: var(--font-size-2xl);
     }
+  }
 
-    .content {
-      position: relative;
-      z-index: 10;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      max-width: 100%;
-      margin: 0;
-      padding: 0;
+  &__subtitle {
+    font-size: var(--font-size-sm);
+    color: var(--c-text-muted-on-dark);
+    margin: 4px 0 0;
+  }
 
-      @media (min-width: 768px) {
-        margin-left: 2.5rem;
-        margin-right: 2.5rem;
-        max-width: calc(100% - 5rem);
-        margin-top: 10rem;
+  // ── CONTENT ──
+  &__content {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 0 var(--spacing-md) var(--spacing-xl);
+
+    @media (min-width: 768px) {
+      padding: 0 var(--spacing-lg) var(--spacing-xl);
+    }
+  }
+
+  &__card {
+    width: 100%;
+    max-width: 640px;
+    background: var(--c-surface-subtle);
+    border: 1px solid var(--c-border-dark);
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-lg);
+    backdrop-filter: blur(20px);
+
+    @media (min-width: 768px) {
+      padding: var(--spacing-xl);
+    }
+  }
+
+  &__reflection {
+    animation: fadeSlideIn 0.4s ease-out;
+  }
+
+  &__divider {
+    height: 1px;
+    background: var(--c-border-dark);
+    margin: var(--spacing-lg) 0;
+  }
+
+  // ── FLOATING FOOTER ──
+  &__footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: color-mix(in srgb, var(--c-background-dark), transparent 10%);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--c-border-dark);
+
+    &--active {
+      .safe-space__save-btn {
+        opacity: 1;
+        pointer-events: auto;
       }
     }
   }
 
-  .new-entry-frame {
-    @include page-frame;
-    background-color: transparent;
+  &__privacy {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: var(--font-size-xs);
+    color: var(--c-text-muted-on-dark);
   }
 
-  // Override MimoHeader for split background
+  &__back-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--border-radius-sm);
+    background: transparent;
+    color: var(--c-text-muted-on-dark);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      color: var(--c-text-on-dark);
+    }
+  }
+
+  &__save-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: none;
+    border-radius: var(--border-radius-md);
+    background: var(--c-secondary);
+    color: var(--c-white);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    opacity: 0.4;
+    pointer-events: none;
+
+    &:not(:disabled):hover {
+      background: var(--c-secondary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px color-mix(in srgb, var(--c-secondary), transparent 60%);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  // Override MimoHeader for dark background
   :global(.mimo-header) {
     background-color: var(--c-background-dark) !important;
     color: var(--c-text-on-dark) !important;
@@ -132,10 +190,7 @@
 
     .mimo-header__nav {
       color: var(--c-text-on-dark) !important;
-
-      a {
-        color: inherit !important;
-      }
+      a { color: inherit !important; }
     }
 
     .mimo-header__toggle {
@@ -144,135 +199,13 @@
   }
 }
 
-.entries-content {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: center;
-  color: var(--c-text-on-background);
-  padding: var(--spacing-lg) 0;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-.entry-header {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  gap: var(--spacing-sm);
-  @include padding-responsive(var(--spacing-md), var(--spacing-lg), var(--spacing-lg));
-  padding-top: var(--spacing-md);
-
-  .back-button,
-  .next-button {
-    color: var(--c-primary);
-    flex-shrink: 0;
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
   }
-
-  .stepper-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    min-width: 0;
-
-    .MuiStepper-root {
-      width: 100%;
-      max-width: 300px;
-    }
-
-    .step-label {
-      @include mobile-only {
-        font-size: var(--font-size-xs);
-      }
-    }
-  }
-
-  .header-action {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    min-width: 60px;
-    justify-content: flex-end;
-  }
-
-  .header-placeholder {
-    width: 60px;
-  }
-
-  @include mobile-only {
-    gap: var(--spacing-xs);
-    padding: var(--spacing-sm) var(--spacing-md);
-
-    .stepper-container {
-      .MuiStepper-root {
-        padding: 0 var(--spacing-xs);
-      }
-
-      .MuiStepLabel-label {
-        display: none;
-      }
-
-      .MuiStepLabel-iconContainer {
-        padding: 0;
-      }
-    }
-  }
-}
-
-.card-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.step-container {
-  width: 100% !important;
-  margin-bottom: 6px !important;
-}
-
-.MuiStepper-root {
-  .MuiStepConnector-root {
-    .MuiStepConnector-line {
-      border-color: var(--c-border);
-    }
-  }
-
-  .MuiStepConnector-active {
-    .MuiStepConnector-line {
-      border-color: var(--c-primary);
-    }
-  }
-
-  .MuiStepConnector-completed {
-    .MuiStepConnector-line {
-      border-color: var(--c-primary);
-    }
-  }
-}
-
-.MuiStepIcon-root {
-  color: var(--c-border);
-
-  &.Mui-completed {
-    color: var(--c-primary);
-  }
-
-  &.Mui-active {
-    color: var(--c-primary);
-  }
-}
-
-.MuiStepLabel-label {
-  color: var(--c-text-muted);
-
-  &.Mui-active {
-    color: var(--c-primary);
-    font-weight: bold;
-  }
-
-  &.Mui-completed {
-    color: var(--c-text-muted);
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -1,4 +1,12 @@
 {
+  "breadcrumb": {
+    "home": "Trang chủ",
+    "innerverse": "The Innerverse",
+    "outerverse": "The Outerverse",
+    "safeSpace": "Không Gian An Toàn",
+    "journal": "Nhật Ký",
+    "profile": "Hồ Sơ"
+  },
   "landingPage": {
     "footer": {
       "copyright": "© 2026 MimoSe Inc. - Khoa học Lãnh đạo Bản thân."
@@ -94,11 +102,50 @@
       "cancel": "Hủy"
     }
   },
+  "newEntryPage": {
+    "title": "Không Gian An Toàn",
+    "subtitle": "Ngay lúc này — bạn đang cảm thấy thế nào?",
+    "emotionQuestion": "Điều gì đang hiện diện trong bạn?",
+    "emotionInstruction": "Chọn những gì cộng hưởng. Không có đáp án sai.",
+    "reflectionStep": "Nói Lên Sự Thật",
+    "titlePlaceholder": "Đặt tên cho khoảnh khắc này...",
+    "reflectionPlaceholder": "Bạn muốn nói gì với bản thân tương lai về lúc này?",
+    "save": "Lưu Khoảnh Khắc",
+    "saving": "Đang lưu...",
+    "privacy": "Riêng tư & mã hóa",
+    "successMessage": "Khoảnh khắc của bạn đã được lưu an toàn.",
+    "successTitle": "Đã lưu",
+    "errorMessage": "Bài viết của bạn chưa được lưu!",
+    "errorTitle": "Lỗi"
+  },
   "entriesPage": {
     "title": "Nhật ký",
-    "subtitle": "Hành trình Cảm xúc",
+    "subtitle": "Mỗi dòng nhật ký là một bước tiến đến hiểu chính mình.",
     "loadMore": "Tải thêm",
-    "showing": "Hiển thị {{current}} trong {{total}} bài viết"
+    "showing": "Hiển thị {{current}} trong {{total}} bài viết",
+    "emptyState": "Can đảm để bắt đầu là can đảm để trưởng thành.",
+    "emptyStateHint": "Viết bài nhật ký đầu tiên và bước đi bước đầu tiên.",
+    "loginRequired": "Đăng nhập để bắt đầu hành trình tự hiểu bản thân.",
+    "loginRequiredHint": "Nhật ký của bạn riêng tư, mã hóa và đang chờ bạn.",
+    "laoTzuQuote": "Hành trình vạn dặm bắt đầu từ một bước chân — bước đi của bạn bắt đầu ngay tại đây.",
+    "searchPlaceholder": "Tìm kiếm nhật ký...",
+    "filterAll": "Tất cả",
+    "filterToday": "Hôm nay",
+    "filterWeek": "Tuần này",
+    "filterMonth": "Tháng này",
+    "filterYear": "Năm nay",
+    "noResults": "Không tìm thấy nhật ký phù hợp.",
+    "edit": "Chỉnh sửa nhật ký",
+    "deleteConfirmTitle": "Xóa nhật ký",
+    "deleteConfirmMessage": "Bạn có chắc chắn muốn xóa nhật ký này?",
+    "deleteConfirmBtn": "Xóa",
+    "deleteCancel": "Hủy",
+    "editTitle": "Chỉnh sửa nhật ký",
+    "editSubtitle": "Xem lại và hoàn thiện suy ngẫm của bạn.",
+    "updateSuccess": "Nhật ký đã được cập nhật.",
+    "updateError": "Không thể cập nhật nhật ký.",
+    "deleteSuccess": "Đã xóa nhật ký.",
+    "deleteError": "Không thể xóa nhật ký."
   },
   "mimoMethodPage": {
     "hero": {
@@ -159,7 +206,8 @@
       "safeSpace": {
         "title": "Không Gian An Toàn",
         "description": "Một không gian riêng tư, không phán xét để bạn bày tỏ những suy nghĩ và cảm xúc thật. Không bộ lọc, không nhiễu — chỉ có sự thành thật.",
-        "cta": "Ghi Nhật Ký Nội Tâm"
+        "cta": "Ghi Nhật Ký Nội Tâm",
+        "ctaView": "Xem Nhật Ký"
       },
       "innerCompass": {
         "title": "La Bàn Nội Tâm",

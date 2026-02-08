@@ -1,89 +1,68 @@
-// Import responsive system
 @use '../../../../styles/_variables' as *;
 @use '../../../../styles/_responsive' as *;
 
 .emotion-capture {
-  @include flex-col-stretch;
+  display: flex;
+  flex-direction: column;
   position: relative;
 
   .step-header {
-    @include flex-col-center;
-    @include padding-responsive(var(--spacing-xl), var(--spacing-2xl), var(--spacing-lg));
     text-align: center;
-    position: relative;
-    z-index: 2;
-
-    @include respond-to(laptop) {
-      padding: var(--spacing-md) var(--spacing-lg);
-    }
+    margin-bottom: var(--spacing-lg);
 
     .question {
-      @include font-responsive(var(--font-size-xl), var(--font-size-2xl), var(--font-size-lg));
+      font-size: var(--font-size-lg);
       font-weight: var(--font-weight-bold);
-      color: var(--c-text-on-background);
-      margin: 0 0 var(--spacing-sm) 0;
+      color: var(--c-text-on-dark);
+      margin: 0 0 var(--spacing-xs) 0;
       line-height: var(--line-height-tight);
 
-      @include respond-to(laptop) {
-        font-size: var(--font-size-base);
-        margin: 0 0 var(--spacing-xs) 0;
+      @media (min-width: 768px) {
+        font-size: var(--font-size-xl);
       }
     }
 
     .instruction {
-      @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-sm));
-      color: var(--c-text-on-background);
+      font-size: var(--font-size-xs);
+      color: var(--c-text-muted-on-dark);
       font-weight: var(--font-weight-medium);
       margin: 0;
-
-      @include respond-to(laptop) {
-        font-size: var(--font-size-xs);
-      }
     }
   }
 
   .emotions-grid {
-    @include grid-responsive(3, 4, 5);
-    gap: var(--spacing-md);
-    @include padding-responsive(var(--spacing-sm) var(--spacing-md), var(--spacing-md) var(--spacing-lg), var(--spacing-lg) var(--spacing-xl));
-    flex: 1;
-    align-content: start;
-    overflow-y: auto;
-    overflow-x: hidden;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-sm);
 
-    @include respond-to(laptop) {
+    @media (min-width: 480px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(5, 1fr);
       gap: 12px;
-      grid-template-columns: repeat(5, 80px);
-      grid-template-rows: 1fr;
-      overflow-x: auto;
-      overflow-y: hidden;
-      padding: var(--spacing-md) var(--spacing-lg) 10px var(--spacing-lg);
-      justify-content: center;
     }
   }
 
   .emotion-button {
-    @include flex-col-center;
-    @include padding-responsive(var(--spacing-md), var(--spacing-lg), var(--spacing-sm));
-    background: rgba(255, 255, 255, 0.9);
-    border: 2px solid var(--c-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md) var(--spacing-sm);
+    background: color-mix(in srgb, var(--c-white), transparent 94%);
+    border: 1px solid var(--c-border-dark);
     border-radius: var(--border-radius-lg);
     cursor: pointer;
     transition: all var(--transition-normal);
-    min-height: 70px;
+    min-height: 72px;
     position: relative;
-    overflow: hidden;
-
-    @include respond-to(laptop) {
-      height: 80px;
-      width: 80px;
-      padding: 8px;
-    }
 
     &:hover:not(:disabled) {
       transform: translateY(-2px);
-      box-shadow: var(--shadow-lg);
-      background: var(--c-surface);
+      background: color-mix(in srgb, var(--c-white), transparent 88%);
+      border-color: color-mix(in srgb, var(--c-white), transparent 70%);
     }
 
     &:active:not(:disabled) {
@@ -91,39 +70,33 @@
     }
 
     &.selected {
-      background: var(--c-surface);
+      background: color-mix(in srgb, var(--emotion-color), transparent 85%);
       border-color: var(--emotion-color);
-      border-radius: var(--border-radius-lg);
-      box-shadow: 0 0 0 3px rgba(var(--emotion-color), 0.2);
+      box-shadow: 0 0 12px color-mix(in srgb, var(--emotion-color), transparent 70%);
       transform: translateY(-2px);
     }
 
     &:disabled:not(.selected) {
-      opacity: 0.5;
+      opacity: 0.35;
       cursor: not-allowed;
     }
 
     .emotion-icon {
-      @include font-responsive(24px, 28px, 20px);
-      @include margin-responsive(0 0 var(--spacing-sm), 0 0 var(--spacing-md), 0 0 var(--spacing-xs));
+      font-size: 24px;
+      margin-bottom: var(--spacing-xs);
+      line-height: 1;
 
-      @include respond-to(laptop) {
-        font-size: 24px;
-        margin: 0 0 4px 0;
+      @media (min-width: 768px) {
+        font-size: 28px;
       }
     }
 
     .emotion-label {
-      @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-xs));
+      font-size: var(--font-size-xs);
       font-weight: var(--font-weight-semibold);
-      color: var(--c-text-primary);
+      color: var(--c-text-on-dark);
       text-align: center;
-
-      @include respond-to(laptop) {
-        font-size: 14px;
-        line-height: 1.2;
-        font-weight: var(--font-weight-bold);
-      }
+      line-height: 1.2;
     }
   }
 }

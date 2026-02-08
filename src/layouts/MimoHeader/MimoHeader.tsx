@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { LuLogOut, LuMenu, LuUser, LuX } from 'react-icons/lu';
 import { APP_ROUTES } from '../../constants/route';
 import { useAuth } from '../../providers/AuthProvider';
@@ -13,7 +13,9 @@ interface MimoHeaderProps {
 
 const MimoHeader = ({ activeTheme = 'split', scrolled = false }: MimoHeaderProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { currentUser, logout } = useAuth();
+  const isHomePage = location.pathname === '/' || location.pathname === APP_ROUTES.WELCOME;
   
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -59,7 +61,7 @@ const MimoHeader = ({ activeTheme = 'split', scrolled = false }: MimoHeaderProps
         <div className="mimo-header__nav">
           <a onClick={() => navigate(APP_ROUTES.INNERVERSE)} style={{ cursor: 'pointer' }}>The Innerverse</a>
           <a onClick={() => navigate(APP_ROUTES.OUTERVERSE)} style={{ cursor: 'pointer' }}>The Outerverse</a>
-          <a href="#pillars">The 6 Pillars</a>
+          {isHomePage && <a href="#pillars">The 6 Pillars</a>}
           <a onClick={() => navigate(APP_ROUTES.MIMO_METHOD)} style={{ cursor: 'pointer' }}>The Mimo Method</a>
           
           {/* AUTH LOGIC SWITCHER */}
@@ -130,7 +132,7 @@ const MimoHeader = ({ activeTheme = 'split', scrolled = false }: MimoHeaderProps
         <div className="mimo-header__mobile-menu">
           <a onClick={() => { setIsMenuOpen(false); navigate(APP_ROUTES.INNERVERSE); }} style={{ cursor: 'pointer' }}>The Innerverse</a>
           <a onClick={() => { setIsMenuOpen(false); navigate(APP_ROUTES.OUTERVERSE); }} style={{ cursor: 'pointer' }}>The Outerverse</a>
-          <a href="#pillars" onClick={() => setIsMenuOpen(false)}>The 6 Pillars</a>
+          {isHomePage && <a href="#pillars" onClick={() => setIsMenuOpen(false)}>The 6 Pillars</a>}
           <a onClick={() => { setIsMenuOpen(false); navigate(APP_ROUTES.MIMO_METHOD); }} style={{ cursor: 'pointer' }}>The Mimo Method</a>
           <div className="divider"></div>
           <div className="mobile-language-switcher">

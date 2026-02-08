@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Emotion, EMOTION_DATA } from '../../../../models/emotion';
 import './ReflectionCapture.scss';
 
 interface ReflectionCaptureProps {
   selectedEmotions: Emotion[];
   onFormChange?: (title: string, reflection: string) => void;
+  initialTitle?: string;
+  initialReflection?: string;
 }
 
 const ReflectionCapture: React.FC<ReflectionCaptureProps> = ({
   selectedEmotions,
-  onFormChange
+  onFormChange,
+  initialTitle = '',
+  initialReflection = ''
 }) => {
-  const [title, setTitle] = useState('');
-  const [reflection, setReflection] = useState('');
+  const { t } = useTranslation();
+  const [title, setTitle] = useState(initialTitle);
+  const [reflection, setReflection] = useState(initialReflection);
 
   useEffect(() => {
     if (onFormChange) {
@@ -48,7 +54,7 @@ const ReflectionCapture: React.FC<ReflectionCaptureProps> = ({
               id="title-input"
               type="text"
               className="title-input"
-              placeholder="Title ..."
+              placeholder={t('newEntryPage.titlePlaceholder')}
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               maxLength={100}
@@ -59,7 +65,7 @@ const ReflectionCapture: React.FC<ReflectionCaptureProps> = ({
             <textarea
               id="reflection-input"
               className="reflection-input"
-              placeholder="Add some notes ..."
+              placeholder={t('newEntryPage.reflectionPlaceholder')}
               value={reflection}
               onChange={(e) => setReflection(e.target.value)}
               rows={4}

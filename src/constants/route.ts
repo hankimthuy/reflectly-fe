@@ -12,6 +12,7 @@ export const APP_ROUTES = {
     PROFILE: '/profile',
     ENTRIES_LIST: '/entries/list',
     ENTRIES_NEW: '/entries/new',
+    ENTRIES_EDIT: '/entries/edit/:id',
     STATISTICS: '/statistics',
     QUOTES: '/quotes',
 };

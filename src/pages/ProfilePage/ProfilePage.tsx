@@ -11,6 +11,7 @@ import StatCard from '../../components/StatCard/StatCard';
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog';
 import LanguageSwitcher from '../../components/LanguageSwitcher/LanguageSwitcher';
 import { APP_ROUTES } from '../../constants/route';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import './ProfilePage.scss';
 
 const ProfilePage: React.FC = () => {
@@ -54,6 +55,15 @@ const ProfilePage: React.FC = () => {
         <div className="profile-page">
             {/* === DARK HEADER ZONE === */}
             <div className="profile-page__hero">
+                <div className="profile-page__breadcrumb">
+                    <Breadcrumb
+                        variant="light"
+                        items={[
+                            { label: t('breadcrumb.home'), path: APP_ROUTES.HOME },
+                            { label: t('breadcrumb.profile') },
+                        ]}
+                    />
+                </div>
                 <div className="profile-page__hero-content">
                     <div className="profile-page__avatar">
                         {currentUser.pictureUrl ? (

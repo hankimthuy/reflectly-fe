@@ -1,16 +1,11 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import type { Entry } from '../../../../models/entry';
-import { LuChevronUp } from "react-icons/lu";
-import { LuEye } from "react-icons/lu";
-import { LuHeart } from "react-icons/lu";
-import { LuPencil } from "react-icons/lu";
-import { LuTrash2 } from "react-icons/lu";
-import { LuCheck } from "react-icons/lu";
-import { LuX } from "react-icons/lu";
+import { LuPencil, LuTrash2 } from 'react-icons/lu';
 import './EntryCard.scss';
-import EmotionTags from '../../../../components/EmotionTags/EmotionTags';
-import { Emotion } from '../../../../models/emotion';
-import { useUpdateEntryMutation, useDeleteEntryMutation } from '../../../../queries/entriesQueryHook';
+import { Emotion, EMOTION_DATA } from '../../../../models/emotion';
+import { useDeleteEntryMutation } from '../../../../queries/entriesQueryHook';
 import ConfirmDialog from '../../../../components/ConfirmDialog/ConfirmDialog';
 import { useSnackbar } from '../../../../providers/SnackbarProvider';
 
@@ -18,70 +13,36 @@ interface EntryCardProps {
   entry: Entry;
 }
 
-const EntryCard: React.FC<EntryCardProps> = ({ entry }: { entry: Entry }) => {
-  const [expanded, setExpand] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedTitle, setEditedTitle] = useState(entry.title);
-  const [editedReflection, setEditedReflection] = useState(entry.reflection || '');
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  
+const EntryCard: React.FC<EntryCardProps> = ({ entry }) => {
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   const { showSnackbar } = useSnackbar();
-  const updateEntryMutation = useUpdateEntryMutation();
   const deleteEntryMutation = useDeleteEntryMutation();
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
-  const { dayDisplay, emotions } = useMemo(() => {
+  const { dayDisplay, emotions, firstEmotionColor } = useMemo(() => {
     const dateObj = new Date(entry.createdAt);
+    const validEmotions = entry.emotions.filter((e): e is Emotion =>
+      Object.values(Emotion).includes(e as Emotion)
+    );
+    const firstColor = validEmotions[0] ? EMOTION_DATA[validEmotions[0]]?.color : undefined;
     return {
       dayDisplay: {
         month: dateObj.toLocaleString('en-US', { month: 'short' }).toUpperCase(),
         date: dateObj.getDate().toString().padStart(2, '0'),
-        dayName: dateObj.toLocaleString('en-US', { weekday: 'long' })
+        year: dateObj.getFullYear().toString(),
+        dayShort: dateObj.toLocaleString('en-US', { weekday: 'short' }).toUpperCase(),
       },
-      emotions: entry.emotions.filter((e): e is Emotion => 
-        Object.values(Emotion).includes(e as Emotion)
-      ) as Emotion[]
+      emotions: validEmotions,
+      firstEmotionColor: firstColor,
     };
   }, [entry.createdAt, entry.emotions]);
 
-  const handleSave = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    if (!editedTitle.trim()) {
-      alert('Title cannot be empty');
-      return;
-    }
-
-    updateEntryMutation.mutate(
-      {
-        id: entry.id,
-        title: editedTitle.trim(),
-        reflection: editedReflection.trim(),
-        emotions: emotions
-      },
-      {
-        onSuccess: () => {
-          setIsEditing(false);
-          showSnackbar('Your reflection has been updated successfully!', 'success', 5000, 'Well done!');
-        },
-        onError: (error) => {
-          console.error('Failed to update entry:', error);
-          showSnackbar('Failed to save entry. Please try again.', 'error', 5000, 'Error');
-        }
-      }
-    );
+  const handleClick = () => {
+    navigate(`/entries/edit/${entry.id}`);
   };
 
-  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setEditedTitle(entry.title);
-    setEditedReflection(entry.reflection || '');
-    setIsEditing(false);
-  };
-
-  const handleDeleteClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleDeleteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     setDeleteDialogOpen(true);
   };
@@ -90,162 +51,74 @@ const EntryCard: React.FC<EntryCardProps> = ({ entry }: { entry: Entry }) => {
     deleteEntryMutation.mutate(entry.id, {
       onSuccess: () => {
         setDeleteDialogOpen(false);
-        showSnackbar('Entry has been already deleted', 'success', 5000, 'Deleted');
-
+        showSnackbar(t('entriesPage.deleteSuccess'), 'success', 5000);
       },
-      onError: (error) => {
-        console.error('Failed to delete entry:', error);
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-        showSnackbar(`Failed to delete entry: ${errorMessage}`, 'error', 5000, 'Error');
+      onError: () => {
+        showSnackbar(t('entriesPage.deleteError'), 'error', 5000);
         setDeleteDialogOpen(false);
-      }
+      },
     });
   };
 
-  const handleDeleteCancel = () => {
-    setDeleteDialogOpen(false);
-  };
-
-  useEffect(() => {
-    setEditedTitle(entry.title);
-    setEditedReflection(entry.reflection || '');
-  }, [entry.title, entry.reflection]);
-  
   return (
-    <div className="entry-card">
-      {/* --- Main Card Section --- */}
-      <div className="entry-main-card-wrapper">
-        <div className="card-header-flex">
-
-          <div className="date-group">
-            <div className="date-box">
-              <span className="month">{dayDisplay?.month}</span>
-              <span className="date">{dayDisplay?.date}</span>
-            </div>
-
-            <div className="title-info">
-              <h3 className="day-name">{dayDisplay?.dayName}</h3>
-              {isEditing ? (
-                <input
-                  type="text"
-                  className="entry-title-input"
-                  value={editedTitle}
-                  onChange={(e) => setEditedTitle(e.target.value)}
-                  onClick={(e) => e.stopPropagation()}
-                />
-              ) : (
-                <h2 className="entry-title">{entry.title}</h2>
-              )}
-            </div>
-          </div>
-
-          <button className="btn-details" onClick={() => setExpand(!expanded)}>
-            <span>Details</span>
-            {
-              expanded ? (
-                <LuChevronUp size={16} className="icon arrow-up" />
-              ) : (<LuEye size={16} className="icon eye" />)
-            }
-          </button>
-
+    <>
+      <div
+        className="entry-cell"
+        style={firstEmotionColor ? { '--entry-accent': firstEmotionColor } as React.CSSProperties : undefined}
+        onClick={handleClick}
+      >
+        {/* Date column */}
+        <div className="entry-cell__date">
+          <span className="entry-cell__date-num">{dayDisplay.date}</span>
+          <span className="entry-cell__date-month">{dayDisplay.month}</span>
+          <span className="entry-cell__date-year">{dayDisplay.year}</span>
         </div>
 
-        <EmotionTags emotions={emotions} />
+        {/* Content */}
+        <div className="entry-cell__body">
+          <span className="entry-cell__day">{dayDisplay.dayShort}</span>
+          <span className="entry-cell__title">{entry.title}</span>
+          <div className="entry-cell__emotions">
+            {emotions.map((emo) => (
+              <span key={emo} className="entry-cell__emotion-icon" title={EMOTION_DATA[emo]?.label}>
+                {EMOTION_DATA[emo]?.icon}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="entry-cell__actions">
+          <span
+            className="entry-cell__action entry-cell__action--edit"
+            onClick={handleClick}
+            title={t('entriesPage.edit')}
+          >
+            <LuPencil size={14} />
+          </span>
+          <span
+            className="entry-cell__action entry-cell__action--delete"
+            onClick={handleDeleteClick}
+            title={t('entriesPage.deleteConfirmTitle')}
+          >
+            <LuTrash2 size={14} />
+          </span>
+        </div>
       </div>
 
-      {/* --- Expanded Section: Reflection --- */}
-      {expanded && (
-        <div className="card-reflection">
-          <div className="reflection-label">
-            <div className="reflection-label-left">
-              <LuHeart size={14} />
-              <span>
-                Reflection
-              </span>
-            </div>
-            {isEditing ? (
-              <div className="reflection-actions">
-                <button 
-                  type="button"
-                  className="btn-action btn-save" 
-                  onClick={handleSave}
-                  disabled={updateEntryMutation.isPending}
-                >
-                  <LuCheck size={16} />
-                  <span>Save</span>
-                </button>
-                <button 
-                  type="button"
-                  className="btn-action btn-cancel" 
-                  onClick={handleCancel}
-                  disabled={updateEntryMutation.isPending}
-                >
-                  <LuX size={16} />
-                  <span>Cancel</span>
-                </button>
-              </div>
-            ) : (
-              <div className="reflection-actions">
-                <button 
-                  type="button"
-                  className="btn-action btn-edit" 
-                  onClick={() => setIsEditing(true)}
-                >
-                  <LuPencil size={16} />
-                  <span>Edit</span>
-                </button>
-                <button 
-                  type="button"
-                  className="btn-action btn-delete" 
-                  onClick={handleDeleteClick}
-                  disabled={deleteEntryMutation.isPending}
-                >
-                  <LuTrash2 size={16} />
-                  <span>Delete</span>
-                </button>
-              </div>
-            )}
-          </div>
-
-          {isEditing ? (
-            <div className="reflection-text-box">
-              <textarea
-                className="reflection-textarea"
-                value={editedReflection}
-                onChange={(e) => setEditedReflection(e.target.value)}
-                placeholder="Write your reflection here..."
-                rows={6}
-              />
-            </div>
-          ) : (
-            entry.reflection ? (
-              <div className="reflection-text-box">
-                <p>
-                  {entry.reflection}
-                </p>
-              </div>
-            ) : (
-              <p className="empty-state">You haven't written a reflection for this day.</p>
-            )
-          )}
-        </div>
-      )}
-
-      {/* Delete Confirmation Dialog */}
       <ConfirmDialog
         open={deleteDialogOpen}
-        title="Delete Entry"
-        message="Are you sure you want to delete this entry?"
-        confirmText="Delete"
-        cancelText="Cancel"
+        title={t('entriesPage.deleteConfirmTitle')}
+        message={t('entriesPage.deleteConfirmMessage')}
+        confirmText={t('entriesPage.deleteConfirmBtn')}
+        cancelText={t('entriesPage.deleteCancel')}
         confirmColor="error"
         onConfirm={handleDeleteConfirm}
-        onCancel={handleDeleteCancel}
+        onCancel={() => setDeleteDialogOpen(false)}
         loading={deleteEntryMutation.isPending}
       />
-    </div>
+    </>
   );
 };
 
 export default EntryCard;
-
