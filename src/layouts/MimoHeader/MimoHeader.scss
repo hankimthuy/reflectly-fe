@@ -7,7 +7,7 @@
   left: 0;
   width: 100%;
   z-index: 100;
-  padding: 24px 0;
+  padding: 12px 0;
   transition: all 0.5s ease;
 
   // --- Scrolled State (Glassmorphism Base) ---
@@ -29,7 +29,7 @@
   }
 
   &.mimo-header--split.mimo-header--scrolled {
-    background: transparent;
+    background: color-mix(in srgb, var(--c-background-dark), transparent 12%);
   }
 
   // --- THEME: INNERVERSE (Dark Mode) ---
@@ -65,24 +65,26 @@
 
   // --- THEME: TRANSPARENT/SPLIT ---
   &--split {
-    background: transparent;
-    color: var(--c-text-on-surface);
+    background: color-mix(in srgb, var(--c-background-dark), transparent 25%);
+    backdrop-filter: blur(12px);
+    color: var(--c-text-on-dark);
+    border-bottom: 1px solid var(--c-border-dark);
 
     .btn-cta {
-      background: var(--c-text-on-background);
-      color: var(--c-white);
+      background: var(--c-text-on-dark);
+      color: var(--c-background-dark);
     }
 
     .mimo-header__logo {
-      color: var(--c-white);
+      color: var(--c-text-on-dark);
     }
 
     .mimo-header__nav {
-      color: var(--c-text-on-surface);
+      color: var(--c-text-on-dark);
     }
 
     .mimo-header__toggle {
-      color: var(--c-text-on-surface);
+      color: var(--c-text-on-dark);
     }
   }
 

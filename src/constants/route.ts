@@ -2,6 +2,9 @@ export const APP_ROUTES = {
     // Public
     LOGIN: '/login',
     WELCOME: '/',
+    MIMO_METHOD: '/mimo-method',
+    INNERVERSE: '/innerverse',
+    OUTERVERSE: '/outerverse',
     
     // Main
     HOME: '/home',

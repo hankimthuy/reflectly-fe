@@ -602,22 +602,6 @@
       color: rgba(79, 70, 229, 1);
     }
 
-    .hero-split__bridge-ring {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .hero-split__bridge-hint {
-      opacity: 1;
-    }
-
-    .hero-split__bridge-hint--left {
-      transform: translateY(-50%) translateX(0);
-    }
-
-    .hero-split__bridge-hint--right {
-      transform: translateY(-50%) translateX(0);
-    }
   }
 
   &__bridge-hint {
@@ -626,7 +610,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    opacity: 0;
+    opacity: 1;
     transition: opacity 0.5s ease, transform 0.5s ease;
     transform: translateY(-50%);
     pointer-events: none;
@@ -634,12 +618,12 @@
 
   &__bridge-hint--left {
     left: -132px;
-    transform: translateY(-50%) translateX(-14px);
+    transform: translateY(-50%) translateX(0);
   }
 
   &__bridge-hint--right {
     right: -132px;
-    transform: translateY(-50%) translateX(14px);
+    transform: translateY(-50%) translateX(0);
   }
 
   &__bridge-label {

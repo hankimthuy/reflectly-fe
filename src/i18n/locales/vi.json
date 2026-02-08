@@ -83,7 +83,8 @@
     "settings": {
       "title": "Cài đặt",
       "language": "Ngôn ngữ",
-      "theme": "Giao diện"
+      "notifications": "Thông báo",
+      "exportData": "Xuất dữ liệu"
     },
     "logout": "Đăng xuất",
     "logoutDialog": {
@@ -98,6 +99,103 @@
     "subtitle": "Hành trình Cảm xúc",
     "loadMore": "Tải thêm",
     "showing": "Hiển thị {{current}} trong {{total}} bài viết"
+  },
+  "mimoMethodPage": {
+    "hero": {
+      "badge": "Phương pháp Mimo",
+      "title": "Từ Thấu hiểu đến <span class=\"highlight\">Hành động.</span>",
+      "subtitle": "Cầu nối giữa việc hiểu bản thân và lãnh đạo bản thân. Mimo chuyển đổi dữ liệu cảm xúc thô thành chiến lược sống có thể hành động."
+    },
+    "howItWorks": {
+      "title": "Cách hoạt động",
+      "subtitle": "Chu trình 4 bước biến nhận thức bản thân thành tự lãnh đạo.",
+      "steps": {
+        "feel": {
+          "number": "01",
+          "title": "Cảm nhận",
+          "description": "Bạn viết nhật ký tự do trong Không gian An toàn. Không bộ lọc, không phán xét — chỉ sự thể hiện thô, chân thật.",
+          "tag": "Innerverse"
+        },
+        "understand": {
+          "number": "02",
+          "title": "Thấu hiểu",
+          "description": "Mimo phát hiện các mẫu hình trong cảm xúc, ánh xạ chúng với Giá trị Cốt lõi và làm nổi bật các kết nối ẩn.",
+          "tag": "Thấu hiểu"
+        },
+        "decide": {
+          "number": "03",
+          "title": "Quyết định",
+          "description": "Được hướng dẫn bởi La bàn Nội tâm, bạn chọn một hành động cụ thể — thiết lập ranh giới, bắt đầu cuộc trò chuyện, hoặc thay đổi thói quen.",
+          "tag": "Cầu nối"
+        },
+        "act": {
+          "number": "04",
+          "title": "Hành động",
+          "description": "Bạn thực hiện trong Outerverse. Theo dõi sự điều chỉnh, đo lường sự phát triển và xem sự tiến hóa theo thời gian.",
+          "tag": "Outerverse"
+        }
+      }
+    },
+    "bridge": {
+      "title": "Cầu nối Trực quan",
+      "innerLabel": "Innerverse",
+      "innerDesc": "Suy nghĩ, cảm xúc, mẫu hình",
+      "outerLabel": "Outerverse",
+      "outerDesc": "Hành động, ranh giới, phát triển"
+    },
+    "cta": {
+      "title": "Sẵn sàng bắc cầu?",
+      "subtitle": "Bắt đầu hành trình từ thấu hiểu đến hành động ngay hôm nay.",
+      "button": "Bắt đầu Lãnh đạo Bản thân"
+    }
+  },
+  "innerversePage": {
+    "hero": {
+      "badge": "The Innerverse",
+      "title": "Thế Giới <span class=\"highlight\">Nội Tâm.</span>",
+      "subtitle": "Khám phá chiều sâu suy nghĩ và cảm xúc của bạn. Hiểu bản thân trước khi dẫn dắt bản thân."
+    },
+    "sections": {
+      "safeSpace": {
+        "title": "Không Gian An Toàn",
+        "description": "Một không gian riêng tư, không phán xét để bạn bày tỏ những suy nghĩ và cảm xúc thật. Không bộ lọc, không nhiễu — chỉ có sự thành thật.",
+        "cta": "Ghi Nhật Ký Nội Tâm"
+      },
+      "innerCompass": {
+        "title": "La Bàn Nội Tâm",
+        "description": "Xác định và theo dõi Giá Trị Cốt Lõi. Hiểu 'Tại sao' đằng sau 'Bạn là ai' và căn chỉnh hành động hàng ngày với điều thực sự quan trọng.",
+        "cta": "Sắp Ra Mắt"
+      },
+      "senseConnection": {
+        "title": "Kết Nối Cảm Xúc",
+        "description": "Phát hiện các mẫu ẩn trong tâm trạng và hành vi. Kết nối các điểm giữa cảm xúc và sự kiện kích hoạt chúng.",
+        "cta": "Sắp Ra Mắt"
+      }
+    }
+  },
+  "outerversePage": {
+    "hero": {
+      "badge": "The Outerverse",
+      "title": "Dẫn Dắt <span class=\"highlight\">Thực Tại.</span>",
+      "subtitle": "Chuyển đổi thấu hiểu nội tâm thành hành động cụ thể. Thiết lập ranh giới, giao tiếp và phát triển."
+    },
+    "sections": {
+      "socialMirror": {
+        "title": "Gương Xã Hội",
+        "description": "Hình dung mạng lưới xã hội của bạn. Hiểu ai thúc đẩy sự phát triển và ai tiêu hao năng lượng của bạn.",
+        "cta": "Sắp Ra Mắt"
+      },
+      "selfRegulation": {
+        "title": "Tự Điều Chỉnh",
+        "description": "Biến thấu hiểu thành hành động. Làm chủ xung động, thiết lập ranh giới lành mạnh và xây dựng thói quen bền vững.",
+        "cta": "Sắp Ra Mắt"
+      },
+      "growthVision": {
+        "title": "Tầm Nhìn Phát Triển",
+        "description": "Vẽ bản đồ tiến hóa. Thiết lập quỹ đạo rõ ràng cho bản thân tương lai và theo dõi tiến trình.",
+        "cta": "Sắp Ra Mắt"
+      }
+    }
   },
   "bridgeSection": {
     "badge": "Phương pháp Mimo",

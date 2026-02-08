@@ -87,11 +87,7 @@ const MobileFooter = () => {
         switch (item.id) {
             case 'innerverse':
                 setMobileTab('inner');
-                if (isAuthenticated) {
-                    navigate(APP_ROUTES.HOME);
-                } else {
-                    navigate(APP_ROUTES.WELCOME);
-                }
+                navigate(APP_ROUTES.INNERVERSE);
                 break;
             case 'entries':
                 navigate(APP_ROUTES.ENTRIES_LIST);
@@ -101,11 +97,7 @@ const MobileFooter = () => {
                 break;
             case 'outerverse':
                 setMobileTab('outer');
-                if (isAuthenticated) {
-                    navigate(APP_ROUTES.HOME);
-                } else {
-                    navigate(APP_ROUTES.WELCOME);
-                }
+                navigate(APP_ROUTES.OUTERVERSE);
                 break;
             case 'profile':
                 if (isAuthenticated) {

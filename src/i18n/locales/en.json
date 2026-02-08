@@ -83,7 +83,8 @@
     "settings": {
       "title": "Settings",
       "language": "Language",
-      "theme": "Theme"
+      "notifications": "Notifications",
+      "exportData": "Export Data"
     },
     "logout": "Log Out",
     "logoutDialog": {
@@ -98,6 +99,103 @@
     "subtitle": "Emotional Journey",
     "loadMore": "Load More",
     "showing": "Showing {{current}} of {{total}} entries"
+  },
+  "mimoMethodPage": {
+    "hero": {
+      "badge": "The Mimo Method",
+      "title": "From Insight to <span class=\"highlight\">Action.</span>",
+      "subtitle": "The bridge between knowing yourself and leading yourself. Mimo transforms raw emotional data into actionable life strategies."
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "A 4-step cycle that turns self-awareness into self-leadership.",
+      "steps": {
+        "feel": {
+          "number": "01",
+          "title": "Feel",
+          "description": "You journal freely in your Safe Space. No filters, no judgment — just raw, honest expression.",
+          "tag": "Innerverse"
+        },
+        "understand": {
+          "number": "02",
+          "title": "Understand",
+          "description": "Mimo detects patterns in your emotions, maps them to your Core Values, and surfaces hidden connections.",
+          "tag": "Insight"
+        },
+        "decide": {
+          "number": "03",
+          "title": "Decide",
+          "description": "Guided by your Inner Compass, you choose a concrete action — set a boundary, start a conversation, or change a habit.",
+          "tag": "Bridge"
+        },
+        "act": {
+          "number": "04",
+          "title": "Act",
+          "description": "You execute in the Outerverse. Track your regulation, measure growth, and see your evolution over time.",
+          "tag": "Outerverse"
+        }
+      }
+    },
+    "bridge": {
+      "title": "The Bridge Visualized",
+      "innerLabel": "Innerverse",
+      "innerDesc": "Thoughts, emotions, patterns",
+      "outerLabel": "Outerverse",
+      "outerDesc": "Actions, boundaries, growth"
+    },
+    "cta": {
+      "title": "Ready to bridge the gap?",
+      "subtitle": "Start your journey from insight to action today.",
+      "button": "Start Leading Yourself"
+    }
+  },
+  "innerversePage": {
+    "hero": {
+      "badge": "The Innerverse",
+      "title": "Your Inner <span class=\"highlight\">World.</span>",
+      "subtitle": "Dive into the depths of your thoughts and emotions. Understand yourself before you lead yourself."
+    },
+    "sections": {
+      "safeSpace": {
+        "title": "Safe Space",
+        "description": "A private, judgment-free zone to express your raw thoughts and emotions. No filters, no noise — just honest self-expression.",
+        "cta": "Log Your Innerverse"
+      },
+      "innerCompass": {
+        "title": "Inner Compass",
+        "description": "Define and track your Core Values. Understand the 'Why' behind your 'Who' and align your daily actions with what truly matters.",
+        "cta": "Coming Soon"
+      },
+      "senseConnection": {
+        "title": "Sense Connection",
+        "description": "Detect hidden patterns in your mood and behaviors. Connect the dots between your emotions and the events that trigger them.",
+        "cta": "Coming Soon"
+      }
+    }
+  },
+  "outerversePage": {
+    "hero": {
+      "badge": "The Outerverse",
+      "title": "Lead Your <span class=\"highlight\">Reality.</span>",
+      "subtitle": "Translate inner insights into tangible actions. Set boundaries, communicate, and grow."
+    },
+    "sections": {
+      "socialMirror": {
+        "title": "Social Mirror",
+        "description": "Visualize your social network. Understand who fuels your growth and who drains your energy. Map your orbit.",
+        "cta": "Coming Soon"
+      },
+      "selfRegulation": {
+        "title": "Self-Regulation",
+        "description": "Turn insight into action. Master your impulses, set healthy boundaries, and build habits that stick.",
+        "cta": "Coming Soon"
+      },
+      "growthVision": {
+        "title": "Growth Vision",
+        "description": "Map your evolution. Set a clear trajectory for your future self and track your progress over time.",
+        "cta": "Coming Soon"
+      }
+    }
   },
   "bridgeSection": {
     "badge": "The Mimo Method",

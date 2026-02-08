@@ -57,9 +57,10 @@ const MimoHeader = ({ activeTheme = 'split', scrolled = false }: MimoHeaderProps
         
         {/* DESKTOP MENU */}
         <div className="mimo-header__nav">
-          <a href="#inner">The Innerverse</a>
-          <a href="#outer">The Outerverse</a>
+          <a onClick={() => navigate(APP_ROUTES.INNERVERSE)} style={{ cursor: 'pointer' }}>The Innerverse</a>
+          <a onClick={() => navigate(APP_ROUTES.OUTERVERSE)} style={{ cursor: 'pointer' }}>The Outerverse</a>
           <a href="#pillars">The 6 Pillars</a>
+          <a onClick={() => navigate(APP_ROUTES.MIMO_METHOD)} style={{ cursor: 'pointer' }}>The Mimo Method</a>
           
           {/* AUTH LOGIC SWITCHER */}
                     {currentUser ? (
@@ -127,9 +128,10 @@ const MimoHeader = ({ activeTheme = 'split', scrolled = false }: MimoHeaderProps
      {/* MOBILE MENU OVERLAY */}
       {isMenuOpen && (
         <div className="mimo-header__mobile-menu">
-          <a href="#inner" onClick={() => setIsMenuOpen(false)}>The Innerverse</a>
-          <a href="#outer" onClick={() => setIsMenuOpen(false)}>The Outerverse</a>
+          <a onClick={() => { setIsMenuOpen(false); navigate(APP_ROUTES.INNERVERSE); }} style={{ cursor: 'pointer' }}>The Innerverse</a>
+          <a onClick={() => { setIsMenuOpen(false); navigate(APP_ROUTES.OUTERVERSE); }} style={{ cursor: 'pointer' }}>The Outerverse</a>
           <a href="#pillars" onClick={() => setIsMenuOpen(false)}>The 6 Pillars</a>
+          <a onClick={() => { setIsMenuOpen(false); navigate(APP_ROUTES.MIMO_METHOD); }} style={{ cursor: 'pointer' }}>The Mimo Method</a>
           <div className="divider"></div>
           <div className="mobile-language-switcher">
             <LanguageSwitcher />

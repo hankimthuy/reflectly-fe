@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import MimoCharacter from '../../../components/MimoCharacter/MimoCharacter';
 import { useTheme } from '../../../providers/ThemeContext';
+import { APP_ROUTES } from '../../../constants/route';
 import './HeroSection.scss';
 import { LuInfinity } from 'react-icons/lu';
 
 const HeroSection = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { mobileTab, setMobileTab } = useTheme();
   const [activeTab, setActiveTab] = useState<'inner' | 'outer'>(mobileTab as 'inner' | 'outer');
   const [isMobile, setIsMobile] = useState(false);
@@ -59,7 +62,7 @@ const HeroSection = () => {
         <div className="hero-split__bridge" aria-hidden="true">
           <div className="hero-split__bridge-line"></div>
 
-          <div className="hero-split__bridge-node">
+          <div className="hero-split__bridge-node" onClick={() => navigate(APP_ROUTES.MIMO_METHOD)}>
             <div className="hero-split__bridge-ping" aria-hidden="true"></div>
             <div className="hero-split__bridge-pulse" aria-hidden="true"></div>
             <div className="hero-split__bridge-ring" aria-hidden="true"></div>

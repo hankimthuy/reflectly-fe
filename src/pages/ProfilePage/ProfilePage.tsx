@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { LuLogOut, LuGlobe, LuPalette } from 'react-icons/lu';
+import { LuLogOut, LuGlobe, LuBell, LuDownload, LuBrainCircuit, LuShield, LuActivity } from 'react-icons/lu';
 import { useAuth } from '../../providers/AuthProvider';
-import { useTheme } from '../../providers/ThemeContext';
+
 import { useEntriesInfiniteQuery } from '../../queries/entriesQueryHook';
 import { calculateDayStreak, getTopMood, getEmotionDistribution } from '../../utils/statsUtil';
 import { EMOTION_DATA } from '../../models/emotion';
@@ -15,7 +15,7 @@ import './ProfilePage.scss';
 
 const ProfilePage: React.FC = () => {
     const { currentUser, logout } = useAuth();
-    const { mobileTab, setMobileTab } = useTheme();
+
     const navigate = useNavigate();
     const { t } = useTranslation();
     const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
@@ -39,9 +39,6 @@ const ProfilePage: React.FC = () => {
         navigate(APP_ROUTES.WELCOME);
     };
 
-    const toggleTheme = () => {
-        setMobileTab(mobileTab === 'inner' ? 'outer' : 'inner');
-    };
 
     if (!currentUser) {
         return (
@@ -72,9 +69,10 @@ const ProfilePage: React.FC = () => {
                             </div>
                         )}
                     </div>
-                    <h1 className="profile-page__name">{currentUser.fullName}</h1>
-                    <p className="profile-page__email">{currentUser.email}</p>
-
+                    <div className="profile-page__info">
+                        <h1 className="profile-page__name">{currentUser.fullName}</h1>
+                        <p className="profile-page__email">{currentUser.email}</p>
+                    </div>
                     <div className="profile-page__stats">
                         <StatCard
                             icon={<span>{streak.icon}</span>}
@@ -96,6 +94,43 @@ const ProfilePage: React.FC = () => {
 
             {/* === WHITE CONTENT ZONE === */}
             <div className="profile-page__content">
+
+                {/* Quick Actions */}
+                <div className="profile-page__actions">
+                    <div
+                        className="profile-page__action-card profile-page__action-card--inner"
+                        onClick={() => navigate(APP_ROUTES.INNERVERSE)}
+                    >
+                        <div className="profile-page__action-card-icon"><LuBrainCircuit size={20} /></div>
+                        <div className="profile-page__action-card-body">
+                            <span className="profile-page__action-card-title">Innerverse</span>
+                            <span className="profile-page__action-card-desc">Explore your inner world</span>
+                        </div>
+                    </div>
+                    <div
+                        className="profile-page__action-card profile-page__action-card--entry"
+                        onClick={() => navigate(APP_ROUTES.ENTRIES_NEW)}
+                    >
+                        <div className="profile-page__action-card-icon"><LuShield size={20} /></div>
+                        <div className="profile-page__action-card-body">
+                            <span className="profile-page__action-card-title">Log Your Innerverse</span>
+                            <span className="profile-page__action-card-desc">Write in your Safe Space</span>
+                        </div>
+                    </div>
+                    <div
+                        className="profile-page__action-card profile-page__action-card--outer"
+                        onClick={() => navigate(APP_ROUTES.OUTERVERSE)}
+                    >
+                        <div className="profile-page__action-card-icon"><LuActivity size={20} /></div>
+                        <div className="profile-page__action-card-body">
+                            <span className="profile-page__action-card-title">Outerverse</span>
+                            <span className="profile-page__action-card-desc">Lead your reality</span>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Grid: Emotion Overview + Settings */}
+                <div className="profile-page__grid">
 
                 {/* Emotion Overview */}
                 <section className="profile-page__section">
@@ -152,26 +187,28 @@ const ProfilePage: React.FC = () => {
                         </div>
                         <div className="settings-list__item">
                             <div className="settings-list__left">
-                                <LuPalette size={18} />
-                                <span>{t('profilePage.settings.theme')}</span>
+                                <LuBell size={18} />
+                                <span>{t('profilePage.settings.notifications')}</span>
                             </div>
-                            <button className="settings-list__toggle" onClick={toggleTheme}>
-                                {mobileTab === 'inner' ? 'Innerverse' : 'Outerverse'}
-                            </button>
+                            <span className="settings-list__badge">Soon</span>
+                        </div>
+                        <div className="settings-list__item">
+                            <div className="settings-list__left">
+                                <LuDownload size={18} />
+                                <span>{t('profilePage.settings.exportData')}</span>
+                            </div>
+                            <span className="settings-list__badge">Soon</span>
+                        </div>
+                        <div className="settings-list__item settings-list__item--danger" onClick={() => setLogoutDialogOpen(true)}>
+                            <div className="settings-list__left">
+                                <LuLogOut size={18} />
+                                <span>{t('profilePage.logout')}</span>
+                            </div>
                         </div>
                     </div>
                 </section>
 
-                {/* Logout */}
-                <section className="profile-page__section profile-page__section--danger">
-                    <button
-                        className="profile-page__logout-btn"
-                        onClick={() => setLogoutDialogOpen(true)}
-                    >
-                        <LuLogOut size={18} />
-                        <span>{t('profilePage.logout')}</span>
-                    </button>
-                </section>
+                </div>{/* end grid */}
             </div>
 
             <ConfirmDialog

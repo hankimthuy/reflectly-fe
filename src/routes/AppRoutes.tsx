@@ -13,6 +13,9 @@ const NewEntryPage = lazy(() => import('../pages/EntriesPage/NewEntryPage/NewEnt
 const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
 const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
 const MimoLandingPage = lazy(() => import('../pages/MimoLandingPage/MimoLandingPage'));
+const MimoMethodPage = lazy(() => import('../pages/MimoMethodPage/MimoMethodPage'));
+const InnerversePage = lazy(() => import('../pages/InnerversePage/InnerversePage'));
+const OuterversePage = lazy(() => import('../pages/OuterversePage/OuterversePage'));
 
 export const AppRoutes = () => {
     return (
@@ -27,6 +30,9 @@ export const AppRoutes = () => {
                 </MainLayout>
             }>
                 <Route path={APP_ROUTES.WELCOME} element={<MimoLandingPage />} />
+                <Route path={APP_ROUTES.MIMO_METHOD} element={<MimoMethodPage />} />
+                <Route path={APP_ROUTES.INNERVERSE} element={<InnerversePage />} />
+                <Route path={APP_ROUTES.OUTERVERSE} element={<OuterversePage />} />
                 <Route path={APP_ROUTES.HOME} element={
                     <ProtectedRoute>
                         <MimoLandingPage />

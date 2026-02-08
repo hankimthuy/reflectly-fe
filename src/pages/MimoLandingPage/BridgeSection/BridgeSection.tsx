@@ -1,22 +1,9 @@
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { LuAperture } from "react-icons/lu";
-import { useAuth } from '../../../providers/AuthProvider';
-import { APP_ROUTES } from '../../../constants/route';
+import { LuAperture, LuArrowRight } from "react-icons/lu";
 import './BridgeSection.scss';
 
 const BridgeSection = () => {
-  const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
   const { t } = useTranslation();
-
-  const handleCTAClick = () => {
-    if (isAuthenticated) {
-      navigate(APP_ROUTES.ENTRIES_LIST);
-    } else {
-      navigate(APP_ROUTES.LOGIN);
-    }
-  };
 
   return (
     <section className="bridge-section">
@@ -38,41 +25,82 @@ const BridgeSection = () => {
           />
         </div>
 
-        {/* --- PROCESS VISUAL BLOCK --- */}
-        <div className="process-visual">
-          
-          {/* Card 1: Awareness */}
-          <div className="step-card start">
-            <h4>{t('bridgeSection.steps.awareness.title')}</h4>
-            <p>{t('bridgeSection.steps.awareness.example')}</p>
+        {/* --- LAPTOP MOCKUP --- */}
+        <div className="laptop-mockup">
+          {/* Camera notch */}
+          <div className="laptop-notch">
+            <span className="laptop-camera" />
           </div>
 
-          {/* Left Connector */}
-          <div className="connector"></div>
+          {/* Screen */}
+          <div className="laptop-screen">
+            <div className="screen-glow" />
 
-          {/* Center Character */}
-          <div className="center-piece">
-             <div className="mimo-placeholder">
-                <div className="glow-effect"></div>
-                {/* <MimoCharacter theme="bridge" className="character-svg" /> */}
-             </div>
+            <div className="bridge-flow">
+              {/* Card 1: Awareness */}
+              <div className="flow-card flow-card--start">
+                <h4>{t('bridgeSection.steps.awareness.title')}</h4>
+                <p>{t('bridgeSection.steps.awareness.example')}</p>
+              </div>
+
+              {/* Animated connector */}
+              <div className="flow-connector">
+                <div className="flow-connector__line" />
+                <div className="flow-connector__icon">
+                  <LuArrowRight size={16} />
+                </div>
+                <div className="flow-connector__line" />
+              </div>
+
+              {/* Center – Mimo glow node with labels */}
+              <div className="flow-node">
+                <div className="flow-node__ping" />
+
+                {/* Insight label (left) */}
+                <div className="flow-node__label flow-node__label--left">
+                  <span className="flow-node__tag flow-node__tag--insight">
+                    {t('heroSection.bridge.insight')}
+                  </span>
+                  <div className="flow-node__seg flow-node__seg--indigo" />
+                  <div className="flow-node__dot flow-node__dot--indigo" />
+                </div>
+
+                <div className="flow-node__core">
+                  <LuAperture size={24} />
+                </div>
+
+                {/* Action label (right) */}
+                <div className="flow-node__label flow-node__label--right">
+                  <div className="flow-node__dot flow-node__dot--orange" />
+                  <div className="flow-node__seg flow-node__seg--orange" />
+                  <span className="flow-node__tag flow-node__tag--action">
+                    {t('heroSection.bridge.action')}
+                  </span>
+                </div>
+              </div>
+
+              {/* Animated connector */}
+              <div className="flow-connector">
+                <div className="flow-connector__line" />
+                <div className="flow-connector__icon">
+                  <LuArrowRight size={16} />
+                </div>
+                <div className="flow-connector__line" />
+              </div>
+
+              {/* Card 2: Regulation */}
+              <div className="flow-card flow-card--end">
+                <h4>{t('bridgeSection.steps.regulation.title')}</h4>
+                <p>{t('bridgeSection.steps.regulation.example')}</p>
+              </div>
+            </div>
           </div>
 
-          {/* Right Connector */}
-          <div className="connector"></div>
-
-          {/* Card 2: Regulation */}
-          <div className="step-card end">
-            <h4>{t('bridgeSection.steps.regulation.title')}</h4>
-            <p>{t('bridgeSection.steps.regulation.example')}</p>
+          {/* Laptop base / hinge */}
+          <div className="laptop-base">
+            <div className="laptop-base__indent" />
           </div>
-
         </div>
-
-        {/* --- CTA BUTTON --- */}
-        <button className="btn-primary" onClick={handleCTAClick}>
-          {t('bridgeSection.cta')}
-        </button>
 
       </div>
     </section>
