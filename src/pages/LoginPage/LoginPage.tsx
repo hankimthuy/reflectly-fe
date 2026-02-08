@@ -1,5 +1,5 @@
 import {type CredentialResponse, GoogleLogin} from "@react-oauth/google";
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {APP_ROUTES} from '../../constants/route';
 import {useAuth} from '../../providers/AuthProvider';
@@ -8,7 +8,7 @@ import './LoginPage.scss';
 const LoginPage = () => {
     const [error, setError] = useState('');
     const [isLoggingIn, setIsLoggingIn] = useState(false);
-    const [staleAuthCleared, setStaleAuthCleared] = useState(false);
+    const hasLoggedOut = useRef(false);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -17,25 +17,27 @@ const LoginPage = () => {
     const isExplicitLogin = location.state?.explicit === true;
     const intendedDestination = location.state?.from || APP_ROUTES.HOME || '/';
 
-    // If user explicitly clicked "Login", clear any stale auth so they can re-authenticate
     useEffect(() => {
-        if (isExplicitLogin && isAuthenticated) {
+        if (isLoading) return;
+
+        if (isExplicitLogin && isAuthenticated && !hasLoggedOut.current) {
+            hasLoggedOut.current = true;
             logout();
+            return;
         }
-        setStaleAuthCleared(true);
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    useEffect(() => {
-        // Wait until the stale-auth check on mount has completed
-        if (!staleAuthCleared) return;
+        if (isAuthenticated && !isExplicitLogin) {
+            navigate(intendedDestination, {replace: true});
+            return;
+        }
 
-        // Only navigate if not loading and authenticated (fresh login completed)
-        if (!isLoading && isAuthenticated) {
+        if (isAuthenticated && isExplicitLogin && hasLoggedOut.current) {
             navigate(intendedDestination, {replace: true});
         }
-    }, [isAuthenticated, isLoading, navigate, intendedDestination, staleAuthCleared]);
+    }, [isAuthenticated, isLoading, isExplicitLogin, logout, navigate, intendedDestination]);
 
     const handleOnSuccess = async (credentialResponse: CredentialResponse) => {
+        console.log('LoginPage: Google login success received');
         if (!credentialResponse.credential) {
             const errorMsg = 'Did not receive credential from Google.';
             setError(errorMsg);
@@ -47,9 +49,12 @@ const LoginPage = () => {
         
         try {
             const idToken = credentialResponse.credential;
+            console.log('LoginPage: Calling login with token');
             await login(idToken);
+            console.log('LoginPage: Login completed successfully');
             // Navigation will happen automatically via useEffect when isAuthenticated changes
         } catch (error) {
+            console.error('LoginPage: Login error:', error);
             const errorMessage = error instanceof Error
                 ? error.message
                 : 'Login failed during backend authentication step.';

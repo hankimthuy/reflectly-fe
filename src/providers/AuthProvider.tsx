@@ -96,13 +96,16 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
     }, [profileQueryState?.status, profileQueryState?.error, queryClient]);
 
     // isLoading = true only while we're still determining auth state
+    // Fixed logic: Don't show loading if we have cached profile, even if token exists
     const isLoading = !!token && isProfileLoading && !cachedProfile;
 
     const login = useCallback(async (idToken: string) => {
+        console.log('AuthProvider: Login called, setting token and profile');
         CookieUtil.setCookie(COOKIE_KEYS.AUTH_TOKEN, idToken, 1);
         setToken(idToken);
         // Refetch profile with the new token
         await queryClient.invalidateQueries({ queryKey: USER_PROFILE_QUERY_KEY });
+        console.log('AuthProvider: Login completed, token set and profile invalidated');
     }, [queryClient]);
 
     const logout = useCallback(() => {
