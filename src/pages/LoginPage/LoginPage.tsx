@@ -96,7 +96,7 @@ const LoginPage = () => {
                             onError={handleOnError}
                             theme="outline"
                             size="large"
-                            width="100%"
+                            width="350"
                         />
                     </div>
 
