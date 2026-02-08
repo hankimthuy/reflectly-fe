@@ -3,15 +3,13 @@ import type { AxiosError } from 'axios';
 
 describe('axiosSetup', () => {
     let mockNavigateToLogin: Mock;
-    let mockDeleteCookie: Mock;
-    let mockGetCookie: Mock;
 
     beforeEach(() => {
         vi.resetModules();
         vi.useFakeTimers();
+        localStorage.clear();
+        localStorage.setItem('auth_token', 'mock_token');
         mockNavigateToLogin = vi.fn();
-        mockDeleteCookie = vi.fn();
-        mockGetCookie = vi.fn().mockReturnValue('mock_token');
 
         vi.doMock('../../utils/navigationUtil.ts', () => ({
             default: {
@@ -21,29 +19,19 @@ describe('axiosSetup', () => {
             },
         }));
 
-        vi.doMock('../../utils/cookieUtil.ts', () => ({
-            default: {
-                getCookie: mockGetCookie,
-                setCookie: vi.fn(),
-                deleteCookie: mockDeleteCookie,
-            },
-        }));
-
         vi.doMock('../../constants/storage.ts', () => ({
+            STORAGE_KEYS: {
+                AUTH_TOKEN: 'auth_token',
+            },
             COOKIE_KEYS: {
                 AUTH_TOKEN: 'auth_token',
-                USER_PROFILE: 'user_profile',
             },
         }));
     });
 
     afterEach(() => {
         vi.useRealTimers();
-    });
-
-    it('should export setAuthInitializing function', async () => {
-        const module = await import('../axiosSetup');
-        expect(typeof module.setAuthInitializing).toBe('function');
+        localStorage.clear();
     });
 
     it('should export axiosInstance as default with interceptors', async () => {
@@ -54,29 +42,9 @@ describe('axiosSetup', () => {
         expect(module.default.interceptors.response).toBeDefined();
     });
 
-    describe('setAuthInitializing', () => {
-        it('should suppress 401 redirect when auth is initializing', async () => {
-            const { default: axiosInstance, setAuthInitializing } = await import('../axiosSetup');
-
-            setAuthInitializing(true);
-
-            // Trigger the response error interceptor by using the internal handlers
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            const handlers = (axiosInstance.interceptors.response as any).handlers;
-            const errorHandler = handlers[0]?.rejected;
-
-            if (errorHandler) {
-                await errorHandler({ response: { status: 401 } } as AxiosError).catch(() => {});
-            }
-
-            expect(mockNavigateToLogin).not.toHaveBeenCalled();
-            expect(mockDeleteCookie).not.toHaveBeenCalled();
-        });
-
-        it('should allow 401 redirect after setAuthInitializing(false)', async () => {
-            const { default: axiosInstance, setAuthInitializing } = await import('../axiosSetup');
-
-            setAuthInitializing(false);
+    describe('401 handling', () => {
+        it('should redirect to login and clear token on 401', async () => {
+            const { default: axiosInstance } = await import('../axiosSetup');
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const handlers = (axiosInstance.interceptors.response as any).handlers;
@@ -86,15 +54,12 @@ describe('axiosSetup', () => {
                 await errorHandler({ response: { status: 401 } } as AxiosError).catch(() => {});
             }
 
-            expect(mockDeleteCookie).toHaveBeenCalledWith('auth_token');
-            expect(mockDeleteCookie).toHaveBeenCalledWith('user_profile');
+            expect(localStorage.getItem('auth_token')).toBeNull();
             expect(mockNavigateToLogin).toHaveBeenCalled();
         });
 
         it('should debounce multiple 401 redirects', async () => {
-            const { default: axiosInstance, setAuthInitializing } = await import('../axiosSetup');
-
-            setAuthInitializing(false);
+            const { default: axiosInstance } = await import('../axiosSetup');
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const handlers = (axiosInstance.interceptors.response as any).handlers;
@@ -112,7 +77,7 @@ describe('axiosSetup', () => {
     });
 
     describe('request interceptor', () => {
-        it('should attach Authorization header from cookie', async () => {
+        it('should attach Authorization header from localStorage', async () => {
             const { default: axiosInstance } = await import('../axiosSetup');
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -120,10 +85,24 @@ describe('axiosSetup', () => {
             const fulfilledHandler = handlers[0]?.fulfilled;
 
             if (fulfilledHandler) {
-                const config = { headers: {} as Record<string, string>, withCredentials: false };
+                const config = { headers: {} as Record<string, string> };
                 const result = await fulfilledHandler(config);
                 expect(result.headers.Authorization).toBe('Bearer mock_token');
-                expect(result.withCredentials).toBe(true);
+            }
+        });
+
+        it('should not attach Authorization header when no token', async () => {
+            localStorage.removeItem('auth_token');
+            const { default: axiosInstance } = await import('../axiosSetup');
+
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const handlers = (axiosInstance.interceptors.request as any).handlers;
+            const fulfilledHandler = handlers[0]?.fulfilled;
+
+            if (fulfilledHandler) {
+                const config = { headers: {} as Record<string, string> };
+                const result = await fulfilledHandler(config);
+                expect(result.headers.Authorization).toBeUndefined();
             }
         });
     });
@@ -144,9 +123,7 @@ describe('axiosSetup', () => {
         });
 
         it('should NOT redirect on non-401 errors (e.g. 500)', async () => {
-            const { default: axiosInstance, setAuthInitializing } = await import('../axiosSetup');
-
-            setAuthInitializing(false);
+            const { default: axiosInstance } = await import('../axiosSetup');
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const handlers = (axiosInstance.interceptors.response as any).handlers;
@@ -157,13 +134,11 @@ describe('axiosSetup', () => {
             }
 
             expect(mockNavigateToLogin).not.toHaveBeenCalled();
-            expect(mockDeleteCookie).not.toHaveBeenCalled();
+            expect(localStorage.getItem('auth_token')).toBe('mock_token');
         });
 
         it('should NOT redirect on network errors (no response)', async () => {
-            const { default: axiosInstance, setAuthInitializing } = await import('../axiosSetup');
-
-            setAuthInitializing(false);
+            const { default: axiosInstance } = await import('../axiosSetup');
 
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const handlers = (axiosInstance.interceptors.response as any).handlers;

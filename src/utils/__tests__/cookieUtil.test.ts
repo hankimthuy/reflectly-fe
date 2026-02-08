@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import CookieUtil from '../cookieUtil';
 
 describe('CookieUtil', () => {
@@ -18,21 +18,10 @@ describe('CookieUtil', () => {
             expect(document.cookie).toContain('test_key=test_value');
         });
 
-        it('should also store value in localStorage as backup', () => {
+        it('should not store value in localStorage', () => {
             CookieUtil.setCookie('test_key', 'test_value', 1);
 
-            expect(localStorage.getItem('test_key')).toBe('test_value');
-        });
-
-        it('should not throw if localStorage is unavailable', () => {
-            const originalSetItem = localStorage.setItem;
-            localStorage.setItem = vi.fn(() => {
-                throw new Error('Storage full');
-            });
-
-            expect(() => CookieUtil.setCookie('key', 'val', 1)).not.toThrow();
-
-            localStorage.setItem = originalSetItem;
+            expect(localStorage.getItem('test_key')).toBeNull();
         });
     });
 
@@ -47,13 +36,13 @@ describe('CookieUtil', () => {
             expect(CookieUtil.getCookie('nonexistent')).toBe('');
         });
 
-        it('should fallback to localStorage when cookie is missing', () => {
+        it('should return empty string when localStorage has value but no cookie', () => {
             localStorage.setItem('fallback_key', 'fallback_value');
 
-            expect(CookieUtil.getCookie('fallback_key')).toBe('fallback_value');
+            expect(CookieUtil.getCookie('fallback_key')).toBe('');
         });
 
-        it('should prefer cookie value over localStorage value', () => {
+        it('should only read from cookie, not localStorage', () => {
             document.cookie = 'dual_key=from_cookie;path=/';
             localStorage.setItem('dual_key', 'from_storage');
 
@@ -80,12 +69,13 @@ describe('CookieUtil', () => {
             expect(CookieUtil.getCookie('to_delete')).toBe('');
         });
 
-        it('should remove the localStorage entry', () => {
+        it('should not affect localStorage', () => {
             localStorage.setItem('to_delete', 'value');
 
             CookieUtil.deleteCookie('to_delete');
 
-            expect(localStorage.getItem('to_delete')).toBeNull();
+            // CookieUtil no longer touches localStorage
+            expect(localStorage.getItem('to_delete')).toBe('value');
         });
     });
 });

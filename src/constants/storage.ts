@@ -1,4 +1,6 @@
-export const COOKIE_KEYS = {
+export const STORAGE_KEYS = {
     AUTH_TOKEN: 'auth_token',
-    USER_PROFILE: 'user_profile',
-}
+};
+
+/** @deprecated Use STORAGE_KEYS instead */
+export const COOKIE_KEYS = STORAGE_KEYS;

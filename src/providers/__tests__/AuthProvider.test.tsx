@@ -12,27 +12,15 @@ const mockUser: User = {
     fullName: 'Test User',
 };
 
-let mockGetCookie: Mock;
-let mockSetCookie: Mock;
-let mockDeleteCookie: Mock;
 let mockGetUserProfile: Mock;
-let mockSetAuthInitializing: Mock;
-
-vi.mock('../../utils/cookieUtil.ts', () => ({
-    default: {
-        getCookie: (...args: unknown[]) => mockGetCookie(...args),
-        setCookie: (...args: unknown[]) => mockSetCookie(...args),
-        deleteCookie: (...args: unknown[]) => mockDeleteCookie(...args),
-    },
-}));
+let mockLoginWithGoogle: Mock;
 
 vi.mock('../../services/userService.ts', () => ({
     getUserProfile: (...args: unknown[]) => mockGetUserProfile(...args),
 }));
 
-vi.mock('../../services/axiosSetup.ts', () => ({
-    setAuthInitializing: (...args: unknown[]) => mockSetAuthInitializing(...args),
-    default: {},
+vi.mock('../../services/authService.ts', () => ({
+    loginWithGoogle: (...args: unknown[]) => mockLoginWithGoogle(...args),
 }));
 
 vi.mock('@react-oauth/google', () => ({
@@ -74,17 +62,13 @@ const renderWithProviders = (ui: React.ReactNode, queryClient?: QueryClient) => 
 describe('AuthProvider', () => {
     beforeEach(() => {
         vi.clearAllMocks();
-        mockGetCookie = vi.fn().mockReturnValue('');
-        mockSetCookie = vi.fn();
-        mockDeleteCookie = vi.fn();
+        localStorage.clear();
         mockGetUserProfile = vi.fn().mockResolvedValue(mockUser);
-        mockSetAuthInitializing = vi.fn();
+        mockLoginWithGoogle = vi.fn().mockResolvedValue({ token: 'backend_jwt_token', user: mockUser });
     });
 
     describe('initialization', () => {
         it('should set isLoading=false and not authenticated when no token', async () => {
-            mockGetCookie.mockReturnValue('');
-
             renderWithProviders(<AuthConsumer onRender={() => {}} />);
 
             await waitFor(() => {
@@ -94,122 +78,50 @@ describe('AuthProvider', () => {
             expect(screen.getByTestId('user').textContent).toBe('null');
         });
 
-        it('should call setAuthInitializing(true) on mount when token exists', async () => {
-            mockGetCookie.mockImplementation((key: string) => {
-                if (key === 'auth_token') return 'valid_token';
-                return '';
-            });
+        it('should fetch profile and authenticate when token exists in localStorage', async () => {
+            localStorage.setItem('auth_token', 'valid_token');
 
             renderWithProviders(<AuthConsumer onRender={() => {}} />);
 
-            await waitFor(() => {
-                expect(mockSetAuthInitializing).toHaveBeenCalledWith(true);
-            });
-        });
-
-        it('should call setAuthInitializing(false) after profile query settles', async () => {
-            mockGetCookie.mockImplementation((key: string) => {
-                if (key === 'auth_token') return 'valid_token';
-                return '';
-            });
-
-            renderWithProviders(<AuthConsumer onRender={() => {}} />);
-
-            await waitFor(() => {
-                expect(mockSetAuthInitializing).toHaveBeenCalledWith(false);
-            });
-        });
-
-        it('should authenticate immediately when token exists in cookie', async () => {
-            mockGetCookie.mockImplementation((key: string) => {
-                if (key === 'auth_token') return 'valid_token';
-                return '';
-            });
-
-            renderWithProviders(<AuthConsumer onRender={() => {}} />);
-
-            // isAuthenticated is derived from token state, should be true on first render
             await waitFor(() => {
                 expect(screen.getByTestId('authenticated').textContent).toBe('true');
-            });
-        });
-
-        it('should load cached profile from cookie as initialData', async () => {
-            mockGetCookie.mockImplementation((key: string) => {
-                if (key === 'auth_token') return 'valid_token';
-                if (key === 'user_profile') return JSON.stringify(mockUser);
-                return '';
-            });
-
-            renderWithProviders(<AuthConsumer onRender={() => {}} />);
-
-            // Cached profile should appear immediately (initialData)
-            await waitFor(() => {
                 expect(screen.getByTestId('user').textContent).toBe('Test User');
             });
-        });
 
-        it('should fetch fresh profile from API and update user', async () => {
-            const freshUser: User = { ...mockUser, fullName: 'Fresh User' };
-            mockGetUserProfile.mockResolvedValue(freshUser);
-
-            mockGetCookie.mockImplementation((key: string) => {
-                if (key === 'auth_token') return 'valid_token';
-                return '';
-            });
-
-            renderWithProviders(<AuthConsumer onRender={() => {}} />);
-
-            await waitFor(() => {
-                expect(screen.getByTestId('user').textContent).toBe('Fresh User');
-            });
-
-            expect(mockSetCookie).toHaveBeenCalledWith(
-                'user_profile',
-                JSON.stringify(freshUser),
-                1
-            );
+            expect(mockGetUserProfile).toHaveBeenCalled();
         });
 
         it('should clean up token on 401 during profile fetch', async () => {
             mockGetUserProfile.mockRejectedValue({ response: { status: 401 } });
-
-            mockGetCookie.mockImplementation((key: string) => {
-                if (key === 'auth_token') return 'expired_token';
-                return '';
-            });
+            localStorage.setItem('auth_token', 'expired_token');
 
             renderWithProviders(<AuthConsumer onRender={() => {}} />);
 
             await waitFor(() => {
-                expect(mockDeleteCookie).toHaveBeenCalledWith('auth_token');
+                expect(screen.getByTestId('authenticated').textContent).toBe('false');
             });
-            expect(mockDeleteCookie).toHaveBeenCalledWith('user_profile');
+
+            expect(localStorage.getItem('auth_token')).toBeNull();
         });
 
-        it('should keep user authenticated on non-401 errors (network, 500)', async () => {
+        it('should not delete token on non-401 errors (network, 500)', async () => {
             mockGetUserProfile.mockRejectedValue({ response: { status: 500 } });
-
-            mockGetCookie.mockImplementation((key: string) => {
-                if (key === 'auth_token') return 'valid_token';
-                return '';
-            });
+            localStorage.setItem('auth_token', 'valid_token');
 
             renderWithProviders(<AuthConsumer onRender={() => {}} />);
 
+            // Wait for the query to settle (error state)
             await waitFor(() => {
-                expect(screen.getByTestId('authenticated').textContent).toBe('true');
+                expect(mockGetUserProfile).toHaveBeenCalled();
             });
 
-            // Should NOT delete token on 500
-            expect(mockDeleteCookie).not.toHaveBeenCalled();
+            // Token should NOT be removed on 500 errors
+            expect(localStorage.getItem('auth_token')).toBe('valid_token');
         });
     });
 
     describe('login', () => {
-        it('should set token cookie and trigger profile fetch', async () => {
-            mockGetCookie.mockReturnValue('');
-
+        it('should call backend, store JWT, and set user immediately', async () => {
             let capturedAuth: ReturnType<typeof useAuth> | null = null;
 
             renderWithProviders(
@@ -220,17 +132,18 @@ describe('AuthProvider', () => {
                 expect(screen.getByTestId('loading').textContent).toBe('false');
             });
 
-            // Perform login
             await act(async () => {
                 await capturedAuth!.login('google_id_token');
             });
 
-            expect(mockSetCookie).toHaveBeenCalledWith('auth_token', 'google_id_token', 1);
+            expect(mockLoginWithGoogle).toHaveBeenCalledWith('google_id_token', expect.anything());
+            expect(localStorage.getItem('auth_token')).toBe('backend_jwt_token');
+            expect(screen.getByTestId('authenticated').textContent).toBe('true');
+            expect(screen.getByTestId('user').textContent).toBe('Test User');
         });
 
-        it('should still consider user logged in even if profile fetch fails during login', async () => {
-            mockGetUserProfile.mockRejectedValue(new Error('Network error'));
-            mockGetCookie.mockReturnValue('');
+        it('should propagate error when backend login fails', async () => {
+            mockLoginWithGoogle.mockRejectedValue(new Error('Invalid Google ID token'));
 
             let capturedAuth: ReturnType<typeof useAuth> | null = null;
 
@@ -242,22 +155,20 @@ describe('AuthProvider', () => {
                 expect(screen.getByTestId('loading').textContent).toBe('false');
             });
 
-            await act(async () => {
-                await capturedAuth!.login('google_id_token');
-            });
+            await expect(
+                act(async () => {
+                    await capturedAuth!.login('bad_token');
+                })
+            ).rejects.toThrow('Invalid Google ID token');
 
-            expect(mockSetCookie).toHaveBeenCalledWith('auth_token', 'google_id_token', 1);
-            // isAuthenticated is based on token state, not profile success
-            expect(screen.getByTestId('authenticated').textContent).toBe('true');
+            expect(localStorage.getItem('auth_token')).toBeNull();
+            expect(screen.getByTestId('authenticated').textContent).toBe('false');
         });
     });
 
     describe('logout', () => {
-        it('should clear cookies and reset user state', async () => {
-            mockGetCookie.mockImplementation((key: string) => {
-                if (key === 'auth_token') return 'valid_token';
-                return '';
-            });
+        it('should clear localStorage and reset user state', async () => {
+            localStorage.setItem('auth_token', 'valid_token');
 
             let capturedAuth: ReturnType<typeof useAuth> | null = null;
 
@@ -273,8 +184,7 @@ describe('AuthProvider', () => {
                 capturedAuth!.logout();
             });
 
-            expect(mockDeleteCookie).toHaveBeenCalledWith('auth_token');
-            expect(mockDeleteCookie).toHaveBeenCalledWith('user_profile');
+            expect(localStorage.getItem('auth_token')).toBeNull();
 
             await waitFor(() => {
                 expect(screen.getByTestId('authenticated').textContent).toBe('false');

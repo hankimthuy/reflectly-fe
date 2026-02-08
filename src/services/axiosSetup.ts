@@ -1,35 +1,25 @@
 import axios from 'axios';
 import NavigationUtil from '../utils/navigationUtil.ts';
-import CookieUtil from "../utils/cookieUtil.ts";
-import {COOKIE_KEYS} from "../constants/storage.ts";
+import {STORAGE_KEYS} from "../constants/storage.ts";
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
     headers: {
         'Content-Type': 'application/json',
     },
-    withCredentials: true,
     timeout: 10000,
 });
 
 let isRedirecting = false;
-let isInitializingAuth = false;
 const REDIRECT_DEBOUNCE_MS = 2000;
 
-/** Called by AuthProvider to suppress 401 redirects during initial token check */
-export const setAuthInitializing = (value: boolean): void => {
-    isInitializingAuth = value;
-};
-
 const handleUnauthorizedError = (): void => {
-    // Don't redirect during initial auth check — let AuthProvider handle it gracefully
-    if (isRedirecting || isInitializingAuth) {
+    if (isRedirecting) {
         return;
     }
 
     isRedirecting = true;
-    CookieUtil.deleteCookie(COOKIE_KEYS.AUTH_TOKEN);
-    CookieUtil.deleteCookie(COOKIE_KEYS.USER_PROFILE);
+    localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
 
     const currentPath = window.location.pathname;
     NavigationUtil.navigateToLogin(currentPath);
@@ -41,8 +31,10 @@ const handleUnauthorizedError = (): void => {
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        config.headers.Authorization = `Bearer ${CookieUtil.getCookie(COOKIE_KEYS.AUTH_TOKEN)}`;
-        config.withCredentials = true;
+        const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
         return config;
     },
     (error) => {

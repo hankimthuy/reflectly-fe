@@ -3,6 +3,34 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import MobileFooter from '../MobileFooter';
 
+// Mock auth and theme providers
+vi.mock('../../../providers/AuthProvider', () => ({
+    useAuth: () => ({
+        isAuthenticated: false,
+        isLoading: false,
+        currentUser: null,
+        login: vi.fn(),
+        logout: vi.fn(),
+    }),
+}));
+
+vi.mock('../../../providers/ThemeContext', () => ({
+    useTheme: () => ({
+        mobileTab: 'split',
+        setMobileTab: vi.fn(),
+    }),
+}));
+
+vi.mock('react-i18next', () => ({
+    useTranslation: () => ({
+        t: (key: string) => key,
+    }),
+}));
+
+vi.mock('../../../components/ConfirmDialog/ConfirmDialog', () => ({
+    default: () => null,
+}));
+
 // Mock MUI components to avoid heavy rendering
 vi.mock('@mui/material', () => ({
     Box: ({ children, className }: { children: React.ReactNode; className?: string }) => (

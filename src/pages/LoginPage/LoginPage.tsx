@@ -1,5 +1,5 @@
 import {type CredentialResponse, GoogleLogin} from "@react-oauth/google";
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {APP_ROUTES} from '../../constants/route';
 import {useAuth} from '../../providers/AuthProvider';
@@ -8,7 +8,6 @@ import './LoginPage.scss';
 const LoginPage = () => {
     const [error, setError] = useState('');
     const [isLoggingIn, setIsLoggingIn] = useState(false);
-    const hasLoggedOut = useRef(false);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -17,30 +16,24 @@ const LoginPage = () => {
     const isExplicitLogin = location.state?.explicit === true;
     const intendedDestination = location.state?.from || APP_ROUTES.HOME || '/';
 
+    // If user is already authenticated and didn't explicitly request login, redirect away
     useEffect(() => {
         if (isLoading) return;
-
-        if (isExplicitLogin && isAuthenticated && !hasLoggedOut.current) {
-            hasLoggedOut.current = true;
-            logout();
-            return;
-        }
-
         if (isAuthenticated && !isExplicitLogin) {
             navigate(intendedDestination, {replace: true});
-            return;
         }
+    }, [isAuthenticated, isLoading, isExplicitLogin, navigate, intendedDestination]);
 
-        if (isAuthenticated && isExplicitLogin && hasLoggedOut.current) {
-            navigate(intendedDestination, {replace: true});
+    // If explicit login requested, log out first so user can pick a different account
+    useEffect(() => {
+        if (isExplicitLogin && isAuthenticated) {
+            logout();
         }
-    }, [isAuthenticated, isLoading, isExplicitLogin, logout, navigate, intendedDestination]);
+    }, []); // only on mount
 
     const handleOnSuccess = async (credentialResponse: CredentialResponse) => {
-        console.log('LoginPage: Google login success received');
         if (!credentialResponse.credential) {
-            const errorMsg = 'Did not receive credential from Google.';
-            setError(errorMsg);
+            setError('Did not receive credential from Google.');
             return;
         }
         
@@ -48,11 +41,8 @@ const LoginPage = () => {
         setError('');
         
         try {
-            const idToken = credentialResponse.credential;
-            console.log('LoginPage: Calling login with token');
-            await login(idToken);
-            console.log('LoginPage: Login completed successfully');
-            // Navigation will happen automatically via useEffect when isAuthenticated changes
+            await login(credentialResponse.credential);
+            navigate(intendedDestination, {replace: true});
         } catch (error) {
             console.error('LoginPage: Login error:', error);
             const errorMessage = error instanceof Error

@@ -1,36 +1,20 @@
-import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from '../ProtectedRoute';
 
 // --- Mocks ---
 let mockIsLoading: boolean;
-let mockGetCookie: Mock;
+let mockIsAuthenticated: boolean;
 
 vi.mock('../../providers/AuthProvider', () => ({
     useAuth: () => ({
         isLoading: mockIsLoading,
-        isAuthenticated: false,
+        isAuthenticated: mockIsAuthenticated,
         currentUser: null,
-        setCurrentUser: vi.fn(),
         login: vi.fn(),
         logout: vi.fn(),
     }),
-}));
-
-vi.mock('../../utils/cookieUtil.ts', () => ({
-    default: {
-        getCookie: (...args: unknown[]) => mockGetCookie(...args),
-        setCookie: vi.fn(),
-        deleteCookie: vi.fn(),
-    },
-}));
-
-vi.mock('../../constants/storage.ts', () => ({
-    COOKIE_KEYS: {
-        AUTH_TOKEN: 'auth_token',
-        USER_PROFILE: 'user_profile',
-    },
 }));
 
 const renderProtectedRoute = (initialPath: string, redirectTo?: string) => {
@@ -56,12 +40,12 @@ describe('ProtectedRoute', () => {
     beforeEach(() => {
         vi.clearAllMocks();
         mockIsLoading = false;
-        mockGetCookie = vi.fn().mockReturnValue('');
+        mockIsAuthenticated = false;
     });
 
-    describe('when user has a valid token', () => {
-        it('should render children when token exists', () => {
-            mockGetCookie.mockReturnValue('valid_token');
+    describe('when user is authenticated', () => {
+        it('should render children when authenticated', () => {
+            mockIsAuthenticated = true;
             mockIsLoading = false;
 
             renderProtectedRoute('/protected');
@@ -69,19 +53,20 @@ describe('ProtectedRoute', () => {
             expect(screen.getByTestId('protected-content')).toBeInTheDocument();
         });
 
-        it('should render children even while still loading if token exists', () => {
-            mockGetCookie.mockReturnValue('valid_token');
+        it('should show loading spinner while loading even if authenticated later', () => {
+            mockIsAuthenticated = false;
             mockIsLoading = true;
 
             renderProtectedRoute('/protected');
 
-            expect(screen.getByTestId('protected-content')).toBeInTheDocument();
+            expect(screen.getByText('Loading...')).toBeInTheDocument();
+            expect(screen.queryByTestId('protected-content')).not.toBeInTheDocument();
         });
     });
 
-    describe('when user has no token', () => {
-        it('should redirect to /login when no token and not loading', () => {
-            mockGetCookie.mockReturnValue('');
+    describe('when user is not authenticated', () => {
+        it('should redirect to /login when not authenticated and not loading', () => {
+            mockIsAuthenticated = false;
             mockIsLoading = false;
 
             renderProtectedRoute('/protected');
@@ -91,7 +76,7 @@ describe('ProtectedRoute', () => {
         });
 
         it('should redirect to custom redirectTo path', () => {
-            mockGetCookie.mockReturnValue('');
+            mockIsAuthenticated = false;
             mockIsLoading = false;
 
             renderProtectedRoute('/protected', '/custom-login');
@@ -99,8 +84,8 @@ describe('ProtectedRoute', () => {
             expect(screen.getByTestId('custom-login')).toBeInTheDocument();
         });
 
-        it('should show loading spinner when loading and no token', () => {
-            mockGetCookie.mockReturnValue('');
+        it('should show loading spinner when loading', () => {
+            mockIsAuthenticated = false;
             mockIsLoading = true;
 
             renderProtectedRoute('/protected');
@@ -108,26 +93,6 @@ describe('ProtectedRoute', () => {
             expect(screen.getByText('Loading...')).toBeInTheDocument();
             expect(screen.queryByTestId('protected-content')).not.toBeInTheDocument();
             expect(screen.queryByTestId('login-page')).not.toBeInTheDocument();
-        });
-    });
-
-    describe('edge cases', () => {
-        it('should treat empty string token as no token', () => {
-            mockGetCookie.mockReturnValue('');
-            mockIsLoading = false;
-
-            renderProtectedRoute('/protected');
-
-            expect(screen.getByTestId('login-page')).toBeInTheDocument();
-        });
-
-        it('should treat any non-empty token as valid', () => {
-            mockGetCookie.mockReturnValue('any_string');
-            mockIsLoading = false;
-
-            renderProtectedRoute('/protected');
-
-            expect(screen.getByTestId('protected-content')).toBeInTheDocument();
         });
     });
 });
