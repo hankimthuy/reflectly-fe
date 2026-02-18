@@ -19,8 +19,13 @@ vi.mock('../../services/userService.ts', () => ({
     getUserProfile: (...args: unknown[]) => mockGetUserProfile(...args),
 }));
 
+let mockLoginWithCredentials: Mock;
+let mockSignupWithCredentials: Mock;
+
 vi.mock('../../services/authService.ts', () => ({
     loginWithGoogle: (...args: unknown[]) => mockLoginWithGoogle(...args),
+    loginWithCredentials: (...args: unknown[]) => mockLoginWithCredentials(...args),
+    signupWithCredentials: (...args: unknown[]) => mockSignupWithCredentials(...args),
 }));
 
 vi.mock('@react-oauth/google', () => ({
@@ -65,6 +70,8 @@ describe('AuthProvider', () => {
         localStorage.clear();
         mockGetUserProfile = vi.fn().mockResolvedValue(mockUser);
         mockLoginWithGoogle = vi.fn().mockResolvedValue({ token: 'backend_jwt_token', user: mockUser });
+        mockLoginWithCredentials = vi.fn().mockResolvedValue({ token: 'backend_jwt_token', user: mockUser });
+        mockSignupWithCredentials = vi.fn().mockResolvedValue({ token: 'backend_jwt_token', user: mockUser });
     });
 
     describe('initialization', () => {
@@ -160,6 +167,98 @@ describe('AuthProvider', () => {
                     await capturedAuth!.login('bad_token');
                 })
             ).rejects.toThrow('Invalid Google ID token');
+
+            expect(localStorage.getItem('auth_token')).toBeNull();
+            expect(screen.getByTestId('authenticated').textContent).toBe('false');
+        });
+    });
+
+    describe('loginWithCredentials', () => {
+        it('should call backend, store JWT, and set user immediately', async () => {
+            let capturedAuth: ReturnType<typeof useAuth> | null = null;
+
+            renderWithProviders(
+                <AuthConsumer onRender={(auth) => { capturedAuth = auth; }} />
+            );
+
+            await waitFor(() => {
+                expect(screen.getByTestId('loading').textContent).toBe('false');
+            });
+
+            await act(async () => {
+                await capturedAuth!.loginWithCredentials('testuser', 'pass123');
+            });
+
+            expect(mockLoginWithCredentials).toHaveBeenCalledWith('testuser', 'pass123');
+            expect(localStorage.getItem('auth_token')).toBe('backend_jwt_token');
+            expect(screen.getByTestId('authenticated').textContent).toBe('true');
+            expect(screen.getByTestId('user').textContent).toBe('Test User');
+        });
+
+        it('should propagate error when credential login fails', async () => {
+            mockLoginWithCredentials.mockRejectedValue(new Error('Invalid credentials'));
+
+            let capturedAuth: ReturnType<typeof useAuth> | null = null;
+
+            renderWithProviders(
+                <AuthConsumer onRender={(auth) => { capturedAuth = auth; }} />
+            );
+
+            await waitFor(() => {
+                expect(screen.getByTestId('loading').textContent).toBe('false');
+            });
+
+            await expect(
+                act(async () => {
+                    await capturedAuth!.loginWithCredentials('testuser', 'wrong');
+                })
+            ).rejects.toThrow('Invalid credentials');
+
+            expect(localStorage.getItem('auth_token')).toBeNull();
+            expect(screen.getByTestId('authenticated').textContent).toBe('false');
+        });
+    });
+
+    describe('signup', () => {
+        it('should call backend, store JWT, and set user immediately', async () => {
+            let capturedAuth: ReturnType<typeof useAuth> | null = null;
+
+            renderWithProviders(
+                <AuthConsumer onRender={(auth) => { capturedAuth = auth; }} />
+            );
+
+            await waitFor(() => {
+                expect(screen.getByTestId('loading').textContent).toBe('false');
+            });
+
+            await act(async () => {
+                await capturedAuth!.signup('Test User', 'testuser', 'pass123');
+            });
+
+            expect(mockSignupWithCredentials).toHaveBeenCalledWith('Test User', 'testuser', 'pass123');
+            expect(localStorage.getItem('auth_token')).toBe('backend_jwt_token');
+            expect(screen.getByTestId('authenticated').textContent).toBe('true');
+            expect(screen.getByTestId('user').textContent).toBe('Test User');
+        });
+
+        it('should propagate error when signup fails', async () => {
+            mockSignupWithCredentials.mockRejectedValue(new Error('Username already taken'));
+
+            let capturedAuth: ReturnType<typeof useAuth> | null = null;
+
+            renderWithProviders(
+                <AuthConsumer onRender={(auth) => { capturedAuth = auth; }} />
+            );
+
+            await waitFor(() => {
+                expect(screen.getByTestId('loading').textContent).toBe('false');
+            });
+
+            await expect(
+                act(async () => {
+                    await capturedAuth!.signup('Test', 'taken', 'pass123');
+                })
+            ).rejects.toThrow('Username already taken');
 
             expect(localStorage.getItem('auth_token')).toBeNull();
             expect(screen.getByTestId('authenticated').textContent).toBe('false');

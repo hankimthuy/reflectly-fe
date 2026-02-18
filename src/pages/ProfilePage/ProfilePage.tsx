@@ -1,8 +1,9 @@
-import React, { useMemo, useState } from 'react';
+import React, { useRef, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { LuLogOut, LuGlobe, LuBell, LuDownload, LuBrainCircuit, LuShield, LuActivity } from 'react-icons/lu';
+import { LuLogOut, LuGlobe, LuBell, LuDownload, LuBrainCircuit, LuShield, LuActivity, LuPencil, LuLock, LuCamera, LuCheck, LuX } from 'react-icons/lu';
 import { useAuth } from '../../providers/AuthProvider';
+import { updateUserProfile, changePassword, uploadAvatar } from '../../services/userService';
 
 import { useEntriesInfiniteQuery } from '../../queries/entriesQueryHook';
 import { calculateDayStreak, getTopMood, getEmotionDistribution } from '../../utils/statsUtil';
@@ -12,14 +13,42 @@ import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog';
 import LanguageSwitcher from '../../components/LanguageSwitcher/LanguageSwitcher';
 import { APP_ROUTES } from '../../constants/route';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import SnackbarComponent from '../../components/Snackbar/Snackbar';
+import type { SnackbarType } from '../../components/Snackbar/Snackbar';
 import './ProfilePage.scss';
 
 const ProfilePage: React.FC = () => {
-    const { currentUser, logout } = useAuth();
+    const { currentUser, logout, setCurrentUser } = useAuth();
 
     const navigate = useNavigate();
     const { t } = useTranslation();
     const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
+
+    // Edit name state
+    const [isEditingName, setIsEditingName] = useState(false);
+    const [editName, setEditName] = useState('');
+    const [nameLoading, setNameLoading] = useState(false);
+    const [nameError, setNameError] = useState('');
+
+    // Change password state
+    const [isChangingPassword, setIsChangingPassword] = useState(false);
+    const [currentPassword, setCurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmNewPassword, setConfirmNewPassword] = useState('');
+    const [passwordLoading, setPasswordLoading] = useState(false);
+    const [passwordError, setPasswordError] = useState('');
+    const [passwordSuccess, setPasswordSuccess] = useState('');
+
+    // Avatar upload
+    const avatarInputRef = useRef<HTMLInputElement>(null);
+    const [avatarLoading, setAvatarLoading] = useState(false);
+
+    // Snackbar state
+    const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; type: SnackbarType }>({
+        open: false,
+        message: '',
+        type: 'error',
+    });
 
     const { data } = useEntriesInfiniteQuery();
 
@@ -38,6 +67,97 @@ const ProfilePage: React.FC = () => {
         setLogoutDialogOpen(false);
         await logout();
         navigate(APP_ROUTES.WELCOME);
+    };
+
+    // --- Edit Name ---
+    const handleStartEditName = () => {
+        if (currentUser) {
+            setEditName(currentUser.fullName);
+            setNameError('');
+            setIsEditingName(true);
+        }
+    };
+
+    const handleSaveName = async () => {
+        if (!editName.trim()) {
+            setNameError('Name cannot be empty.');
+            return;
+        }
+        setNameLoading(true);
+        setNameError('');
+        try {
+            const updatedUser = await updateUserProfile({ fullName: editName.trim() });
+            setCurrentUser(updatedUser);
+            setIsEditingName(false);
+        } catch (err) {
+            setNameError(err instanceof Error ? err.message : 'Failed to update name.');
+        } finally {
+            setNameLoading(false);
+        }
+    };
+
+    const handleCancelEditName = () => {
+        setIsEditingName(false);
+        setNameError('');
+    };
+
+    // --- Change Password ---
+    const handleSavePassword = async () => {
+        setPasswordError('');
+        setPasswordSuccess('');
+
+        if (!currentPassword.trim() || !newPassword.trim()) {
+            setPasswordError('Please fill in all fields.');
+            return;
+        }
+        if (newPassword !== confirmNewPassword) {
+            setPasswordError('New passwords do not match.');
+            return;
+        }
+        if (newPassword.length < 6) {
+            setPasswordError('New password must be at least 6 characters.');
+            return;
+        }
+
+        setPasswordLoading(true);
+        try {
+            await changePassword({ currentPassword, newPassword });
+            setPasswordSuccess('Password changed successfully.');
+            setCurrentPassword('');
+            setNewPassword('');
+            setConfirmNewPassword('');
+            setTimeout(() => {
+                setIsChangingPassword(false);
+                setPasswordSuccess('');
+            }, 2000);
+        } catch (err) {
+            setPasswordError(err instanceof Error ? err.message : 'Failed to change password.');
+        } finally {
+            setPasswordLoading(false);
+        }
+    };
+
+    // --- Avatar Upload ---
+    const handleAvatarClick = () => {
+        avatarInputRef.current?.click();
+    };
+
+    const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file || !currentUser) return;
+
+        setAvatarLoading(true);
+        try {
+            const { pictureUrl } = await uploadAvatar(file);
+            setCurrentUser({ ...currentUser, pictureUrl });
+        } catch (err) {
+            console.error('Avatar upload failed:', err);
+            const message = err instanceof Error ? err.message : 'Failed to upload avatar. Please try again.';
+            setSnackbar({ open: true, message, type: 'error' });
+        } finally {
+            setAvatarLoading(false);
+            if (avatarInputRef.current) avatarInputRef.current.value = '';
+        }
     };
 
 
@@ -65,7 +185,7 @@ const ProfilePage: React.FC = () => {
                     />
                 </div>
                 <div className="profile-page__hero-content">
-                    <div className="profile-page__avatar">
+                    <div className="profile-page__avatar profile-page__avatar--editable" onClick={handleAvatarClick}>
                         {currentUser.pictureUrl ? (
                             <img
                                 src={currentUser.pictureUrl}
@@ -78,6 +198,16 @@ const ProfilePage: React.FC = () => {
                                 {currentUser.fullName.charAt(0).toUpperCase()}
                             </div>
                         )}
+                        <div className="profile-page__avatar-overlay">
+                            {avatarLoading ? '...' : <LuCamera size={18} />}
+                        </div>
+                        <input
+                            ref={avatarInputRef}
+                            type="file"
+                            accept="image/*"
+                            style={{ display: 'none' }}
+                            onChange={handleAvatarChange}
+                        />
                     </div>
                     <div className="profile-page__info">
                         <h1 className="profile-page__name">{currentUser.fullName}</h1>
@@ -188,6 +318,82 @@ const ProfilePage: React.FC = () => {
                         {t('profilePage.settings.title')}
                     </h3>
                     <div className="settings-list">
+                        {/* Edit Name */}
+                        <div className="settings-list__item">
+                            <div className="settings-list__left">
+                                <LuPencil size={18} />
+                                <span>Display Name</span>
+                            </div>
+                            {!isEditingName ? (
+                                <button className="settings-list__toggle" onClick={handleStartEditName}>Edit</button>
+                            ) : (
+                                <div className="settings-list__inline-edit">
+                                    <input
+                                        className="settings-list__inline-input"
+                                        value={editName}
+                                        onChange={(e) => setEditName(e.target.value)}
+                                        disabled={nameLoading}
+                                    />
+                                    <button className="settings-list__icon-btn settings-list__icon-btn--save" onClick={handleSaveName} disabled={nameLoading}>
+                                        <LuCheck size={16} />
+                                    </button>
+                                    <button className="settings-list__icon-btn settings-list__icon-btn--cancel" onClick={handleCancelEditName} disabled={nameLoading}>
+                                        <LuX size={16} />
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                        {nameError && <div className="settings-list__error">{nameError}</div>}
+
+                        {/* Change Password (only for credential users) */}
+                        {currentUser.hasPassword && (
+                            <>
+                                <div className="settings-list__item">
+                                    <div className="settings-list__left">
+                                        <LuLock size={18} />
+                                        <span>Change Password</span>
+                                    </div>
+                                    <button className="settings-list__toggle" onClick={() => { setIsChangingPassword(!isChangingPassword); setPasswordError(''); setPasswordSuccess(''); }}>
+                                        {isChangingPassword ? 'Cancel' : 'Change'}
+                                    </button>
+                                </div>
+                                {isChangingPassword && (
+                                    <div className="settings-list__password-form">
+                                        <input
+                                            className="settings-list__password-input"
+                                            type="password"
+                                            placeholder="Current password"
+                                            value={currentPassword}
+                                            onChange={(e) => setCurrentPassword(e.target.value)}
+                                        />
+                                        <input
+                                            className="settings-list__password-input"
+                                            type="password"
+                                            placeholder="New password"
+                                            value={newPassword}
+                                            onChange={(e) => setNewPassword(e.target.value)}
+                                        />
+                                        <input
+                                            className="settings-list__password-input"
+                                            type="password"
+                                            placeholder="Confirm new password"
+                                            value={confirmNewPassword}
+                                            onChange={(e) => setConfirmNewPassword(e.target.value)}
+                                        />
+                                        {passwordError && <div className="settings-list__error">{passwordError}</div>}
+                                        {passwordSuccess && <div className="settings-list__success">{passwordSuccess}</div>}
+                                        <button
+                                            className="settings-list__password-btn"
+                                            onClick={handleSavePassword}
+                                            disabled={passwordLoading}
+                                        >
+                                            {passwordLoading ? 'Saving...' : 'Save Password'}
+                                        </button>
+                                    </div>
+                                )}
+                            </>
+                        )}
+
                         <div className="settings-list__item">
                             <div className="settings-list__left">
                                 <LuGlobe size={18} />
@@ -220,6 +426,14 @@ const ProfilePage: React.FC = () => {
 
                 </div>{/* end grid */}
             </div>
+
+            <SnackbarComponent
+                open={snackbar.open}
+                message={snackbar.message}
+                type={snackbar.type}
+                onClose={() => setSnackbar(prev => ({ ...prev, open: false }))}
+                autoHideDuration={5000}
+            />
 
             <ConfirmDialog
                 open={logoutDialogOpen}

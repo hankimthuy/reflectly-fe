@@ -17,3 +17,27 @@ export const loginWithGoogle = async (idToken: string): Promise<AuthLoginRespons
     );
     return response.data;
 };
+
+/**
+ * Login with username and password credentials.
+ * POST /auth/login  body: { username, password }
+ */
+export const loginWithCredentials = async (username: string, password: string): Promise<AuthLoginResponse> => {
+    const response = await axiosInstance.post<AuthLoginResponse>(
+        '/auth/login',
+        { username, password }
+    );
+    return response.data;
+};
+
+/**
+ * Register a new account with username and password.
+ * POST /auth/signup  body: { fullName, username, password }
+ */
+export const signupWithCredentials = async (fullName: string, username: string, password: string): Promise<AuthLoginResponse> => {
+    const response = await axiosInstance.post<AuthLoginResponse>(
+        '/auth/signup',
+        { fullName, username, password }
+    );
+    return response.data;
+};

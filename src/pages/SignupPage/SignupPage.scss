@@ -1,0 +1,17 @@
+// Import responsive system
+@use '../../styles/_variables' as *;
+@use '../../styles/_responsive' as *;
+
+// Reuse the same visual system as LoginPage
+// Background, header, form fields, footer all share the same classes from LoginPage.scss
+// This file only adds signup-specific overrides if needed
+
+.signup-page {
+  min-height: 100dvh;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family-primary), sans-serif;
+  position: relative;
+}

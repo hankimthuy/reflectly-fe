@@ -3,4 +3,5 @@ export interface User {
     email: string;
     pictureUrl: string;
     fullName: string;
+    hasPassword?: boolean;
 }

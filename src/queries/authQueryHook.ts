@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { STORAGE_KEYS } from '../constants/storage';
-import { loginWithGoogle } from '../services/authService';
+import { loginWithGoogle, loginWithCredentials, signupWithCredentials } from '../services/authService';
 import { getUserProfile } from '../services/userService';
 
 export const USER_PROFILE_QUERY_KEY = ['userProfile'] as const;
@@ -35,6 +35,40 @@ export const useLoginMutation = () => {
 
     return useMutation({
         mutationFn: loginWithGoogle,
+        onSuccess: ({ token, user }) => {
+            localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, token);
+            queryClient.setQueryData(USER_PROFILE_QUERY_KEY, user);
+        },
+    });
+};
+
+/**
+ * React Query mutation hook for username/password login.
+ * Calls POST /auth/login, stores backend JWT, and updates profile cache.
+ */
+export const useCredentialLoginMutation = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: ({ username, password }: { username: string; password: string }) =>
+            loginWithCredentials(username, password),
+        onSuccess: ({ token, user }) => {
+            localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, token);
+            queryClient.setQueryData(USER_PROFILE_QUERY_KEY, user);
+        },
+    });
+};
+
+/**
+ * React Query mutation hook for username/password signup.
+ * Calls POST /auth/signup, stores backend JWT, and updates profile cache.
+ */
+export const useSignupMutation = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: ({ fullName, username, password }: { fullName: string; username: string; password: string }) =>
+            signupWithCredentials(fullName, username, password),
         onSuccess: ({ token, user }) => {
             localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, token);
             queryClient.setQueryData(USER_PROFILE_QUERY_KEY, user);

@@ -1,6 +1,7 @@
 import {type CredentialResponse, GoogleLogin} from "@react-oauth/google";
-import {useEffect, useState} from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
+import {type FormEvent, useEffect, useState} from 'react';
+import {LuEye, LuEyeOff, LuGlobe, LuSparkles} from 'react-icons/lu';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {APP_ROUTES} from '../../constants/route';
 import {useAuth} from '../../providers/AuthProvider';
 import './LoginPage.scss';
@@ -9,9 +10,14 @@ const LoginPage = () => {
     const [error, setError] = useState('');
     const [isLoggingIn, setIsLoggingIn] = useState(false);
 
+    // Credential form state
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+
     const navigate = useNavigate();
     const location = useLocation();
-    const {isAuthenticated, login, logout, isLoading} = useAuth();
+    const {isAuthenticated, login, loginWithCredentials, logout, isLoading} = useAuth();
 
     const isExplicitLogin = location.state?.explicit === true;
     const intendedDestination = location.state?.from || APP_ROUTES.HOME || '/';
@@ -31,44 +37,69 @@ const LoginPage = () => {
         }
     }, []); // only on mount
 
-    const handleOnSuccess = async (credentialResponse: CredentialResponse) => {
+    const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
         if (!credentialResponse.credential) {
             setError('Did not receive credential from Google.');
             return;
         }
-        
+
         setIsLoggingIn(true);
         setError('');
-        
+
         try {
             await login(credentialResponse.credential);
             navigate(intendedDestination, {replace: true});
         } catch (error) {
-            console.error('LoginPage: Login error:', error);
+            console.error('LoginPage: Google login error:', error);
             const errorMessage = error instanceof Error
                 ? error.message
                 : 'Login failed during backend authentication step.';
-
             setError(errorMessage);
         } finally {
             setIsLoggingIn(false);
         }
-    }
+    };
 
-    const handleOnError = () => {
+    const handleGoogleError = () => {
         setError('Google authentication failed. Please try again.');
-    }
+    };
+
+    const handleCredentialLogin = async (e: FormEvent) => {
+        e.preventDefault();
+
+        if (!username.trim() || !password.trim()) {
+            setError('Please enter both username and password.');
+            return;
+        }
+
+        setIsLoggingIn(true);
+        setError('');
+
+        try {
+            await loginWithCredentials(username, password);
+            navigate(intendedDestination, {replace: true});
+        } catch (error) {
+            console.error('LoginPage: Credential login error:', error);
+            const errorMessage = error instanceof Error
+                ? error.message
+                : 'Login failed. Please check your credentials.';
+            setError(errorMessage);
+        } finally {
+            setIsLoggingIn(false);
+        }
+    };
 
     // Show loading spinner while checking authentication status
     if (isLoading) {
         return (
             <main className="login-page">
-                <div className="login-container">
-                    <div className="login-card">
-                        <div className="loading-indicator">
-                            Login...
-                        </div>
-                    </div>
+                <div className="login-bg">
+                    <div className="login-bg__split" />
+                    <div className="login-bg__orb login-bg__orb--blue" />
+                    <div className="login-bg__orb login-bg__orb--orange" />
+                </div>
+                <div className="login-main">
+                    <div className="login-loading">Signing in...</div>
                 </div>
             </main>
         );
@@ -76,41 +107,126 @@ const LoginPage = () => {
 
     return (
         <main className="login-page">
-            <div className="login-container">
-                <div className="login-card">
-                    <div className="login-header">
-                        <h2>Welcome to MimoSe</h2>
-                        <p className="login-subtitle">Join the bridge between worlds.</p>
-                    </div>
+            {/* Background */}
+            <div className="login-bg">
+                <div className="login-bg__split" />
+                <div className="login-bg__orb login-bg__orb--blue" />
+                <div className="login-bg__orb login-bg__orb--orange" />
+            </div>
 
+            {/* Main Content */}
+            <div className="login-main">
+                {/* Header */}
+                <header className="login-header">
+                    <h1 className="login-header__title">MimoSe</h1>
+                    <p className="login-header__subtitle">Bridge between worlds</p>
+                </header>
+
+                {/* Body */}
+                <div className="login-body">
                     {/* Error Display */}
                     {error !== '' && (
-                        <div className="error-message">
-                            {error}
-                        </div>
+                        <div className="login-error">{error}</div>
                     )}
 
-                    <div className="google-button-wrapper">
+                    {/* Google Login */}
+                    <div className="login-google-wrapper">
                         <GoogleLogin
-                            onSuccess={handleOnSuccess}
-                            onError={handleOnError}
+                            onSuccess={handleGoogleSuccess}
+                            onError={handleGoogleError}
                             theme="outline"
                             size="large"
                             width="350"
                         />
                     </div>
 
-                    {/* Loading indicator */}
-                    {isLoggingIn && (
-                        <div className="loading-indicator">
-                            Signing you in...
-                        </div>
-                    )}
-
-                    <div className="terms-text">
-                        By signing in, you agree to our Terms of Service and Privacy Policy
+                    {/* Divider */}
+                    <div className="login-divider">
+                        <div className="login-divider__line" />
+                        <span className="login-divider__text">or</span>
+                        <div className="login-divider__line" />
                     </div>
+
+                    {/* Credential Form */}
+                    <form className="login-form" onSubmit={handleCredentialLogin}>
+                        {/* Username */}
+                        <div className="login-field">
+                            <label className="login-field__label" htmlFor="login-username">
+                                Username
+                            </label>
+                            <input
+                                className="login-field__input"
+                                id="login-username"
+                                type="text"
+                                placeholder="Enter your username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                autoComplete="username"
+                            />
+                        </div>
+
+                        {/* Password */}
+                        <div className="login-field">
+                            <div className="login-field__label-row">
+                                <label className="login-field__label" htmlFor="login-password">
+                                    Password
+                                </label>
+                                <a className="login-field__forgot" href="#">
+                                    Forgot?
+                                </a>
+                            </div>
+                            <div className="login-field__input-wrapper">
+                                <input
+                                    className="login-field__input"
+                                    id="login-password"
+                                    type={showPassword ? 'text' : 'password'}
+                                    placeholder="••••••••"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    autoComplete="current-password"
+                                />
+                                <button
+                                    type="button"
+                                    className="login-field__toggle"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    tabIndex={-1}
+                                >
+                                    {showPassword ? <LuEyeOff size={18} /> : <LuEye size={18} />}
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Submit */}
+                        <button
+                            type="submit"
+                            className="login-submit-btn"
+                            disabled={isLoggingIn}
+                        >
+                            {isLoggingIn ? 'Signing in...' : 'Sign In'}
+                        </button>
+                    </form>
                 </div>
+
+                {/* Footer */}
+                <footer className="login-footer">
+                    <p className="login-footer__signup">
+                        Don't have an account?{' '}
+                        <Link to={APP_ROUTES.SIGNUP}>Start your journey</Link>
+                    </p>
+                    <div className="login-footer__links">
+                        <a href="#">Privacy Policy</a>
+                        <span className="login-footer__links-dot">•</span>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </footer>
+            </div>
+
+            {/* Decorative Icons */}
+            <div className="login-decor login-decor--top-right">
+                <LuSparkles size={48} />
+            </div>
+            <div className="login-decor login-decor--bottom-left">
+                <LuGlobe size={48} />
             </div>
         </main>
     );

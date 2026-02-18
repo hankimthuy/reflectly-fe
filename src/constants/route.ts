@@ -1,6 +1,7 @@
 export const APP_ROUTES = {
     // Public
     LOGIN: '/login',
+    SIGNUP: '/signup',
     WELCOME: '/',
     MIMO_METHOD: '/mimo-method',
     INNERVERSE: '/innerverse',
