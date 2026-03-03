@@ -1,6 +1,7 @@
 import axios from 'axios';
 import NavigationUtil from '../utils/navigationUtil.ts';
-import {STORAGE_KEYS} from "../constants/storage.ts";
+import { STORAGE_KEYS } from "../constants/storage.ts";
+import { queryClient } from "./queryClient.ts";
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -20,6 +21,8 @@ const handleUnauthorizedError = (): void => {
 
     isRedirecting = true;
     localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
+    queryClient.removeQueries();
+    queryClient.clear();
 
     const currentPath = window.location.pathname;
     NavigationUtil.navigateToLogin(currentPath);
