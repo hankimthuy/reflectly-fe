@@ -18,7 +18,7 @@ i18n
     resources,
     lng: 'en', // default language
     fallbackLng: 'en',
-    debug: true, // Enable debug mode for development
+    debug: import.meta.env.DEV,
     interpolation: {
       escapeValue: false // React already escapes by default
     },

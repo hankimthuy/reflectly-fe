@@ -8,7 +8,7 @@ import { useLoginMutation, useCredentialLoginMutation, useSignupMutation, useUse
 interface AuthContextValue {
     currentUser: User | null;
     isAuthenticated: boolean;
-    login: (idToken: string) => Promise<void>;
+    login: (authCode: string) => Promise<void>;
     loginWithCredentials: (username: string, password: string) => Promise<void>;
     signup: (fullName: string, username: string, password: string) => Promise<void>;
     logout: () => void;
@@ -26,7 +26,7 @@ export const useAuth = (): AuthContextValue => {
     return context;
 };
 
-export const AuthProvider = ({children}: { children: ReactNode }) => {
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const queryClient = useQueryClient();
 
     // Check if we have a stored token on mount
@@ -51,8 +51,8 @@ export const AuthProvider = ({children}: { children: ReactNode }) => {
     const isAuthenticated = !!currentUser;
     const isLoading = !!storedToken && isProfileLoading && !loginUser;
 
-    const login = useCallback(async (googleIdToken: string) => {
-        const { user } = await loginMutation.mutateAsync(googleIdToken);
+    const login = useCallback(async (authCode: string) => {
+        const { user } = await loginMutation.mutateAsync(authCode);
         setLoginUser(user);
     }, [loginMutation]);
 

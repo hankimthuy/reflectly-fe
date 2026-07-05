@@ -3,7 +3,6 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import MobileFooter from '../MobileFooter';
 
-// Mock auth and theme providers
 vi.mock('../../../providers/AuthProvider', () => ({
     useAuth: () => ({
         isAuthenticated: false,
@@ -14,10 +13,13 @@ vi.mock('../../../providers/AuthProvider', () => ({
     }),
 }));
 
+const mockSetMobileTab = vi.fn();
+let mockMobileTab = 'split';
+
 vi.mock('../../../providers/ThemeContext', () => ({
     useTheme: () => ({
-        mobileTab: 'split',
-        setMobileTab: vi.fn(),
+        mobileTab: mockMobileTab,
+        setMobileTab: mockSetMobileTab,
     }),
 }));
 
@@ -31,7 +33,6 @@ vi.mock('../../../components/ConfirmDialog/ConfirmDialog', () => ({
     default: () => null,
 }));
 
-// Mock MUI components to avoid heavy rendering
 vi.mock('@mui/material', () => ({
     Box: ({ children, className }: { children: React.ReactNode; className?: string }) => (
         <div className={className}>{children}</div>
@@ -41,23 +42,12 @@ vi.mock('@mui/material', () => ({
     ),
 }));
 
-vi.mock('@mui/icons-material/HomeOutlined', () => ({
-    default: () => <span data-testid="icon-home">Home</span>,
-}));
-vi.mock('@mui/icons-material/FormatQuote', () => ({
-    default: () => <span data-testid="icon-quotes">Quotes</span>,
-}));
 vi.mock('@mui/icons-material/Add', () => ({
     default: () => <span data-testid="icon-add">Add</span>,
 }));
-vi.mock('@mui/icons-material/Insights', () => ({
-    default: () => <span data-testid="icon-stats">Stats</span>,
-}));
-vi.mock('@mui/icons-material/List', () => ({
-    default: () => <span data-testid="icon-entries">Entries</span>,
-}));
 
-const renderWithRouter = (initialPath: string) => {
+const renderWithRouter = (initialPath: string, mobileTab = 'split') => {
+    mockMobileTab = mobileTab;
     return render(
         <MemoryRouter initialEntries={[initialPath]}>
             <MobileFooter />
@@ -68,63 +58,53 @@ const renderWithRouter = (initialPath: string) => {
 describe('MobileFooter', () => {
     describe('rendering', () => {
         it('should render all navigation items', () => {
-            renderWithRouter('/home');
+            renderWithRouter('/');
 
-            const links = screen.getAllByRole('link');
-            // 5 nav items: home, quotes, add (fab), statistics, entries
-            expect(links.length).toBe(5);
+            expect(screen.getByRole('button', { name: 'Inner' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Entries' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Outer' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Me' })).toBeInTheDocument();
+            expect(document.querySelector('.mobile-footer__fab')).toBeInTheDocument();
         });
 
         it('should render the FAB (add) button with correct class', () => {
-            renderWithRouter('/home');
+            renderWithRouter('/');
 
-            const fabLink = screen.getAllByRole('link').find(
-                (link: HTMLElement) => link.classList.contains('mobile-footer__fab')
-            );
-            expect(fabLink).toBeDefined();
+            expect(document.querySelector('.mobile-footer__fab')).toBeInTheDocument();
         });
     });
 
-    describe('active state based on location.pathname only', () => {
-        it('should mark /home as active when on /home', () => {
-            renderWithRouter('/home');
-
-            const activeItems = document.querySelectorAll('.mobile-footer__item--active');
-            expect(activeItems.length).toBe(1);
-
-            // The active link should point to /home
-            const activeLink = activeItems[0] as HTMLAnchorElement;
-            expect(activeLink.getAttribute('href')).toBe('/home');
-        });
-
-        it('should mark /quotes as active when on /quotes', () => {
-            renderWithRouter('/quotes');
-
-            const activeItems = document.querySelectorAll('.mobile-footer__item--active');
-            expect(activeItems.length).toBe(1);
-
-            const activeLink = activeItems[0] as HTMLAnchorElement;
-            expect(activeLink.getAttribute('href')).toBe('/quotes');
-        });
-
-        it('should mark /statistics as active when on /statistics', () => {
-            renderWithRouter('/statistics');
-
-            const activeItems = document.querySelectorAll('.mobile-footer__item--active');
-            expect(activeItems.length).toBe(1);
-
-            const activeLink = activeItems[0] as HTMLAnchorElement;
-            expect(activeLink.getAttribute('href')).toBe('/statistics');
-        });
-
-        it('should mark /entries/list as active when on /entries/list', () => {
+    describe('active state', () => {
+        it('should mark entries as active when on /entries/list', () => {
             renderWithRouter('/entries/list');
 
             const activeItems = document.querySelectorAll('.mobile-footer__item--active');
             expect(activeItems.length).toBe(1);
+            expect(activeItems[0].textContent).toContain('Entries');
+        });
 
-            const activeLink = activeItems[0] as HTMLAnchorElement;
-            expect(activeLink.getAttribute('href')).toBe('/entries/list');
+        it('should mark inner tab as active when mobileTab is inner', () => {
+            renderWithRouter('/', 'inner');
+
+            const activeItems = document.querySelectorAll('.mobile-footer__item--active');
+            expect(activeItems.length).toBe(1);
+            expect(activeItems[0].textContent).toContain('Inner');
+        });
+
+        it('should mark outer tab as active when mobileTab is outer', () => {
+            renderWithRouter('/', 'outer');
+
+            const activeItems = document.querySelectorAll('.mobile-footer__item--active');
+            expect(activeItems.length).toBe(1);
+            expect(activeItems[0].textContent).toContain('Outer');
+        });
+
+        it('should mark profile as active when on /profile', () => {
+            renderWithRouter('/profile');
+
+            const activeItems = document.querySelectorAll('.mobile-footer__item--active');
+            expect(activeItems.length).toBe(1);
+            expect(activeItems[0].textContent).toContain('Me');
         });
 
         it('should NOT mark any item as active on unrelated path', () => {
@@ -134,7 +114,7 @@ describe('MobileFooter', () => {
             expect(activeItems.length).toBe(0);
         });
 
-        it('should NOT mark any item as active on landing page (/)', () => {
+        it('should NOT mark any item as active on landing page (/) with split tab', () => {
             renderWithRouter('/');
 
             const activeItems = document.querySelectorAll('.mobile-footer__item--active');
@@ -142,51 +122,15 @@ describe('MobileFooter', () => {
         });
     });
 
-    describe('active indicator', () => {
-        it('should show indicator dot only for the active item', () => {
-            renderWithRouter('/home');
-
-            const indicators = document.querySelectorAll('.mobile-footer__indicator');
-            expect(indicators.length).toBe(1);
-        });
-
-        it('should NOT show indicator when no item is active', () => {
-            renderWithRouter('/some-random-page');
-
-            const indicators = document.querySelectorAll('.mobile-footer__indicator');
-            expect(indicators.length).toBe(0);
-        });
-    });
-
-    describe('navigation links', () => {
-        it('should have correct href for each nav item', () => {
-            renderWithRouter('/home');
-
-            const links = screen.getAllByRole('link');
-            const hrefs = links.map((link: HTMLElement) => link.getAttribute('href'));
-
-            expect(hrefs).toContain('/home');
-            expect(hrefs).toContain('/quotes');
-            expect(hrefs).toContain('/entries/new');
-            expect(hrefs).toContain('/statistics');
-            expect(hrefs).toContain('/entries/list');
-        });
-    });
-
-    describe('regression: no stale navIndex state', () => {
-        it('should only have one active item at a time regardless of navigation history', () => {
-            // This tests the fix: previously navIndex state could cause
-            // multiple items to appear active simultaneously
-            renderWithRouter('/statistics');
+    describe('regression: single active item', () => {
+        it('should only have one active item at a time', () => {
+            renderWithRouter('/entries/list');
 
             const activeItems = document.querySelectorAll('.mobile-footer__item--active');
             expect(activeItems.length).toBe(1);
-            expect((activeItems[0] as HTMLAnchorElement).getAttribute('href')).toBe('/statistics');
         });
 
-        it('should not show active state for /home when on /login (regression)', () => {
-            // Previously, navIndex defaulted to 0 (home) even on /login,
-            // causing home to appear active via the || condition
+        it('should not show active state on /login', () => {
             renderWithRouter('/login');
 
             const activeItems = document.querySelectorAll('.mobile-footer__item--active');

@@ -1,9 +1,10 @@
-import {type CredentialResponse, GoogleLogin} from "@react-oauth/google";
-import {type FormEvent, useEffect, useState} from 'react';
-import {LuEye, LuEyeOff, LuGlobe, LuSparkles} from 'react-icons/lu';
-import {Link, useLocation, useNavigate} from 'react-router-dom';
-import {APP_ROUTES} from '../../constants/route';
-import {useAuth} from '../../providers/AuthProvider';
+import { useGoogleLogin } from "@react-oauth/google";
+import { type FormEvent, useEffect, useState } from 'react';
+import { LuEye, LuEyeOff, LuGlobe, LuSparkles } from 'react-icons/lu';
+import { FcGoogle } from 'react-icons/fc';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { APP_ROUTES } from '../../constants/route';
+import { useAuth } from '../../providers/AuthProvider';
 import './LoginPage.scss';
 
 const LoginPage = () => {
@@ -17,7 +18,7 @@ const LoginPage = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const {isAuthenticated, login, loginWithCredentials, logout, isLoading} = useAuth();
+    const { isAuthenticated, login, loginWithCredentials, logout, isLoading } = useAuth();
 
     const isExplicitLogin = location.state?.explicit === true;
     const intendedDestination = location.state?.from || APP_ROUTES.HOME || '/';
@@ -26,7 +27,7 @@ const LoginPage = () => {
     useEffect(() => {
         if (isLoading) return;
         if (isAuthenticated && !isExplicitLogin) {
-            navigate(intendedDestination, {replace: true});
+            navigate(intendedDestination, { replace: true });
         }
     }, [isAuthenticated, isLoading, isExplicitLogin, navigate, intendedDestination]);
 
@@ -37,9 +38,9 @@ const LoginPage = () => {
         }
     }, []); // only on mount
 
-    const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
-        if (!credentialResponse.credential) {
-            setError('Did not receive credential from Google.');
+    const handleGoogleSuccess = async (codeResponse: any) => {
+        if (!codeResponse.code) {
+            setError('Did not receive authorization code from Google.');
             return;
         }
 
@@ -47,13 +48,13 @@ const LoginPage = () => {
         setError('');
 
         try {
-            await login(credentialResponse.credential);
-            navigate(intendedDestination, {replace: true});
-        } catch (error) {
+            await login(codeResponse.code);
+            navigate(intendedDestination, { replace: true });
+        } catch (error: any) {
             console.error('LoginPage: Google login error:', error);
-            const errorMessage = error instanceof Error
-                ? error.message
-                : 'Login failed during backend authentication step.';
+            const errorMessage = error.response?.data?.message
+                || error.message
+                || 'Network Error: Login failed during backend authentication step.';
             setError(errorMessage);
         } finally {
             setIsLoggingIn(false);
@@ -63,6 +64,12 @@ const LoginPage = () => {
     const handleGoogleError = () => {
         setError('Google authentication failed. Please try again.');
     };
+
+    const loginWithGoogle = useGoogleLogin({
+        flow: 'auth-code',
+        onSuccess: handleGoogleSuccess,
+        onError: handleGoogleError,
+    });
 
     const handleCredentialLogin = async (e: FormEvent) => {
         e.preventDefault();
@@ -77,7 +84,7 @@ const LoginPage = () => {
 
         try {
             await loginWithCredentials(username, password);
-            navigate(intendedDestination, {replace: true});
+            navigate(intendedDestination, { replace: true });
         } catch (error) {
             console.error('LoginPage: Credential login error:', error);
             const errorMessage = error instanceof Error
@@ -131,13 +138,15 @@ const LoginPage = () => {
 
                     {/* Google Login */}
                     <div className="login-google-wrapper">
-                        <GoogleLogin
-                            onSuccess={handleGoogleSuccess}
-                            onError={handleGoogleError}
-                            theme="outline"
-                            size="large"
-                            width="350"
-                        />
+                        <button
+                            type="button"
+                            className="login-google-btn"
+                            onClick={() => loginWithGoogle()}
+                            disabled={isLoggingIn}
+                        >
+                            <FcGoogle size={24} />
+                            Sign in with Google
+                        </button>
                     </div>
 
                     {/* Divider */}

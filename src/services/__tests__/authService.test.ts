@@ -25,19 +25,19 @@ describe('authService', () => {
     });
 
     describe('loginWithGoogle', () => {
-        it('should POST to /auth/google with idToken', async () => {
+        it('should POST to /auth/google with authCode', async () => {
             mockPost.mockResolvedValue({ data: mockAuthResponse });
 
-            const result = await loginWithGoogle('google_id_token');
+            const result = await loginWithGoogle('google_auth_code');
 
-            expect(mockPost).toHaveBeenCalledWith('/auth/google', { idToken: 'google_id_token' });
+            expect(mockPost).toHaveBeenCalledWith('/auth/google', { authCode: 'google_auth_code' });
             expect(result).toEqual(mockAuthResponse);
         });
 
         it('should propagate errors from the API', async () => {
             mockPost.mockRejectedValue(new Error('Network error'));
 
-            await expect(loginWithGoogle('bad_token')).rejects.toThrow('Network error');
+            await expect(loginWithGoogle('bad_code')).rejects.toThrow('Network error');
         });
     });
 

@@ -7,13 +7,13 @@ export interface AuthLoginResponse {
 }
 
 /**
- * Exchange a Google ID token for a backend JWT + user profile.
+ * Exchange a Google authorization code for a backend JWT + user profile.
  * The request interceptor skips Authorization when no token is stored yet.
  */
-export const loginWithGoogle = async (idToken: string): Promise<AuthLoginResponse> => {
+export const loginWithGoogle = async (authCode: string): Promise<AuthLoginResponse> => {
     const response = await axiosInstance.post<AuthLoginResponse>(
         '/auth/google',
-        { idToken }
+        { authCode }
     );
     return response.data;
 };
