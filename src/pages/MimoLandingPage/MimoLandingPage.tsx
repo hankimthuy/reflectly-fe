@@ -1,31 +1,19 @@
 import { useTranslation } from 'react-i18next';
-
-// Components
-
-// Styles
-import BridgeSection from './BridgeSection/BridgeSection';
-import HeroSection from './HeroSection/HeroSection';
+import FrameworkPanels from '../../components/FrameworkPanels/FrameworkPanels';
+import GardenMap from '../../components/GardenMap/GardenMap';
+import GardenHero from './GardenHero/GardenHero';
 import './MimoLandingPage.scss';
-import PillarsSection from './PillarsSection/PillarsSection';
 
 const MimoLandingPage = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="landing-page">
-      
-      {/* --- HERO SECTION --- */}
-      <HeroSection />
-
-      {/* --- PILLARS SECTION --- */}
-      <PillarsSection />
-
-      {/* --- BRIDGE SECTION --- */}
-      <BridgeSection />
-
-      {/* --- Footer --- */}
+    <div className="landing-page landing-page--garden">
+      <GardenHero />
+      <GardenMap />
+      <FrameworkPanels variant="compact" />
       <footer className="footer">
-        <span>{t('landingPage.footer.copyright')}</span>
+        <span>{t('brand.footer')}</span>
       </footer>
     </div>
   );

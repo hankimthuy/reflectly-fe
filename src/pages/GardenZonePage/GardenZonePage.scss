@@ -1,0 +1,116 @@
+@use '../../styles/_variables' as *;
+
+.garden-zone-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: calc(var(--header-height-mobile) + var(--spacing-lg)) var(--spacing-md) var(--spacing-3xl);
+
+  &__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    color: var(--garden-earth);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: var(--spacing-xl);
+
+    &:hover {
+      color: var(--garden-grass);
+    }
+  }
+
+  &__hero {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  &__icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--garden-parchment);
+    border: 2px solid rgba(166, 123, 91, 0.3);
+    border-radius: 50%;
+    color: var(--garden-grass);
+  }
+
+  h1 {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-2xl);
+    color: var(--garden-text);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  p {
+    color: var(--garden-text-muted);
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+  }
+
+  &__soon {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    background: var(--garden-parchment);
+    border-radius: var(--border-radius-lg);
+    border: 1px dashed rgba(166, 123, 91, 0.4);
+    color: var(--garden-text-muted);
+
+    h2 {
+      font-family: var(--font-family-heading);
+      color: var(--garden-text);
+      margin: var(--spacing-md) 0 var(--spacing-sm);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+
+    @media (min-width: 480px) {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &--primary {
+      background: var(--garden-grass);
+      color: white;
+
+      &:hover {
+        background: var(--c-primary-hover);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+    }
+
+    &--secondary {
+      background: var(--garden-parchment);
+      color: var(--garden-text);
+      border: 1px solid rgba(166, 123, 91, 0.3);
+
+      &:hover {
+        background: white;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}

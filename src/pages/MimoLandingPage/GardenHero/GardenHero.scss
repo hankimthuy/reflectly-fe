@@ -1,0 +1,91 @@
+@use '../../../styles/_variables' as *;
+
+.garden-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: calc(var(--header-height-mobile) + var(--spacing-2xl)) var(--spacing-md) var(--spacing-2xl);
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+
+  @media (min-width: 768px) {
+    padding-top: calc(var(--header-height-laptop) + var(--spacing-3xl));
+  }
+
+  &__brand {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--garden-grass);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  &__acronym {
+    font-size: var(--font-size-xs);
+    color: var(--garden-text-muted);
+    letter-spacing: 0.08em;
+    margin-bottom: var(--spacing-md);
+  }
+
+  &__slogan {
+    font-family: var(--font-family-heading);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: var(--font-weight-bold);
+    color: var(--garden-text);
+    line-height: var(--line-height-tight);
+    margin-bottom: var(--spacing-md);
+    background: var(--grad-garden-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  &__description {
+    font-size: var(--font-size-lg);
+    color: var(--garden-text-muted);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__tagline {
+    font-size: var(--font-size-sm);
+    font-style: italic;
+    color: var(--garden-earth);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  &__quote {
+    margin: var(--spacing-xl) 0 0;
+    padding: var(--spacing-lg);
+    background: var(--garden-parchment);
+    border-left: 4px solid var(--garden-grass);
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+    text-align: left;
+
+    p {
+      margin: 0;
+      font-family: var(--font-family-heading);
+      font-style: italic;
+      font-size: var(--font-size-base);
+      color: var(--garden-text);
+      line-height: var(--line-height-relaxed);
+    }
+  }
+
+  &__mimo {
+    margin-top: var(--spacing-lg);
+    opacity: 0.85;
+    transform: scale(0.85);
+
+    @media (min-width: 768px) {
+      position: absolute;
+      right: -120px;
+      top: 50%;
+      transform: translateY(-50%) scale(0.7);
+      opacity: 0.6;
+    }
+  }
+}

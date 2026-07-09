@@ -1,0 +1,15 @@
+.garden-map-reference {
+  width: 100%;
+  aspect-ratio: 800 / 520;
+  overflow: hidden;
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: 147%;
+    object-fit: cover;
+    object-position: top center;
+    pointer-events: none;
+    user-select: none;
+  }
+}

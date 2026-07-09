@@ -1,0 +1,181 @@
+.garden-map-panel {
+  &__label {
+    margin: 0 0 var(--spacing-sm);
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    text-align: center;
+    color: var(--garden-text);
+  }
+
+  &__canvas {
+    position: relative;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    border: 2px solid var(--garden-wood);
+    background: var(--garden-sky);
+  }
+
+  &--png &__canvas {
+    border-color: #5b8c5a;
+  }
+
+  &--svg &__canvas {
+    border-color: #a67b5b;
+  }
+
+  &__art {
+    position: relative;
+    width: 100%;
+  }
+
+  &__markers {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &__marker {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    pointer-events: auto;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+
+  &__marker-ring {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+
+    svg {
+      display: none;
+    }
+  }
+
+  &__marker--dev-png {
+    .garden-map-panel__marker-ring {
+      border: 2px dashed rgba(220, 53, 69, 0.8);
+      background: rgba(220, 53, 69, 0.06);
+    }
+
+    &:hover:not(:disabled) .garden-map-panel__marker-ring,
+    &.garden-map-panel__marker--active .garden-map-panel__marker-ring {
+      border-color: rgba(220, 53, 69, 1);
+      background: rgba(220, 53, 69, 0.15);
+    }
+  }
+
+  &__marker--dev-svg {
+    .garden-map-panel__marker-ring {
+      border: 2px dashed rgba(13, 110, 253, 0.8);
+      background: rgba(13, 110, 253, 0.06);
+    }
+
+    &:hover:not(:disabled) .garden-map-panel__marker-ring,
+    &.garden-map-panel__marker--active .garden-map-panel__marker-ring {
+      border-color: rgba(13, 110, 253, 1);
+      background: rgba(13, 110, 253, 0.15);
+    }
+  }
+
+  &--prod &__marker:hover:not(:disabled) &__marker-ring,
+  &--prod &__marker--active &__marker-ring {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(91, 140, 90, 0.65);
+    box-shadow: 0 0 0 4px rgba(91, 140, 90, 0.12);
+  }
+
+  &__marker-tooltip {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 10px;
+    background: var(--garden-parchment);
+    border: 1px solid rgba(166, 123, 91, 0.35);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--garden-text);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+    box-shadow: var(--shadow-sm);
+
+    small {
+      display: block;
+      margin-top: 2px;
+      font-weight: var(--font-weight-normal);
+      font-size: 10px;
+      color: var(--garden-text-muted);
+    }
+  }
+
+  &__marker:hover &__marker-tooltip,
+  &__marker--active &__marker-tooltip,
+  &__marker:focus-visible &__marker-tooltip {
+    opacity: 1;
+  }
+
+  &__zone-label {
+    position: absolute;
+    bottom: var(--spacing-md);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    width: min(300px, calc(100% - 24px));
+    padding: 10px 14px;
+    background: var(--garden-parchment);
+    border: 1px solid rgba(166, 123, 91, 0.35);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-md);
+    pointer-events: none;
+    animation: fadeUp 0.2s ease-out;
+
+    svg {
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--garden-grass);
+    }
+
+    strong {
+      display: block;
+      font-family: var(--font-family-heading);
+      font-size: var(--font-size-sm);
+      color: var(--garden-text);
+      margin-bottom: 2px;
+    }
+
+    p {
+      margin: 0;
+      font-size: var(--font-size-xs);
+      color: var(--garden-text-muted);
+      line-height: 1.4;
+    }
+
+    em {
+      font-style: normal;
+      font-size: var(--font-size-xs);
+      color: var(--garden-earth);
+    }
+  }
+}

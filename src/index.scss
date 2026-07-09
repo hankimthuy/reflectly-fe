@@ -1,6 +1,7 @@
 @use 'sass:map';
 @use './styles/variables' as *;
 @use './styles/responsive' as *;
+@use './styles/animations';
 
 :root {
   font-family: var(--font-family-primary), sans-serif;

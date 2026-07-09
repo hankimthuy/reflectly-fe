@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { LuLogOut, LuMenu, LuUser, LuX } from 'react-icons/lu';
 import { APP_ROUTES } from '../../constants/route';
 import { useAuth } from '../../providers/AuthProvider';
@@ -7,16 +8,15 @@ import LanguageSwitcher from '../../components/LanguageSwitcher/LanguageSwitcher
 import './MimoHeader.scss';
 
 interface MimoHeaderProps {
-  activeTheme?: 'split' | 'inner' | 'outer';
   scrolled?: boolean;
 }
 
-const MimoHeader = ({ activeTheme = 'split', scrolled = false }: MimoHeaderProps) => {
+const MimoHeader = ({ scrolled = false }: MimoHeaderProps) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const { currentUser, logout } = useAuth();
-  const isHomePage = location.pathname === '/' || location.pathname === APP_ROUTES.WELCOME;
-  
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [avatarError, setAvatarError] = useState(false);
@@ -36,47 +36,74 @@ const MimoHeader = ({ activeTheme = 'split', scrolled = false }: MimoHeaderProps
   const handleLogout = async () => {
     setIsUserMenuOpen(false);
     await logout();
-    navigate(APP_ROUTES.WELCOME || '/');
+    navigate(APP_ROUTES.WELCOME);
   };
 
   const handleGoProfile = () => {
     setIsUserMenuOpen(false);
-    navigate(APP_ROUTES.PROFILE || '/profile');
+    navigate(APP_ROUTES.PROFILE);
   };
 
   const handleLogin = () => {
     setIsMenuOpen(false);
-    navigate(APP_ROUTES.LOGIN || '/login', { state: { explicit: true } });
+    navigate(APP_ROUTES.LOGIN, { state: { explicit: true } });
   };
 
+  const navTo = (path: string) => {
+    setIsMenuOpen(false);
+    navigate(path);
+  };
+
+  const isActive = (path: string) => location.pathname === path;
+
   return (
-    <nav className={`mimo-header mimo-header--${activeTheme} ${scrolled ? 'mimo-header--scrolled' : ''}`}>
+    <nav className={`mimo-header mimo-header--garden ${scrolled ? 'mimo-header--scrolled' : ''}`}>
       <div className="mimo-header__container">
-        {/* LOGO */}
-        <div className="mimo-header__logo" onClick={() => navigate('/')}>
-          <span>MimoSe</span>
+        <div className="mimo-header__logo" onClick={() => navigate(APP_ROUTES.WELCOME)}>
+          <span>{t('brand.name')}</span>
         </div>
-        
-        {/* DESKTOP MENU */}
+
         <div className="mimo-header__nav">
-          <a onClick={() => navigate(APP_ROUTES.INNERVERSE)} style={{ cursor: 'pointer' }}>The Innerverse</a>
-          <a onClick={() => navigate(APP_ROUTES.OUTERVERSE)} style={{ cursor: 'pointer' }}>The Outerverse</a>
-          {isHomePage && <a href="#pillars">The 6 Pillars</a>}
-          <a onClick={() => navigate(APP_ROUTES.MIMO_METHOD)} style={{ cursor: 'pointer' }}>The Mimo Method</a>
-          
-          {/* AUTH LOGIC SWITCHER */}
-                    {currentUser ? (
-            // CASE 1: LOGGED IN - Gemini Style Avatar
+          <a
+            onClick={() => navigate(APP_ROUTES.WELCOME)}
+            className={isActive(APP_ROUTES.WELCOME) ? 'active' : ''}
+            style={{ cursor: 'pointer' }}
+          >
+            {t('nav.garden')}
+          </a>
+          <a
+            onClick={() => navigate(APP_ROUTES.REFLECTION_ZONE)}
+            className={isActive(APP_ROUTES.REFLECTION_ZONE) ? 'active' : ''}
+            style={{ cursor: 'pointer' }}
+          >
+            {t('nav.reflection')}
+          </a>
+          <a
+            onClick={() => navigate(APP_ROUTES.EMOTION_ZONE)}
+            className={isActive(APP_ROUTES.EMOTION_ZONE) ? 'active' : ''}
+            style={{ cursor: 'pointer' }}
+          >
+            {t('nav.emotion')}
+          </a>
+          <a
+            onClick={() => navigate(APP_ROUTES.PHUONG_PHAP)}
+            className={isActive(APP_ROUTES.PHUONG_PHAP) ? 'active' : ''}
+            style={{ cursor: 'pointer' }}
+          >
+            {t('nav.method')}
+          </a>
+
+          {currentUser ? (
             <div className="mimo-header__user" ref={userMenuRef}>
-              <div 
+              <div
                 className="mimo-header__avatar-wrapper"
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                 title={currentUser.fullName}
               >
                 {currentUser.pictureUrl && !avatarError ? (
-                  <img 
-                    src={currentUser.pictureUrl} 
-                    alt="User Avatar" 
+                  <img
+                    src={currentUser.pictureUrl}
+                    alt="User Avatar"
                     className="avatar-img"
                     onError={() => setAvatarError(true)}
                     referrerPolicy="no-referrer"
@@ -88,82 +115,78 @@ const MimoHeader = ({ activeTheme = 'split', scrolled = false }: MimoHeaderProps
                 )}
               </div>
 
-              {/* DROPDOWN MENU */}
               {isUserMenuOpen && (
                 <div className="mimo-header__dropdown">
                   <div className="dropdown-header">
                     <span className="user-name">{currentUser.fullName}</span>
                     <span className="user-email">{currentUser.email}</span>
                   </div>
-                  <div className="dropdown-divider"></div>
+                  <div className="dropdown-divider" />
                   <div className="dropdown-item language-switcher-item">
                     <LanguageSwitcher />
                   </div>
-                  <div className="dropdown-divider"></div>
+                  <div className="dropdown-divider" />
                   <button onClick={handleGoProfile} className="dropdown-item">
-                    <LuUser size={16} /> My Profile
+                    <LuUser size={16} /> {t('nav.profile')}
                   </button>
-                  <div className="dropdown-divider"></div>
+                  <div className="dropdown-divider" />
                   <button onClick={handleLogout} className="dropdown-item text-red-500">
-                    <LuLogOut size={16} /> Logout
+                    <LuLogOut size={16} /> {t('profilePage.logout')}
                   </button>
                 </div>
               )}
             </div>
           ) : (
-            // CASE 2: NOT LOGGED IN
             <div className="mimo-header__auth-section">
               <LanguageSwitcher />
               <button className="btn-cta" onClick={handleLogin}>
-                Start Journey
+                {t('nav.startJourney')}
               </button>
             </div>
           )}
         </div>
-        
-        {/* MOBILE TOGGLE */}
+
         <button className="mimo-header__toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           {isMenuOpen ? <LuX /> : <LuMenu />}
         </button>
       </div>
 
-     {/* MOBILE MENU OVERLAY */}
       {isMenuOpen && (
         <div className="mimo-header__mobile-menu">
-          <a onClick={() => { setIsMenuOpen(false); navigate(APP_ROUTES.INNERVERSE); }} style={{ cursor: 'pointer' }}>The Innerverse</a>
-          <a onClick={() => { setIsMenuOpen(false); navigate(APP_ROUTES.OUTERVERSE); }} style={{ cursor: 'pointer' }}>The Outerverse</a>
-          {isHomePage && <a href="#pillars" onClick={() => setIsMenuOpen(false)}>The 6 Pillars</a>}
-          <a onClick={() => { setIsMenuOpen(false); navigate(APP_ROUTES.MIMO_METHOD); }} style={{ cursor: 'pointer' }}>The Mimo Method</a>
-          <div className="divider"></div>
+          <a onClick={() => navTo(APP_ROUTES.WELCOME)} style={{ cursor: 'pointer' }}>{t('nav.garden')}</a>
+          <a onClick={() => navTo(APP_ROUTES.REFLECTION_ZONE)} style={{ cursor: 'pointer' }}>{t('nav.reflection')}</a>
+          <a onClick={() => navTo(APP_ROUTES.EMOTION_ZONE)} style={{ cursor: 'pointer' }}>{t('nav.emotion')}</a>
+          <a onClick={() => navTo(APP_ROUTES.PHUONG_PHAP)} style={{ cursor: 'pointer' }}>{t('nav.method')}</a>
+          <div className="divider" />
           <div className="mobile-language-switcher">
             <LanguageSwitcher />
           </div>
-          <div className="divider"></div>
+          <div className="divider" />
           {currentUser ? (
-             <>
-                <div className="mobile-user-info">
-                    <div className="mobile-avatar-wrapper">
-                        {currentUser.pictureUrl && !avatarError ? (
-                            <img 
-                                src={currentUser.pictureUrl} 
-                                alt="User Avatar" 
-                                className="mobile-avatar-img"
-                                onError={() => setAvatarError(true)}
-                                referrerPolicy="no-referrer"
-                            />
-                        ) : (
-                            <div className="mobile-avatar-placeholder">
-                                {currentUser.fullName?.charAt(0).toUpperCase() || 'U'}
-                            </div>
-                        )}
+            <>
+              <div className="mobile-user-info">
+                <div className="mobile-avatar-wrapper">
+                  {currentUser.pictureUrl && !avatarError ? (
+                    <img
+                      src={currentUser.pictureUrl}
+                      alt="User Avatar"
+                      className="mobile-avatar-img"
+                      onError={() => setAvatarError(true)}
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <div className="mobile-avatar-placeholder">
+                      {currentUser.fullName?.charAt(0).toUpperCase() || 'U'}
                     </div>
-                    <span className="mobile-user-name">{currentUser.fullName}</span>
+                  )}
                 </div>
-                <button onClick={handleGoProfile} className="mobile-item">My Profile</button>
-                <button onClick={handleLogout} className="mobile-item text-red">Logout</button>
-             </>
+                <span className="mobile-user-name">{currentUser.fullName}</span>
+              </div>
+              <button onClick={handleGoProfile} className="mobile-item">{t('nav.profile')}</button>
+              <button onClick={handleLogout} className="mobile-item text-red">{t('profilePage.logout')}</button>
+            </>
           ) : (
-             <button onClick={handleLogin} className="mobile-btn">Login / Start</button>
+            <button onClick={handleLogin} className="mobile-btn">{t('nav.login')}</button>
           )}
         </div>
       )}

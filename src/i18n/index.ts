@@ -16,8 +16,8 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'en', // default language
-    fallbackLng: 'en',
+    lng: 'vi',
+    fallbackLng: 'vi',
     debug: import.meta.env.DEV,
     interpolation: {
       escapeValue: false // React already escapes by default

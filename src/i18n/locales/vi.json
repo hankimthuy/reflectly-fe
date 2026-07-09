@@ -1,15 +1,95 @@
 {
+  "brand": {
+    "name": "MimoSe",
+    "acronym": "Make Sense Of ME",
+    "slogan": "Làm rõ chính mình",
+    "description": "Khu vườn tâm trí nơi bạn nhận ra mình đang cảm thấy gì, nghĩ gì, và cần gì — trước khi phản ứng với thế giới bên ngoài.",
+    "tagline": "Nhận thức bản thân, từng ngày một.",
+    "footer": "© 2026 MimoSe — Make Sense Of ME. Khoa học nhận thức và lãnh đạo bản thân.",
+    "welcome": "Chào mừng trở lại khu vườn của bạn."
+  },
+  "nav": {
+    "garden": "Khu vườn",
+    "reflection": "Tự chiêm nghiệm",
+    "emotion": "Cảm xúc",
+    "method": "Phương pháp",
+    "journal": "Nhật ký",
+    "profile": "Tôi",
+    "login": "Đăng nhập",
+    "startJourney": "Bắt đầu hành trình"
+  },
+  "garden": {
+    "mapTitle": "Ngôi nhà tâm trí của tôi",
+    "mapSubtitle": "Chọn một vùng trong vườn để khám phá và làm rõ chính mình.",
+    "mapAlt": "Bản đồ khu vườn tâm trí với ngôi nhà trung tâm và bốn vùng xung quanh",
+    "comingSoon": "Sắp mở",
+    "quote": "Tôi không thể kiểm soát người khác, nhưng tôi luôn kiểm soát được cách mình lắng nghe và chọn lọc.",
+    "legend": {
+      "goOut": "Đi ra trải nghiệm",
+      "comeBack": "Quay về phục hồi"
+    },
+    "zones": {
+      "mind": {
+        "title": "Tâm trí",
+        "description": "Ngôi nhà trung tâm — nơi bạn quay về để hiểu mình."
+      },
+      "reflection": {
+        "title": "Tự chiêm nghiệm",
+        "description": "Nơi bạn ghi lại và nhìn lại những gì đang diễn ra bên trong."
+      },
+      "creativity": {
+        "title": "Sáng tạo",
+        "description": "Biến hiểu biết thành biểu đạt — viết, vẽ, tạo hình những gì bạn cảm nhận."
+      },
+      "connection": {
+        "title": "Kết nối & Mối quan hệ",
+        "description": "Nhìn lại mạng lưới quan hệ — ai nuôi dưỡng và ai cạn kiệt bạn."
+      },
+      "emotion": {
+        "title": "Cảm xúc",
+        "description": "Nhận diện cảm xúc — bước đầu tiên để hiểu mình."
+      },
+      "filter": {
+        "title": "Bộ lọc bên trong",
+        "description": "Chọn điều gì để tin, giữ, và mang về ngôi nhà tâm trí."
+      }
+    },
+    "framework": {
+      "goOut": {
+        "title": "Tôi ra ngoài như thế nào?",
+        "intro": "Chuẩn bị tâm thế trước khi bước ra thế giới bên ngoài.",
+        "steps": ["Chuẩn bị — biết mình đi đâu và vì sao", "Hiện diện — ở ngay khoảnh khắc này", "Chọn lọc — quyết định điều gì đáng để mở lòng", "Tự do — không mang theo kỳ vọng của người khác"]
+      },
+      "comeBack": {
+        "title": "Tôi quay về như thế nào?",
+        "intro": "Phục hồi và xử lý sau mỗi trải nghiệm bên ngoài.",
+        "steps": ["Mang về bài học và lòng biết ơn", "Buông bỏ stress và kỳ vọng không cần thiết", "Nghỉ ngơi — cho tâm trí và cơ thể hồi phục", "Kết nối lại với giá trị cốt lõi của mình"]
+      },
+      "filter": {
+        "title": "Bộ lọc bên trong – Hàng rào tâm lý",
+        "intro": "Quy trình lọc thông tin và cảm xúc trước khi để chúng vào tâm trí.",
+        "steps": ["Nhận biết — nhận ra điều gì đang ảnh hưởng đến mình", "Đặt câu hỏi — điều này có đúng với mình không?", "Chọn lọc — giữ điều có ích, buông điều không", "Buông bỏ — không ôm hết mọi thứ", "Giữ vững — bám vào giá trị cốt lõi"]
+      },
+      "principlesTitle": "Bốn nguyên tắc cổng vào",
+      "principles": [
+        "Không phải mọi nhận xét đều đúng.",
+        "Không phải cảm xúc của người khác là trách nhiệm của mình.",
+        "Tôi chọn điều gì để tin, để giữ, để mang về.",
+        "Tôi được quyền khác ý."
+      ]
+    }
+  },
   "breadcrumb": {
-    "home": "Trang chủ",
-    "innerverse": "The Innerverse",
-    "outerverse": "The Outerverse",
-    "safeSpace": "Không Gian An Toàn",
-    "journal": "Nhật Ký",
-    "profile": "Hồ Sơ"
+    "home": "Khu vườn",
+    "reflection": "Tự chiêm nghiệm",
+    "emotion": "Cảm xúc",
+    "journal": "Nhật ký",
+    "profile": "Hồ sơ",
+    "method": "Phương pháp"
   },
   "landingPage": {
     "footer": {
-      "copyright": "© 2026 MimoSe Inc. - Khoa học Lãnh đạo Bản thân."
+      "copyright": "© 2026 MimoSe — Make Sense Of ME. Khoa học nhận thức và lãnh đạo bản thân."
     }
   },
   "heroSection": {
@@ -70,6 +150,10 @@
     "learnMore": "Tìm hiểu thêm"
   },
   "mobileFooter": {
+    "garden": "Vườn",
+    "journal": "Nhật ký",
+    "emotion": "Cảm xúc",
+    "profile": "Tôi",
     "authDialog": {
       "title": "Yêu cầu Đăng nhập",
       "message": "Bạn cần đăng nhập để tạo hoặc xem các bài viết của mình.",
@@ -78,7 +162,8 @@
     }
   },
   "profilePage": {
-    "loginRequired": "Vui lòng đăng nhập để xem hồ sơ của bạn.",
+    "title": "Khu vườn của tôi",
+    "loginRequired": "Vui lòng đăng nhập để xem khu vườn của bạn.",
     "stats": {
       "dayStreak": "Chuỗi ngày",
       "topMood": "Cảm xúc chính"
@@ -103,7 +188,7 @@
     }
   },
   "newEntryPage": {
-    "title": "Không Gian An Toàn",
+    "title": "Góc tự chiêm nghiệm",
     "subtitle": "Ngay lúc này — bạn đang cảm thấy thế nào?",
     "emotionQuestion": "Điều gì đang hiện diện trong bạn?",
     "emotionInstruction": "Chọn những gì cộng hưởng. Không có đáp án sai.",
@@ -119,8 +204,8 @@
     "errorTitle": "Lỗi"
   },
   "entriesPage": {
-    "title": "Nhật ký",
-    "subtitle": "Mỗi dòng nhật ký là một bước tiến đến hiểu chính mình.",
+    "title": "Nhật ký tự chiêm nghiệm",
+    "subtitle": "Mỗi dòng nhật ký là một bước để làm rõ chính mình.",
     "loadMore": "Tải thêm",
     "showing": "Hiển thị {{current}} trong {{total}} bài viết",
     "emptyState": "Can đảm để bắt đầu là can đảm để trưởng thành.",
@@ -147,118 +232,47 @@
     "deleteSuccess": "Đã xóa nhật ký.",
     "deleteError": "Không thể xóa nhật ký."
   },
-  "mimoMethodPage": {
+  "phuongPhapPage": {
     "hero": {
-      "badge": "Phương pháp Mimo",
-      "title": "Từ Thấu hiểu đến <span class=\"highlight\">Hành động.</span>",
-      "subtitle": "Cầu nối giữa việc hiểu bản thân và lãnh đạo bản thân. Mimo chuyển đổi dữ liệu cảm xúc thô thành chiến lược sống có thể hành động."
-    },
-    "howItWorks": {
-      "title": "Cách hoạt động",
-      "subtitle": "Chu trình 4 bước biến nhận thức bản thân thành tự lãnh đạo.",
-      "steps": {
-        "feel": {
-          "number": "01",
-          "title": "Cảm nhận",
-          "description": "Bạn viết nhật ký tự do trong Không gian An toàn. Không bộ lọc, không phán xét — chỉ sự thể hiện thô, chân thật.",
-          "tag": "Innerverse"
-        },
-        "understand": {
-          "number": "02",
-          "title": "Thấu hiểu",
-          "description": "Mimo phát hiện các mẫu hình trong cảm xúc, ánh xạ chúng với Giá trị Cốt lõi và làm nổi bật các kết nối ẩn.",
-          "tag": "Thấu hiểu"
-        },
-        "decide": {
-          "number": "03",
-          "title": "Quyết định",
-          "description": "Được hướng dẫn bởi La bàn Nội tâm, bạn chọn một hành động cụ thể — thiết lập ranh giới, bắt đầu cuộc trò chuyện, hoặc thay đổi thói quen.",
-          "tag": "Cầu nối"
-        },
-        "act": {
-          "number": "04",
-          "title": "Hành động",
-          "description": "Bạn thực hiện trong Outerverse. Theo dõi sự điều chỉnh, đo lường sự phát triển và xem sự tiến hóa theo thời gian.",
-          "tag": "Outerverse"
-        }
-      }
-    },
-    "bridge": {
-      "title": "Cầu nối Trực quan",
-      "innerLabel": "Innerverse",
-      "innerDesc": "Suy nghĩ, cảm xúc, mẫu hình",
-      "outerLabel": "Outerverse",
-      "outerDesc": "Hành động, ranh giới, phát triển"
+      "badge": "Phương pháp MimoSe",
+      "title": "Khung <span class=\"highlight\">nhận thức bản thân</span>",
+      "subtitle": "Ba câu hỏi và một bộ lọc giúp bạn ra ngoài có ý thức, quay về an toàn, và hiểu mình sâu hơn mỗi ngày."
     },
     "cta": {
-      "title": "Sẵn sàng bắc cầu?",
-      "subtitle": "Bắt đầu hành trình từ thấu hiểu đến hành động ngay hôm nay.",
-      "button": "Bắt đầu Lãnh đạo Bản thân"
+      "title": "Sẵn sàng bước vào vườn?",
+      "subtitle": "Bắt đầu từ góc tự chiêm nghiệm — viết dòng nhật ký đầu tiên.",
+      "button": "Viết nhật ký"
     }
   },
-  "innerversePage": {
-    "hero": {
-      "badge": "The Innerverse",
-      "title": "Thế Giới <span class=\"highlight\">Nội Tâm.</span>",
-      "subtitle": "Khám phá chiều sâu suy nghĩ và cảm xúc của bạn. Hiểu bản thân trước khi dẫn dắt bản thân."
-    },
-    "sections": {
-      "safeSpace": {
-        "title": "Không Gian An Toàn",
-        "description": "Một không gian riêng tư, không phán xét để bạn bày tỏ những suy nghĩ và cảm xúc thật. Không bộ lọc, không nhiễu — chỉ có sự thành thật.",
-        "cta": "Ghi Nhật Ký Nội Tâm",
-        "ctaView": "Xem Nhật Ký"
-      },
-      "innerCompass": {
-        "title": "La Bàn Nội Tâm",
-        "description": "Xác định và theo dõi Giá Trị Cốt Lõi. Hiểu 'Tại sao' đằng sau 'Bạn là ai' và căn chỉnh hành động hàng ngày với điều thực sự quan trọng.",
-        "cta": "Sắp Ra Mắt"
-      },
-      "senseConnection": {
-        "title": "Kết Nối Cảm Xúc",
-        "description": "Phát hiện các mẫu ẩn trong tâm trạng và hành vi. Kết nối các điểm giữa cảm xúc và sự kiện kích hoạt chúng.",
-        "cta": "Sắp Ra Mắt"
-      }
-    }
+  "zonePage": {
+    "comingSoon": "Sắp mở",
+    "comingSoonDesc": "Vùng này đang được chăm sóc. Hãy quay lại sau.",
+    "writeJournal": "Viết nhật ký",
+    "viewJournal": "Xem nhật ký",
+    "backToGarden": "Về khu vườn"
   },
-  "outerversePage": {
-    "hero": {
-      "badge": "The Outerverse",
-      "title": "Dẫn Dắt <span class=\"highlight\">Thực Tại.</span>",
-      "subtitle": "Chuyển đổi thấu hiểu nội tâm thành hành động cụ thể. Thiết lập ranh giới, giao tiếp và phát triển."
-    },
-    "sections": {
-      "socialMirror": {
-        "title": "Gương Xã Hội",
-        "description": "Hình dung mạng lưới xã hội của bạn. Hiểu ai thúc đẩy sự phát triển và ai tiêu hao năng lượng của bạn.",
-        "cta": "Sắp Ra Mắt"
-      },
-      "selfRegulation": {
-        "title": "Tự Điều Chỉnh",
-        "description": "Biến thấu hiểu thành hành động. Làm chủ xung động, thiết lập ranh giới lành mạnh và xây dựng thói quen bền vững.",
-        "cta": "Sắp Ra Mắt"
-      },
-      "growthVision": {
-        "title": "Tầm Nhìn Phát Triển",
-        "description": "Vẽ bản đồ tiến hóa. Thiết lập quỹ đạo rõ ràng cho bản thân tương lai và theo dõi tiến trình.",
-        "cta": "Sắp Ra Mắt"
-      }
-    }
+  "emotionPage": {
+    "title": "Hồ sen cảm xúc",
+    "subtitle": "Nhận diện và theo dõi mẫu hình cảm xúc — bước đầu tiên để hiểu mình.",
+    "empty": "Bắt đầu viết nhật ký để thấy mẫu hình cảm xúc của bạn nở rộ trong vườn."
   },
-  "bridgeSection": {
-    "badge": "Phương pháp Mimo",
-    "title": "Từ Thấu hiểu đến <span class=\"highlight\">Hành động.</span>",
-    "description": "Mimo kết nối khoảng cách. Chúng tôi lấy dữ liệu thô từ <strong>Innerverse</strong> của bạn và chuyển đổi nó thành các bước hành động cho <strong>Outerverse</strong> của bạn.",
-    "steps": {
-      "awareness": {
-        "title": "1. Nhận thức",
-        "example": "Tôi cảm thấy lo lắng."
-      },
-      "regulation": {
-        "title": "2. Điều chỉnh",
-        "example": "Tôi sẽ thiết lập một ranh giới."
-      }
-    },
-    "cta": "Bắt đầu Lãnh đạo Bản thân"
+  "notFound": {
+    "title": "Bạn đã đi lạc khỏi vườn",
+    "subtitle": "Trang này không tồn tại trong khu vườn tâm trí.",
+    "back": "Về khu vườn"
+  },
+  "auth": {
+    "loginTitle": "Đăng nhập",
+    "signupTitle": "Tạo tài khoản",
+    "username": "Tên đăng nhập",
+    "password": "Mật khẩu",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "loginButton": "Đăng nhập",
+    "signupButton": "Đăng ký",
+    "googleLogin": "Tiếp tục với Google",
+    "noAccount": "Chưa có tài khoản?",
+    "hasAccount": "Đã có tài khoản?",
+    "signupLink": "Đăng ký",
+    "loginLink": "Đăng nhập"
   }
 }

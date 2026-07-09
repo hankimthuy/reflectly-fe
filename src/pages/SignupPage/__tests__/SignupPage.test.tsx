@@ -28,6 +28,19 @@ vi.mock('../../../providers/AuthProvider', () => ({
     }),
 }));
 
+vi.mock('react-i18next', () => ({
+    useTranslation: () => ({
+        t: (key: string) => {
+            const labels: Record<string, string> = {
+                'brand.name': 'MimoSe',
+                'brand.acronym': 'Make Sense Of ME',
+                'auth.signupTitle': 'Tạo tài khoản',
+            };
+            return labels[key] ?? key;
+        },
+    }),
+}));
+
 const renderSignupPage = () => {
     return render(
         <MemoryRouter initialEntries={['/signup']}>
@@ -47,7 +60,7 @@ describe('SignupPage', () => {
             renderSignupPage();
 
             expect(screen.getByText('MimoSe')).toBeInTheDocument();
-            expect(screen.getByText('Start your journey')).toBeInTheDocument();
+            expect(screen.getByText('Tạo tài khoản')).toBeInTheDocument();
         });
 
         it('should render all form fields', () => {

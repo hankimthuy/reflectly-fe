@@ -13,19 +13,17 @@ vi.mock('../../../providers/AuthProvider', () => ({
     }),
 }));
 
-const mockSetMobileTab = vi.fn();
-let mockMobileTab = 'split';
-
-vi.mock('../../../providers/ThemeContext', () => ({
-    useTheme: () => ({
-        mobileTab: mockMobileTab,
-        setMobileTab: mockSetMobileTab,
-    }),
-}));
-
 vi.mock('react-i18next', () => ({
     useTranslation: () => ({
-        t: (key: string) => key,
+        t: (key: string) => {
+            const labels: Record<string, string> = {
+                'mobileFooter.garden': 'Vườn',
+                'mobileFooter.journal': 'Nhật ký',
+                'mobileFooter.emotion': 'Cảm xúc',
+                'mobileFooter.profile': 'Tôi',
+            };
+            return labels[key] ?? key;
+        },
     }),
 }));
 
@@ -46,8 +44,7 @@ vi.mock('@mui/icons-material/Add', () => ({
     default: () => <span data-testid="icon-add">Add</span>,
 }));
 
-const renderWithRouter = (initialPath: string, mobileTab = 'split') => {
-    mockMobileTab = mobileTab;
+const renderWithRouter = (initialPath: string) => {
     return render(
         <MemoryRouter initialEntries={[initialPath]}>
             <MobileFooter />
@@ -60,10 +57,10 @@ describe('MobileFooter', () => {
         it('should render all navigation items', () => {
             renderWithRouter('/');
 
-            expect(screen.getByRole('button', { name: 'Inner' })).toBeInTheDocument();
-            expect(screen.getByRole('button', { name: 'Entries' })).toBeInTheDocument();
-            expect(screen.getByRole('button', { name: 'Outer' })).toBeInTheDocument();
-            expect(screen.getByRole('button', { name: 'Me' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Vườn' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Nhật ký' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Cảm xúc' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Tôi' })).toBeInTheDocument();
             expect(document.querySelector('.mobile-footer__fab')).toBeInTheDocument();
         });
 
@@ -80,23 +77,23 @@ describe('MobileFooter', () => {
 
             const activeItems = document.querySelectorAll('.mobile-footer__item--active');
             expect(activeItems.length).toBe(1);
-            expect(activeItems[0].textContent).toContain('Entries');
+            expect(activeItems[0].textContent).toContain('Nhật ký');
         });
 
-        it('should mark inner tab as active when mobileTab is inner', () => {
-            renderWithRouter('/', 'inner');
+        it('should mark garden as active when on /', () => {
+            renderWithRouter('/');
 
             const activeItems = document.querySelectorAll('.mobile-footer__item--active');
             expect(activeItems.length).toBe(1);
-            expect(activeItems[0].textContent).toContain('Inner');
+            expect(activeItems[0].textContent).toContain('Vườn');
         });
 
-        it('should mark outer tab as active when mobileTab is outer', () => {
-            renderWithRouter('/', 'outer');
+        it('should mark emotion as active when on /cam-xuc', () => {
+            renderWithRouter('/cam-xuc');
 
             const activeItems = document.querySelectorAll('.mobile-footer__item--active');
             expect(activeItems.length).toBe(1);
-            expect(activeItems[0].textContent).toContain('Outer');
+            expect(activeItems[0].textContent).toContain('Cảm xúc');
         });
 
         it('should mark profile as active when on /profile', () => {
@@ -104,18 +101,11 @@ describe('MobileFooter', () => {
 
             const activeItems = document.querySelectorAll('.mobile-footer__item--active');
             expect(activeItems.length).toBe(1);
-            expect(activeItems[0].textContent).toContain('Me');
+            expect(activeItems[0].textContent).toContain('Tôi');
         });
 
         it('should NOT mark any item as active on unrelated path', () => {
             renderWithRouter('/login');
-
-            const activeItems = document.querySelectorAll('.mobile-footer__item--active');
-            expect(activeItems.length).toBe(0);
-        });
-
-        it('should NOT mark any item as active on landing page (/) with split tab', () => {
-            renderWithRouter('/');
 
             const activeItems = document.querySelectorAll('.mobile-footer__item--active');
             expect(activeItems.length).toBe(0);

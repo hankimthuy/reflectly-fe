@@ -1,7 +1,7 @@
 import React, { useRef, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { LuLogOut, LuGlobe, LuBell, LuDownload, LuBrainCircuit, LuShield, LuActivity, LuPencil, LuLock, LuCamera, LuCheck, LuX } from 'react-icons/lu';
+import { LuLogOut, LuGlobe, LuBell, LuDownload, LuBookOpen, LuHeart, LuPencil, LuLock, LuCamera, LuCheck, LuX, LuTreePine } from 'react-icons/lu';
 import { useAuth } from '../../providers/AuthProvider';
 import { updateUserProfile, changePassword, uploadAvatar } from '../../services/userService';
 
@@ -179,7 +179,7 @@ const ProfilePage: React.FC = () => {
                     <Breadcrumb
                         variant="light"
                         items={[
-                            { label: t('breadcrumb.home'), path: APP_ROUTES.HOME },
+                            { label: t('breadcrumb.home'), path: APP_ROUTES.WELCOME },
                             { label: t('breadcrumb.profile') },
                         ]}
                     />
@@ -238,33 +238,33 @@ const ProfilePage: React.FC = () => {
                 {/* Quick Actions */}
                 <div className="profile-page__actions">
                     <div
-                        className="profile-page__action-card profile-page__action-card--inner"
-                        onClick={() => navigate(APP_ROUTES.INNERVERSE)}
+                        className="profile-page__action-card profile-page__action-card--garden"
+                        onClick={() => navigate(APP_ROUTES.WELCOME)}
                     >
-                        <div className="profile-page__action-card-icon"><LuBrainCircuit size={20} /></div>
+                        <div className="profile-page__action-card-icon"><LuTreePine size={20} /></div>
                         <div className="profile-page__action-card-body">
-                            <span className="profile-page__action-card-title">Innerverse</span>
-                            <span className="profile-page__action-card-desc">Explore your inner world</span>
+                            <span className="profile-page__action-card-title">{t('nav.garden')}</span>
+                            <span className="profile-page__action-card-desc">{t('brand.tagline')}</span>
                         </div>
                     </div>
                     <div
                         className="profile-page__action-card profile-page__action-card--entry"
                         onClick={() => navigate(APP_ROUTES.ENTRIES_NEW)}
                     >
-                        <div className="profile-page__action-card-icon"><LuShield size={20} /></div>
+                        <div className="profile-page__action-card-icon"><LuBookOpen size={20} /></div>
                         <div className="profile-page__action-card-body">
-                            <span className="profile-page__action-card-title">Log Your Innerverse</span>
-                            <span className="profile-page__action-card-desc">Write in your Safe Space</span>
+                            <span className="profile-page__action-card-title">{t('zonePage.writeJournal')}</span>
+                            <span className="profile-page__action-card-desc">{t('garden.zones.reflection.description')}</span>
                         </div>
                     </div>
                     <div
-                        className="profile-page__action-card profile-page__action-card--outer"
-                        onClick={() => navigate(APP_ROUTES.OUTERVERSE)}
+                        className="profile-page__action-card profile-page__action-card--emotion"
+                        onClick={() => navigate(APP_ROUTES.EMOTION_ZONE)}
                     >
-                        <div className="profile-page__action-card-icon"><LuActivity size={20} /></div>
+                        <div className="profile-page__action-card-icon"><LuHeart size={20} /></div>
                         <div className="profile-page__action-card-body">
-                            <span className="profile-page__action-card-title">Outerverse</span>
-                            <span className="profile-page__action-card-desc">Lead your reality</span>
+                            <span className="profile-page__action-card-title">{t('nav.emotion')}</span>
+                            <span className="profile-page__action-card-desc">{t('garden.zones.emotion.description')}</span>
                         </div>
                     </div>
                 </div>

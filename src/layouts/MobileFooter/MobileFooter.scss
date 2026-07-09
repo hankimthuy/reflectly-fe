@@ -112,7 +112,29 @@
         }
     }
 
-    // --- Inner mode (purple accent) ---
+    // --- Garden mode ---
+    &--garden {
+        .mobile-footer__container {
+            background: rgba(44, 62, 45, 0.9);
+            border: 1px solid rgba(91, 140, 90, 0.2);
+        }
+
+        .mobile-footer__item--active {
+            color: #A8D5A2;
+
+            svg {
+                filter: drop-shadow(0 1px 4px rgba(91, 140, 90, 0.5));
+            }
+        }
+
+        .mobile-footer__fab-button {
+            background: linear-gradient(135deg, #5B8C5A 0%, #8FBF8F 100%) !important;
+            box-shadow: 0 8px 24px rgba(91, 140, 90, 0.4) !important;
+            border-color: rgba(44, 62, 45, 0.9) !important;
+        }
+    }
+
+    // --- Inner mode (legacy) ---
     &--inner {
         .mobile-footer__item--active {
             color: #C4B5FD;

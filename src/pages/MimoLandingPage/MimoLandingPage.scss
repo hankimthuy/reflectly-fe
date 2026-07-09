@@ -4,16 +4,20 @@
 
 .landing-page {
   min-height: 100vh;
-  background-color: var(--c-background);
+  background-color: var(--garden-sky);
   margin-top: calc(-1 * var(--header-height-mobile));
 
   @media (min-width: 768px) {
     margin-top: calc(-1 * var(--header-height-desktop));
   }
 
+  &--garden {
+    background: linear-gradient(180deg, var(--garden-sky) 0%, #f0f7eb 100%);
+  }
+
   ::selection {
-    background-color: #99f6e4;
-    color: black;
+    background-color: rgba(91, 140, 90, 0.3);
+    color: var(--garden-text);
   }
 }
 
@@ -236,9 +240,10 @@
 }
 
 .footer {
-  color: var(--c-text-muted);
-  padding: 0;
+  color: var(--garden-text-muted);
+  padding: var(--spacing-xl) var(--spacing-md);
   text-align: center;
+  font-size: var(--font-size-sm);
   font-weight: 500;
   margin-bottom: 16px;
 
