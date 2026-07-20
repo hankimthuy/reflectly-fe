@@ -17,6 +17,7 @@ const PhuongPhapPage = lazy(() => import('../pages/PhuongPhapPage/PhuongPhapPage
 const GardenZonePage = lazy(() => import('../pages/GardenZonePage/GardenZonePage'));
 const EmotionZonePage = lazy(() => import('../pages/EmotionZonePage/EmotionZonePage'));
 const SignupPage = lazy(() => import('../pages/SignupPage/SignupPage'));
+const EnergyHistoryPage = lazy(() => import('../pages/EnergyHistoryPage/EnergyHistoryPage'));
 
 export const AppRoutes = () => {
     return (
@@ -37,6 +38,11 @@ export const AppRoutes = () => {
                 <Route path={APP_ROUTES.EMOTION_ZONE} element={
                     <ProtectedRoute>
                         <EmotionZonePage />
+                    </ProtectedRoute>
+                } />
+                <Route path={APP_ROUTES.ENERGY_HISTORY} element={
+                    <ProtectedRoute>
+                        <EnergyHistoryPage />
                     </ProtectedRoute>
                 } />
 

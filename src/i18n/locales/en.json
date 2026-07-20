@@ -70,11 +70,41 @@
     "learnMore": "Learn More"
   },
   "mobileFooter": {
+    "energy": "Energy",
     "authDialog": {
       "title": "Login Required",
       "message": "You need to log in to create or view your entries.",
       "confirm": "Log In",
       "cancel": "Later"
+    }
+  },
+  "nav": {
+    "energy": "Energy"
+  },
+  "energyLog": {
+    "quickLogTitle": "How's your energy right now?",
+    "levelLabel": "Energy level (1-10)",
+    "contextLabel": "What are you doing?",
+    "notesLabel": "Add a note (optional)",
+    "notesPlaceholder": "Anything you want to remember...",
+    "save": "Log it",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "savedMessage": "Energy logged.",
+    "errorMessage": "Could not save your energy log. Please try again."
+  },
+  "energyHistoryPage": {
+    "title": "Energy History",
+    "subtitle": "A quick record of your energy over time.",
+    "logButton": "Log Energy",
+    "empty": "No energy logs yet. Log your first one!",
+    "loadMore": "Load more",
+    "deleted": "Energy log deleted.",
+    "deleteConfirm": {
+      "title": "Delete energy log",
+      "message": "Are you sure you want to delete this energy log?",
+      "confirm": "Delete",
+      "cancel": "Cancel"
     }
   },
   "profilePage": {

@@ -12,6 +12,7 @@
     "garden": "Khu vườn",
     "reflection": "Tự chiêm nghiệm",
     "emotion": "Cảm xúc",
+    "energy": "Năng lượng",
     "method": "Phương pháp",
     "journal": "Nhật ký",
     "profile": "Tôi",
@@ -153,12 +154,39 @@
     "garden": "Vườn",
     "journal": "Nhật ký",
     "emotion": "Cảm xúc",
+    "energy": "Năng lượng",
     "profile": "Tôi",
     "authDialog": {
       "title": "Yêu cầu Đăng nhập",
       "message": "Bạn cần đăng nhập để tạo hoặc xem các bài viết của mình.",
       "confirm": "Đăng nhập",
       "cancel": "Để sau"
+    }
+  },
+  "energyLog": {
+    "quickLogTitle": "Năng lượng của bạn lúc này thế nào?",
+    "levelLabel": "Mức năng lượng (1-10)",
+    "contextLabel": "Bạn đang làm gì?",
+    "notesLabel": "Thêm ghi chú (tùy chọn)",
+    "notesPlaceholder": "Điều gì bạn muốn ghi nhớ...",
+    "save": "Ghi lại",
+    "saving": "Đang lưu...",
+    "cancel": "Hủy",
+    "savedMessage": "Đã ghi nhận năng lượng.",
+    "errorMessage": "Không thể lưu. Vui lòng thử lại."
+  },
+  "energyHistoryPage": {
+    "title": "Lịch sử năng lượng",
+    "subtitle": "Ghi lại nhanh mức năng lượng của bạn theo thời gian.",
+    "logButton": "Ghi năng lượng",
+    "empty": "Chưa có bản ghi nào. Hãy ghi lại lần đầu tiên!",
+    "loadMore": "Xem thêm",
+    "deleted": "Đã xóa bản ghi.",
+    "deleteConfirm": {
+      "title": "Xóa bản ghi năng lượng",
+      "message": "Bạn có chắc muốn xóa bản ghi năng lượng này?",
+      "confirm": "Xóa",
+      "cancel": "Hủy"
     }
   },
   "profilePage": {
