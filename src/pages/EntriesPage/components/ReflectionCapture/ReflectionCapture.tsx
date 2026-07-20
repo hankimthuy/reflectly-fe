@@ -8,13 +8,15 @@ interface ReflectionCaptureProps {
   onFormChange?: (title: string, reflection: string) => void;
   initialTitle?: string;
   initialReflection?: string;
+  guidingPrompts?: string[];
 }
 
 const ReflectionCapture: React.FC<ReflectionCaptureProps> = ({
   selectedEmotions,
   onFormChange,
   initialTitle = '',
-  initialReflection = ''
+  initialReflection = '',
+  guidingPrompts
 }) => {
   const { t } = useTranslation();
   const [title, setTitle] = useState(initialTitle);
@@ -47,6 +49,17 @@ const ReflectionCapture: React.FC<ReflectionCaptureProps> = ({
             ))}
           </div>
         </div>
+
+        {guidingPrompts && guidingPrompts.length > 0 && (
+          <div className="guiding-prompts">
+            <p className="guiding-prompts__heading">{t('entryTemplates.guidingPromptsHeading')}</p>
+            <ul className="guiding-prompts__list">
+              {guidingPrompts.map((prompt, index) => (
+                <li key={index} className="guiding-prompts__item">{prompt}</li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <div className="reflection-form">
           <div className="input-group">

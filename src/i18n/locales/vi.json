@@ -231,6 +231,49 @@
     "errorMessage": "Bài viết của bạn chưa được lưu!",
     "errorTitle": "Lỗi"
   },
+  "entryTemplates": {
+    "picker": {
+      "heading": "Bạn muốn có gợi ý không?",
+      "subheading": "Chọn một chủ đề để có gợi ý nhẹ nhàng, hoặc viết tự do."
+    },
+    "freeform": {
+      "label": "Tự do",
+      "description": "Không gợi ý — chỉ viết những gì bạn đang nghĩ."
+    },
+    "guidingPromptsHeading": "Gợi ý nhẹ nhàng để suy ngẫm",
+    "templates": {
+      "difficult_conversation": {
+        "label": "Cuộc trò chuyện khó",
+        "description": "Gỡ rối một cuộc trò chuyện đang khiến bạn trăn trở.",
+        "questions": [
+          "Điều gì đã xảy ra, theo lời của bạn?",
+          "Bạn cảm thấy thế nào trong và sau cuộc trò chuyện?",
+          "Bạn ước mình đã nói hoặc làm khác đi điều gì?",
+          "Một bước nhỏ nào bạn có thể thực hiện từ đây?"
+        ]
+      },
+      "energy_drain": {
+        "label": "Cạn năng lượng",
+        "description": "Nhận diện điều đang khiến năng lượng của bạn suy giảm.",
+        "questions": [
+          "Điều gì đã khiến bạn cạn năng lượng hôm nay?",
+          "Bạn nhận thấy điều đó ở đâu trong cơ thể hoặc tâm trạng?",
+          "Nhu cầu nào của bạn chưa được đáp ứng?",
+          "Một điều gì đó có thể giúp bạn hồi phục năng lượng?"
+        ]
+      },
+      "gratitude_win": {
+        "label": "Biết ơn / Thành công",
+        "description": "Tận hưởng một điều tốt đẹp, dù lớn hay nhỏ.",
+        "questions": [
+          "Điều gì đã diễn ra tốt đẹp hôm nay, dù là điều nhỏ nhặt?",
+          "Bạn đang biết ơn ai hoặc điều gì ngay lúc này?",
+          "Bạn đã làm điều gì khiến bạn tự hào?",
+          "Làm sao để bạn giữ cảm giác này tiếp diễn?"
+        ]
+      }
+    }
+  },
   "entriesPage": {
     "title": "Nhật ký tự chiêm nghiệm",
     "subtitle": "Mỗi dòng nhật ký là một bước để làm rõ chính mình.",

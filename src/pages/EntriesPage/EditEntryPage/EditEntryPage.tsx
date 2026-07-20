@@ -6,6 +6,7 @@ import { CircularProgress } from '@mui/material';
 import EmotionCapture from '../components/EmotionCapture/EmotionCapture';
 import ReflectionCapture from '../components/ReflectionCapture/ReflectionCapture';
 import { Emotion } from '../../../models/emotion';
+import { getEntryTemplate } from '../../../models/entryTemplate';
 import { entriesService } from '../../../services/entriesService';
 import { useUpdateEntryMutation } from '../../../queries/entriesQueryHook';
 import { APP_ROUTES } from '../../../constants/route';
@@ -27,6 +28,9 @@ const EditEntryPage: React.FC = () => {
   const [reflectionTitle, setReflectionTitle] = useState('');
   const [reflectionText, setReflectionText] = useState('');
   const reflectionRef = useRef<HTMLDivElement>(null);
+
+  const selectedTemplate = getEntryTemplate(entry?.templateKey);
+  const guidingPrompts = selectedTemplate?.questionKeys.map((key) => t(key));
 
   useEffect(() => {
     if (!id) return;
@@ -70,6 +74,7 @@ const EditEntryPage: React.FC = () => {
         title: reflectionTitle.trim(),
         reflection: reflectionText.trim(),
         emotions: selectedEmotions,
+        ...(entry?.templateKey ? { templateKey: entry.templateKey } : {}),
       },
       {
         onSuccess: () => {
@@ -136,6 +141,7 @@ const EditEntryPage: React.FC = () => {
                 onFormChange={handleFormChange}
                 initialTitle={entry.title}
                 initialReflection={entry.reflection || ''}
+                guidingPrompts={guidingPrompts}
               />
             </div>
           )}
