@@ -33,25 +33,12 @@ export const GARDEN_SCENE = {
   } satisfies Record<string, GardenZoneScene>,
 } as const;
 
-/** Hover targets aligned to original PNG icon positions (clipped garden area) */
-export const GARDEN_MARKER_POSITIONS: Record<string, GardenMarkerPosition> = {
-  'tu-chiem-nghiem': { x: 14.5, y: 20.5 },
-  'ket-noi': { x: 85.5, y: 20.5 },
-  'sang-tao': { x: 14.5, y: 79 },
-  'cam-xuc': { x: 85.5, y: 79 },
-  'tam-tri': { x: 50, y: 41 },
-  'bo-loc': { x: 50, y: 58 },
-};
-
 export const svgPointToPercent = ({ cx, cy }: GardenSvgPoint): GardenMarkerPosition => ({
   x: (cx / GARDEN_MAP_VIEWBOX.width) * 100,
   y: (cy / GARDEN_MAP_VIEWBOX.height) * 100,
 });
 
-/** Dev helper — SVG marker positions for side-by-side tuning */
+/** Marker hotspot positions (as % of the map area) for each garden zone */
 export const GARDEN_MARKER_POSITIONS_SVG = Object.fromEntries(
   Object.entries(GARDEN_SCENE.zones).map(([id, zone]) => [id, svgPointToPercent(zone.marker)])
 ) as Record<string, GardenMarkerPosition>;
-
-/** Temporary dev overlay — remove when SVG matches reference art */
-export const GARDEN_MAP_DEV_COMPARE = import.meta.env.DEV;

@@ -16,14 +16,6 @@
     background: var(--garden-sky);
   }
 
-  &--png &__canvas {
-    border-color: #5b8c5a;
-  }
-
-  &--svg &__canvas {
-    border-color: #a67b5b;
-  }
-
   &__art {
     position: relative;
     width: 100%;
@@ -57,48 +49,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    border: 2px solid transparent;
-    transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    background: rgba(255, 255, 255, 0.55);
+    border: 2px solid rgba(91, 140, 90, 0.35);
+    box-shadow: var(--shadow-sm);
+    transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
 
     svg {
-      display: none;
-    }
-  }
-
-  &__marker--dev-png {
-    .garden-map-panel__marker-ring {
-      border: 2px dashed rgba(220, 53, 69, 0.8);
-      background: rgba(220, 53, 69, 0.06);
-    }
-
-    &:hover:not(:disabled) .garden-map-panel__marker-ring,
-    &.garden-map-panel__marker--active .garden-map-panel__marker-ring {
-      border-color: rgba(220, 53, 69, 1);
-      background: rgba(220, 53, 69, 0.15);
-    }
-  }
-
-  &__marker--dev-svg {
-    .garden-map-panel__marker-ring {
-      border: 2px dashed rgba(13, 110, 253, 0.8);
-      background: rgba(13, 110, 253, 0.06);
-    }
-
-    &:hover:not(:disabled) .garden-map-panel__marker-ring,
-    &.garden-map-panel__marker--active .garden-map-panel__marker-ring {
-      border-color: rgba(13, 110, 253, 1);
-      background: rgba(13, 110, 253, 0.15);
+      color: var(--garden-earth);
     }
   }
 
   &--prod &__marker:hover:not(:disabled) &__marker-ring,
   &--prod &__marker--active &__marker-ring {
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.85);
     border-color: rgba(91, 140, 90, 0.65);
     box-shadow: 0 0 0 4px rgba(91, 140, 90, 0.12);
+    transform: scale(1.1);
+  }
+
+  &__marker--soon &__marker-ring {
+    background: rgba(255, 255, 255, 0.35);
   }
 
   &__marker-tooltip {
