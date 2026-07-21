@@ -1,4 +1,5 @@
 @use '../../styles/_variables' as *;
+@use '../../styles/_responsive' as *;
 
 .garden-zone-page {
   max-width: 720px;
@@ -17,8 +18,8 @@
     padding: 0;
     margin-bottom: var(--spacing-xl);
 
-    &:hover {
-      color: var(--garden-grass);
+    &:hover:not(:disabled) {
+      @include ghost-button-hover(var(--garden-grass));
     }
   }
 

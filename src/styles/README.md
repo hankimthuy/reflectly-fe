@@ -234,3 +234,7 @@ $breakpoints: (
 4. Verify accessibility compliance
 
 This responsive system ensures your Reflectly app provides an optimal experience across all target devices while maintaining consistent design principles and performance standards.
+
+## 🖱️ Button Hover Convention
+
+Any component button whose rest state sets `background: none` / `transparent` must restate that explicitly inside its own `:hover` block via `@include ghost-button-hover(...)` from `_responsive.scss`, to prevent inheriting the global filled-button hover background (`src/index.scss` bare `button:hover` rule sets a dark `--c-secondary` background that otherwise leaks through by CSS specificity).

@@ -426,7 +426,8 @@
     cursor: pointer;
     transition: all var(--transition-fast);
 
-    &:hover {
+    &:hover:not(:disabled) {
+      background-color: var(--c-surface);
       border-color: var(--c-primary);
       color: var(--c-primary);
     }
