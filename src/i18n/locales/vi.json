@@ -13,6 +13,7 @@
     "reflection": "Tự chiêm nghiệm",
     "emotion": "Cảm xúc",
     "energy": "Năng lượng",
+    "dashboard": "Bảng thông tin",
     "method": "Phương pháp",
     "journal": "Nhật ký",
     "profile": "Tôi",
@@ -187,6 +188,34 @@
       "message": "Bạn có chắc muốn xóa bản ghi năng lượng này?",
       "confirm": "Xóa",
       "cancel": "Hủy"
+    }
+  },
+  "dashboard": {
+    "title": "Bảng thông tin Năng lượng",
+    "subtitle": "Xem năng lượng của bạn thay đổi theo thời gian và ở đâu.",
+    "loginRequired": "Vui lòng đăng nhập để xem bảng thông tin năng lượng.",
+    "rangeLabel": "{{days}} ngày gần nhất",
+    "logButton": "Ghi năng lượng",
+    "empty": "Chưa có bản ghi năng lượng nào. Hãy ghi năng lượng để xem bảng thông tin của bạn.",
+    "trend": {
+      "title": "Xu hướng năng lượng",
+      "subtitle": "Mức năng lượng trung bình mỗi ngày",
+      "empty": "Chưa có bản ghi năng lượng trong khoảng thời gian này. Hãy bắt đầu ghi để xem xu hướng."
+    },
+    "byContext": {
+      "title": "Năng lượng theo hoạt động",
+      "subtitle": "Mức năng lượng trung bình cho mỗi hoạt động",
+      "empty": "Hãy ghi năng lượng kèm hoạt động để xem biểu đồ này."
+    },
+    "byCount": {
+      "title": "Số lần ghi theo hoạt động",
+      "subtitle": "Số lần bạn đã ghi năng lượng cho mỗi hoạt động",
+      "empty": "Chưa có bản ghi nào."
+    },
+    "summary": {
+      "average": "Mức trung bình",
+      "totalLogs": "Tổng số bản ghi",
+      "bestContext": "Hoạt động năng lượng cao nhất"
     }
   },
   "profilePage": {

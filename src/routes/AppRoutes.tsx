@@ -5,7 +5,6 @@ import { APP_ROUTES } from '../constants/route';
 import MainLayout from '../layouts/MainLayout/MainLayout';
 import EntriesListPage from '../pages/EntriesPage/EntriesListPage/EntriesListPage';
 import QuotesPage from '../pages/QuotesPage/QuotesPage';
-import StatisticsPage from '../pages/StatisticsPage/StatisticsPage';
 import ProtectedRoute from './ProtectedRoute';
 
 const NewEntryPage = lazy(() => import('../pages/EntriesPage/NewEntryPage/NewEntryPage'));
@@ -18,6 +17,7 @@ const GardenZonePage = lazy(() => import('../pages/GardenZonePage/GardenZonePage
 const EmotionZonePage = lazy(() => import('../pages/EmotionZonePage/EmotionZonePage'));
 const SignupPage = lazy(() => import('../pages/SignupPage/SignupPage'));
 const EnergyHistoryPage = lazy(() => import('../pages/EnergyHistoryPage/EnergyHistoryPage'));
+const StatisticsPage = lazy(() => import('../pages/StatisticsPage/StatisticsPage'));
 
 export const AppRoutes = () => {
     return (
