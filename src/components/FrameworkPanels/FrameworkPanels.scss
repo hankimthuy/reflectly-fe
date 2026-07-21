@@ -67,6 +67,36 @@
     }
   }
 
+  &__feature-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: var(--spacing-md);
+    padding: 6px 0;
+    background: none;
+    border: none;
+    color: var(--garden-grass);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+
+    // Explicitly restate the transparent background on hover so this
+    // ghost-style button never inherits the global filled-button hover
+    // background (see src/styles/README.md "Button Hover Convention").
+    &:hover {
+      background-color: transparent;
+      color: var(--c-primary-hover);
+    }
+
+    svg {
+      transition: transform 0.15s ease;
+    }
+
+    &:hover svg {
+      transform: translateX(2px);
+    }
+  }
+
   &__principles {
     margin-top: var(--spacing-2xl);
     padding: var(--spacing-xl);
@@ -91,8 +121,9 @@
       li {
         padding-left: var(--spacing-md);
         position: relative;
-        color: var(--garden-text-muted);
-        font-size: var(--font-size-sm);
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
 
         &::before {
           content: '•';
@@ -102,6 +133,17 @@
         }
       }
     }
+  }
+
+  &__principle-title {
+    color: var(--garden-text);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  &__principle-description {
+    color: var(--garden-text-muted);
+    font-size: var(--font-size-sm);
   }
 
   &--full &__panel {
