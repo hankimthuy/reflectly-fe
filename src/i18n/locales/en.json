@@ -148,6 +148,49 @@
     "errorMessage": "Your reflection has not been saved yet!",
     "errorTitle": "Error"
   },
+  "entryTemplates": {
+    "picker": {
+      "heading": "Want a little guidance?",
+      "subheading": "Pick a topic to get gentle prompts, or write freely."
+    },
+    "freeform": {
+      "label": "Freeform",
+      "description": "No prompts — just write what's on your mind."
+    },
+    "guidingPromptsHeading": "Gentle prompts to consider",
+    "templates": {
+      "difficult_conversation": {
+        "label": "Difficult conversation",
+        "description": "Untangle a conversation that's weighing on you.",
+        "questions": [
+          "What happened, in your own words?",
+          "What did you feel during and after the conversation?",
+          "What do you wish you had said or done differently?",
+          "What's one small step you could take from here?"
+        ]
+      },
+      "energy_drain": {
+        "label": "Energy drain",
+        "description": "Notice what's pulling your energy down.",
+        "questions": [
+          "What drained your energy today?",
+          "Where in your body or mood did you notice it?",
+          "What need of yours wasn't being met?",
+          "What's one thing that could help you recharge?"
+        ]
+      },
+      "gratitude_win": {
+        "label": "Gratitude / a win",
+        "description": "Savor something good, big or small.",
+        "questions": [
+          "What went well today, even something small?",
+          "Who or what are you grateful for right now?",
+          "What did you do that you're proud of?",
+          "How can you carry this feeling forward?"
+        ]
+      }
+    }
+  },
   "entriesPage": {
     "title": "Journal",
     "subtitle": "Every entry is a step toward understanding yourself.",
