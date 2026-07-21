@@ -13,6 +13,7 @@ export const APP_ROUTES = {
     CONNECTION_ZONE: '/ket-noi',
     EMOTION_ZONE: '/cam-xuc',
     PHUONG_PHAP: '/phuong-phap',
+    ENERGY_HISTORY: '/energy/history',
     
     // Main
     HOME: '/home',
@@ -23,4 +24,5 @@ export const APP_ROUTES = {
     ENTRIES_EDIT: '/entries/edit/:id',
     STATISTICS: '/statistics',
     QUOTES: '/quotes',
+    PROTOCOLS: '/protocols',
 };

@@ -1,4 +1,4 @@
-# Reflectly / MimoSe Frontend
+# MimoSe Frontend
 
 > **"Leading Self"** — React SPA for personal journaling (Innerverse / Outerverse).
 

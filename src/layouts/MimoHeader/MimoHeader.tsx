@@ -86,6 +86,27 @@ const MimoHeader = ({ scrolled = false }: MimoHeaderProps) => {
             {t('nav.emotion')}
           </a>
           <a
+            onClick={() => navigate(APP_ROUTES.ENERGY_HISTORY)}
+            className={isActive(APP_ROUTES.ENERGY_HISTORY) ? 'active' : ''}
+            style={{ cursor: 'pointer' }}
+          >
+            {t('nav.energy')}
+          </a>
+          <a
+            onClick={() => navigate(APP_ROUTES.STATISTICS)}
+            className={isActive(APP_ROUTES.STATISTICS) ? 'active' : ''}
+            style={{ cursor: 'pointer' }}
+          >
+            {t('nav.dashboard')}
+          </a>
+          <a
+            onClick={() => navigate(APP_ROUTES.PROTOCOLS)}
+            className={isActive(APP_ROUTES.PROTOCOLS) ? 'active' : ''}
+            style={{ cursor: 'pointer' }}
+          >
+            {t('nav.protocols')}
+          </a>
+          <a
             onClick={() => navigate(APP_ROUTES.PHUONG_PHAP)}
             className={isActive(APP_ROUTES.PHUONG_PHAP) ? 'active' : ''}
             style={{ cursor: 'pointer' }}
@@ -156,6 +177,9 @@ const MimoHeader = ({ scrolled = false }: MimoHeaderProps) => {
           <a onClick={() => navTo(APP_ROUTES.WELCOME)} style={{ cursor: 'pointer' }}>{t('nav.garden')}</a>
           <a onClick={() => navTo(APP_ROUTES.REFLECTION_ZONE)} style={{ cursor: 'pointer' }}>{t('nav.reflection')}</a>
           <a onClick={() => navTo(APP_ROUTES.EMOTION_ZONE)} style={{ cursor: 'pointer' }}>{t('nav.emotion')}</a>
+          <a onClick={() => navTo(APP_ROUTES.ENERGY_HISTORY)} style={{ cursor: 'pointer' }}>{t('nav.energy')}</a>
+          <a onClick={() => navTo(APP_ROUTES.STATISTICS)} style={{ cursor: 'pointer' }}>{t('nav.dashboard')}</a>
+          <a onClick={() => navTo(APP_ROUTES.PROTOCOLS)} style={{ cursor: 'pointer' }}>{t('nav.protocols')}</a>
           <a onClick={() => navTo(APP_ROUTES.PHUONG_PHAP)} style={{ cursor: 'pointer' }}>{t('nav.method')}</a>
           <div className="divider" />
           <div className="mobile-language-switcher">

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { LuBookOpen, LuHeart, LuTreePine, LuUser } from 'react-icons/lu';
+import { LuBookOpen, LuHeart, LuTreePine, LuUser, LuZap } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
 import { APP_ROUTES } from '../../constants/route';
 import { useAuth } from '../../providers/AuthProvider';
@@ -48,6 +48,13 @@ const NAV_ITEMS: NavItem[] = [
         requiresAuth: true,
     },
     {
+        id: 'energy',
+        labelKey: 'mobileFooter.energy',
+        icon: <LuZap size={22} />,
+        activeIcon: <LuZap size={24} />,
+        requiresAuth: true,
+    },
+    {
         id: 'profile',
         labelKey: 'mobileFooter.profile',
         icon: <LuUser size={22} />,
@@ -70,6 +77,8 @@ const MobileFooter = () => {
                 return location.pathname.startsWith(APP_ROUTES.ENTRIES);
             case 'emotion':
                 return location.pathname === APP_ROUTES.EMOTION_ZONE;
+            case 'energy':
+                return location.pathname === APP_ROUTES.ENERGY_HISTORY;
             case 'profile':
                 return location.pathname === APP_ROUTES.PROFILE;
             default:
@@ -95,6 +104,9 @@ const MobileFooter = () => {
                 break;
             case 'emotion':
                 navigate(APP_ROUTES.EMOTION_ZONE);
+                break;
+            case 'energy':
+                navigate(APP_ROUTES.ENERGY_HISTORY);
                 break;
             case 'profile':
                 if (isAuthenticated) {

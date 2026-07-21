@@ -5,7 +5,6 @@ import { APP_ROUTES } from '../constants/route';
 import MainLayout from '../layouts/MainLayout/MainLayout';
 import EntriesListPage from '../pages/EntriesPage/EntriesListPage/EntriesListPage';
 import QuotesPage from '../pages/QuotesPage/QuotesPage';
-import StatisticsPage from '../pages/StatisticsPage/StatisticsPage';
 import ProtectedRoute from './ProtectedRoute';
 
 const NewEntryPage = lazy(() => import('../pages/EntriesPage/NewEntryPage/NewEntryPage'));
@@ -17,6 +16,9 @@ const PhuongPhapPage = lazy(() => import('../pages/PhuongPhapPage/PhuongPhapPage
 const GardenZonePage = lazy(() => import('../pages/GardenZonePage/GardenZonePage'));
 const EmotionZonePage = lazy(() => import('../pages/EmotionZonePage/EmotionZonePage'));
 const SignupPage = lazy(() => import('../pages/SignupPage/SignupPage'));
+const EnergyHistoryPage = lazy(() => import('../pages/EnergyHistoryPage/EnergyHistoryPage'));
+const StatisticsPage = lazy(() => import('../pages/StatisticsPage/StatisticsPage'));
+const ProtocolsPage = lazy(() => import('../pages/ProtocolsPage/ProtocolsPage'));
 
 export const AppRoutes = () => {
     return (
@@ -37,6 +39,16 @@ export const AppRoutes = () => {
                 <Route path={APP_ROUTES.EMOTION_ZONE} element={
                     <ProtectedRoute>
                         <EmotionZonePage />
+                    </ProtectedRoute>
+                } />
+                <Route path={APP_ROUTES.ENERGY_HISTORY} element={
+                    <ProtectedRoute>
+                        <EnergyHistoryPage />
+                    </ProtectedRoute>
+                } />
+                <Route path={APP_ROUTES.PROTOCOLS} element={
+                    <ProtectedRoute>
+                        <ProtocolsPage />
                     </ProtectedRoute>
                 } />
 

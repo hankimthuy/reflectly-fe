@@ -4,7 +4,7 @@ import { GARDEN_ZONES } from '../../constants/gardenZones';
 import type { GardenMarkerPosition } from '../../constants/gardenMapScene';
 import './GardenMapPanel.scss';
 
-export type GardenMapPanelVariant = 'png' | 'svg' | 'prod';
+export type GardenMapPanelVariant = 'prod';
 
 interface GardenMapPanelProps {
   variant: GardenMapPanelVariant;
@@ -14,7 +14,6 @@ interface GardenMapPanelProps {
   activeZone: string | null;
   onZoneHover: (zoneId: string | null) => void;
   onZoneClick: (zoneId: string) => void;
-  showCoords?: boolean;
 }
 
 const GardenMapPanel = ({
@@ -25,11 +24,9 @@ const GardenMapPanel = ({
   activeZone,
   onZoneHover,
   onZoneClick,
-  showCoords = false,
 }: GardenMapPanelProps) => {
   const { t } = useTranslation();
   const activeZoneData = GARDEN_ZONES.find((z) => z.id === activeZone);
-  const isDev = variant === 'png' || variant === 'svg';
 
   return (
     <div className={`garden-map-panel garden-map-panel--${variant}`}>
@@ -48,7 +45,7 @@ const GardenMapPanel = ({
               <button
                 key={zone.id}
                 type="button"
-                className={`garden-map-panel__marker ${isActive ? 'garden-map-panel__marker--active' : ''} ${zone.comingSoon ? 'garden-map-panel__marker--soon' : ''} ${isDev ? `garden-map-panel__marker--dev-${variant}` : ''}`}
+                className={`garden-map-panel__marker ${isActive ? 'garden-map-panel__marker--active' : ''} ${zone.comingSoon ? 'garden-map-panel__marker--soon' : ''}`}
                 style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
                 onMouseEnter={() => onZoneHover(zone.id)}
                 onMouseLeave={() => onZoneHover(null)}
@@ -63,11 +60,6 @@ const GardenMapPanel = ({
                 </span>
                 <span className="garden-map-panel__marker-tooltip">
                   {t(zone.labelKey)}
-                  {showCoords && (
-                    <small>
-                      {pos.x.toFixed(1)}%, {pos.y.toFixed(1)}%
-                    </small>
-                  )}
                   {zone.comingSoon && ` · ${t('garden.comingSoon')}`}
                 </span>
               </button>
@@ -75,7 +67,7 @@ const GardenMapPanel = ({
           })}
         </div>
 
-        {!isDev && activeZoneData && (
+        {activeZoneData && (
           <div className="garden-map-panel__zone-label" role="status" aria-live="polite">
             <activeZoneData.icon size={16} />
             <div>

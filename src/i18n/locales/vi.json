@@ -12,6 +12,9 @@
     "garden": "Khu vườn",
     "reflection": "Tự chiêm nghiệm",
     "emotion": "Cảm xúc",
+    "energy": "Năng lượng",
+    "dashboard": "Bảng thông tin",
+    "protocols": "Kịch bản",
     "method": "Phương pháp",
     "journal": "Nhật ký",
     "profile": "Tôi",
@@ -153,12 +156,67 @@
     "garden": "Vườn",
     "journal": "Nhật ký",
     "emotion": "Cảm xúc",
+    "energy": "Năng lượng",
     "profile": "Tôi",
     "authDialog": {
       "title": "Yêu cầu Đăng nhập",
       "message": "Bạn cần đăng nhập để tạo hoặc xem các bài viết của mình.",
       "confirm": "Đăng nhập",
       "cancel": "Để sau"
+    }
+  },
+  "energyLog": {
+    "quickLogTitle": "Năng lượng của bạn lúc này thế nào?",
+    "levelLabel": "Mức năng lượng (1-10)",
+    "contextLabel": "Bạn đang làm gì?",
+    "notesLabel": "Thêm ghi chú (tùy chọn)",
+    "notesPlaceholder": "Điều gì bạn muốn ghi nhớ...",
+    "save": "Ghi lại",
+    "saving": "Đang lưu...",
+    "cancel": "Hủy",
+    "savedMessage": "Đã ghi nhận năng lượng.",
+    "errorMessage": "Không thể lưu. Vui lòng thử lại."
+  },
+  "energyHistoryPage": {
+    "title": "Lịch sử năng lượng",
+    "subtitle": "Ghi lại nhanh mức năng lượng của bạn theo thời gian.",
+    "logButton": "Ghi năng lượng",
+    "empty": "Chưa có bản ghi nào. Hãy ghi lại lần đầu tiên!",
+    "loadMore": "Xem thêm",
+    "deleted": "Đã xóa bản ghi.",
+    "deleteConfirm": {
+      "title": "Xóa bản ghi năng lượng",
+      "message": "Bạn có chắc muốn xóa bản ghi năng lượng này?",
+      "confirm": "Xóa",
+      "cancel": "Hủy"
+    }
+  },
+  "dashboard": {
+    "title": "Bảng thông tin Năng lượng",
+    "subtitle": "Xem năng lượng của bạn thay đổi theo thời gian và ở đâu.",
+    "loginRequired": "Vui lòng đăng nhập để xem bảng thông tin năng lượng.",
+    "rangeLabel": "{{days}} ngày gần nhất",
+    "logButton": "Ghi năng lượng",
+    "empty": "Chưa có bản ghi năng lượng nào. Hãy ghi năng lượng để xem bảng thông tin của bạn.",
+    "trend": {
+      "title": "Xu hướng năng lượng",
+      "subtitle": "Mức năng lượng trung bình mỗi ngày",
+      "empty": "Chưa có bản ghi năng lượng trong khoảng thời gian này. Hãy bắt đầu ghi để xem xu hướng."
+    },
+    "byContext": {
+      "title": "Năng lượng theo hoạt động",
+      "subtitle": "Mức năng lượng trung bình cho mỗi hoạt động",
+      "empty": "Hãy ghi năng lượng kèm hoạt động để xem biểu đồ này."
+    },
+    "byCount": {
+      "title": "Số lần ghi theo hoạt động",
+      "subtitle": "Số lần bạn đã ghi năng lượng cho mỗi hoạt động",
+      "empty": "Chưa có bản ghi nào."
+    },
+    "summary": {
+      "average": "Mức trung bình",
+      "totalLogs": "Tổng số bản ghi",
+      "bestContext": "Hoạt động năng lượng cao nhất"
     }
   },
   "profilePage": {
@@ -203,6 +261,49 @@
     "errorMessage": "Bài viết của bạn chưa được lưu!",
     "errorTitle": "Lỗi"
   },
+  "entryTemplates": {
+    "picker": {
+      "heading": "Bạn muốn có gợi ý không?",
+      "subheading": "Chọn một chủ đề để có gợi ý nhẹ nhàng, hoặc viết tự do."
+    },
+    "freeform": {
+      "label": "Tự do",
+      "description": "Không gợi ý — chỉ viết những gì bạn đang nghĩ."
+    },
+    "guidingPromptsHeading": "Gợi ý nhẹ nhàng để suy ngẫm",
+    "templates": {
+      "difficult_conversation": {
+        "label": "Cuộc trò chuyện khó",
+        "description": "Gỡ rối một cuộc trò chuyện đang khiến bạn trăn trở.",
+        "questions": [
+          "Điều gì đã xảy ra, theo lời của bạn?",
+          "Bạn cảm thấy thế nào trong và sau cuộc trò chuyện?",
+          "Bạn ước mình đã nói hoặc làm khác đi điều gì?",
+          "Một bước nhỏ nào bạn có thể thực hiện từ đây?"
+        ]
+      },
+      "energy_drain": {
+        "label": "Cạn năng lượng",
+        "description": "Nhận diện điều đang khiến năng lượng của bạn suy giảm.",
+        "questions": [
+          "Điều gì đã khiến bạn cạn năng lượng hôm nay?",
+          "Bạn nhận thấy điều đó ở đâu trong cơ thể hoặc tâm trạng?",
+          "Nhu cầu nào của bạn chưa được đáp ứng?",
+          "Một điều gì đó có thể giúp bạn hồi phục năng lượng?"
+        ]
+      },
+      "gratitude_win": {
+        "label": "Biết ơn / Thành công",
+        "description": "Tận hưởng một điều tốt đẹp, dù lớn hay nhỏ.",
+        "questions": [
+          "Điều gì đã diễn ra tốt đẹp hôm nay, dù là điều nhỏ nhặt?",
+          "Bạn đang biết ơn ai hoặc điều gì ngay lúc này?",
+          "Bạn đã làm điều gì khiến bạn tự hào?",
+          "Làm sao để bạn giữ cảm giác này tiếp diễn?"
+        ]
+      }
+    }
+  },
   "entriesPage": {
     "title": "Nhật ký tự chiêm nghiệm",
     "subtitle": "Mỗi dòng nhật ký là một bước để làm rõ chính mình.",
@@ -231,6 +332,57 @@
     "updateError": "Không thể cập nhật nhật ký.",
     "deleteSuccess": "Đã xóa nhật ký.",
     "deleteError": "Không thể xóa nhật ký."
+  },
+  "actionProtocol": {
+    "list": {
+      "title": "Kịch bản ứng phó",
+      "subtitle": "Những kịch bản ứng phó bạn viết sẵn, dùng ngay khi cần.",
+      "createButton": "Kịch bản mới",
+      "empty": "Chưa có kịch bản nào. Hãy viết kịch bản đầu tiên của bạn.",
+      "loadMore": "Xem thêm",
+      "triggerLabel": "Tình huống:",
+      "usageCount": "Đã dùng {{times}} lần",
+      "lastUsed": "Dùng lần cuối {{date}}",
+      "markUsedButton": "Đánh dấu đã dùng",
+      "deleted": "Đã xóa kịch bản.",
+      "deleteConfirm": {
+        "title": "Xóa kịch bản",
+        "message": "Bạn có chắc muốn xóa kịch bản này?",
+        "confirm": "Xóa",
+        "cancel": "Hủy"
+      }
+    },
+    "form": {
+      "createTitle": "Kịch bản ứng phó mới",
+      "editTitle": "Chỉnh sửa kịch bản",
+      "titleLabel": "Tiêu đề",
+      "titlePlaceholder": "VD: Khi tôi cảm thấy quá tải trong công việc",
+      "triggerLabel": "Tình huống kích hoạt",
+      "triggerPlaceholder": "Tình huống nào cần đến kịch bản này?",
+      "scriptLabel": "Các bước ứng phó",
+      "scriptPlaceholder": "Viết các bước bạn sẽ làm theo thứ tự...",
+      "save": "Lưu",
+      "saving": "Đang lưu...",
+      "cancel": "Hủy",
+      "savedMessage": "Đã tạo kịch bản.",
+      "updatedMessage": "Đã cập nhật kịch bản.",
+      "errorMessage": "Không thể lưu kịch bản. Vui lòng thử lại."
+    },
+    "markUsed": {
+      "title": "Kết quả thế nào?",
+      "subtitle": "Đánh giá mức độ hiệu quả của kịch bản lần này.",
+      "notePlaceholder": "Thêm ghi chú (tùy chọn)...",
+      "save": "Lưu",
+      "saving": "Đang lưu...",
+      "cancel": "Hủy",
+      "savedMessage": "Đã ghi nhận lần sử dụng.",
+      "errorMessage": "Không thể ghi nhận. Vui lòng thử lại."
+    },
+    "effectiveness": {
+      "WORKED": "Hiệu quả",
+      "PARTIAL": "Hiệu quả một phần",
+      "DIDNT_WORK": "Không hiệu quả"
+    }
   },
   "phuongPhapPage": {
     "hero": {

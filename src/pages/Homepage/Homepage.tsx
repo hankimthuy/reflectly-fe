@@ -9,7 +9,7 @@ import DailyReflectionCard from './DailyReflectionCard/DailyReflectionCard.tsx';
 
 /**
  * @component HomePage
- * @description The main dashboard screen for the Reflectly app, now composed of smaller,
+ * @description The main dashboard screen for the MimoSe app, now composed of smaller,
  * reusable TypeScript components.
  */
 const HomePage = () => {
