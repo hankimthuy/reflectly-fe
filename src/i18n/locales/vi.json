@@ -19,7 +19,9 @@
     "journal": "Nhật ký",
     "profile": "Tôi",
     "login": "Đăng nhập",
-    "startJourney": "Bắt đầu hành trình"
+    "startJourney": "Bắt đầu hành trình",
+    "groupSpaces": "Không gian",
+    "groupJourney": "Hành trình của bạn"
   },
   "garden": {
     "mapTitle": "Ngôi nhà tâm trí của tôi",
@@ -80,6 +82,28 @@
         "Tôi chọn điều gì để tin, để giữ, để mang về.",
         "Tôi được quyền khác ý."
       ]
+    },
+    "bridge": {
+      "heading": "Cầu nối hành động của bạn",
+      "subtitle": "Ba bước nhỏ để biến nhận thức thành hành động.",
+      "energy": {
+        "title": "Năng lượng hôm nay",
+        "body": "Gần nhất: mức {{level}} · {{days}} ngày trước",
+        "bodyToday": "Gần nhất: mức {{level}} · hôm nay",
+        "empty": "Chưa có bản ghi nào — bắt đầu với 1 chạm",
+        "cta": "Xem lịch sử"
+      },
+      "protocols": {
+        "title": "Kịch bản của bạn",
+        "body": "{{count}} kịch bản đang sẵn sàng",
+        "empty": "Chưa có kịch bản nào — tạo cái đầu tiên",
+        "cta": "Xem kịch bản"
+      },
+      "dashboard": {
+        "title": "Nhìn lại hành trình",
+        "body": "Xem xu hướng 7 ngày qua",
+        "cta": "Xem bảng thông tin"
+      }
     }
   },
   "breadcrumb": {

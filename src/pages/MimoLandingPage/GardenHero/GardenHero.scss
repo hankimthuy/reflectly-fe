@@ -20,14 +20,15 @@
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--garden-grass);
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
   }
 
   &__acronym {
     font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-normal);
     color: var(--garden-text-muted);
     letter-spacing: 0.08em;
-    margin-bottom: var(--spacing-md);
+    text-transform: none;
   }
 
   &__slogan {
@@ -47,32 +48,7 @@
     font-size: var(--font-size-lg);
     color: var(--garden-text-muted);
     line-height: var(--line-height-relaxed);
-    margin-bottom: var(--spacing-sm);
-  }
-
-  &__tagline {
-    font-size: var(--font-size-sm);
-    font-style: italic;
-    color: var(--garden-earth);
-    margin-bottom: var(--spacing-xl);
-  }
-
-  &__quote {
-    margin: var(--spacing-xl) 0 0;
-    padding: var(--spacing-lg);
-    background: var(--garden-parchment);
-    border-left: 4px solid var(--garden-grass);
-    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
-    text-align: left;
-
-    p {
-      margin: 0;
-      font-family: var(--font-family-heading);
-      font-style: italic;
-      font-size: var(--font-size-base);
-      color: var(--garden-text);
-      line-height: var(--line-height-relaxed);
-    }
+    margin-bottom: 0;
   }
 
   &__mimo {
