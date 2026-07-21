@@ -90,68 +90,6 @@
     "profile": "Hồ sơ",
     "method": "Phương pháp"
   },
-  "landingPage": {
-    "footer": {
-      "copyright": "© 2026 MimoSe — Make Sense Of ME. Khoa học nhận thức và lãnh đạo bản thân."
-    }
-  },
-  "heroSection": {
-    "internalAwareness": "Nhận thức Nội tâm",
-    "innerverse": "Innerverse.",
-    "innerDescription": "Đi sâu vào suy nghĩ và cảm xúc của bạn với sự rõ ràng. Không tiếng ồn, chỉ tín hiệu.",
-    "innerTags": {
-      "safeSpace": "Không gian An toàn",
-      "coreValues": "Giá trị Cốt lõi",
-      "patterns": "Mẫu hình"
-    },
-    "externalAction": "Hành động Bên ngoài",
-    "outerverse": "Outerverse.",
-    "outerDescription": "Chuyển hóa hiểu biết thành hành động cụ thể. Thiết lập ranh giới, giao tiếp và lãnh đạo.",
-    "outerTags": {
-      "socialMirror": "Tấm gương Xã hội",
-      "regulation": "Điều chỉnh",
-      "growth": "Phát triển"
-    },
-    "bridge": {
-      "insight": "Thấu hiểu",
-      "action": "Hành động"
-    }
-  },
-  "pillarsSection": {
-    "title": "Những Trụ cột của Tự Lãnh đạo",
-    "subtitle": "Di chuột qua các trụ cột để khám phá cấu trúc tâm trí của bạn.",
-    "pillars": {
-      "safeSpace": {
-        "title": "Không gian An toàn",
-        "description": "Tháo mặt nạ. Một khu vực riêng tư, không phán xét để trút bỏ, khóc, hoặc ăn mừng."
-      },
-      "innerCompass": {
-        "title": "La bàn Nội tâm",
-        "description": "Xác định Giá trị Cốt lõi. Hiểu 'Tại sao' đằng sau 'Ai' của bạn."
-      },
-      "senseConnection": {
-        "title": "Kết nối Giác quan",
-        "description": "Nối các điểm. Phát hiện các mẫu hình ẩn trong tâm trạng và hành vi của bạn."
-      },
-      "socialMirror": {
-        "title": "Tấm gương Xã hội",
-        "description": "Trực quan hóa mạng lưới của bạn. Ai thúc đẩy sự phát triển của bạn và ai làm cạn kiệt bạn?"
-      },
-      "selfRegulation": {
-        "title": "Tự Điều chỉnh",
-        "description": "Biến thấu hiểu thành Hành động. Làm chủ các xung động và thiết lập ranh giới."
-      },
-      "growthVision": {
-        "title": "Tầm nhìn Phát triển",
-        "description": "Lập bản đồ sự tiến hóa của bạn. Thiết lập quỹ đạo rõ ràng cho bản thân tương lai."
-      }
-    },
-    "groups": {
-      "innerPsychology": "Tâm lý Nội tâm",
-      "externalBehavior": "Hành vi Bên ngoài"
-    },
-    "learnMore": "Tìm hiểu thêm"
-  },
   "mobileFooter": {
     "garden": "Vườn",
     "journal": "Nhật ký",
