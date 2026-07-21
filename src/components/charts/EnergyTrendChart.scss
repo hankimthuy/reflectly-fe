@@ -1,0 +1,46 @@
+@use '../../styles/_variables' as *;
+
+.energy-trend-chart {
+  width: 100%;
+
+  &--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
+    color: var(--garden-text-muted);
+    font-size: var(--font-size-sm);
+    text-align: center;
+    padding: var(--spacing-lg);
+  }
+
+  &__svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  &__gridline {
+    stroke: rgba(166, 123, 91, 0.15);
+    stroke-width: 1;
+  }
+
+  &__line {
+    stroke: var(--garden-grass);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  &__dot {
+    fill: var(--garden-grass);
+    stroke: var(--c-surface);
+    stroke-width: 1.5;
+  }
+
+  &__tick {
+    fill: var(--garden-text-muted);
+    font-size: 9px;
+    font-family: var(--font-family-primary);
+  }
+}

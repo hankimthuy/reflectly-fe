@@ -79,7 +79,8 @@
     }
   },
   "nav": {
-    "energy": "Energy"
+    "energy": "Energy",
+    "dashboard": "Dashboard"
   },
   "energyLog": {
     "quickLogTitle": "How's your energy right now?",
@@ -105,6 +106,34 @@
       "message": "Are you sure you want to delete this energy log?",
       "confirm": "Delete",
       "cancel": "Cancel"
+    }
+  },
+  "dashboard": {
+    "title": "Energy Dashboard",
+    "subtitle": "See how your energy shifts over time and where it goes.",
+    "loginRequired": "Please log in to view your energy dashboard.",
+    "rangeLabel": "Last {{days}} days",
+    "logButton": "Log Energy",
+    "empty": "No energy logs yet. Log your energy to see your dashboard come to life.",
+    "trend": {
+      "title": "Energy Trend",
+      "subtitle": "Average energy level per day",
+      "empty": "No energy logs yet for this period. Start logging to see your trend."
+    },
+    "byContext": {
+      "title": "Energy by Context",
+      "subtitle": "Average energy level for each activity",
+      "empty": "Log some energy entries with context tags to see this breakdown."
+    },
+    "byCount": {
+      "title": "Logs by Context",
+      "subtitle": "How many times you've logged energy in each context",
+      "empty": "No logs yet."
+    },
+    "summary": {
+      "average": "Average level",
+      "totalLogs": "Total logs",
+      "bestContext": "Highest energy context"
     }
   },
   "profilePage": {
