@@ -87,6 +87,14 @@
     @include font-responsive(2.8rem, 3.2rem, 3.6rem);
   }
 
+  &__acronym {
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.6);
+    mix-blend-mode: difference;
+    margin: 0 0 var(--spacing-xs);
+  }
+
   &__subtitle {
     text-transform: uppercase;
     letter-spacing: 0.3em;

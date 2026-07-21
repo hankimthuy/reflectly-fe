@@ -1,0 +1,44 @@
+@keyframes gardenPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(91, 140, 90, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 12px rgba(91, 140, 90, 0);
+  }
+}
+
+@keyframes pathFlow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gentleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

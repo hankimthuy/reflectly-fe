@@ -37,7 +37,7 @@ const WelcomePage: React.FC = () => {
                         className="hero-title"
                         gutterBottom
                     >
-                        Welcome to Reflectly
+                        Welcome to MimoSe
                     </Typography>
                     <Typography 
                         variant="h5" 

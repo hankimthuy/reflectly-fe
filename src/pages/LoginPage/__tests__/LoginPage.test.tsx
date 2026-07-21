@@ -33,6 +33,25 @@ vi.mock('../../../providers/AuthProvider', () => ({
     }),
 }));
 
+vi.mock('react-i18next', () => ({
+    useTranslation: () => ({
+        t: (key: string) => {
+            const labels: Record<string, string> = {
+                'brand.name': 'MimoSe',
+                'brand.acronym': 'Make Sense Of ME',
+                'brand.welcome': 'Chào mừng trở lại khu vườn của bạn.',
+                'auth.username': 'Username',
+                'auth.password': 'Password',
+                'auth.loginButton': 'Sign In',
+                'auth.googleLogin': 'Sign in with Google',
+                'auth.noAccount': "Don't have an account?",
+                'auth.signupLink': 'Start your journey',
+            };
+            return labels[key] ?? key;
+        },
+    }),
+}));
+
 vi.mock('@react-oauth/google', () => ({
     useGoogleLogin: ({ onSuccess, onError }: {
         onSuccess: (res: { code?: string }) => void;
@@ -69,7 +88,7 @@ describe('LoginPage', () => {
             renderLoginPage();
 
             expect(screen.getByText('MimoSe')).toBeInTheDocument();
-            expect(screen.getByText('Bridge between worlds')).toBeInTheDocument();
+            expect(screen.getByText('Chào mừng trở lại khu vườn của bạn.')).toBeInTheDocument();
         });
 
         it('should render the username and password fields', () => {

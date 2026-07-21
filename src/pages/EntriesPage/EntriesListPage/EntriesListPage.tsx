@@ -111,7 +111,8 @@ const EntriesListPage: React.FC = () => {
         <Breadcrumb
           variant="dark"
           items={[
-            { label: t('breadcrumb.innerverse'), path: APP_ROUTES.INNERVERSE },
+            { label: t('breadcrumb.home'), path: APP_ROUTES.WELCOME },
+            { label: t('breadcrumb.reflection'), path: APP_ROUTES.REFLECTION_ZONE },
             { label: t('breadcrumb.journal') },
           ]}
         />

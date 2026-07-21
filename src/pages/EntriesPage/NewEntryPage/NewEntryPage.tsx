@@ -5,8 +5,10 @@ import { LuLock, LuCheck } from 'react-icons/lu';
 import './NewEntryPage.scss';
 import EmotionCapture from '../components/EmotionCapture/EmotionCapture';
 import ReflectionCapture from '../components/ReflectionCapture/ReflectionCapture';
+import TemplatePicker from '../../../components/TemplatePicker/TemplatePicker';
 import { Emotion } from '../../../models/emotion';
 import type { CreateEntryRequest } from '../../../models/entry';
+import { getEntryTemplate } from '../../../models/entryTemplate';
 import { entriesService } from '../../../services/entriesService';
 import { APP_ROUTES } from '../../../constants/route';
 import { useSnackbar } from '../../../providers/SnackbarProvider';
@@ -17,10 +19,14 @@ const NewEntryPage: React.FC = () => {
   const { t } = useTranslation();
   const { showSnackbar } = useSnackbar();
   const [selectedEmotions, setSelectedEmotions] = useState<Emotion[]>([]);
+  const [selectedTemplateKey, setSelectedTemplateKey] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [reflectionTitle, setReflectionTitle] = useState('');
   const [reflectionText, setReflectionText] = useState('');
   const reflectionRef = useRef<HTMLDivElement>(null);
+
+  const selectedTemplate = getEntryTemplate(selectedTemplateKey);
+  const guidingPrompts = selectedTemplate?.questionKeys.map((key) => t(key));
 
   const handleEmotionToggle = (emotion: Emotion) => {
     setSelectedEmotions(prev => {
@@ -50,6 +56,7 @@ const NewEntryPage: React.FC = () => {
         title: reflectionTitle.trim(),
         reflection: reflectionText.trim(),
         emotions: selectedEmotions,
+        ...(selectedTemplateKey ? { templateKey: selectedTemplateKey } : {}),
       };
 
       await entriesService.createEntry(entry);
@@ -80,8 +87,9 @@ const NewEntryPage: React.FC = () => {
         <Breadcrumb
           variant="dark"
           items={[
-            { label: t('breadcrumb.innerverse'), path: APP_ROUTES.INNERVERSE },
-            { label: t('breadcrumb.safeSpace') },
+            { label: t('breadcrumb.home'), path: APP_ROUTES.WELCOME },
+            { label: t('breadcrumb.reflection'), path: APP_ROUTES.REFLECTION_ZONE },
+            { label: t('breadcrumb.journal') },
           ]}
         />
         <h1 className="safe-space__title">{t('newEntryPage.title')}</h1>
@@ -91,6 +99,14 @@ const NewEntryPage: React.FC = () => {
       {/* Content */}
       <div className="safe-space__content">
         <div className="safe-space__card">
+          {/* Template Section */}
+          <TemplatePicker
+            selectedTemplateKey={selectedTemplateKey}
+            onSelect={setSelectedTemplateKey}
+          />
+
+          <div className="safe-space__divider" />
+
           {/* Emotion Section */}
           <EmotionCapture
             selectedEmotions={selectedEmotions}
@@ -105,6 +121,7 @@ const NewEntryPage: React.FC = () => {
               <ReflectionCapture
                 selectedEmotions={selectedEmotions}
                 onFormChange={handleFormChange}
+                guidingPrompts={guidingPrompts}
               />
             </div>
           )}

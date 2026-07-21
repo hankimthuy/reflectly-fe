@@ -2,17 +2,16 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { LuBrainCircuit, LuActivity, LuList, LuUser } from 'react-icons/lu';
+import { LuBookOpen, LuHeart, LuTreePine, LuUser, LuZap } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
 import { APP_ROUTES } from '../../constants/route';
 import { useAuth } from '../../providers/AuthProvider';
-import { useTheme } from '../../providers/ThemeContext';
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog';
 import './MobileFooter.scss';
 
 interface NavItem {
     id: string;
-    label: string;
+    labelKey: string;
     icon: React.ReactNode;
     activeIcon: React.ReactNode;
     isFab?: boolean;
@@ -21,35 +20,43 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
     {
-        id: 'innerverse',
-        label: 'Inner',
-        icon: <LuBrainCircuit size={22} />,
-        activeIcon: <LuBrainCircuit size={24} />,
+        id: 'garden',
+        labelKey: 'mobileFooter.garden',
+        icon: <LuTreePine size={22} />,
+        activeIcon: <LuTreePine size={24} />,
     },
     {
         id: 'entries',
-        label: 'Entries',
-        icon: <LuList size={22} />,
-        activeIcon: <LuList size={24} />,
+        labelKey: 'mobileFooter.journal',
+        icon: <LuBookOpen size={22} />,
+        activeIcon: <LuBookOpen size={24} />,
         requiresAuth: true,
     },
     {
         id: 'add',
-        label: '',
+        labelKey: '',
         icon: <AddIcon sx={{ fontSize: 26 }} />,
         activeIcon: <AddIcon sx={{ fontSize: 26 }} />,
         isFab: true,
         requiresAuth: true,
     },
     {
-        id: 'outerverse',
-        label: 'Outer',
-        icon: <LuActivity size={22} />,
-        activeIcon: <LuActivity size={24} />,
+        id: 'emotion',
+        labelKey: 'mobileFooter.emotion',
+        icon: <LuHeart size={22} />,
+        activeIcon: <LuHeart size={24} />,
+        requiresAuth: true,
+    },
+    {
+        id: 'energy',
+        labelKey: 'mobileFooter.energy',
+        icon: <LuZap size={22} />,
+        activeIcon: <LuZap size={24} />,
+        requiresAuth: true,
     },
     {
         id: 'profile',
-        label: 'Me',
+        labelKey: 'mobileFooter.profile',
         icon: <LuUser size={22} />,
         activeIcon: <LuUser size={24} />,
     },
@@ -60,17 +67,18 @@ const MobileFooter = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const { isAuthenticated } = useAuth();
-    const { mobileTab, setMobileTab } = useTheme();
     const [authDialogOpen, setAuthDialogOpen] = useState(false);
 
     const isActive = (id: string): boolean => {
         switch (id) {
-            case 'innerverse':
-                return mobileTab === 'inner';
+            case 'garden':
+                return location.pathname === APP_ROUTES.WELCOME || location.pathname === APP_ROUTES.HOME;
             case 'entries':
-                return location.pathname === APP_ROUTES.ENTRIES_LIST;
-            case 'outerverse':
-                return mobileTab === 'outer';
+                return location.pathname.startsWith(APP_ROUTES.ENTRIES);
+            case 'emotion':
+                return location.pathname === APP_ROUTES.EMOTION_ZONE;
+            case 'energy':
+                return location.pathname === APP_ROUTES.ENERGY_HISTORY;
             case 'profile':
                 return location.pathname === APP_ROUTES.PROFILE;
             default:
@@ -85,9 +93,8 @@ const MobileFooter = () => {
         }
 
         switch (item.id) {
-            case 'innerverse':
-                setMobileTab('inner');
-                navigate(APP_ROUTES.INNERVERSE);
+            case 'garden':
+                navigate(APP_ROUTES.WELCOME);
                 break;
             case 'entries':
                 navigate(APP_ROUTES.ENTRIES_LIST);
@@ -95,9 +102,11 @@ const MobileFooter = () => {
             case 'add':
                 navigate(APP_ROUTES.ENTRIES_NEW);
                 break;
-            case 'outerverse':
-                setMobileTab('outer');
-                navigate(APP_ROUTES.OUTERVERSE);
+            case 'emotion':
+                navigate(APP_ROUTES.EMOTION_ZONE);
+                break;
+            case 'energy':
+                navigate(APP_ROUTES.ENERGY_HISTORY);
                 break;
             case 'profile':
                 if (isAuthenticated) {
@@ -114,11 +123,9 @@ const MobileFooter = () => {
         navigate(APP_ROUTES.LOGIN);
     };
 
-    const modeClass = mobileTab === 'outer' ? 'mobile-footer--outer' : 'mobile-footer--inner';
-
     return (
         <>
-            <Box className={`mobile-footer ${modeClass}`}>
+            <Box className="mobile-footer mobile-footer--garden">
                 <Box className="mobile-footer__container">
                     {NAV_ITEMS.map((item) => (
                         item.isFab ? (
@@ -140,7 +147,7 @@ const MobileFooter = () => {
                                 className={`mobile-footer__item ${isActive(item.id) ? 'mobile-footer__item--active' : ''}`}
                             >
                                 {isActive(item.id) ? item.activeIcon : item.icon}
-                                <span className="mobile-footer__label">{item.label}</span>
+                                <span className="mobile-footer__label">{t(item.labelKey)}</span>
                             </button>
                         )
                     ))}

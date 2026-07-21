@@ -1,0 +1,173 @@
+@use '../../styles/_variables' as *;
+
+.energy-history-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: calc(var(--header-height-mobile) + var(--spacing-lg)) var(--spacing-md) var(--spacing-3xl);
+
+  &__hero {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  &__icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto var(--spacing-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--garden-parchment);
+    border: 2px solid rgba(212, 168, 67, 0.5);
+    border-radius: 50%;
+    color: var(--c-accent-warm);
+  }
+
+  h1 {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-2xl);
+    color: var(--garden-text);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  p {
+    color: var(--garden-text-muted);
+    font-size: var(--font-size-lg);
+  }
+
+  &__log-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: var(--spacing-md);
+    padding: 12px 24px;
+    background: var(--garden-grass);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: var(--font-weight-semibold);
+
+    &:hover {
+      background: var(--c-primary-hover);
+    }
+  }
+
+  &__content {
+    background: var(--garden-parchment);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    border: 1px solid rgba(166, 123, 91, 0.25);
+    margin-bottom: var(--spacing-xl);
+  }
+
+  &__loading,
+  &__empty,
+  &__empty-state {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    color: var(--garden-text-muted);
+  }
+
+  &__load-more {
+    display: block;
+    margin: var(--spacing-lg) auto 0;
+    padding: 10px 20px;
+    background: none;
+    border: 1px solid rgba(166, 123, 91, 0.4);
+    border-radius: 999px;
+    color: var(--garden-text);
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  &__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    color: var(--garden-earth);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    padding: 0;
+
+    &:hover {
+      color: var(--garden-grass);
+    }
+  }
+}
+
+.energy-history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+
+  &__item {
+    display: grid;
+    grid-template-columns: 40px 1fr 32px;
+    align-items: center;
+    gap: var(--spacing-md);
+    background: var(--c-surface);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  &__level {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--badge-inner-bg);
+    color: var(--badge-inner-text);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-lg);
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  &__tag {
+    font-size: var(--font-size-sm);
+    color: var(--garden-text);
+    font-weight: var(--font-weight-medium);
+  }
+
+  &__time {
+    font-size: var(--font-size-xs);
+    color: var(--garden-text-muted);
+  }
+
+  &__notes {
+    margin: var(--spacing-xs) 0 0;
+    font-size: var(--font-size-sm);
+    color: var(--garden-text-muted);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  &__delete {
+    background: none;
+    border: none;
+    color: var(--c-danger);
+    cursor: pointer;
+    padding: var(--spacing-xs);
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}

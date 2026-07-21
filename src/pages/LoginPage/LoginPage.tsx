@@ -1,5 +1,6 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import { type FormEvent, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { LuEye, LuEyeOff, LuGlobe, LuSparkles } from 'react-icons/lu';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -8,6 +9,7 @@ import { useAuth } from '../../providers/AuthProvider';
 import './LoginPage.scss';
 
 const LoginPage = () => {
+    const { t } = useTranslation();
     const [error, setError] = useState('');
     const [isLoggingIn, setIsLoggingIn] = useState(false);
 
@@ -125,8 +127,9 @@ const LoginPage = () => {
             <div className="login-main">
                 {/* Header */}
                 <header className="login-header">
-                    <h1 className="login-header__title">MimoSe</h1>
-                    <p className="login-header__subtitle">Bridge between worlds</p>
+                    <h1 className="login-header__title">{t('brand.name')}</h1>
+                    <p className="login-header__acronym">{t('brand.acronym')}</p>
+                    <p className="login-header__subtitle">{t('brand.welcome')}</p>
                 </header>
 
                 {/* Body */}
@@ -145,7 +148,7 @@ const LoginPage = () => {
                             disabled={isLoggingIn}
                         >
                             <FcGoogle size={24} />
-                            Sign in with Google
+                            {t('auth.googleLogin')}
                         </button>
                     </div>
 
@@ -161,7 +164,7 @@ const LoginPage = () => {
                         {/* Username */}
                         <div className="login-field">
                             <label className="login-field__label" htmlFor="login-username">
-                                Username
+                                {t('auth.username')}
                             </label>
                             <input
                                 className="login-field__input"
@@ -178,7 +181,7 @@ const LoginPage = () => {
                         <div className="login-field">
                             <div className="login-field__label-row">
                                 <label className="login-field__label" htmlFor="login-password">
-                                    Password
+                                    {t('auth.password')}
                                 </label>
                                 <a className="login-field__forgot" href="#">
                                     Forgot?
@@ -211,7 +214,7 @@ const LoginPage = () => {
                             className="login-submit-btn"
                             disabled={isLoggingIn}
                         >
-                            {isLoggingIn ? 'Signing in...' : 'Sign In'}
+                            {isLoggingIn ? '...' : t('auth.loginButton')}
                         </button>
                     </form>
                 </div>
@@ -219,8 +222,8 @@ const LoginPage = () => {
                 {/* Footer */}
                 <footer className="login-footer">
                     <p className="login-footer__signup">
-                        Don't have an account?{' '}
-                        <Link to={APP_ROUTES.SIGNUP}>Start your journey</Link>
+                        {t('auth.noAccount')}{' '}
+                        <Link to={APP_ROUTES.SIGNUP}>{t('auth.signupLink')}</Link>
                     </p>
                     <div className="login-footer__links">
                         <a href="#">Privacy Policy</a>

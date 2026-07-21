@@ -40,6 +40,36 @@
       }
     }
 
+    .guiding-prompts {
+      padding: var(--spacing-md);
+      background: color-mix(in srgb, var(--c-secondary), transparent 92%);
+      border: 1px solid color-mix(in srgb, var(--c-secondary), transparent 70%);
+      border-radius: var(--border-radius-md);
+
+      &__heading {
+        margin: 0 0 var(--spacing-xs) 0;
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-bold);
+        color: var(--c-text-on-dark);
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+      }
+
+      &__list {
+        margin: 0;
+        padding-left: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      &__item {
+        font-size: var(--font-size-sm);
+        color: var(--c-text-muted-on-dark);
+        line-height: var(--line-height-relaxed);
+      }
+    }
+
     .reflection-form {
       display: flex;
       flex-direction: column;

@@ -6,6 +6,7 @@ export interface Entry {
   title: string;
   reflection: string;
   emotions: string[];
+  templateKey?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -14,6 +15,7 @@ export interface CreateEntryRequest {
   title: string;
   reflection: string;
   emotions: Emotion[];
+  templateKey?: string;
 }
 
 export interface UpdateEntryRequest {
@@ -21,4 +23,5 @@ export interface UpdateEntryRequest {
   title?: string;
   reflection?: string;
   emotions?: Emotion[];
+  templateKey?: string;
 }

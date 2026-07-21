@@ -32,7 +32,36 @@
     background: color-mix(in srgb, var(--c-background-dark), transparent 12%);
   }
 
-  // --- THEME: INNERVERSE (Dark Mode) ---
+  // --- THEME: GARDEN ---
+  &--garden {
+    background: color-mix(in srgb, var(--garden-sky), transparent 8%);
+    color: var(--garden-text);
+    border-bottom: 1px solid rgba(91, 140, 90, 0.15);
+
+    &.mimo-header--scrolled {
+      background: color-mix(in srgb, var(--garden-sky), transparent 5%);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-cta {
+      background: var(--garden-grass);
+      color: white;
+    }
+
+    .mimo-header__logo {
+      color: var(--garden-text);
+      font-family: var(--font-family-heading);
+    }
+
+    .mimo-header__nav a.active {
+      opacity: 1;
+      color: var(--garden-grass);
+      font-weight: var(--font-weight-semibold);
+    }
+  }
+
+  // --- Legacy themes (kept for compatibility) ---
   &--inner {
     // Dark Background with 90% opacity
     background: color-mix(in srgb, var(--c-background-dark), transparent 10%);

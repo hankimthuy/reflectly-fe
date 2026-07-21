@@ -1,19 +1,14 @@
-import { createContext, useContext, useState, type ReactNode } from 'react';
-
-type ThemeType = 'split' | 'inner' | 'outer';
+import { createContext, useContext, type ReactNode } from 'react';
 
 interface ThemeContextType {
-  mobileTab: ThemeType;
-  setMobileTab: (tab: ThemeType) => void;
+  theme: 'garden';
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [mobileTab, setMobileTab] = useState<ThemeType>('inner');
-
   return (
-    <ThemeContext.Provider value={{ mobileTab, setMobileTab }}>
+    <ThemeContext.Provider value={{ theme: 'garden' }}>
       {children}
     </ThemeContext.Provider>
   );

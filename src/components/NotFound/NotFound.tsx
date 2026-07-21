@@ -1,31 +1,22 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import "./NotFound.scss";
+import { APP_ROUTES } from '../../constants/route';
+import './NotFound.scss';
 
 const NotFoundPage: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
-    <div className="container">
-      <h1 className="code">404</h1>
-      <h2 className="title">Page Not Found</h2>
-      <p className="message">
-        Sorry, the page you are looking for does not exist or has been moved.
-      </p>
+    <div className="not-found-page">
+      <h1 className="not-found-page__code">404</h1>
+      <h2 className="not-found-page__title">{t('notFound.title')}</h2>
+      <p className="not-found-page__message">{t('notFound.subtitle')}</p>
 
-      <div className="button-group">
-        <button 
-          onClick={() => navigate(-1)} 
-          className="button secondary"
-        >
-          Go Back
-        </button>
-
-        <button 
-          onClick={() => navigate('/')} 
-          className="button primary"
-        >
-          Go Home
+      <div className="not-found-page__actions">
+        <button type="button" onClick={() => navigate(APP_ROUTES.WELCOME)} className="not-found-page__btn not-found-page__btn--primary">
+          {t('notFound.back')}
         </button>
       </div>
     </div>

@@ -1,0 +1,110 @@
+@use '../../styles/_variables' as *;
+
+.framework-panels {
+  padding: var(--spacing-2xl) var(--spacing-md);
+  max-width: 1100px;
+  margin: 0 auto;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__panel {
+    background: var(--garden-parchment);
+    border: 1px solid rgba(166, 123, 91, 0.3);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  &__panel-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    color: var(--garden-earth);
+
+    h3 {
+      font-family: var(--font-family-heading);
+      font-size: var(--font-size-base);
+      margin: 0;
+      color: var(--garden-text);
+    }
+  }
+
+  &__intro {
+    font-size: var(--font-size-sm);
+    color: var(--garden-text-muted);
+    margin-bottom: var(--spacing-md);
+  }
+
+  &__steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: var(--font-size-sm);
+      color: var(--garden-text);
+
+      svg {
+        flex-shrink: 0;
+        margin-top: 3px;
+        color: var(--garden-grass);
+      }
+    }
+  }
+
+  &__principles {
+    margin-top: var(--spacing-2xl);
+    padding: var(--spacing-xl);
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid rgba(91, 140, 90, 0.2);
+
+    h3 {
+      font-family: var(--font-family-heading);
+      margin-bottom: var(--spacing-md);
+      color: var(--garden-text);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-sm);
+
+      li {
+        padding-left: var(--spacing-md);
+        position: relative;
+        color: var(--garden-text-muted);
+        font-size: var(--font-size-sm);
+
+        &::before {
+          content: '•';
+          position: absolute;
+          left: 0;
+          color: var(--garden-grass);
+        }
+      }
+    }
+  }
+
+  &--full &__panel {
+    padding: var(--spacing-xl);
+  }
+}

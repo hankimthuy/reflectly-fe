@@ -1,44 +1,62 @@
 import { lazy } from 'react';
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import NotFoundPage from '../components/NotFound/NotFound';
 import { APP_ROUTES } from '../constants/route';
 import MainLayout from '../layouts/MainLayout/MainLayout';
 import EntriesListPage from '../pages/EntriesPage/EntriesListPage/EntriesListPage';
 import QuotesPage from '../pages/QuotesPage/QuotesPage';
-import StatisticsPage from '../pages/StatisticsPage/StatisticsPage';
 import ProtectedRoute from './ProtectedRoute';
 
-// const HomePage = lazy(() => import('../pages/Homepage/Homepage'));
 const NewEntryPage = lazy(() => import('../pages/EntriesPage/NewEntryPage/NewEntryPage'));
 const EditEntryPage = lazy(() => import('../pages/EntriesPage/EditEntryPage/EditEntryPage'));
 const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
 const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
 const MimoLandingPage = lazy(() => import('../pages/MimoLandingPage/MimoLandingPage'));
-const MimoMethodPage = lazy(() => import('../pages/MimoMethodPage/MimoMethodPage'));
-const InnerversePage = lazy(() => import('../pages/InnerversePage/InnerversePage'));
-const OuterversePage = lazy(() => import('../pages/OuterversePage/OuterversePage'));
+const PhuongPhapPage = lazy(() => import('../pages/PhuongPhapPage/PhuongPhapPage'));
+const GardenZonePage = lazy(() => import('../pages/GardenZonePage/GardenZonePage'));
+const EmotionZonePage = lazy(() => import('../pages/EmotionZonePage/EmotionZonePage'));
 const SignupPage = lazy(() => import('../pages/SignupPage/SignupPage'));
+const EnergyHistoryPage = lazy(() => import('../pages/EnergyHistoryPage/EnergyHistoryPage'));
+const StatisticsPage = lazy(() => import('../pages/StatisticsPage/StatisticsPage'));
+const ProtocolsPage = lazy(() => import('../pages/ProtocolsPage/ProtocolsPage'));
 
 export const AppRoutes = () => {
     return (
         <Routes>
-            <Route
-                path={APP_ROUTES.LOGIN}
-                element={<LoginPage />}
-            />
-            <Route
-                path={APP_ROUTES.SIGNUP}
-                element={<SignupPage />}
-            />
+            <Route path={APP_ROUTES.LOGIN} element={<LoginPage />} />
+            <Route path={APP_ROUTES.SIGNUP} element={<SignupPage />} />
+
             <Route element={
                 <MainLayout>
                     <Outlet />
                 </MainLayout>
             }>
                 <Route path={APP_ROUTES.WELCOME} element={<MimoLandingPage />} />
-                <Route path={APP_ROUTES.MIMO_METHOD} element={<MimoMethodPage />} />
-                <Route path={APP_ROUTES.INNERVERSE} element={<InnerversePage />} />
-                <Route path={APP_ROUTES.OUTERVERSE} element={<OuterversePage />} />
+                <Route path={APP_ROUTES.PHUONG_PHAP} element={<PhuongPhapPage />} />
+                <Route path={APP_ROUTES.REFLECTION_ZONE} element={<GardenZonePage zoneId="tu-chiem-nghiem" />} />
+                <Route path={APP_ROUTES.CREATIVITY_ZONE} element={<GardenZonePage zoneId="sang-tao" />} />
+                <Route path={APP_ROUTES.CONNECTION_ZONE} element={<GardenZonePage zoneId="ket-noi" />} />
+                <Route path={APP_ROUTES.EMOTION_ZONE} element={
+                    <ProtectedRoute>
+                        <EmotionZonePage />
+                    </ProtectedRoute>
+                } />
+                <Route path={APP_ROUTES.ENERGY_HISTORY} element={
+                    <ProtectedRoute>
+                        <EnergyHistoryPage />
+                    </ProtectedRoute>
+                } />
+                <Route path={APP_ROUTES.PROTOCOLS} element={
+                    <ProtectedRoute>
+                        <ProtocolsPage />
+                    </ProtectedRoute>
+                } />
+
+                {/* Legacy redirects */}
+                <Route path={APP_ROUTES.INNERVERSE} element={<Navigate to={APP_ROUTES.REFLECTION_ZONE} replace />} />
+                <Route path={APP_ROUTES.OUTERVERSE} element={<Navigate to={APP_ROUTES.CONNECTION_ZONE} replace />} />
+                <Route path={APP_ROUTES.MIMO_METHOD} element={<Navigate to={APP_ROUTES.PHUONG_PHAP} replace />} />
+
                 <Route path={APP_ROUTES.HOME} element={
                     <ProtectedRoute>
                         <MimoLandingPage />
@@ -79,4 +97,3 @@ export const AppRoutes = () => {
         </Routes>
     );
 };
-

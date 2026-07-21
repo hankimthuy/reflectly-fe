@@ -1,0 +1,12 @@
+.garden-scene-3d {
+  display: block;
+  width: 100%;
+  aspect-ratio: 800 / 520;
+  pointer-events: none;
+
+  canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+  }
+}

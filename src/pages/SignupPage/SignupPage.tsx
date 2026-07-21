@@ -1,4 +1,5 @@
 import {type FormEvent, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {LuEye, LuEyeOff, LuGlobe, LuSparkles} from 'react-icons/lu';
 import {Link, useNavigate} from 'react-router-dom';
 import {APP_ROUTES} from '../../constants/route';
@@ -7,6 +8,7 @@ import '../LoginPage/LoginPage.scss';
 import './SignupPage.scss';
 
 const SignupPage = () => {
+    const { t } = useTranslation();
     const [error, setError] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -68,8 +70,9 @@ const SignupPage = () => {
             <div className="login-main">
                 {/* Header */}
                 <header className="login-header">
-                    <h1 className="login-header__title">MimoSe</h1>
-                    <p className="login-header__subtitle">Start your journey</p>
+                    <h1 className="login-header__title">{t('brand.name')}</h1>
+                    <p className="login-header__acronym">{t('brand.acronym')}</p>
+                    <p className="login-header__subtitle">{t('auth.signupTitle')}</p>
                 </header>
 
                 {/* Body */}
