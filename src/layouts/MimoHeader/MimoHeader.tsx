@@ -100,6 +100,13 @@ const MimoHeader = ({ scrolled = false }: MimoHeaderProps) => {
             {t('nav.dashboard')}
           </a>
           <a
+            onClick={() => navigate(APP_ROUTES.PROTOCOLS)}
+            className={isActive(APP_ROUTES.PROTOCOLS) ? 'active' : ''}
+            style={{ cursor: 'pointer' }}
+          >
+            {t('nav.protocols')}
+          </a>
+          <a
             onClick={() => navigate(APP_ROUTES.PHUONG_PHAP)}
             className={isActive(APP_ROUTES.PHUONG_PHAP) ? 'active' : ''}
             style={{ cursor: 'pointer' }}
@@ -172,6 +179,7 @@ const MimoHeader = ({ scrolled = false }: MimoHeaderProps) => {
           <a onClick={() => navTo(APP_ROUTES.EMOTION_ZONE)} style={{ cursor: 'pointer' }}>{t('nav.emotion')}</a>
           <a onClick={() => navTo(APP_ROUTES.ENERGY_HISTORY)} style={{ cursor: 'pointer' }}>{t('nav.energy')}</a>
           <a onClick={() => navTo(APP_ROUTES.STATISTICS)} style={{ cursor: 'pointer' }}>{t('nav.dashboard')}</a>
+          <a onClick={() => navTo(APP_ROUTES.PROTOCOLS)} style={{ cursor: 'pointer' }}>{t('nav.protocols')}</a>
           <a onClick={() => navTo(APP_ROUTES.PHUONG_PHAP)} style={{ cursor: 'pointer' }}>{t('nav.method')}</a>
           <div className="divider" />
           <div className="mobile-language-switcher">

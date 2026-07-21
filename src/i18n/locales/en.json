@@ -80,7 +80,8 @@
   },
   "nav": {
     "energy": "Energy",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "protocols": "Protocols"
   },
   "energyLog": {
     "quickLogTitle": "How's your energy right now?",
@@ -248,6 +249,57 @@
     "updateError": "Failed to update entry.",
     "deleteSuccess": "Entry deleted.",
     "deleteError": "Failed to delete entry."
+  },
+  "actionProtocol": {
+    "list": {
+      "title": "Action Protocols",
+      "subtitle": "Your coping scripts, written in advance and ready when you need them.",
+      "createButton": "New Protocol",
+      "empty": "No protocols yet. Write your first coping script.",
+      "loadMore": "Load more",
+      "triggerLabel": "Trigger:",
+      "usageCount": "Used {{times}} times",
+      "lastUsed": "Last used {{date}}",
+      "markUsedButton": "Mark used",
+      "deleted": "Protocol deleted.",
+      "deleteConfirm": {
+        "title": "Delete protocol",
+        "message": "Are you sure you want to delete this protocol?",
+        "confirm": "Delete",
+        "cancel": "Cancel"
+      }
+    },
+    "form": {
+      "createTitle": "New Action Protocol",
+      "editTitle": "Edit Action Protocol",
+      "titleLabel": "Title",
+      "titlePlaceholder": "e.g. When I feel overwhelmed at work",
+      "triggerLabel": "Trigger / situation",
+      "triggerPlaceholder": "What situation calls for this protocol?",
+      "scriptLabel": "Script / coping steps",
+      "scriptPlaceholder": "Write the steps you'll follow, in order...",
+      "save": "Save",
+      "saving": "Saving...",
+      "cancel": "Cancel",
+      "savedMessage": "Protocol created.",
+      "updatedMessage": "Protocol updated.",
+      "errorMessage": "Could not save your protocol. Please try again."
+    },
+    "markUsed": {
+      "title": "How did it go?",
+      "subtitle": "Rate how effective this protocol was this time.",
+      "notePlaceholder": "Add a note (optional)...",
+      "save": "Save",
+      "saving": "Saving...",
+      "cancel": "Cancel",
+      "savedMessage": "Usage recorded.",
+      "errorMessage": "Could not record usage. Please try again."
+    },
+    "effectiveness": {
+      "WORKED": "It worked",
+      "PARTIAL": "It partially worked",
+      "DIDNT_WORK": "It didn't work"
+    }
   },
   "mimoMethodPage": {
     "hero": {
