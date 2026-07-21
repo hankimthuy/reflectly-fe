@@ -238,5 +238,68 @@
       "PARTIAL": "It partially worked",
       "DIDNT_WORK": "It didn't work"
     }
+  },
+  "garden": {
+    "framework": {
+      "goOut": {
+        "title": "How I go out",
+        "intro": "Before stepping into the outside world, I pause to check my energy and emotions — this is Layer 1 Innerverse.",
+        "steps": ["Log your current energy level (1-10) before you start", "Tag the emotion you're feeling, without judging it right or wrong", "Notice patterns — which activities lift your energy, which drain it", "Choose how to engage based on your actual state right now"],
+        "linkLabel": "View your energy"
+      },
+      "comeBack": {
+        "title": "How I come back",
+        "intro": "When a hard moment hits, I use an Action Protocol — MimoSe's core differentiator — instead of reacting on the spot.",
+        "steps": ["Write the protocol in advance, while your mind is calm", "Use the protocol you prepared as soon as the situation happens", "Mark it as used and record the outcome", "Track its effectiveness over time and adjust if needed"],
+        "linkLabel": "View your protocols"
+      },
+      "filter": {
+        "title": "How I look back",
+        "intro": "The Dashboard and trend charts (Layer 5 Insight & Growth) show me patterns over time — so I can recognize them myself, not have the app conclude for me.",
+        "steps": ["Review your energy trend chart by day and by week", "Compare energy levels across different activities", "Notice the moments when your energy tends to run lowest", "Draw your own conclusions about what's repeating — the next decision is yours"],
+        "linkLabel": "View your dashboard"
+      },
+      "principlesTitle": "Four operating principles",
+      "principles": [
+        { "title": "Accompany, don't theorize", "description": "Every feature ties to a concrete action — not reading material." },
+        { "title": "Self-resolve", "description": "Tools offer question frameworks; the app never gives advice on your behalf." },
+        { "title": "Protocols have a lifecycle", "description": "Action Protocols are tracked and revisited over time, not used once and forgotten." },
+        { "title": "Convenience at the right moment", "description": "1-2 tap interactions are favored, especially in stressful moments." }
+      ]
+    }
+  },
+  "phuongPhapPage": {
+    "hero": {
+      "badge": "Self-leadership foundations",
+      "title": "Why MimoSe <span class=\"highlight\">works this way</span>",
+      "subtitle": "MimoSe is built on Leading Self: understanding and guiding yourself comes before guiding anyone else. This page explains the reasoning behind the features you use every day."
+    },
+    "layers": {
+      "title": "The four layers MimoSe has today",
+      "subtitle": "Every feature you use belongs to one layer of the self-leadership model.",
+      "items": {
+        "foundation": {
+          "label": "Layer 0 · Foundation",
+          "description": "Your account, profile, and journal entries — where all your data begins."
+        },
+        "innerverse": {
+          "label": "Layer 1 · Innerverse",
+          "description": "Energy tracking and emotion tagging — understanding what's happening inside."
+        },
+        "bridge": {
+          "label": "Layer 3 · Bridge",
+          "description": "Action Protocols — the core differentiator that turns insight into concrete action."
+        },
+        "insight": {
+          "label": "Layer 5 · Insight & Growth",
+          "description": "Dashboards and trend charts — looking back at the path you've walked."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to apply it?",
+      "subtitle": "Start with your first entry — a journal line, an energy log, or a protocol.",
+      "button": "Start your first entry"
+    }
   }
 }
