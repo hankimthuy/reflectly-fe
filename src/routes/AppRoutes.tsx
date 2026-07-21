@@ -18,6 +18,7 @@ const GardenZonePage = lazy(() => import('../pages/GardenZonePage/GardenZonePage
 const EmotionZonePage = lazy(() => import('../pages/EmotionZonePage/EmotionZonePage'));
 const SignupPage = lazy(() => import('../pages/SignupPage/SignupPage'));
 const EnergyHistoryPage = lazy(() => import('../pages/EnergyHistoryPage/EnergyHistoryPage'));
+const ProtocolsPage = lazy(() => import('../pages/ProtocolsPage/ProtocolsPage'));
 
 export const AppRoutes = () => {
     return (
@@ -43,6 +44,11 @@ export const AppRoutes = () => {
                 <Route path={APP_ROUTES.ENERGY_HISTORY} element={
                     <ProtectedRoute>
                         <EnergyHistoryPage />
+                    </ProtectedRoute>
+                } />
+                <Route path={APP_ROUTES.PROTOCOLS} element={
+                    <ProtectedRoute>
+                        <ProtocolsPage />
                     </ProtectedRoute>
                 } />
 

@@ -24,4 +24,5 @@ export const APP_ROUTES = {
     ENTRIES_EDIT: '/entries/edit/:id',
     STATISTICS: '/statistics',
     QUOTES: '/quotes',
+    PROTOCOLS: '/protocols',
 };
