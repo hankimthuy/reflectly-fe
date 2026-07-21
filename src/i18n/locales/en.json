@@ -19,7 +19,34 @@
   "nav": {
     "energy": "Energy",
     "dashboard": "Dashboard",
-    "protocols": "Protocols"
+    "protocols": "Protocols",
+    "journal": "Journal",
+    "groupSpaces": "Spaces",
+    "groupJourney": "Your journey"
+  },
+  "garden": {
+    "bridge": {
+      "heading": "Your bridge to action",
+      "subtitle": "Three small steps to turn insight into action.",
+      "energy": {
+        "title": "Today's energy",
+        "body": "Last logged: level {{level}} · {{days}} days ago",
+        "bodyToday": "Last logged: level {{level}} · today",
+        "empty": "No entries yet — start with one tap",
+        "cta": "View history"
+      },
+      "protocols": {
+        "title": "Your protocols",
+        "body": "{{count}} protocols ready when you need them",
+        "empty": "No protocol yet — create your first",
+        "cta": "View protocols"
+      },
+      "dashboard": {
+        "title": "Look back at your journey",
+        "body": "See your last-7-day trend",
+        "cta": "View dashboard"
+      }
+    }
   },
   "energyLog": {
     "quickLogTitle": "How's your energy right now?",

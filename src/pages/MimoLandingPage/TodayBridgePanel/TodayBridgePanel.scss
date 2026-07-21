@@ -1,0 +1,97 @@
+@use '../../../styles/_variables' as *;
+
+.today-bridge-panel {
+  padding: var(--spacing-2xl) var(--spacing-md);
+  max-width: 1100px;
+  margin: 0 auto;
+
+  &__title {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-2xl);
+    color: var(--garden-text);
+    text-align: center;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__subtitle {
+    text-align: center;
+    color: var(--garden-text-muted);
+    max-width: 560px;
+    margin: 0 auto var(--spacing-xl);
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+    padding: var(--spacing-md);
+    background: var(--garden-parchment);
+    background-color: var(--garden-parchment);
+    border: 1px solid rgba(166, 123, 91, 0.25);
+    border-radius: var(--border-radius-lg);
+    text-align: left;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      // Explicitly restate the resting background so the buggy global
+      // `button:hover` rule (which leaks a dark-brown background) can't take over.
+      background-color: #fbf6e8;
+    }
+
+    h3 {
+      font-family: var(--font-family-heading);
+      font-size: var(--font-size-lg);
+      margin: 0 0 4px;
+      color: var(--garden-text);
+    }
+
+    p {
+      margin: 0;
+      font-size: var(--font-size-sm);
+      color: var(--garden-text-muted);
+      min-height: 1.2em;
+    }
+  }
+
+  &__card-icon {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--garden-grass-light);
+    color: var(--garden-text);
+    border-radius: var(--border-radius-md);
+  }
+
+  &__card-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__cta {
+    display: inline-block;
+    margin-top: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--garden-grass);
+  }
+}

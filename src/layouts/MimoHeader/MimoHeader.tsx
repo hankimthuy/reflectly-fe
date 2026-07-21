@@ -64,55 +64,72 @@ const MimoHeader = ({ scrolled = false }: MimoHeaderProps) => {
         </div>
 
         <div className="mimo-header__nav">
-          <a
-            onClick={() => navigate(APP_ROUTES.WELCOME)}
-            className={isActive(APP_ROUTES.WELCOME) ? 'active' : ''}
-            style={{ cursor: 'pointer' }}
-          >
-            {t('nav.garden')}
-          </a>
-          <a
-            onClick={() => navigate(APP_ROUTES.REFLECTION_ZONE)}
-            className={isActive(APP_ROUTES.REFLECTION_ZONE) ? 'active' : ''}
-            style={{ cursor: 'pointer' }}
-          >
-            {t('nav.reflection')}
-          </a>
-          <a
-            onClick={() => navigate(APP_ROUTES.EMOTION_ZONE)}
-            className={isActive(APP_ROUTES.EMOTION_ZONE) ? 'active' : ''}
-            style={{ cursor: 'pointer' }}
-          >
-            {t('nav.emotion')}
-          </a>
-          <a
-            onClick={() => navigate(APP_ROUTES.ENERGY_HISTORY)}
-            className={isActive(APP_ROUTES.ENERGY_HISTORY) ? 'active' : ''}
-            style={{ cursor: 'pointer' }}
-          >
-            {t('nav.energy')}
-          </a>
-          <a
-            onClick={() => navigate(APP_ROUTES.STATISTICS)}
-            className={isActive(APP_ROUTES.STATISTICS) ? 'active' : ''}
-            style={{ cursor: 'pointer' }}
-          >
-            {t('nav.dashboard')}
-          </a>
-          <a
-            onClick={() => navigate(APP_ROUTES.PROTOCOLS)}
-            className={isActive(APP_ROUTES.PROTOCOLS) ? 'active' : ''}
-            style={{ cursor: 'pointer' }}
-          >
-            {t('nav.protocols')}
-          </a>
-          <a
-            onClick={() => navigate(APP_ROUTES.PHUONG_PHAP)}
-            className={isActive(APP_ROUTES.PHUONG_PHAP) ? 'active' : ''}
-            style={{ cursor: 'pointer' }}
-          >
-            {t('nav.method')}
-          </a>
+          <div className="mimo-header__nav-links">
+            <span className="mimo-header__nav-group-label">{t('nav.groupSpaces')}</span>
+            <a
+              onClick={() => navigate(APP_ROUTES.WELCOME)}
+              className={isActive(APP_ROUTES.WELCOME) ? 'active' : ''}
+              style={{ cursor: 'pointer' }}
+            >
+              {t('nav.garden')}
+            </a>
+            <a
+              onClick={() => navigate(APP_ROUTES.REFLECTION_ZONE)}
+              className={isActive(APP_ROUTES.REFLECTION_ZONE) ? 'active' : ''}
+              style={{ cursor: 'pointer' }}
+            >
+              {t('nav.reflection')}
+            </a>
+            <a
+              onClick={() => navigate(APP_ROUTES.EMOTION_ZONE)}
+              className={isActive(APP_ROUTES.EMOTION_ZONE) ? 'active' : ''}
+              style={{ cursor: 'pointer' }}
+            >
+              {t('nav.emotion')}
+            </a>
+
+            <span className="mimo-header__nav-divider" aria-hidden="true" />
+
+            <span className="mimo-header__nav-group-label">{t('nav.groupJourney')}</span>
+            <a
+              onClick={() => navigate(APP_ROUTES.ENERGY_HISTORY)}
+              className={isActive(APP_ROUTES.ENERGY_HISTORY) ? 'active' : ''}
+              style={{ cursor: 'pointer' }}
+            >
+              {t('nav.energy')}
+            </a>
+            <a
+              onClick={() => navigate(APP_ROUTES.STATISTICS)}
+              className={isActive(APP_ROUTES.STATISTICS) ? 'active' : ''}
+              style={{ cursor: 'pointer' }}
+            >
+              {t('nav.dashboard')}
+            </a>
+            <a
+              onClick={() => navigate(APP_ROUTES.PROTOCOLS)}
+              className={isActive(APP_ROUTES.PROTOCOLS) ? 'active' : ''}
+              style={{ cursor: 'pointer' }}
+            >
+              {t('nav.protocols')}
+            </a>
+            <a
+              onClick={() => navigate(APP_ROUTES.ENTRIES_LIST)}
+              className={isActive(APP_ROUTES.ENTRIES_LIST) ? 'active' : ''}
+              style={{ cursor: 'pointer' }}
+            >
+              {t('nav.journal')}
+            </a>
+
+            <span className="mimo-header__nav-divider" aria-hidden="true" />
+
+            <a
+              onClick={() => navigate(APP_ROUTES.PHUONG_PHAP)}
+              className={isActive(APP_ROUTES.PHUONG_PHAP) ? 'active' : ''}
+              style={{ cursor: 'pointer' }}
+            >
+              {t('nav.method')}
+            </a>
+          </div>
 
           {currentUser ? (
             <div className="mimo-header__user" ref={userMenuRef}>
@@ -174,12 +191,21 @@ const MimoHeader = ({ scrolled = false }: MimoHeaderProps) => {
 
       {isMenuOpen && (
         <div className="mimo-header__mobile-menu">
+          <span className="mimo-header__nav-group-label">{t('nav.groupSpaces')}</span>
           <a onClick={() => navTo(APP_ROUTES.WELCOME)} style={{ cursor: 'pointer' }}>{t('nav.garden')}</a>
           <a onClick={() => navTo(APP_ROUTES.REFLECTION_ZONE)} style={{ cursor: 'pointer' }}>{t('nav.reflection')}</a>
           <a onClick={() => navTo(APP_ROUTES.EMOTION_ZONE)} style={{ cursor: 'pointer' }}>{t('nav.emotion')}</a>
+
+          <div className="divider" />
+
+          <span className="mimo-header__nav-group-label">{t('nav.groupJourney')}</span>
           <a onClick={() => navTo(APP_ROUTES.ENERGY_HISTORY)} style={{ cursor: 'pointer' }}>{t('nav.energy')}</a>
           <a onClick={() => navTo(APP_ROUTES.STATISTICS)} style={{ cursor: 'pointer' }}>{t('nav.dashboard')}</a>
           <a onClick={() => navTo(APP_ROUTES.PROTOCOLS)} style={{ cursor: 'pointer' }}>{t('nav.protocols')}</a>
+          <a onClick={() => navTo(APP_ROUTES.ENTRIES_LIST)} style={{ cursor: 'pointer' }}>{t('nav.journal')}</a>
+
+          <div className="divider" />
+
           <a onClick={() => navTo(APP_ROUTES.PHUONG_PHAP)} style={{ cursor: 'pointer' }}>{t('nav.method')}</a>
           <div className="divider" />
           <div className="mobile-language-switcher">
