@@ -295,3 +295,10 @@ $breakpoints: (
   margin: 0 auto;
   padding: 0 1.5rem;
 }
+
+// Ghost/text-style button: rest state has no fill; hover must restate that
+// explicitly so it can never inherit a global filled-button hover background.
+@mixin ghost-button-hover($hover-color) {
+  background-color: transparent;
+  color: $hover-color;
+}

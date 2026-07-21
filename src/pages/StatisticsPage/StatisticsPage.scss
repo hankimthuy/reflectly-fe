@@ -103,8 +103,8 @@
     cursor: pointer;
     padding: 0;
 
-    &:hover {
-      color: var(--garden-grass);
+    &:hover:not(:disabled) {
+      @include ghost-button-hover(var(--garden-grass));
     }
   }
 
