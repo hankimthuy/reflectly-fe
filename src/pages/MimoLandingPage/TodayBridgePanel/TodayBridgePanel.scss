@@ -1,6 +1,6 @@
-@use '../../styles/_variables' as *;
+@use '../../../styles/_variables' as *;
 
-.garden-map {
+.today-bridge-panel {
   padding: var(--spacing-2xl) var(--spacing-md);
   max-width: 1100px;
   margin: 0 auto;
@@ -20,45 +20,38 @@
     margin: 0 auto var(--spacing-xl);
   }
 
-  &__prod {
-    max-width: 900px;
-    margin: 0 auto;
-    border-radius: var(--border-radius-xl);
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    border: 3px solid var(--garden-wood);
-  }
+  &__cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
 
-  &--mobile {
-    .garden-map__cards {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-md);
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 
   &__card {
     display: flex;
+    flex-direction: column;
     gap: var(--spacing-md);
     align-items: flex-start;
     padding: var(--spacing-md);
     background: var(--garden-parchment);
+    background-color: var(--garden-parchment);
     border: 1px solid rgba(166, 123, 91, 0.25);
     border-radius: var(--border-radius-lg);
     text-align: left;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    animation: fadeUp 0.5s ease-out both;
+    font: inherit;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 
-    &:hover:not(:disabled) {
-      background-color: var(--c-white);
+    &:hover {
       transform: translateY(-2px);
       box-shadow: var(--shadow-md);
-    }
-
-    &--soon {
-      opacity: 0.7;
-      cursor: not-allowed;
+      // Explicitly restate the resting background so the buggy global
+      // `button:hover` rule (which leaks a dark-brown background) can't take over.
+      background-color: #fbf6e8;
     }
 
     h3 {
@@ -72,6 +65,7 @@
       margin: 0;
       font-size: var(--font-size-sm);
       color: var(--garden-text-muted);
+      min-height: 1.2em;
     }
   }
 
@@ -87,13 +81,17 @@
     border-radius: var(--border-radius-md);
   }
 
-  &__badge {
+  &__card-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__cta {
     display: inline-block;
-    margin-top: 6px;
-    padding: 2px 8px;
-    font-size: var(--font-size-xs);
-    background: rgba(166, 123, 91, 0.2);
-    border-radius: 999px;
-    color: var(--garden-earth);
+    margin-top: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--garden-grass);
   }
 }

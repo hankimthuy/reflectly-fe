@@ -23,7 +23,7 @@ const EditEntryPage: React.FC = () => {
   const updateEntryMutation = useUpdateEntryMutation();
 
   const [entry, setEntry] = useState<Entry | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!!id);
   const [selectedEmotions, setSelectedEmotions] = useState<Emotion[]>([]);
   const [reflectionTitle, setReflectionTitle] = useState('');
   const [reflectionText, setReflectionText] = useState('');
@@ -34,7 +34,6 @@ const EditEntryPage: React.FC = () => {
 
   useEffect(() => {
     if (!id) return;
-    setLoading(true);
     entriesService.getEntry(id)
       .then((data) => {
         setEntry(data);

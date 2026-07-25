@@ -7,68 +7,6 @@
     "journal": "Journal",
     "profile": "Profile"
   },
-  "landingPage": {
-    "footer": {
-      "copyright": "© 2026 MimoSe Inc. - The Science of Leading Self."
-    }
-  },
-  "heroSection": {
-    "internalAwareness": "Internal Awareness",
-    "innerverse": "Innerverse.",
-    "innerDescription": "Dive into the depths of your thoughts and emotions with clarity. No noise, just signal.",
-    "innerTags": {
-      "safeSpace": "Safe Space",
-      "coreValues": "Core Values",
-      "patterns": "Patterns"
-    },
-    "externalAction": "External Action",
-    "outerverse": "Outerverse.",
-    "outerDescription": "Translate insights into tangible actions. Set boundaries, communicate, and lead.",
-    "outerTags": {
-      "socialMirror": "Social Mirror",
-      "regulation": "Regulation",
-      "growth": "Growth"
-    },
-    "bridge": {
-      "insight": "Insight",
-      "action": "Action"
-    }
-  },
-  "pillarsSection": {
-    "title": "The Pillars of Self-Leadership",
-    "subtitle": "Hover over the pillars to explore the structure of your mind.",
-    "pillars": {
-      "safeSpace": {
-        "title": "Safe Space",
-        "description": "Unmask yourself. A private, judgment-free zone to vent, cry, or celebrate."
-      },
-      "innerCompass": {
-        "title": "Inner Compass",
-        "description": "Define your Core Values. Understand the 'Why' behind your 'Who'."
-      },
-      "senseConnection": {
-        "title": "Sense Connection",
-        "description": "Connect the dots. Detect hidden patterns in your mood and behaviors."
-      },
-      "socialMirror": {
-        "title": "Social Mirror",
-        "description": "Visualize your network. Who fuels your growth and who drains it?"
-      },
-      "selfRegulation": {
-        "title": "Self-Regulation",
-        "description": "Turn insight into Action. Master your impulses and set boundaries."
-      },
-      "growthVision": {
-        "title": "Growth Vision",
-        "description": "Map your evolution. Set a clear trajectory for your future self."
-      }
-    },
-    "groups": {
-      "innerPsychology": "Inner Psychology",
-      "externalBehavior": "External Behavior"
-    },
-    "learnMore": "Learn More"
-  },
   "mobileFooter": {
     "energy": "Energy",
     "authDialog": {
@@ -81,7 +19,34 @@
   "nav": {
     "energy": "Energy",
     "dashboard": "Dashboard",
-    "protocols": "Protocols"
+    "protocols": "Protocols",
+    "journal": "Journal",
+    "groupSpaces": "Spaces",
+    "groupJourney": "Your journey"
+  },
+  "garden": {
+    "bridge": {
+      "heading": "Your bridge to action",
+      "subtitle": "Three small steps to turn insight into action.",
+      "energy": {
+        "title": "Today's energy",
+        "body": "Last logged: level {{level}} · {{days}} days ago",
+        "bodyToday": "Last logged: level {{level}} · today",
+        "empty": "No entries yet — start with one tap",
+        "cta": "View history"
+      },
+      "protocols": {
+        "title": "Your protocols",
+        "body": "{{count}} protocols ready when you need them",
+        "empty": "No protocol yet — create your first",
+        "cta": "View protocols"
+      },
+      "dashboard": {
+        "title": "Look back at your journey",
+        "body": "See your last-7-day trend",
+        "cta": "View dashboard"
+      }
+    }
   },
   "energyLog": {
     "quickLogTitle": "How's your energy right now?",
@@ -301,118 +266,67 @@
       "DIDNT_WORK": "It didn't work"
     }
   },
-  "mimoMethodPage": {
+  "garden": {
+    "framework": {
+      "goOut": {
+        "title": "How I go out",
+        "intro": "Before stepping into the outside world, I pause to check my energy and emotions — this is Layer 1 Innerverse.",
+        "steps": ["Log your current energy level (1-10) before you start", "Tag the emotion you're feeling, without judging it right or wrong", "Notice patterns — which activities lift your energy, which drain it", "Choose how to engage based on your actual state right now"],
+        "linkLabel": "View your energy"
+      },
+      "comeBack": {
+        "title": "How I come back",
+        "intro": "When a hard moment hits, I use an Action Protocol — MimoSe's core differentiator — instead of reacting on the spot.",
+        "steps": ["Write the protocol in advance, while your mind is calm", "Use the protocol you prepared as soon as the situation happens", "Mark it as used and record the outcome", "Track its effectiveness over time and adjust if needed"],
+        "linkLabel": "View your protocols"
+      },
+      "filter": {
+        "title": "How I look back",
+        "intro": "The Dashboard and trend charts (Layer 5 Insight & Growth) show me patterns over time — so I can recognize them myself, not have the app conclude for me.",
+        "steps": ["Review your energy trend chart by day and by week", "Compare energy levels across different activities", "Notice the moments when your energy tends to run lowest", "Draw your own conclusions about what's repeating — the next decision is yours"],
+        "linkLabel": "View your dashboard"
+      },
+      "principlesTitle": "Four operating principles",
+      "principles": [
+        { "title": "Accompany, don't theorize", "description": "Every feature ties to a concrete action — not reading material." },
+        { "title": "Self-resolve", "description": "Tools offer question frameworks; the app never gives advice on your behalf." },
+        { "title": "Protocols have a lifecycle", "description": "Action Protocols are tracked and revisited over time, not used once and forgotten." },
+        { "title": "Convenience at the right moment", "description": "1-2 tap interactions are favored, especially in stressful moments." }
+      ]
+    }
+  },
+  "phuongPhapPage": {
     "hero": {
-      "badge": "The Mimo Method",
-      "title": "From Insight to <span class=\"highlight\">Action.</span>",
-      "subtitle": "The bridge between knowing yourself and leading yourself. Mimo transforms raw emotional data into actionable life strategies."
+      "badge": "Self-leadership foundations",
+      "title": "Why MimoSe <span class=\"highlight\">works this way</span>",
+      "subtitle": "MimoSe is built on Leading Self: understanding and guiding yourself comes before guiding anyone else. This page explains the reasoning behind the features you use every day."
     },
-    "howItWorks": {
-      "title": "How It Works",
-      "subtitle": "A 4-step cycle that turns self-awareness into self-leadership.",
-      "steps": {
-        "feel": {
-          "number": "01",
-          "title": "Feel",
-          "description": "You journal freely in your Safe Space. No filters, no judgment — just raw, honest expression.",
-          "tag": "Innerverse"
+    "layers": {
+      "title": "The four layers MimoSe has today",
+      "subtitle": "Every feature you use belongs to one layer of the self-leadership model.",
+      "items": {
+        "foundation": {
+          "label": "Layer 0 · Foundation",
+          "description": "Your account, profile, and journal entries — where all your data begins."
         },
-        "understand": {
-          "number": "02",
-          "title": "Understand",
-          "description": "Mimo detects patterns in your emotions, maps them to your Core Values, and surfaces hidden connections.",
-          "tag": "Insight"
+        "innerverse": {
+          "label": "Layer 1 · Innerverse",
+          "description": "Energy tracking and emotion tagging — understanding what's happening inside."
         },
-        "decide": {
-          "number": "03",
-          "title": "Decide",
-          "description": "Guided by your Inner Compass, you choose a concrete action — set a boundary, start a conversation, or change a habit.",
-          "tag": "Bridge"
+        "bridge": {
+          "label": "Layer 3 · Bridge",
+          "description": "Action Protocols — the core differentiator that turns insight into concrete action."
         },
-        "act": {
-          "number": "04",
-          "title": "Act",
-          "description": "You execute in the Outerverse. Track your regulation, measure growth, and see your evolution over time.",
-          "tag": "Outerverse"
+        "insight": {
+          "label": "Layer 5 · Insight & Growth",
+          "description": "Dashboards and trend charts — looking back at the path you've walked."
         }
       }
     },
-    "bridge": {
-      "title": "The Bridge Visualized",
-      "innerLabel": "Innerverse",
-      "innerDesc": "Thoughts, emotions, patterns",
-      "outerLabel": "Outerverse",
-      "outerDesc": "Actions, boundaries, growth"
-    },
     "cta": {
-      "title": "Ready to bridge the gap?",
-      "subtitle": "Start your journey from insight to action today.",
-      "button": "Start Leading Yourself"
+      "title": "Ready to apply it?",
+      "subtitle": "Start with your first entry — a journal line, an energy log, or a protocol.",
+      "button": "Start your first entry"
     }
-  },
-  "innerversePage": {
-    "hero": {
-      "badge": "The Innerverse",
-      "title": "Your Inner <span class=\"highlight\">World.</span>",
-      "subtitle": "Dive into the depths of your thoughts and emotions. Understand yourself before you lead yourself."
-    },
-    "sections": {
-      "safeSpace": {
-        "title": "Safe Space",
-        "description": "A private, judgment-free zone to express your raw thoughts and emotions. No filters, no noise — just honest self-expression.",
-        "cta": "Log Your Innerverse",
-        "ctaView": "View Your Journal"
-      },
-      "innerCompass": {
-        "title": "Inner Compass",
-        "description": "Define and track your Core Values. Understand the 'Why' behind your 'Who' and align your daily actions with what truly matters.",
-        "cta": "Coming Soon"
-      },
-      "senseConnection": {
-        "title": "Sense Connection",
-        "description": "Detect hidden patterns in your mood and behaviors. Connect the dots between your emotions and the events that trigger them.",
-        "cta": "Coming Soon"
-      }
-    }
-  },
-  "outerversePage": {
-    "hero": {
-      "badge": "The Outerverse",
-      "title": "Lead Your <span class=\"highlight\">Reality.</span>",
-      "subtitle": "Translate inner insights into tangible actions. Set boundaries, communicate, and grow."
-    },
-    "sections": {
-      "socialMirror": {
-        "title": "Social Mirror",
-        "description": "Visualize your social network. Understand who fuels your growth and who drains your energy. Map your orbit.",
-        "cta": "Coming Soon"
-      },
-      "selfRegulation": {
-        "title": "Self-Regulation",
-        "description": "Turn insight into action. Master your impulses, set healthy boundaries, and build habits that stick.",
-        "cta": "Coming Soon"
-      },
-      "growthVision": {
-        "title": "Growth Vision",
-        "description": "Map your evolution. Set a clear trajectory for your future self and track your progress over time.",
-        "cta": "Coming Soon"
-      }
-    }
-  },
-  "bridgeSection": {
-    "badge": "The Mimo Method",
-    "title": "From Insight to <span class=\"highlight\">Action.</span>",
-    "description": "Mimo bridges the gap. We take the raw data from your <strong>Innerverse</strong> and convert it into actionable steps for your <strong>Outerverse</strong>.",
-    "steps": {
-      "awareness": {
-        "title": "1. Awareness",
-        "example": "I feel anxious."
-      },
-      "regulation": {
-        "title": "2. Regulation",
-        "example": "I will set a boundary."
-      }
-    },
-    "cta": "Start Leading Yourself"
   }
 }

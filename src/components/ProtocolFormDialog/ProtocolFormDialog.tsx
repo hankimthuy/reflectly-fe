@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Dialog, DialogContent } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import type { ActionProtocol } from '../../models/actionProtocol';
@@ -25,13 +25,18 @@ const ProtocolFormDialog: React.FC<ProtocolFormDialogProps> = ({ open, onClose, 
   const [trigger, setTrigger] = useState('');
   const [script, setScript] = useState('');
 
-  useEffect(() => {
+  // Reset the form to the target protocol's values whenever the dialog transitions
+  // to open. Adjusted during render (not in an effect) per React's guidance for
+  // syncing state to a prop change: https://react.dev/learn/you-might-not-need-an-effect
+  const [prevOpen, setPrevOpen] = useState(open);
+  if (open !== prevOpen) {
+    setPrevOpen(open);
     if (open) {
       setTitle(protocol?.title ?? '');
       setTrigger(protocol?.trigger ?? '');
       setScript(protocol?.script ?? '');
     }
-  }, [open, protocol]);
+  }
 
   const resetAndClose = () => {
     setTitle('');

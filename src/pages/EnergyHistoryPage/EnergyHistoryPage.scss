@@ -1,4 +1,5 @@
 @use '../../styles/_variables' as *;
+@use '../../styles/_responsive' as *;
 
 .energy-history-page {
   max-width: 720px;
@@ -79,6 +80,10 @@
     color: var(--garden-text);
     cursor: pointer;
 
+    &:hover:not(:disabled) {
+      @include ghost-button-hover(var(--garden-grass));
+    }
+
     &:disabled {
       opacity: 0.6;
       cursor: not-allowed;
@@ -96,8 +101,8 @@
     cursor: pointer;
     padding: 0;
 
-    &:hover {
-      color: var(--garden-grass);
+    &:hover:not(:disabled) {
+      @include ghost-button-hover(var(--garden-grass));
     }
   }
 }
@@ -166,7 +171,8 @@
     cursor: pointer;
     padding: var(--spacing-xs);
 
-    &:hover {
+    &:hover:not(:disabled) {
+      @include ghost-button-hover(var(--c-danger));
       opacity: 0.7;
     }
   }

@@ -19,7 +19,9 @@
     "journal": "Nhật ký",
     "profile": "Tôi",
     "login": "Đăng nhập",
-    "startJourney": "Bắt đầu hành trình"
+    "startJourney": "Bắt đầu hành trình",
+    "groupSpaces": "Không gian",
+    "groupJourney": "Hành trình của bạn"
   },
   "garden": {
     "mapTitle": "Ngôi nhà tâm trí của tôi",
@@ -60,26 +62,51 @@
     "framework": {
       "goOut": {
         "title": "Tôi ra ngoài như thế nào?",
-        "intro": "Chuẩn bị tâm thế trước khi bước ra thế giới bên ngoài.",
-        "steps": ["Chuẩn bị — biết mình đi đâu và vì sao", "Hiện diện — ở ngay khoảnh khắc này", "Chọn lọc — quyết định điều gì đáng để mở lòng", "Tự do — không mang theo kỳ vọng của người khác"]
+        "intro": "Trước khi bước ra thế giới bên ngoài, tôi dừng lại kiểm tra năng lượng và cảm xúc của mình — đây là Lớp 1 Nội tâm (Innerverse).",
+        "steps": ["Ghi nhanh mức năng lượng hiện tại (1-10) trước khi bắt đầu", "Gắn nhãn cảm xúc đang có, không phán xét đúng hay sai", "Nhận ra mẫu hình — hoạt động nào khiến năng lượng tăng, hoạt động nào khiến cạn kiệt", "Chọn cách tham gia phù hợp với trạng thái thật của mình lúc này"],
+        "linkLabel": "Xem năng lượng của bạn"
       },
       "comeBack": {
         "title": "Tôi quay về như thế nào?",
-        "intro": "Phục hồi và xử lý sau mỗi trải nghiệm bên ngoài.",
-        "steps": ["Mang về bài học và lòng biết ơn", "Buông bỏ stress và kỳ vọng không cần thiết", "Nghỉ ngơi — cho tâm trí và cơ thể hồi phục", "Kết nối lại với giá trị cốt lõi của mình"]
+        "intro": "Khi gặp tình huống khó, tôi dùng Kịch bản ứng phó (Action Protocol) — lõi USP của MimoSe — thay vì phản ứng ngẫu hứng.",
+        "steps": ["Viết kịch bản ứng phó trước, khi đầu óc còn bình tĩnh", "Dùng đúng kịch bản đã chuẩn bị ngay khi tình huống xảy ra", "Đánh dấu đã dùng và ghi lại kết quả", "Theo dõi độ hiệu quả theo thời gian và điều chỉnh kịch bản nếu cần"],
+        "linkLabel": "Xem kịch bản ứng phó của bạn"
       },
       "filter": {
-        "title": "Bộ lọc bên trong – Hàng rào tâm lý",
-        "intro": "Quy trình lọc thông tin và cảm xúc trước khi để chúng vào tâm trí.",
-        "steps": ["Nhận biết — nhận ra điều gì đang ảnh hưởng đến mình", "Đặt câu hỏi — điều này có đúng với mình không?", "Chọn lọc — giữ điều có ích, buông điều không", "Buông bỏ — không ôm hết mọi thứ", "Giữ vững — bám vào giá trị cốt lõi"]
+        "title": "Tôi nhìn lại như thế nào?",
+        "intro": "Bảng thông tin và biểu đồ xu hướng (Lớp 5 Thấu hiểu & Phát triển) cho tôi thấy các mẫu hình theo thời gian — để tôi tự nhận ra, không phải app kết luận thay tôi.",
+        "steps": ["Xem lại biểu đồ xu hướng năng lượng theo ngày, theo tuần", "So sánh mức năng lượng giữa các hoạt động khác nhau", "Nhận ra thời điểm năng lượng thường xuống thấp nhất", "Tự rút ra điều gì đang lặp lại — quyết định tiếp theo là của mình"],
+        "linkLabel": "Xem bảng thông tin của bạn"
       },
-      "principlesTitle": "Bốn nguyên tắc cổng vào",
+      "principlesTitle": "Bốn nguyên tắc vận hành",
       "principles": [
-        "Không phải mọi nhận xét đều đúng.",
-        "Không phải cảm xúc của người khác là trách nhiệm của mình.",
-        "Tôi chọn điều gì để tin, để giữ, để mang về.",
-        "Tôi được quyền khác ý."
+        { "title": "Đồng hành, không lý thuyết", "description": "Mỗi tính năng gắn với một hành động cụ thể — không phải bài đọc lý thuyết." },
+        { "title": "Tự giải quyết", "description": "Công cụ gợi ý khung câu hỏi, không đưa lời khuyên thay bạn." },
+        { "title": "Protocol có vòng đời", "description": "Kịch bản ứng phó được theo dõi và xem lại theo thời gian, không dùng một lần rồi bỏ." },
+        { "title": "Tiện lợi tại đúng khoảnh khắc", "description": "Ưu tiên thao tác 1-2 chạm, đặc biệt trong những lúc căng thẳng." }
       ]
+    },
+    "bridge": {
+      "heading": "Cầu nối hành động của bạn",
+      "subtitle": "Ba bước nhỏ để biến nhận thức thành hành động.",
+      "energy": {
+        "title": "Năng lượng hôm nay",
+        "body": "Gần nhất: mức {{level}} · {{days}} ngày trước",
+        "bodyToday": "Gần nhất: mức {{level}} · hôm nay",
+        "empty": "Chưa có bản ghi nào — bắt đầu với 1 chạm",
+        "cta": "Xem lịch sử"
+      },
+      "protocols": {
+        "title": "Kịch bản của bạn",
+        "body": "{{count}} kịch bản đang sẵn sàng",
+        "empty": "Chưa có kịch bản nào — tạo cái đầu tiên",
+        "cta": "Xem kịch bản"
+      },
+      "dashboard": {
+        "title": "Nhìn lại hành trình",
+        "body": "Xem xu hướng 7 ngày qua",
+        "cta": "Xem bảng thông tin"
+      }
     }
   },
   "breadcrumb": {
@@ -89,68 +116,6 @@
     "journal": "Nhật ký",
     "profile": "Hồ sơ",
     "method": "Phương pháp"
-  },
-  "landingPage": {
-    "footer": {
-      "copyright": "© 2026 MimoSe — Make Sense Of ME. Khoa học nhận thức và lãnh đạo bản thân."
-    }
-  },
-  "heroSection": {
-    "internalAwareness": "Nhận thức Nội tâm",
-    "innerverse": "Innerverse.",
-    "innerDescription": "Đi sâu vào suy nghĩ và cảm xúc của bạn với sự rõ ràng. Không tiếng ồn, chỉ tín hiệu.",
-    "innerTags": {
-      "safeSpace": "Không gian An toàn",
-      "coreValues": "Giá trị Cốt lõi",
-      "patterns": "Mẫu hình"
-    },
-    "externalAction": "Hành động Bên ngoài",
-    "outerverse": "Outerverse.",
-    "outerDescription": "Chuyển hóa hiểu biết thành hành động cụ thể. Thiết lập ranh giới, giao tiếp và lãnh đạo.",
-    "outerTags": {
-      "socialMirror": "Tấm gương Xã hội",
-      "regulation": "Điều chỉnh",
-      "growth": "Phát triển"
-    },
-    "bridge": {
-      "insight": "Thấu hiểu",
-      "action": "Hành động"
-    }
-  },
-  "pillarsSection": {
-    "title": "Những Trụ cột của Tự Lãnh đạo",
-    "subtitle": "Di chuột qua các trụ cột để khám phá cấu trúc tâm trí của bạn.",
-    "pillars": {
-      "safeSpace": {
-        "title": "Không gian An toàn",
-        "description": "Tháo mặt nạ. Một khu vực riêng tư, không phán xét để trút bỏ, khóc, hoặc ăn mừng."
-      },
-      "innerCompass": {
-        "title": "La bàn Nội tâm",
-        "description": "Xác định Giá trị Cốt lõi. Hiểu 'Tại sao' đằng sau 'Ai' của bạn."
-      },
-      "senseConnection": {
-        "title": "Kết nối Giác quan",
-        "description": "Nối các điểm. Phát hiện các mẫu hình ẩn trong tâm trạng và hành vi của bạn."
-      },
-      "socialMirror": {
-        "title": "Tấm gương Xã hội",
-        "description": "Trực quan hóa mạng lưới của bạn. Ai thúc đẩy sự phát triển của bạn và ai làm cạn kiệt bạn?"
-      },
-      "selfRegulation": {
-        "title": "Tự Điều chỉnh",
-        "description": "Biến thấu hiểu thành Hành động. Làm chủ các xung động và thiết lập ranh giới."
-      },
-      "growthVision": {
-        "title": "Tầm nhìn Phát triển",
-        "description": "Lập bản đồ sự tiến hóa của bạn. Thiết lập quỹ đạo rõ ràng cho bản thân tương lai."
-      }
-    },
-    "groups": {
-      "innerPsychology": "Tâm lý Nội tâm",
-      "externalBehavior": "Hành vi Bên ngoài"
-    },
-    "learnMore": "Tìm hiểu thêm"
   },
   "mobileFooter": {
     "garden": "Vườn",
@@ -386,14 +351,36 @@
   },
   "phuongPhapPage": {
     "hero": {
-      "badge": "Phương pháp MimoSe",
-      "title": "Khung <span class=\"highlight\">nhận thức bản thân</span>",
-      "subtitle": "Ba câu hỏi và một bộ lọc giúp bạn ra ngoài có ý thức, quay về an toàn, và hiểu mình sâu hơn mỗi ngày."
+      "badge": "Cơ sở khoa học lãnh đạo bản thân",
+      "title": "Vì sao MimoSe <span class=\"highlight\">vận hành như vậy</span>",
+      "subtitle": "MimoSe được xây dựng theo nguyên lý Leading Self: bạn cần hiểu và dẫn dắt chính mình trước khi dẫn dắt người khác. Trang này giải thích cơ sở đằng sau từng tính năng bạn đang dùng."
+    },
+    "layers": {
+      "title": "Bốn lớp MimoSe đã có",
+      "subtitle": "Mỗi tính năng bạn dùng đều thuộc một lớp trong mô hình lãnh đạo bản thân.",
+      "items": {
+        "foundation": {
+          "label": "Lớp 0 · Nền tảng",
+          "description": "Tài khoản, hồ sơ và nhật ký — nơi mọi dữ liệu của bạn bắt đầu."
+        },
+        "innerverse": {
+          "label": "Lớp 1 · Nội tâm (Innerverse)",
+          "description": "Theo dõi năng lượng và gắn nhãn cảm xúc — hiểu điều đang diễn ra bên trong."
+        },
+        "bridge": {
+          "label": "Lớp 3 · Cầu nối hành động (Bridge)",
+          "description": "Kịch bản ứng phó — lõi USP biến hiểu biết thành hành động cụ thể."
+        },
+        "insight": {
+          "label": "Lớp 5 · Thấu hiểu & Phát triển (Insight & Growth)",
+          "description": "Bảng thông tin và biểu đồ xu hướng — nhìn lại chặng đường đã qua."
+        }
+      }
     },
     "cta": {
-      "title": "Sẵn sàng bước vào vườn?",
-      "subtitle": "Bắt đầu từ góc tự chiêm nghiệm — viết dòng nhật ký đầu tiên.",
-      "button": "Viết nhật ký"
+      "title": "Sẵn sàng áp dụng?",
+      "subtitle": "Bắt đầu bằng ghi nhận đầu tiên của bạn — một dòng nhật ký, một mức năng lượng, hay một kịch bản ứng phó.",
+      "button": "Bắt đầu ghi nhận"
     }
   },
   "zonePage": {

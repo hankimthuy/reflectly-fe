@@ -1,8 +1,4 @@
 import React from 'react';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import ErrorIcon from '@mui/icons-material/Error';
-import WarningIcon from '@mui/icons-material/Warning';
-import InfoIcon from '@mui/icons-material/Info';
 import './Snackbar.scss';
 import { Alert, Snackbar } from '@mui/material';
 import Typography from '@mui/material/Typography';
@@ -38,20 +34,6 @@ const SnackbarComponent: React.FC<SnackbarProps> = ({
         return 'primary';
       default:
         return 'primary';
-    }
-  };
-
-  const getIcon = () => {
-    switch (type) {
-      case 'success':
-        return <CheckCircleIcon />;
-      case 'error':
-        return <ErrorIcon />;
-      case 'warning':
-        return <WarningIcon />;
-      case 'info':
-      default:
-        return <InfoIcon />;
     }
   };
 
