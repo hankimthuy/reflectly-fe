@@ -96,36 +96,41 @@ p {
 }
 
 // Button - Responsive
-button {
-  border: 1px solid transparent;
-  font-family: var(--font-family-primary), sans-serif;
-  background-color: var(--c-primary);
-  color: var(--c-text-on-background);
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  font-weight: var(--font-weight-medium);
-  @include button-responsive;
-  
-  &:hover {
-    background-color: var(--c-secondary);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
-  }
-  
-  &:active {
-    transform: translateY(0);
-  }
-  
-  &:focus,
-  &:focus-visible {
-    outline: 2px solid var(--c-primary);
-    outline-offset: 2px;
-  }
-  
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
+// Wrapped in Tailwind's `base` layer so that any Tailwind utility class (e.g. bg-coach-primary)
+// on a <button> reliably wins the cascade — un-layered CSS otherwise always beats layered CSS
+// (Tailwind's utilities are emitted in `@layer utilities`) regardless of specificity/source order.
+@layer base {
+  button {
+    border: 1px solid transparent;
+    font-family: var(--font-family-primary), sans-serif;
+    background-color: var(--c-primary);
+    color: var(--c-text-on-background);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    font-weight: var(--font-weight-medium);
+    @include button-responsive;
+
+    &:hover {
+      background-color: var(--c-secondary);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &:focus,
+    &:focus-visible {
+      outline: 2px solid var(--c-primary);
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
   }
 }
 
@@ -152,8 +157,10 @@ button {
     color: var(--c-secondary);
   }
 
-  button {
-    background-color: var(--c-primary);
+  @layer base {
+    button {
+      background-color: var(--c-primary);
+    }
   }
 }
 

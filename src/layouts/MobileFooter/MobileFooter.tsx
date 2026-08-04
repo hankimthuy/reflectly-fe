@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, IconButton } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import { LuBookOpen, LuHeart, LuTreePine, LuUser, LuZap } from 'react-icons/lu';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import { LuBookOpen, LuLayoutDashboard, LuMessageCircle, LuUser } from 'react-icons/lu';
 import { useTranslation } from 'react-i18next';
 import { APP_ROUTES } from '../../constants/route';
 import { useAuth } from '../../providers/AuthProvider';
@@ -20,38 +20,32 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
     {
-        id: 'garden',
-        labelKey: 'mobileFooter.garden',
-        icon: <LuTreePine size={22} />,
-        activeIcon: <LuTreePine size={24} />,
+        id: 'coach',
+        labelKey: 'mobileFooter.coach',
+        icon: <LuMessageCircle size={22} />,
+        activeIcon: <LuMessageCircle size={24} />,
+        requiresAuth: true,
+    },
+    {
+        id: 'dashboard',
+        labelKey: 'mobileFooter.dashboard',
+        icon: <LuLayoutDashboard size={22} />,
+        activeIcon: <LuLayoutDashboard size={24} />,
+        requiresAuth: true,
+    },
+    {
+        id: 'add',
+        labelKey: '',
+        icon: <ChatBubbleOutlineIcon sx={{ fontSize: 24 }} />,
+        activeIcon: <ChatBubbleOutlineIcon sx={{ fontSize: 24 }} />,
+        isFab: true,
+        requiresAuth: true,
     },
     {
         id: 'entries',
         labelKey: 'mobileFooter.journal',
         icon: <LuBookOpen size={22} />,
         activeIcon: <LuBookOpen size={24} />,
-        requiresAuth: true,
-    },
-    {
-        id: 'add',
-        labelKey: '',
-        icon: <AddIcon sx={{ fontSize: 26 }} />,
-        activeIcon: <AddIcon sx={{ fontSize: 26 }} />,
-        isFab: true,
-        requiresAuth: true,
-    },
-    {
-        id: 'emotion',
-        labelKey: 'mobileFooter.emotion',
-        icon: <LuHeart size={22} />,
-        activeIcon: <LuHeart size={24} />,
-        requiresAuth: true,
-    },
-    {
-        id: 'energy',
-        labelKey: 'mobileFooter.energy',
-        icon: <LuZap size={22} />,
-        activeIcon: <LuZap size={24} />,
         requiresAuth: true,
     },
     {
@@ -71,14 +65,12 @@ const MobileFooter = () => {
 
     const isActive = (id: string): boolean => {
         switch (id) {
-            case 'garden':
-                return location.pathname === APP_ROUTES.WELCOME || location.pathname === APP_ROUTES.HOME;
+            case 'coach':
+                return location.pathname === APP_ROUTES.COACH_CHAT;
+            case 'dashboard':
+                return location.pathname === APP_ROUTES.DASHBOARD;
             case 'entries':
                 return location.pathname.startsWith(APP_ROUTES.ENTRIES);
-            case 'emotion':
-                return location.pathname === APP_ROUTES.EMOTION_ZONE;
-            case 'energy':
-                return location.pathname === APP_ROUTES.ENERGY_HISTORY;
             case 'profile':
                 return location.pathname === APP_ROUTES.PROFILE;
             default:
@@ -93,20 +85,15 @@ const MobileFooter = () => {
         }
 
         switch (item.id) {
-            case 'garden':
-                navigate(APP_ROUTES.WELCOME);
+            case 'coach':
+            case 'add':
+                navigate(APP_ROUTES.COACH_CHAT);
+                break;
+            case 'dashboard':
+                navigate(APP_ROUTES.DASHBOARD);
                 break;
             case 'entries':
                 navigate(APP_ROUTES.ENTRIES_LIST);
-                break;
-            case 'add':
-                navigate(APP_ROUTES.ENTRIES_NEW);
-                break;
-            case 'emotion':
-                navigate(APP_ROUTES.EMOTION_ZONE);
-                break;
-            case 'energy':
-                navigate(APP_ROUTES.ENERGY_HISTORY);
                 break;
             case 'profile':
                 if (isAuthenticated) {
@@ -129,16 +116,13 @@ const MobileFooter = () => {
                 <Box className="mobile-footer__container">
                     {NAV_ITEMS.map((item) => (
                         item.isFab ? (
-                            <button
+                            <IconButton
                                 key={item.id}
-                                type="button"
                                 onClick={() => handleNavClick(item)}
-                                className="mobile-footer__fab"
+                                className="mobile-footer__fab mobile-footer__fab-button"
                             >
-                                <IconButton className="mobile-footer__fab-button">
-                                    {item.icon}
-                                </IconButton>
-                            </button>
+                                {item.icon}
+                            </IconButton>
                         ) : (
                             <button
                                 key={item.id}

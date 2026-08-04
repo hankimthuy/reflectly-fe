@@ -112,7 +112,6 @@ const EntriesListPage: React.FC = () => {
           variant="dark"
           items={[
             { label: t('breadcrumb.home'), path: APP_ROUTES.WELCOME },
-            { label: t('breadcrumb.reflection'), path: APP_ROUTES.REFLECTION_ZONE },
             { label: t('breadcrumb.journal') },
           ]}
         />

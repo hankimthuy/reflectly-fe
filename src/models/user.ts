@@ -4,4 +4,6 @@ export interface User {
     pictureUrl: string;
     fullName: string;
     hasPassword?: boolean;
+    coreValues?: string[];
+    onboardingCompleted?: boolean;
 }

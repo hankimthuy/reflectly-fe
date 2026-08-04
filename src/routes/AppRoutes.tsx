@@ -1,10 +1,9 @@
 import { lazy } from 'react';
-import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import NotFoundPage from '../components/NotFound/NotFound';
 import { APP_ROUTES } from '../constants/route';
 import MainLayout from '../layouts/MainLayout/MainLayout';
 import EntriesListPage from '../pages/EntriesPage/EntriesListPage/EntriesListPage';
-import QuotesPage from '../pages/QuotesPage/QuotesPage';
 import ProtectedRoute from './ProtectedRoute';
 
 const NewEntryPage = lazy(() => import('../pages/EntriesPage/NewEntryPage/NewEntryPage'));
@@ -12,13 +11,10 @@ const EditEntryPage = lazy(() => import('../pages/EntriesPage/EditEntryPage/Edit
 const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
 const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
 const MimoLandingPage = lazy(() => import('../pages/MimoLandingPage/MimoLandingPage'));
-const PhuongPhapPage = lazy(() => import('../pages/PhuongPhapPage/PhuongPhapPage'));
-const GardenZonePage = lazy(() => import('../pages/GardenZonePage/GardenZonePage'));
-const EmotionZonePage = lazy(() => import('../pages/EmotionZonePage/EmotionZonePage'));
 const SignupPage = lazy(() => import('../pages/SignupPage/SignupPage'));
-const EnergyHistoryPage = lazy(() => import('../pages/EnergyHistoryPage/EnergyHistoryPage'));
-const StatisticsPage = lazy(() => import('../pages/StatisticsPage/StatisticsPage'));
-const ProtocolsPage = lazy(() => import('../pages/ProtocolsPage/ProtocolsPage'));
+const CoachChatPage = lazy(() => import('../pages/CoachChatPage/CoachChatPage'));
+const DashboardPage = lazy(() => import('../pages/DashboardPage/DashboardPage'));
+const OnboardingPage = lazy(() => import('../pages/OnboardingPage/OnboardingPage'));
 
 export const AppRoutes = () => {
     return (
@@ -32,44 +28,25 @@ export const AppRoutes = () => {
                 </MainLayout>
             }>
                 <Route path={APP_ROUTES.WELCOME} element={<MimoLandingPage />} />
-                <Route path={APP_ROUTES.PHUONG_PHAP} element={<PhuongPhapPage />} />
-                <Route path={APP_ROUTES.REFLECTION_ZONE} element={<GardenZonePage zoneId="tu-chiem-nghiem" />} />
-                <Route path={APP_ROUTES.CREATIVITY_ZONE} element={<GardenZonePage zoneId="sang-tao" />} />
-                <Route path={APP_ROUTES.CONNECTION_ZONE} element={<GardenZonePage zoneId="ket-noi" />} />
-                <Route path={APP_ROUTES.EMOTION_ZONE} element={
+                <Route path={APP_ROUTES.COACH_CHAT} element={
                     <ProtectedRoute>
-                        <EmotionZonePage />
+                        <CoachChatPage />
                     </ProtectedRoute>
                 } />
-                <Route path={APP_ROUTES.ENERGY_HISTORY} element={
+                <Route path={APP_ROUTES.DASHBOARD} element={
                     <ProtectedRoute>
-                        <EnergyHistoryPage />
+                        <DashboardPage />
                     </ProtectedRoute>
                 } />
-                <Route path={APP_ROUTES.PROTOCOLS} element={
-                    <ProtectedRoute>
-                        <ProtocolsPage />
+                <Route path={APP_ROUTES.ONBOARDING} element={
+                    <ProtectedRoute skipOnboardingGate>
+                        <OnboardingPage />
                     </ProtectedRoute>
                 } />
-
-                {/* Legacy redirects */}
-                <Route path={APP_ROUTES.INNERVERSE} element={<Navigate to={APP_ROUTES.REFLECTION_ZONE} replace />} />
-                <Route path={APP_ROUTES.OUTERVERSE} element={<Navigate to={APP_ROUTES.CONNECTION_ZONE} replace />} />
-                <Route path={APP_ROUTES.MIMO_METHOD} element={<Navigate to={APP_ROUTES.PHUONG_PHAP} replace />} />
 
                 <Route path={APP_ROUTES.HOME} element={
                     <ProtectedRoute>
                         <MimoLandingPage />
-                    </ProtectedRoute>
-                } />
-                <Route path={APP_ROUTES.STATISTICS} element={
-                    <ProtectedRoute>
-                        <StatisticsPage />
-                    </ProtectedRoute>
-                } />
-                <Route path={APP_ROUTES.QUOTES} element={
-                    <ProtectedRoute>
-                        <QuotesPage />
                     </ProtectedRoute>
                 } />
                 <Route path={APP_ROUTES.PROFILE} element={
