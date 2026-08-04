@@ -1,5 +1,6 @@
 import axiosInstance from "./axiosSetup";
 import type {User} from "../models/user";
+import type {CreatePersonRequest} from "../models/person";
 
 export const getUserProfile = async (): Promise<User> => {
     const response = await axiosInstance.get<User>('/users/profile');
@@ -33,5 +34,17 @@ export const uploadAvatar = async (file: File): Promise<{ pictureUrl: string }> 
     const response = await axiosInstance.post<{ pictureUrl: string }>('/users/avatar', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
     });
+    return response.data;
+};
+
+/**
+ * Complete onboarding: persist core values + initial relationships in one call.
+ * PUT /users/onboarding  body: { coreValues, people }
+ */
+export const completeOnboarding = async (data: {
+    coreValues: string[];
+    people: CreatePersonRequest[];
+}): Promise<User> => {
+    const response = await axiosInstance.put<User>('/users/onboarding', data);
     return response.data;
 };

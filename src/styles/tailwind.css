@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+/*
+ * Fresh, calm palette for the new Coach/Dashboard/Onboarding surfaces — deliberately
+ * decoupled from the legacy --garden-* SCSS variables in src/styles/_variables.scss.
+ */
+@theme {
+  --color-coach-bg: #f7f5f2;
+  --color-coach-surface: #ffffff;
+  --color-coach-primary: #3f5c52;
+  --color-coach-primary-light: #6b8a7e;
+  --color-coach-accent: #c98a5e;
+  --color-coach-text: #26302c;
+  --color-coach-text-muted: #6b7570;
+  --color-coach-border: #e3e0da;
+}

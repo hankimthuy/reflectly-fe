@@ -1,9 +1,10 @@
 import React, { useRef, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { LuLogOut, LuGlobe, LuBell, LuDownload, LuBookOpen, LuHeart, LuPencil, LuLock, LuCamera, LuCheck, LuX, LuTreePine } from 'react-icons/lu';
+import { LuLogOut, LuGlobe, LuBell, LuDownload, LuBookOpen, LuPencil, LuLock, LuCamera, LuCheck, LuX, LuTreePine } from 'react-icons/lu';
 import { useAuth } from '../../providers/AuthProvider';
-import { updateUserProfile, changePassword, uploadAvatar } from '../../services/userService';
+import { updateUserProfile, changePassword, uploadAvatar, completeOnboarding } from '../../services/userService';
+import CoreValuesCard from '../../components/CoreValuesCard/CoreValuesCard';
 
 import { useEntriesInfiniteQuery } from '../../queries/entriesQueryHook';
 import { calculateDayStreak, getTopMood, getEmotionDistribution } from '../../utils/statsUtil';
@@ -99,6 +100,18 @@ const ProfilePage: React.FC = () => {
     const handleCancelEditName = () => {
         setIsEditingName(false);
         setNameError('');
+    };
+
+    // --- Core Values ---
+    const handleSaveValues = async (values: string[]) => {
+        try {
+            const updatedUser = await completeOnboarding({ coreValues: values, people: [] });
+            setCurrentUser(updatedUser);
+        } catch (err) {
+            const message = err instanceof Error ? err.message : 'Failed to save core values.';
+            setSnackbar({ open: true, message, type: 'error' });
+            throw err;
+        }
     };
 
     // --- Change Password ---
@@ -257,16 +270,6 @@ const ProfilePage: React.FC = () => {
                             <span className="profile-page__action-card-desc">{t('garden.zones.reflection.description')}</span>
                         </div>
                     </div>
-                    <div
-                        className="profile-page__action-card profile-page__action-card--emotion"
-                        onClick={() => navigate(APP_ROUTES.EMOTION_ZONE)}
-                    >
-                        <div className="profile-page__action-card-icon"><LuHeart size={20} /></div>
-                        <div className="profile-page__action-card-body">
-                            <span className="profile-page__action-card-title">{t('nav.emotion')}</span>
-                            <span className="profile-page__action-card-desc">{t('garden.zones.emotion.description')}</span>
-                        </div>
-                    </div>
                 </div>
 
                 {/* Grid: Emotion Overview + Settings */}
@@ -311,6 +314,9 @@ const ProfilePage: React.FC = () => {
                         </p>
                     )}
                 </section>
+
+                {/* Core Values */}
+                <CoreValuesCard coreValues={currentUser.coreValues} onSave={handleSaveValues} />
 
                 {/* Settings */}
                 <section className="profile-page__section">

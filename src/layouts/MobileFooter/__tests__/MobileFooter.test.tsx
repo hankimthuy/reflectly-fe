@@ -17,9 +17,9 @@ vi.mock('react-i18next', () => ({
     useTranslation: () => ({
         t: (key: string) => {
             const labels: Record<string, string> = {
-                'mobileFooter.garden': 'Vườn',
+                'mobileFooter.coach': 'Coach',
+                'mobileFooter.dashboard': 'Bảng thông tin',
                 'mobileFooter.journal': 'Nhật ký',
-                'mobileFooter.emotion': 'Cảm xúc',
                 'mobileFooter.profile': 'Tôi',
             };
             return labels[key] ?? key;
@@ -35,13 +35,13 @@ vi.mock('@mui/material', () => ({
     Box: ({ children, className }: { children: React.ReactNode; className?: string }) => (
         <div className={className}>{children}</div>
     ),
-    IconButton: ({ children, className }: { children: React.ReactNode; className?: string }) => (
-        <button className={className}>{children}</button>
+    IconButton: ({ children, className, onClick }: { children: React.ReactNode; className?: string; onClick?: () => void }) => (
+        <button className={className} onClick={onClick}>{children}</button>
     ),
 }));
 
-vi.mock('@mui/icons-material/Add', () => ({
-    default: () => <span data-testid="icon-add">Add</span>,
+vi.mock('@mui/icons-material/ChatBubbleOutline', () => ({
+    default: () => <span data-testid="icon-fab">Chat</span>,
 }));
 
 const renderWithRouter = (initialPath: string) => {
@@ -57,17 +57,19 @@ describe('MobileFooter', () => {
         it('should render all navigation items', () => {
             renderWithRouter('/');
 
-            expect(screen.getByRole('button', { name: 'Vườn' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Coach' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Bảng thông tin' })).toBeInTheDocument();
             expect(screen.getByRole('button', { name: 'Nhật ký' })).toBeInTheDocument();
-            expect(screen.getByRole('button', { name: 'Cảm xúc' })).toBeInTheDocument();
             expect(screen.getByRole('button', { name: 'Tôi' })).toBeInTheDocument();
             expect(document.querySelector('.mobile-footer__fab')).toBeInTheDocument();
         });
 
-        it('should render the FAB (add) button with correct class', () => {
+        it('should render exactly one button for the FAB (no nested buttons)', () => {
             renderWithRouter('/');
 
-            expect(document.querySelector('.mobile-footer__fab')).toBeInTheDocument();
+            const fab = document.querySelector('.mobile-footer__fab');
+            expect(fab?.tagName).toBe('BUTTON');
+            expect(fab?.querySelectorAll('button').length).toBe(0);
         });
     });
 
@@ -80,20 +82,20 @@ describe('MobileFooter', () => {
             expect(activeItems[0].textContent).toContain('Nhật ký');
         });
 
-        it('should mark garden as active when on /', () => {
-            renderWithRouter('/');
+        it('should mark dashboard as active when on /dashboard', () => {
+            renderWithRouter('/dashboard');
 
             const activeItems = document.querySelectorAll('.mobile-footer__item--active');
             expect(activeItems.length).toBe(1);
-            expect(activeItems[0].textContent).toContain('Vườn');
+            expect(activeItems[0].textContent).toContain('Bảng thông tin');
         });
 
-        it('should mark emotion as active when on /cam-xuc', () => {
-            renderWithRouter('/cam-xuc');
+        it('should mark coach as active when on /coach', () => {
+            renderWithRouter('/coach');
 
             const activeItems = document.querySelectorAll('.mobile-footer__item--active');
             expect(activeItems.length).toBe(1);
-            expect(activeItems[0].textContent).toContain('Cảm xúc');
+            expect(activeItems[0].textContent).toContain('Coach');
         });
 
         it('should mark profile as active when on /profile', () => {

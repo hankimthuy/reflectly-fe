@@ -1,19 +1,70 @@
 {
+  "onboarding": {
+    "step": "Bước {{current}}/2",
+    "step1Title": "Điều gì quan trọng với bạn?",
+    "step1Subtitle": "Chọn những giá trị cốt lõi cộng hưởng với bạn nhất.",
+    "step2Title": "Ai là người quan trọng với bạn?",
+    "step2Subtitle": "Thêm 3-5 người bạn muốn theo dõi mối quan hệ cùng.",
+    "selectAtLeastOne": "Chọn ít nhất một giá trị để tiếp tục.",
+    "addAtLeastOnePerson": "Thêm ít nhất một người, hoặc bấm \"Bỏ qua, vào Coach luôn\".",
+    "submitError": "Có lỗi xảy ra, vui lòng thử lại.",
+    "namePlaceholder": "Tên",
+    "removePerson": "Xóa",
+    "addPerson": "+ Thêm người",
+    "back": "Quay lại",
+    "continue": "Tiếp tục",
+    "submitting": "Đang lưu...",
+    "finish": "Hoàn tất",
+    "skipStep": "Bỏ qua bước này",
+    "skipToCoach": "Bỏ qua, vào Coach luôn",
+    "value": {
+      "honesty": "Trung thực",
+      "family": "Gia đình",
+      "freedom": "Tự do",
+      "creativity": "Sáng tạo",
+      "connection": "Kết nối",
+      "growth": "Trưởng thành",
+      "balance": "Cân bằng",
+      "courage": "Can đảm",
+      "peace": "Bình an",
+      "contribution": "Cống hiến",
+      "achievement": "Thành tựu",
+      "learning": "Học hỏi"
+    },
+    "relationshipType": {
+      "FAMILY": "Gia đình",
+      "FRIEND": "Bạn bè",
+      "PARTNER": "Người yêu/Vợ chồng",
+      "COLLEAGUE": "Đồng nghiệp",
+      "MANAGER": "Quản lý",
+      "OTHER": "Khác"
+    }
+  },
+  "coach": {
+    "title": "Coach",
+    "subtitle": "Một không gian để bạn tự đào sâu suy nghĩ của mình",
+    "inputPlaceholder": "Chia sẻ điều bạn đang nghĩ...",
+    "send": "Gửi",
+    "endSession": "Kết thúc phiên",
+    "emptyState": "Bắt đầu bằng cách chia sẻ điều đang ở trong đầu bạn lúc này.",
+    "sendError": "Không thể gửi tin nhắn lúc này. Vui lòng thử lại."
+  },
   "brand": {
     "name": "MimoSe",
     "acronym": "Make Sense Of ME",
-    "slogan": "Làm rõ chính mình",
-    "description": "Khu vườn tâm trí nơi bạn nhận ra mình đang cảm thấy gì, nghĩ gì, và cần gì — trước khi phản ứng với thế giới bên ngoài.",
-    "tagline": "Nhận thức bản thân, từng ngày một.",
-    "footer": "© 2026 MimoSe — Make Sense Of ME. Khoa học nhận thức và lãnh đạo bản thân.",
-    "welcome": "Chào mừng trở lại khu vườn của bạn."
+    "slogan": "Lắng nghe & Lãnh đạo chính mình",
+    "description": "Khu vườn tâm trí — nơi bạn dừng lại để lắng nghe cảm xúc, gọi tên suy nghĩ và thấu hiểu nhu cầu, trước khi chủ động ứng phó với thế giới.",
+    "tagline": "Sự hiện diện cùng bản thân, mỗi ngày.",
+    "footer": "© 2026 MimoSe — Make Sense Of ME. Đồng hành cùng hành trình Thấu hiểu & Lãnh đạo Bản thân.",
+    "welcome": "Chào mừng bạn quay về với khu vườn tâm trí."
   },
   "nav": {
+    "coach": "Coach",
     "garden": "Khu vườn",
     "reflection": "Tự chiêm nghiệm",
     "emotion": "Cảm xúc",
     "energy": "Năng lượng",
-    "dashboard": "Bảng thông tin",
+    "dashboard": "Về bạn",
     "protocols": "Kịch bản",
     "method": "Phương pháp",
     "journal": "Nhật ký",
@@ -24,87 +75,87 @@
     "groupJourney": "Hành trình của bạn"
   },
   "garden": {
-    "mapTitle": "Ngôi nhà tâm trí của tôi",
-    "mapSubtitle": "Chọn một vùng trong vườn để khám phá và làm rõ chính mình.",
+    "mapTitle": "Không gian Tâm trí của tôi",
+    "mapSubtitle": "Lựa chọn một góc nhỏ trong vườn để kết nối và thấu hiểu bản thân.",
     "mapAlt": "Bản đồ khu vườn tâm trí với ngôi nhà trung tâm và bốn vùng xung quanh",
     "comingSoon": "Sắp mở",
-    "quote": "Tôi không thể kiểm soát người khác, nhưng tôi luôn kiểm soát được cách mình lắng nghe và chọn lọc.",
+    "quote": "Tôi không thể làm chủ hoàn cảnh, nhưng tôi luôn có quyền lựa chọn cách mình lắng nghe và đáp lại.",
     "legend": {
-      "goOut": "Đi ra trải nghiệm",
-      "comeBack": "Quay về phục hồi"
+      "goOut": "Vươn ra trải nghiệm",
+      "comeBack": "Thong thả phục hồi"
     },
     "zones": {
       "mind": {
         "title": "Tâm trí",
-        "description": "Ngôi nhà trung tâm — nơi bạn quay về để hiểu mình."
+        "description": "Góc tĩnh lặng — nơi bạn quay về tìm lại sự cân bằng."
       },
       "reflection": {
         "title": "Tự chiêm nghiệm",
-        "description": "Nơi bạn ghi lại và nhìn lại những gì đang diễn ra bên trong."
+        "description": "Góc nhìn lại — nơi đối thoại sâu sắc với chính mình."
       },
       "creativity": {
         "title": "Sáng tạo",
-        "description": "Biến hiểu biết thành biểu đạt — viết, vẽ, tạo hình những gì bạn cảm nhận."
+        "description": "Góc bộc lộ — chuyển hóa cảm xúc thành dòng chảy sáng tạo."
       },
       "connection": {
-        "title": "Kết nối & Mối quan hệ",
-        "description": "Nhìn lại mạng lưới quan hệ — ai nuôi dưỡng và ai cạn kiệt bạn."
+        "title": "Mối quan hệ",
+        "description": "Góc kết nối — nhận diện những nguồn năng lượng quanh bạn."
       },
       "emotion": {
         "title": "Cảm xúc",
-        "description": "Nhận diện cảm xúc — bước đầu tiên để hiểu mình."
+        "description": "Góc hiện diện — gọi tên và đón nhận mọi cảm xúc."
       },
       "filter": {
-        "title": "Bộ lọc bên trong",
-        "description": "Chọn điều gì để tin, giữ, và mang về ngôi nhà tâm trí."
+        "title": "Bộ lọc giá trị",
+        "description": "Góc gạn lọc — chủ động chọn điều giữ lại và buông xả."
       }
     },
     "framework": {
       "goOut": {
-        "title": "Tôi ra ngoài như thế nào?",
-        "intro": "Trước khi bước ra thế giới bên ngoài, tôi dừng lại kiểm tra năng lượng và cảm xúc của mình — đây là Lớp 1 Nội tâm (Innerverse).",
-        "steps": ["Ghi nhanh mức năng lượng hiện tại (1-10) trước khi bắt đầu", "Gắn nhãn cảm xúc đang có, không phán xét đúng hay sai", "Nhận ra mẫu hình — hoạt động nào khiến năng lượng tăng, hoạt động nào khiến cạn kiệt", "Chọn cách tham gia phù hợp với trạng thái thật của mình lúc này"],
-        "linkLabel": "Xem năng lượng của bạn"
+        "title": "Tôi hướng ra thế giới như thế nào?",
+        "intro": "Trước khi kết nối với thế giới bên ngoài, tôi dừng lại một nhịp để cảm nhận năng lượng và cảm xúc của chính mình — làm chủ Thế giới Nội tâm (Innerverse).",
+        "steps": ["Lắng nghe & định vị mức năng lượng hiện tại (1-10) trước khi bắt đầu.", "Gọi tên cảm xúc đang hiện diện với sự thấu hiểu, không phán xét.", "Nhận diện chu kỳ — phân định rõ hoạt động nào tái tạo hay làm hao tổn năng lượng.", "Chủ động lựa chọn cách tham gia phù hợp với trạng thái thật lúc này."],
+        "linkLabel": "Khám phá mức năng lượng của bạn"
       },
       "comeBack": {
-        "title": "Tôi quay về như thế nào?",
-        "intro": "Khi gặp tình huống khó, tôi dùng Kịch bản ứng phó (Action Protocol) — lõi USP của MimoSe — thay vì phản ứng ngẫu hứng.",
-        "steps": ["Viết kịch bản ứng phó trước, khi đầu óc còn bình tĩnh", "Dùng đúng kịch bản đã chuẩn bị ngay khi tình huống xảy ra", "Đánh dấu đã dùng và ghi lại kết quả", "Theo dõi độ hiệu quả theo thời gian và điều chỉnh kịch bản nếu cần"],
-        "linkLabel": "Xem kịch bản ứng phó của bạn"
+        "title": "Tôi quay về phục hồi như thế nào?",
+        "intro": "Khi đối mặt với thử thách, tôi kích hoạt Kịch bản Ứng phó (Action Protocol) đã chuẩn bị sẵn — lựa chọn làm chủ cách đáp lại thay vì phản ứng bản năng.",
+        "steps": ["Thiết lập trước kịch bản ứng phó khi tâm trí đang ở trạng thái bình tĩnh và sáng suốt.", "Kích hoạt đúng kịch bản đã chuẩn bị ngay khi tình huống phát sinh.", "Ghi nhận trải nghiệm và quan sát kết quả thực tế.", "Theo dõi và điều chỉnh kịch bản theo thời gian để ngày càng linh hoạt hơn."],
+        "linkLabel": "Danh sách kịch bản ứng phó của bạn"
       },
       "filter": {
-        "title": "Tôi nhìn lại như thế nào?",
-        "intro": "Bảng thông tin và biểu đồ xu hướng (Lớp 5 Thấu hiểu & Phát triển) cho tôi thấy các mẫu hình theo thời gian — để tôi tự nhận ra, không phải app kết luận thay tôi.",
-        "steps": ["Xem lại biểu đồ xu hướng năng lượng theo ngày, theo tuần", "So sánh mức năng lượng giữa các hoạt động khác nhau", "Nhận ra thời điểm năng lượng thường xuống thấp nhất", "Tự rút ra điều gì đang lặp lại — quyết định tiếp theo là của mình"],
-        "linkLabel": "Xem bảng thông tin của bạn"
+        "title": "Tôi quan sát & soi chiếu như thế nào?",
+        "intro": "Bảng thông tin và bức tranh tổng thể cho tôi quan sát các chu kỳ nhận thức — để chính tôi tự thấu hiểu, không cần hệ thống kết luận thay.",
+        "steps": ["Quan sát sự biến động năng lượng theo chu kỳ ngày và tuần.", "So sánh mức độ tiêu hao hay tái tạo năng lượng qua từng trải nghiệm.", "Lắng nghe khoảng lặng — nhận diện thời điểm năng lượng thường xuống thấp.", "Tự đúc kết các chu kỳ hành vi — nắm giữ trọn vẹn quyền lựa chọn cho tương lai."],
+        "linkLabel": "Xem bảng thông tin soi chiếu"
       },
-      "principlesTitle": "Bốn nguyên tắc vận hành",
+      "principlesTitle": "Bốn Nguyên tắc Trải nghiệm & Chuyển hóa",
       "principles": [
-        { "title": "Đồng hành, không lý thuyết", "description": "Mỗi tính năng gắn với một hành động cụ thể — không phải bài đọc lý thuyết." },
-        { "title": "Tự giải quyết", "description": "Công cụ gợi ý khung câu hỏi, không đưa lời khuyên thay bạn." },
-        { "title": "Protocol có vòng đời", "description": "Kịch bản ứng phó được theo dõi và xem lại theo thời gian, không dùng một lần rồi bỏ." },
-        { "title": "Tiện lợi tại đúng khoảnh khắc", "description": "Ưu tiên thao tác 1-2 chạm, đặc biệt trong những lúc căng thẳng." }
+        { "title": "Hành động là cốt lõi", "description": "Mỗi công cụ đều hướng tới một trải nghiệm thực tế — giúp bạn chuyển hóa nhận thức thành thói quen sống, không dừng ở lý thuyết." },
+        { "title": "Khơi mở Tính chủ thể", "description": "MimoSe trao khung câu hỏi gợi mở để bạn tự tìm ra câu trả lời của chính mình, thay vì đưa ra lời khuyên áp đặt." },
+        { "title": "Phát triển liên tục", "description": "Kịch bản ứng phó được nuôi dưỡng, theo dõi và nâng cấp theo sự trưởng thành của bạn, không phải giải pháp tạm thời." },
+        { "title": "Bản đồ là của bạn", "description": "Dữ liệu chỉ là gương soi. Bạn luôn là người làm chủ và đưa ra quyết định cho hành trình của chính mình." }
       ]
     },
     "bridge": {
-      "heading": "Cầu nối hành động của bạn",
-      "subtitle": "Ba bước nhỏ để biến nhận thức thành hành động.",
+      "heading": "Nhịp cầu Nhận thức & Hành động",
+      "subtitle": "Những bước chuyển nhỏ để hiện thực hóa sự thấu hiểu thành thay đổi.",
       "energy": {
         "title": "Năng lượng hôm nay",
         "body": "Gần nhất: mức {{level}} · {{days}} ngày trước",
         "bodyToday": "Gần nhất: mức {{level}} · hôm nay",
-        "empty": "Chưa có bản ghi nào — bắt đầu với 1 chạm",
-        "cta": "Xem lịch sử"
+        "empty": "Chưa ghi nhận sự hiện diện — chạm nhẹ để bắt đầu",
+        "cta": "Lịch sử hiện diện"
       },
       "protocols": {
         "title": "Kịch bản của bạn",
-        "body": "{{count}} kịch bản đang sẵn sàng",
-        "empty": "Chưa có kịch bản nào — tạo cái đầu tiên",
-        "cta": "Xem kịch bản"
+        "body": "{{count}} kịch bản ứng phó đã sẵn sàng đồng hành",
+        "empty": "Chưa có kịch bản ứng phó — thiết lập kịch bản đầu tiên",
+        "cta": "Danh sách kịch bản ứng phó"
       },
       "dashboard": {
-        "title": "Nhìn lại hành trình",
-        "body": "Xem xu hướng 7 ngày qua",
+        "title": "Bức tranh tổng thể",
+        "body": "Quan sát nhịp điệu 7 ngày qua",
         "cta": "Xem bảng thông tin"
       }
     }
@@ -118,6 +169,8 @@
     "method": "Phương pháp"
   },
   "mobileFooter": {
+    "coach": "Coach",
+    "dashboard": "Về bạn",
     "garden": "Vườn",
     "journal": "Nhật ký",
     "emotion": "Cảm xúc",
@@ -182,6 +235,31 @@
       "average": "Mức trung bình",
       "totalLogs": "Tổng số bản ghi",
       "bestContext": "Hoạt động năng lượng cao nhất"
+    },
+    "you": "Bạn",
+    "pageTitle": "Về bạn",
+    "pageSubtitle": "Mọi thứ Coach đã hiểu về bạn — giá trị cốt lõi, những người quan trọng, và những insight đã đúc kết được.",
+    "mapTitle": "Bản đồ mối quan hệ",
+    "mapSubtitle": "Được xây dựng dần từ những gì bạn chia sẻ với Coach.",
+    "mapEmpty": "Chưa có ai trong bản đồ — hãy chia sẻ về những người quan trọng với bạn khi trò chuyện với Coach.",
+    "talkToCoach": "Trò chuyện với Coach",
+    "noNudge": "Mối quan hệ này đang ổn định.",
+    "loading": "Đang tải...",
+    "loadMore": "Tải thêm",
+    "insightsTitle": "Dòng thời gian Insight",
+    "insightsEmpty": "Chưa có insight nào — hãy trò chuyện với Coach để bắt đầu.",
+    "category": {
+      "value": "Giá trị",
+      "behaviorPattern": "Mẫu hành vi",
+      "relationship": "Mối quan hệ"
+    },
+    "person": {
+      "add": "+ Thêm người",
+      "edit": "Chỉnh sửa",
+      "save": "Lưu",
+      "nameRequired": "Nhập tên trước đã.",
+      "saveError": "Có lỗi xảy ra, vui lòng thử lại.",
+      "notesPlaceholder": "Ghi chú (tuỳ chọn)"
     }
   },
   "profilePage": {
@@ -190,6 +268,13 @@
     "stats": {
       "dayStreak": "Chuỗi ngày",
       "topMood": "Cảm xúc chính"
+    },
+    "coreValues": {
+      "title": "Giá trị cốt lõi",
+      "edit": "Chỉnh sửa",
+      "add": "+ Thiết lập",
+      "save": "Lưu",
+      "empty": "Chưa thiết lập — Coach sẽ hiểu bạn hơn nếu bạn cho biết điều gì quan trọng với mình."
     },
     "emotionOverview": {
       "title": "Tổng quan Cảm xúc",

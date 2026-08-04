@@ -1,7 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { STORAGE_KEYS } from '../constants/storage';
 import { loginWithGoogle, loginWithCredentials, signupWithCredentials } from '../services/authService';
-import { getUserProfile } from '../services/userService';
+import { getUserProfile, completeOnboarding } from '../services/userService';
+import type { CreatePersonRequest } from '../models/person';
 
 export const USER_PROFILE_QUERY_KEY = ['userProfile'] as const;
 
@@ -71,6 +72,20 @@ export const useSignupMutation = () => {
             signupWithCredentials(fullName, username, password),
         onSuccess: ({ token, user }) => {
             localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, token);
+            queryClient.setQueryData(USER_PROFILE_QUERY_KEY, user);
+        },
+    });
+};
+
+/**
+ * React Query mutation hook for completing onboarding (core values + initial relationships).
+ */
+export const useCompleteOnboardingMutation = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (data: { coreValues: string[]; people: CreatePersonRequest[] }) => completeOnboarding(data),
+        onSuccess: (user) => {
             queryClient.setQueryData(USER_PROFILE_QUERY_KEY, user);
         },
     });
