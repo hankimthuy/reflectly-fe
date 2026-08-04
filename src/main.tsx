@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.scss'
+import './styles/tailwind.css'
 import App from './App.tsx'
 import { AuthProvider } from "./providers/AuthProvider.tsx";
 import { SnackbarProvider } from "./providers/SnackbarProvider.tsx";

@@ -1,9 +1,10 @@
-import { useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin, type CodeResponse } from "@react-oauth/google";
 import { type FormEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LuEye, LuEyeOff, LuGlobe, LuSparkles } from 'react-icons/lu';
 import { FcGoogle } from 'react-icons/fc';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { APP_ROUTES } from '../../constants/route';
 import { useAuth } from '../../providers/AuthProvider';
 import './LoginPage.scss';
@@ -40,7 +41,7 @@ const LoginPage = () => {
         }
     }, []); // only on mount
 
-    const handleGoogleSuccess = async (codeResponse: any) => {
+    const handleGoogleSuccess = async (codeResponse: CodeResponse) => {
         if (!codeResponse.code) {
             setError('Did not receive authorization code from Google.');
             return;
@@ -52,11 +53,13 @@ const LoginPage = () => {
         try {
             await login(codeResponse.code);
             navigate(intendedDestination, { replace: true });
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error('LoginPage: Google login error:', error);
-            const errorMessage = error.response?.data?.message
-                || error.message
-                || 'Network Error: Login failed during backend authentication step.';
+            const errorMessage = axios.isAxiosError(error)
+                ? error.response?.data?.message ?? error.message
+                : error instanceof Error
+                    ? error.message
+                    : 'Network Error: Login failed during backend authentication step.';
             setError(errorMessage);
         } finally {
             setIsLoggingIn(false);

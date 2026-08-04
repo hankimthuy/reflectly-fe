@@ -8,6 +8,11 @@ interface FrameworkPanelsProps {
   variant?: 'compact' | 'full';
 }
 
+interface FrameworkPrinciple {
+  title: string;
+  description: string;
+}
+
 const PANEL_KEYS = ['goOut', 'comeBack', 'filter'] as const;
 const PANEL_ICONS = {
   goOut: LuLeaf,
@@ -62,8 +67,11 @@ const FrameworkPanels = ({ variant = 'compact' }: FrameworkPanelsProps) => {
         <div className="framework-panels__principles">
           <h3>{t('garden.framework.principlesTitle')}</h3>
           <ul>
-            {(t('garden.framework.principles', { returnObjects: true }) as string[]).map((item) => (
-              <li key={item}>{item}</li>
+            {(t('garden.framework.principles', { returnObjects: true }) as FrameworkPrinciple[]).map((item) => (
+              <li key={item.title}>
+                <span className="framework-panels__principle-title">{item.title}</span>
+                <span className="framework-panels__principle-description">{item.description}</span>
+              </li>
             ))}
           </ul>
         </div>

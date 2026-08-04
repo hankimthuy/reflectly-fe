@@ -178,6 +178,29 @@
     }
   }
 
+  &__nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__nav-group-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--garden-text-muted, var(--c-text-muted));
+    opacity: 0.7;
+    white-space: nowrap;
+  }
+
+  &__nav-divider {
+    width: 1px;
+    height: 16px;
+    background: currentColor;
+    opacity: 0.15;
+  }
+
   .btn-cta {
     padding: 10px 24px;
     border-radius: 999px;
@@ -362,6 +385,11 @@
       height: 1px;
       background: var(--c-border);
       margin: 12px 0;
+    }
+
+    .mimo-header__nav-group-label {
+      display: block;
+      margin: 4px 0;
     }
 
     .mobile-user-info {
