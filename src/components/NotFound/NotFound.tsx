@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { APP_ROUTES } from '../../constants/route';
+import { Button } from '../Button/Button';
 import './NotFound.scss';
 
 const NotFoundPage: React.FC = () => {
@@ -15,9 +16,9 @@ const NotFoundPage: React.FC = () => {
       <p className="not-found-page__message">{t('notFound.subtitle')}</p>
 
       <div className="not-found-page__actions">
-        <button type="button" onClick={() => navigate(APP_ROUTES.WELCOME)} className="not-found-page__btn not-found-page__btn--primary">
+        <Button variant="primary" size="md" shape="pill" onClick={() => navigate(APP_ROUTES.WELCOME)}>
           {t('notFound.back')}
-        </button>
+        </Button>
       </div>
     </div>
   );

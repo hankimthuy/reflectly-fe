@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { LuArrowRight, LuFilter, LuHeart, LuLeaf } from 'react-icons/lu';
+import { LuArrowRight, LuLayoutDashboard, LuMessageCircle, LuUsers } from 'react-icons/lu';
 import useReducedMotion from '../../hooks/useReducedMotion';
+import { APP_ROUTES } from '../../constants/route';
+import { ButtonLink } from '../Button/Button';
 import './FrameworkPanels.scss';
 
 interface FrameworkPanelsProps {
@@ -15,10 +17,15 @@ interface FrameworkPrinciple {
 
 const PANEL_KEYS = ['goOut', 'comeBack', 'filter'] as const;
 const PANEL_ICONS = {
-  goOut: LuLeaf,
-  comeBack: LuHeart,
-  filter: LuFilter,
+  goOut: LuMessageCircle,
+  comeBack: LuUsers,
+  filter: LuLayoutDashboard,
 } as const;
+const PANEL_ROUTES: Record<(typeof PANEL_KEYS)[number], string> = {
+  goOut: APP_ROUTES.COACH_CHAT,
+  comeBack: APP_ROUTES.DASHBOARD,
+  filter: APP_ROUTES.DASHBOARD,
+};
 
 const FrameworkPanels = ({ variant = 'compact' }: FrameworkPanelsProps) => {
   const { t } = useTranslation();
@@ -58,6 +65,10 @@ const FrameworkPanels = ({ variant = 'compact' }: FrameworkPanelsProps) => {
                   </li>
                 ))}
               </ul>
+              <ButtonLink to={PANEL_ROUTES[key]} variant="ghost" size="sm" className="!px-0 mt-3">
+                {t(`garden.framework.${key}.linkLabel`)}
+                <LuArrowRight size={14} />
+              </ButtonLink>
             </PanelWrapper>
           );
         })}

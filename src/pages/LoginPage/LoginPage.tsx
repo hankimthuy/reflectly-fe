@@ -7,6 +7,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { APP_ROUTES } from '../../constants/route';
 import { useAuth } from '../../providers/AuthProvider';
+import { Button } from '../../components/Button/Button';
 import './LoginPage.scss';
 
 const LoginPage = () => {
@@ -43,7 +44,7 @@ const LoginPage = () => {
 
     const handleGoogleSuccess = async (codeResponse: CodeResponse) => {
         if (!codeResponse.code) {
-            setError('Did not receive authorization code from Google.');
+            setError(t('auth.errors.googleCodeMissing'));
             return;
         }
 
@@ -59,7 +60,7 @@ const LoginPage = () => {
                 ? error.response?.data?.message ?? error.message
                 : error instanceof Error
                     ? error.message
-                    : 'Network Error: Login failed during backend authentication step.';
+                    : t('auth.errors.networkError');
             setError(errorMessage);
         } finally {
             setIsLoggingIn(false);
@@ -67,7 +68,7 @@ const LoginPage = () => {
     };
 
     const handleGoogleError = () => {
-        setError('Google authentication failed. Please try again.');
+        setError(t('auth.errors.googleFailed'));
     };
 
     const loginWithGoogle = useGoogleLogin({
@@ -80,7 +81,7 @@ const LoginPage = () => {
         e.preventDefault();
 
         if (!username.trim() || !password.trim()) {
-            setError('Please enter both username and password.');
+            setError(t('auth.errors.usernamePasswordRequired'));
             return;
         }
 
@@ -94,7 +95,7 @@ const LoginPage = () => {
             console.error('LoginPage: Credential login error:', error);
             const errorMessage = error instanceof Error
                 ? error.message
-                : 'Login failed. Please check your credentials.';
+                : t('auth.errors.loginFailed');
             setError(errorMessage);
         } finally {
             setIsLoggingIn(false);
@@ -111,7 +112,7 @@ const LoginPage = () => {
                     <div className="login-bg__orb login-bg__orb--orange" />
                 </div>
                 <div className="login-main">
-                    <div className="login-loading">Signing in...</div>
+                    <div className="login-loading">{t('auth.signingIn')}</div>
                 </div>
             </main>
         );
@@ -144,21 +145,23 @@ const LoginPage = () => {
 
                     {/* Google Login */}
                     <div className="login-google-wrapper">
-                        <button
-                            type="button"
-                            className="login-google-btn"
+                        <Button
+                            variant="secondary"
+                            size="lg"
+                            shape="pill"
+                            className="w-full shadow-sm hover:shadow-md"
                             onClick={() => loginWithGoogle()}
                             disabled={isLoggingIn}
                         >
                             <FcGoogle size={24} />
                             {t('auth.googleLogin')}
-                        </button>
+                        </Button>
                     </div>
 
                     {/* Divider */}
                     <div className="login-divider">
                         <div className="login-divider__line" />
-                        <span className="login-divider__text">or</span>
+                        <span className="login-divider__text">{t('auth.or')}</span>
                         <div className="login-divider__line" />
                     </div>
 
@@ -173,7 +176,7 @@ const LoginPage = () => {
                                 className="login-field__input"
                                 id="login-username"
                                 type="text"
-                                placeholder="Enter your username"
+                                placeholder={t('auth.usernamePlaceholder')}
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 autoComplete="username"
@@ -187,7 +190,7 @@ const LoginPage = () => {
                                     {t('auth.password')}
                                 </label>
                                 <a className="login-field__forgot" href="#">
-                                    Forgot?
+                                    {t('auth.forgotPassword')}
                                 </a>
                             </div>
                             <div className="login-field__input-wrapper">
@@ -212,13 +215,16 @@ const LoginPage = () => {
                         </div>
 
                         {/* Submit */}
-                        <button
+                        <Button
                             type="submit"
-                            className="login-submit-btn"
+                            variant="primary"
+                            size="lg"
+                            shape="pill"
+                            className="mt-1 w-full"
                             disabled={isLoggingIn}
                         >
                             {isLoggingIn ? '...' : t('auth.loginButton')}
-                        </button>
+                        </Button>
                     </form>
                 </div>
 
@@ -229,9 +235,9 @@ const LoginPage = () => {
                         <Link to={APP_ROUTES.SIGNUP}>{t('auth.signupLink')}</Link>
                     </p>
                     <div className="login-footer__links">
-                        <a href="#">Privacy Policy</a>
+                        <a href="#">{t('auth.privacyPolicy')}</a>
                         <span className="login-footer__links-dot">•</span>
-                        <a href="#">Terms of Service</a>
+                        <a href="#">{t('auth.termsOfService')}</a>
                     </div>
                 </footer>
             </div>

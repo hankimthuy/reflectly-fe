@@ -9,6 +9,7 @@ import { useEntriesInfiniteQuery } from '../../../queries/entriesQueryHook';
 import type { Entry } from '../../../models/entry';
 import EntryCard from '../components/EntryCard/EntryCard';
 import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
+import { Button } from '../../../components/Button/Button';
 import { APP_ROUTES } from '../../../constants/route';
 import './EntriesListPage.scss';
 
@@ -116,7 +117,6 @@ const EntriesListPage: React.FC = () => {
           ]}
         />
         <h1 className="entries-page__title">{t('entriesPage.title')}</h1>
-        <p className="entries-page__subtitle">{t('entriesPage.laoTzuQuote')}</p>
       </div>
 
       {/* Content */}
@@ -162,13 +162,16 @@ const EntriesListPage: React.FC = () => {
           <div className="entries-page__empty">
             <p className="entries-page__empty-title">{t('entriesPage.emptyState')}</p>
             <p className="entries-page__empty-hint">{t('entriesPage.emptyStateHint')}</p>
-            <button
-              className="entries-page__cta-btn"
+            <Button
+              variant="primary"
+              size="md"
+              shape="pill"
+              className="mt-4"
               onClick={() => navigate(APP_ROUTES.ENTRIES_NEW)}
             >
               <LuPenLine size={16} />
-              <span>{t('innerversePage.sections.safeSpace.cta')}</span>
-            </button>
+              <span>{t('entriesPage.startWriting')}</span>
+            </Button>
           </div>
         )}
 
@@ -193,12 +196,15 @@ const EntriesListPage: React.FC = () => {
           {(isFetchingNextPage || isLoading) && (<CircularProgress size={24} sx={{ mb: 1 }} />)}
 
           {!isLoading && hasNextPage && (
-            <button
-              className="entries-page__cta-btn entries-page__cta-btn--outline"
+            <Button
+              variant="secondary"
+              size="md"
+              shape="pill"
               onClick={handleLoadMore}
+              className="!border-white/20 !bg-transparent !text-coach-bg hover:!bg-white/10"
             >
               {t('entriesPage.loadMore')}
-            </button>
+            </Button>
           )}
 
           {entries.length > 0 && (

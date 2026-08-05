@@ -50,24 +50,26 @@
     "sendError": "Không thể gửi tin nhắn lúc này. Vui lòng thử lại."
   },
   "brand": {
-    "name": "MimoSe",
-    "acronym": "Make Sense Of ME",
-    "slogan": "Lắng nghe & Lãnh đạo chính mình",
-    "description": "Khu vườn tâm trí — nơi bạn dừng lại để lắng nghe cảm xúc, gọi tên suy nghĩ và thấu hiểu nhu cầu, trước khi chủ động ứng phó với thế giới.",
-    "tagline": "Sự hiện diện cùng bản thân, mỗi ngày.",
-    "footer": "© 2026 MimoSe — Make Sense Of ME. Đồng hành cùng hành trình Thấu hiểu & Lãnh đạo Bản thân.",
-    "welcome": "Chào mừng bạn quay về với khu vườn tâm trí."
+    "name": "Aura Self AI",
+    "acronym": "AI Coach Thấu Hiểu Bản Thân",
+    "slogan": "Hiểu mình rõ hơn, qua từng cuộc trò chuyện",
+    "description": "Aura Self AI là AI Coach trò chuyện cùng bạn, tự động dựng nên bản đồ mối quan hệ và những insight về chính bạn — không phán xét, không áp đặt lời khuyên.",
+    "tagline": "Trò chuyện để thấu hiểu chính mình, mỗi ngày.",
+    "footer": "© 2026 Aura Self AI. Đồng hành cùng hành trình Thấu hiểu & Lãnh đạo Bản thân.",
+    "welcome": "Chào mừng bạn quay lại với Aura Self AI.",
+    "ctaLoggedOut": "Bắt đầu trò chuyện với Coach",
+    "ctaLoggedIn": "Tiếp tục trò chuyện"
   },
   "nav": {
     "coach": "Coach",
-    "garden": "Khu vườn",
+    "garden": "Trang chủ",
     "reflection": "Tự chiêm nghiệm",
     "emotion": "Cảm xúc",
     "energy": "Năng lượng",
-    "dashboard": "Về bạn",
+    "dashboard": "Thấu hiểu",
     "protocols": "Kịch bản",
     "method": "Phương pháp",
-    "journal": "Nhật ký",
+    "journal": "Đúc kết",
     "profile": "Tôi",
     "login": "Đăng nhập",
     "startJourney": "Bắt đầu hành trình",
@@ -112,28 +114,28 @@
     },
     "framework": {
       "goOut": {
-        "title": "Tôi hướng ra thế giới như thế nào?",
-        "intro": "Trước khi kết nối với thế giới bên ngoài, tôi dừng lại một nhịp để cảm nhận năng lượng và cảm xúc của chính mình — làm chủ Thế giới Nội tâm (Innerverse).",
-        "steps": ["Lắng nghe & định vị mức năng lượng hiện tại (1-10) trước khi bắt đầu.", "Gọi tên cảm xúc đang hiện diện với sự thấu hiểu, không phán xét.", "Nhận diện chu kỳ — phân định rõ hoạt động nào tái tạo hay làm hao tổn năng lượng.", "Chủ động lựa chọn cách tham gia phù hợp với trạng thái thật lúc này."],
-        "linkLabel": "Khám phá mức năng lượng của bạn"
+        "title": "Trò chuyện cùng AI Coach",
+        "intro": "Một không gian trò chuyện kiểu Socratic — Coach đặt câu hỏi gợi mở để bạn tự tìm ra câu trả lời của chính mình.",
+        "steps": ["Chia sẻ điều đang ở trong đầu bạn, không cần chuẩn bị trước.", "Coach tự ghi nhớ điều quan trọng với bạn qua từng cuộc trò chuyện."],
+        "linkLabel": "Bắt đầu trò chuyện"
       },
       "comeBack": {
-        "title": "Tôi quay về phục hồi như thế nào?",
-        "intro": "Khi đối mặt với thử thách, tôi kích hoạt Kịch bản Ứng phó (Action Protocol) đã chuẩn bị sẵn — lựa chọn làm chủ cách đáp lại thay vì phản ứng bản năng.",
-        "steps": ["Thiết lập trước kịch bản ứng phó khi tâm trí đang ở trạng thái bình tĩnh và sáng suốt.", "Kích hoạt đúng kịch bản đã chuẩn bị ngay khi tình huống phát sinh.", "Ghi nhận trải nghiệm và quan sát kết quả thực tế.", "Theo dõi và điều chỉnh kịch bản theo thời gian để ngày càng linh hoạt hơn."],
-        "linkLabel": "Danh sách kịch bản ứng phó của bạn"
+        "title": "Bản đồ mối quan hệ của bạn",
+        "intro": "Tự động dựng nên từ những gì bạn chia sẻ — giúp bạn nhìn rõ ai đang nuôi dưỡng và ai đang khiến bạn cạn kiệt.",
+        "steps": ["Không cần nhập liệu thủ công — Coach tự nhận diện qua trò chuyện.", "Thêm hoặc chỉnh sửa trực tiếp bất cứ lúc nào bạn muốn."],
+        "linkLabel": "Xem bản đồ của bạn"
       },
       "filter": {
-        "title": "Tôi quan sát & soi chiếu như thế nào?",
-        "intro": "Bảng thông tin và bức tranh tổng thể cho tôi quan sát các chu kỳ nhận thức — để chính tôi tự thấu hiểu, không cần hệ thống kết luận thay.",
-        "steps": ["Quan sát sự biến động năng lượng theo chu kỳ ngày và tuần.", "So sánh mức độ tiêu hao hay tái tạo năng lượng qua từng trải nghiệm.", "Lắng nghe khoảng lặng — nhận diện thời điểm năng lượng thường xuống thấp.", "Tự đúc kết các chu kỳ hành vi — nắm giữ trọn vẹn quyền lựa chọn cho tương lai."],
-        "linkLabel": "Xem bảng thông tin soi chiếu"
+        "title": "Dòng thời gian Insight",
+        "intro": "Tổng hợp giá trị cốt lõi, mẫu hành vi và insight Coach đã đúc kết được về bạn theo thời gian.",
+        "steps": ["Tự nhận ra điều đang lặp lại — quyết định tiếp theo luôn là của bạn.", "Giá trị cốt lõi được cập nhật ngay khi bạn thay đổi."],
+        "linkLabel": "Xem về bạn"
       },
       "principlesTitle": "Bốn Nguyên tắc Trải nghiệm & Chuyển hóa",
       "principles": [
         { "title": "Hành động là cốt lõi", "description": "Mỗi công cụ đều hướng tới một trải nghiệm thực tế — giúp bạn chuyển hóa nhận thức thành thói quen sống, không dừng ở lý thuyết." },
-        { "title": "Khơi mở Tính chủ thể", "description": "MimoSe trao khung câu hỏi gợi mở để bạn tự tìm ra câu trả lời của chính mình, thay vì đưa ra lời khuyên áp đặt." },
-        { "title": "Phát triển liên tục", "description": "Kịch bản ứng phó được nuôi dưỡng, theo dõi và nâng cấp theo sự trưởng thành của bạn, không phải giải pháp tạm thời." },
+        { "title": "Khơi mở Tính chủ thể", "description": "Aura Self AI trao khung câu hỏi gợi mở để bạn tự tìm ra câu trả lời của chính mình, thay vì đưa ra lời khuyên áp đặt." },
+        { "title": "Phát triển liên tục", "description": "Insight và bản đồ mối quan hệ được nuôi dưỡng, theo dõi và nâng cấp theo sự trưởng thành của bạn, không phải giải pháp tạm thời." },
         { "title": "Bản đồ là của bạn", "description": "Dữ liệu chỉ là gương soi. Bạn luôn là người làm chủ và đưa ra quyết định cho hành trình của chính mình." }
       ]
     },
@@ -161,18 +163,20 @@
     }
   },
   "breadcrumb": {
-    "home": "Khu vườn",
+    "home": "Trang chủ",
     "reflection": "Tự chiêm nghiệm",
     "emotion": "Cảm xúc",
-    "journal": "Nhật ký",
+    "journal": "Đúc kết",
     "profile": "Hồ sơ",
-    "method": "Phương pháp"
+    "method": "Phương pháp",
+    "coach": "Coach",
+    "dashboard": "Thấu hiểu"
   },
   "mobileFooter": {
     "coach": "Coach",
-    "dashboard": "Về bạn",
-    "garden": "Vườn",
-    "journal": "Nhật ký",
+    "dashboard": "Thấu hiểu",
+    "garden": "Trang chủ",
+    "journal": "Đúc kết",
     "emotion": "Cảm xúc",
     "energy": "Năng lượng",
     "profile": "Tôi",
@@ -237,7 +241,7 @@
       "bestContext": "Hoạt động năng lượng cao nhất"
     },
     "you": "Bạn",
-    "pageTitle": "Về bạn",
+    "pageTitle": "Thấu hiểu",
     "pageSubtitle": "Mọi thứ Coach đã hiểu về bạn — giá trị cốt lõi, những người quan trọng, và những insight đã đúc kết được.",
     "mapTitle": "Bản đồ mối quan hệ",
     "mapSubtitle": "Được xây dựng dần từ những gì bạn chia sẻ với Coach.",
@@ -257,14 +261,15 @@
       "add": "+ Thêm người",
       "edit": "Chỉnh sửa",
       "save": "Lưu",
+      "cancel": "Hủy",
       "nameRequired": "Nhập tên trước đã.",
       "saveError": "Có lỗi xảy ra, vui lòng thử lại.",
       "notesPlaceholder": "Ghi chú (tuỳ chọn)"
     }
   },
   "profilePage": {
-    "title": "Khu vườn của tôi",
-    "loginRequired": "Vui lòng đăng nhập để xem khu vườn của bạn.",
+    "title": "Hồ sơ của tôi",
+    "loginRequired": "Vui lòng đăng nhập để xem hồ sơ của bạn.",
     "stats": {
       "dayStreak": "Chuỗi ngày",
       "topMood": "Cảm xúc chính"
@@ -274,18 +279,43 @@
       "edit": "Chỉnh sửa",
       "add": "+ Thiết lập",
       "save": "Lưu",
-      "empty": "Chưa thiết lập — Coach sẽ hiểu bạn hơn nếu bạn cho biết điều gì quan trọng với mình."
+      "cancel": "Hủy",
+      "empty": "Chưa thiết lập — Coach sẽ hiểu bạn hơn nếu bạn cho biết điều gì quan trọng với mình.",
+      "saveError": "Lưu giá trị cốt lõi thất bại."
     },
     "emotionOverview": {
       "title": "Tổng quan Cảm xúc",
       "subtitle": "{{entries}} bài viết, {{emotions}} cảm xúc được gắn",
-      "empty": "Bắt đầu viết nhật ký để xem mẫu hình cảm xúc của bạn."
+      "empty": "Bắt đầu viết đúc kết để xem mẫu hình cảm xúc của bạn."
     },
+    "editName": {
+      "label": "Tên hiển thị",
+      "edit": "Chỉnh sửa",
+      "emptyError": "Tên không được để trống.",
+      "updateError": "Cập nhật tên thất bại."
+    },
+    "changePassword": {
+      "label": "Đổi mật khẩu",
+      "change": "Đổi",
+      "cancel": "Hủy",
+      "currentPlaceholder": "Mật khẩu hiện tại",
+      "newPlaceholder": "Mật khẩu mới",
+      "confirmPlaceholder": "Xác nhận mật khẩu mới",
+      "save": "Lưu mật khẩu",
+      "saving": "Đang lưu...",
+      "fillAllFields": "Vui lòng điền đầy đủ các trường.",
+      "mismatch": "Mật khẩu mới không khớp.",
+      "tooShort": "Mật khẩu mới phải có ít nhất 6 ký tự.",
+      "success": "Đổi mật khẩu thành công.",
+      "error": "Đổi mật khẩu thất bại."
+    },
+    "avatarError": "Tải ảnh đại diện thất bại. Vui lòng thử lại.",
     "settings": {
       "title": "Cài đặt",
       "language": "Ngôn ngữ",
       "notifications": "Thông báo",
-      "exportData": "Xuất dữ liệu"
+      "exportData": "Xuất dữ liệu",
+      "soon": "Sắp có"
     },
     "logout": "Đăng xuất",
     "logoutDialog": {
@@ -355,33 +385,33 @@
     }
   },
   "entriesPage": {
-    "title": "Nhật ký tự chiêm nghiệm",
-    "subtitle": "Mỗi dòng nhật ký là một bước để làm rõ chính mình.",
+    "title": "Đúc kết",
+    "subtitle": "Mỗi đúc kết là một bước để làm rõ chính mình.",
     "loadMore": "Tải thêm",
     "showing": "Hiển thị {{current}} trong {{total}} bài viết",
-    "emptyState": "Can đảm để bắt đầu là can đảm để trưởng thành.",
-    "emptyStateHint": "Viết bài nhật ký đầu tiên và bước đi bước đầu tiên.",
+    "emptyState": "Chưa có đúc kết nào",
+    "emptyStateHint": "Ghi lại điều bạn đang nghĩ ngay bây giờ — chỉ mất một phút.",
+    "startWriting": "Bắt đầu viết",
     "loginRequired": "Đăng nhập để bắt đầu hành trình tự hiểu bản thân.",
-    "loginRequiredHint": "Nhật ký của bạn riêng tư, mã hóa và đang chờ bạn.",
-    "laoTzuQuote": "Hành trình vạn dặm bắt đầu từ một bước chân — bước đi của bạn bắt đầu ngay tại đây.",
-    "searchPlaceholder": "Tìm kiếm nhật ký...",
+    "loginRequiredHint": "Đúc kết của bạn riêng tư, mã hóa và đang chờ bạn.",
+    "searchPlaceholder": "Tìm kiếm đúc kết...",
     "filterAll": "Tất cả",
     "filterToday": "Hôm nay",
     "filterWeek": "Tuần này",
     "filterMonth": "Tháng này",
     "filterYear": "Năm nay",
-    "noResults": "Không tìm thấy nhật ký phù hợp.",
-    "edit": "Chỉnh sửa nhật ký",
-    "deleteConfirmTitle": "Xóa nhật ký",
-    "deleteConfirmMessage": "Bạn có chắc chắn muốn xóa nhật ký này?",
+    "noResults": "Không tìm thấy đúc kết phù hợp.",
+    "edit": "Chỉnh sửa đúc kết",
+    "deleteConfirmTitle": "Xóa đúc kết",
+    "deleteConfirmMessage": "Bạn có chắc chắn muốn xóa đúc kết này?",
     "deleteConfirmBtn": "Xóa",
     "deleteCancel": "Hủy",
-    "editTitle": "Chỉnh sửa nhật ký",
+    "editTitle": "Chỉnh sửa đúc kết",
     "editSubtitle": "Xem lại và hoàn thiện suy ngẫm của bạn.",
-    "updateSuccess": "Nhật ký đã được cập nhật.",
-    "updateError": "Không thể cập nhật nhật ký.",
-    "deleteSuccess": "Đã xóa nhật ký.",
-    "deleteError": "Không thể xóa nhật ký."
+    "updateSuccess": "Đúc kết đã được cập nhật.",
+    "updateError": "Không thể cập nhật đúc kết.",
+    "deleteSuccess": "Đã xóa đúc kết.",
+    "deleteError": "Không thể xóa đúc kết."
   },
   "actionProtocol": {
     "list": {
@@ -437,16 +467,16 @@
   "phuongPhapPage": {
     "hero": {
       "badge": "Cơ sở khoa học lãnh đạo bản thân",
-      "title": "Vì sao MimoSe <span class=\"highlight\">vận hành như vậy</span>",
-      "subtitle": "MimoSe được xây dựng theo nguyên lý Leading Self: bạn cần hiểu và dẫn dắt chính mình trước khi dẫn dắt người khác. Trang này giải thích cơ sở đằng sau từng tính năng bạn đang dùng."
+      "title": "Vì sao Aura Self AI <span class=\"highlight\">vận hành như vậy</span>",
+      "subtitle": "Aura Self AI được xây dựng theo nguyên lý Leading Self: bạn cần hiểu và dẫn dắt chính mình trước khi dẫn dắt người khác. Trang này giải thích cơ sở đằng sau từng tính năng bạn đang dùng."
     },
     "layers": {
-      "title": "Bốn lớp MimoSe đã có",
+      "title": "Bốn lớp Aura Self AI đã có",
       "subtitle": "Mỗi tính năng bạn dùng đều thuộc một lớp trong mô hình lãnh đạo bản thân.",
       "items": {
         "foundation": {
           "label": "Lớp 0 · Nền tảng",
-          "description": "Tài khoản, hồ sơ và nhật ký — nơi mọi dữ liệu của bạn bắt đầu."
+          "description": "Tài khoản, hồ sơ và đúc kết — nơi mọi dữ liệu của bạn bắt đầu."
         },
         "innerverse": {
           "label": "Lớp 1 · Nội tâm (Innerverse)",
@@ -464,30 +494,31 @@
     },
     "cta": {
       "title": "Sẵn sàng áp dụng?",
-      "subtitle": "Bắt đầu bằng ghi nhận đầu tiên của bạn — một dòng nhật ký, một mức năng lượng, hay một kịch bản ứng phó.",
+      "subtitle": "Bắt đầu bằng ghi nhận đầu tiên của bạn — một dòng đúc kết, một mức năng lượng, hay một kịch bản ứng phó.",
       "button": "Bắt đầu ghi nhận"
     }
   },
   "zonePage": {
     "comingSoon": "Sắp mở",
-    "comingSoonDesc": "Vùng này đang được chăm sóc. Hãy quay lại sau.",
-    "writeJournal": "Viết nhật ký",
-    "viewJournal": "Xem nhật ký",
-    "backToGarden": "Về khu vườn"
+    "comingSoonDesc": "Tính năng này đang được xây dựng. Hãy quay lại sau.",
+    "writeJournal": "Viết đúc kết",
+    "viewJournal": "Xem đúc kết",
+    "backToGarden": "Về trang chủ"
   },
   "emotionPage": {
-    "title": "Hồ sen cảm xúc",
+    "title": "Hồ sơ cảm xúc",
     "subtitle": "Nhận diện và theo dõi mẫu hình cảm xúc — bước đầu tiên để hiểu mình.",
-    "empty": "Bắt đầu viết nhật ký để thấy mẫu hình cảm xúc của bạn nở rộ trong vườn."
+    "empty": "Bắt đầu viết đúc kết để thấy mẫu hình cảm xúc của bạn hiện rõ hơn."
   },
   "notFound": {
-    "title": "Bạn đã đi lạc khỏi vườn",
-    "subtitle": "Trang này không tồn tại trong khu vườn tâm trí.",
-    "back": "Về khu vườn"
+    "title": "Trang bạn tìm không tồn tại",
+    "subtitle": "Có thể đường dẫn đã thay đổi hoặc không còn tồn tại.",
+    "back": "Về trang chủ"
   },
   "auth": {
     "loginTitle": "Đăng nhập",
     "signupTitle": "Tạo tài khoản",
+    "fullName": "Họ và tên",
     "username": "Tên đăng nhập",
     "password": "Mật khẩu",
     "confirmPassword": "Xác nhận mật khẩu",
@@ -497,6 +528,26 @@
     "noAccount": "Chưa có tài khoản?",
     "hasAccount": "Đã có tài khoản?",
     "signupLink": "Đăng ký",
-    "loginLink": "Đăng nhập"
+    "loginLink": "Đăng nhập",
+    "fullNamePlaceholder": "Họ và tên của bạn",
+    "usernamePlaceholder": "Nhập tên đăng nhập",
+    "usernameChoosePlaceholder": "Chọn tên đăng nhập",
+    "forgotPassword": "Quên mật khẩu?",
+    "or": "hoặc",
+    "signingIn": "Đang đăng nhập...",
+    "creatingAccount": "Đang tạo tài khoản...",
+    "privacyPolicy": "Chính sách bảo mật",
+    "termsOfService": "Điều khoản dịch vụ",
+    "errors": {
+      "fillAllFields": "Vui lòng điền đầy đủ thông tin.",
+      "usernamePasswordRequired": "Vui lòng nhập tên đăng nhập và mật khẩu.",
+      "loginFailed": "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.",
+      "googleCodeMissing": "Không nhận được mã xác thực từ Google.",
+      "googleFailed": "Xác thực Google thất bại. Vui lòng thử lại.",
+      "networkError": "Lỗi mạng: đăng nhập thất bại ở bước xác thực.",
+      "passwordMismatch": "Mật khẩu không khớp.",
+      "passwordTooShort": "Mật khẩu phải có ít nhất 6 ký tự.",
+      "signupFailed": "Đăng ký thất bại. Vui lòng thử lại."
+    }
   }
 }

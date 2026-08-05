@@ -31,14 +31,19 @@ a.text-primary,
   color: var(--c-danger) !important;
 }
 
-a {
-  font-weight: 500;
-  color: var(--c-primary);
-  text-decoration: inherit;
-}
+// Wrapped in Tailwind's `base` layer for the same reason as the button/heading rules below —
+// otherwise this un-layered `a { color }` always beats a Tailwind utility like `text-white`
+// on an <a> styled as a button (e.g. ButtonLink), regardless of specificity or source order.
+@layer base {
+  a {
+    font-weight: 500;
+    color: var(--c-primary);
+    text-decoration: inherit;
+  }
 
-a:hover {
-  color: var(--c-secondary);
+  a:hover {
+    color: var(--c-secondary);
+  }
 }
 
 // Global Reset and Base Styles
@@ -68,31 +73,37 @@ body {
 }
 
 // Typography - Responsive
-h1 {
-  line-height: var(--line-height-tight);
-  font-weight: var(--font-weight-bold);
-  margin: 0 0 var(--spacing-lg) 0;
-  @include font-responsive(var(--font-size-2xl), var(--font-size-3xl), 3.2em);
-}
+// Wrapped in Tailwind's `base` layer for the same reason as the button rule below —
+// otherwise this un-layered CSS always beats Tailwind utilities like text-2xl/font-bold
+// on <h1>/<h2>/<h3>/<p> regardless of specificity or source order (confirmed live: a
+// Tailwind `text-2xl` heading was silently rendering at this rule's 3.2em instead).
+@layer base {
+  h1 {
+    line-height: var(--line-height-tight);
+    font-weight: var(--font-weight-bold);
+    margin: 0 0 var(--spacing-lg) 0;
+    @include font-responsive(var(--font-size-2xl), var(--font-size-3xl), 3.2em);
+  }
 
-h2 {
-  line-height: var(--line-height-tight);
-  font-weight: var(--font-weight-semibold);
-  margin: 0 0 var(--spacing-md) 0;
-  @include font-responsive(var(--font-size-xl), var(--font-size-2xl), 2.4em);
-}
+  h2 {
+    line-height: var(--line-height-tight);
+    font-weight: var(--font-weight-semibold);
+    margin: 0 0 var(--spacing-md) 0;
+    @include font-responsive(var(--font-size-xl), var(--font-size-2xl), 2.4em);
+  }
 
-h3 {
-  line-height: var(--line-height-normal);
-  font-weight: var(--font-weight-semibold);
-  margin: 0 0 var(--spacing-sm) 0;
-  @include font-responsive(var(--font-size-lg), var(--font-size-xl), 1.8em);
-}
+  h3 {
+    line-height: var(--line-height-normal);
+    font-weight: var(--font-weight-semibold);
+    margin: 0 0 var(--spacing-sm) 0;
+    @include font-responsive(var(--font-size-lg), var(--font-size-xl), 1.8em);
+  }
 
-p {
-  line-height: var(--line-height-relaxed);
-  margin: 0 0 var(--spacing-md) 0;
-  @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-base));
+  p {
+    line-height: var(--line-height-relaxed);
+    margin: 0 0 var(--spacing-md) 0;
+    @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-base));
+  }
 }
 
 // Button - Responsive
