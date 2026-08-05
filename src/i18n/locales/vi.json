@@ -41,27 +41,60 @@
     }
   },
   "coach": {
-    "title": "Coach",
-    "subtitle": "Một không gian để bạn tự đào sâu suy nghĩ của mình",
+    "title": "Aura",
+    "subtitle": "Mình là Aura. Đến với phiên trò chuyện hôm nay, mình sẽ lắng nghe và đặt câu hỏi cùng bạn — không phán xét, không áp đặt lời khuyên — và cùng nhau lưu lại hành trình này.",
     "inputPlaceholder": "Chia sẻ điều bạn đang nghĩ...",
     "send": "Gửi",
     "endSession": "Kết thúc phiên",
-    "emptyState": "Bắt đầu bằng cách chia sẻ điều đang ở trong đầu bạn lúc này.",
+    "emptyState": "Bạn cứ thoải mái bắt đầu — chia sẻ điều đang ở trong đầu bạn lúc này, mình ở đây để lắng nghe.",
     "sendError": "Không thể gửi tin nhắn lúc này. Vui lòng thử lại."
+  },
+  "homePreview": {
+    "chat": {
+      "title": "Trò chuyện cùng AI Coach",
+      "tag1": "Bình yên",
+      "tag2": "Tò mò",
+      "userMessage": "Hôm nay mình cảm thấy hơi mông lung về định hướng sắp tới.",
+      "aiMessage": "Chào bạn. Cảm giác mông lung thường xuất hiện khi chúng ta đứng trước những ngã rẽ hoặc đang tìm kiếm ý nghĩa sâu sắc hơn. Bạn muốn bắt đầu từ việc chia sẻ điều gì đang khiến bạn băn khoăn nhất lúc này không?",
+      "inputPlaceholder": "Chia sẻ điều bạn đang nghĩ..."
+    },
+    "map": {
+      "title": "Bản đồ mối quan hệ",
+      "centerLabel": "Tôi",
+      "node1": "Gia đình",
+      "node2": "Đồng nghiệp",
+      "node3": "Mentor",
+      "node4": "Bạn bè"
+    },
+    "insights": {
+      "title": "Dòng thời gian Insight",
+      "today": "Hôm nay",
+      "todayTime": "14:32",
+      "todayCategory": "Giá trị",
+      "todayText": "Ưu tiên sự tự do trong sáng tạo hơn sự ổn định.",
+      "lastWeek": "Tuần trước",
+      "lastWeekTime": "Thứ Ba, 29/07",
+      "lastWeekCategory": "Mẫu hành vi",
+      "lastWeekText": "Thường né tránh xung đột trực tiếp trong giao tiếp nhóm."
+    },
+    "cta": "Xem thêm"
   },
   "brand": {
     "name": "Aura Self AI",
     "acronym": "AI Coach Thấu Hiểu Bản Thân",
     "slogan": "Hiểu mình rõ hơn, qua từng cuộc trò chuyện",
-    "description": "Aura Self AI là AI Coach trò chuyện cùng bạn, tự động dựng nên bản đồ mối quan hệ và những insight về chính bạn — không phán xét, không áp đặt lời khuyên.",
+    "description": "Aura Self AI là AI Coach trò chuyện cùng bạn, tự động dựng nên bản đồ mối quan hệ và những insight về chính bạn.",
     "tagline": "Trò chuyện để thấu hiểu chính mình, mỗi ngày.",
     "footer": "© 2026 Aura Self AI. Đồng hành cùng hành trình Thấu hiểu & Lãnh đạo Bản thân.",
     "welcome": "Chào mừng bạn quay lại với Aura Self AI.",
     "ctaLoggedOut": "Bắt đầu trò chuyện với Coach",
     "ctaLoggedIn": "Tiếp tục trò chuyện"
   },
+  "chatFab": {
+    "label": "Trò chuyện với AI"
+  },
   "nav": {
-    "coach": "Coach",
+    "coach": "AI Coach",
     "garden": "Trang chủ",
     "reflection": "Tự chiêm nghiệm",
     "emotion": "Cảm xúc",
@@ -169,11 +202,11 @@
     "journal": "Đúc kết",
     "profile": "Hồ sơ",
     "method": "Phương pháp",
-    "coach": "Coach",
+    "coach": "AI Coach",
     "dashboard": "Thấu hiểu"
   },
   "mobileFooter": {
-    "coach": "Coach",
+    "coach": "AI Coach",
     "dashboard": "Thấu hiểu",
     "garden": "Trang chủ",
     "journal": "Đúc kết",

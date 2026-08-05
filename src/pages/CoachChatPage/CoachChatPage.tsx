@@ -5,6 +5,7 @@ import MessageList from '../../components/Chat/MessageList';
 import MessageInput from '../../components/Chat/MessageInput';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { Button } from '../../components/Button/Button';
+import auraIdle from '../../assets/aura/aura-idle.gif';
 import type { ConversationMessage } from '../../models/conversation';
 import { conversationsService } from '../../services/conversationsService';
 import { useSendMessageMutation, useEndConversationMutation } from '../../queries/conversationsQueryHook';
@@ -77,13 +78,21 @@ const CoachChatPage = () => {
           items={[{ label: t('breadcrumb.home'), path: APP_ROUTES.WELCOME }, { label: t('breadcrumb.coach') }]}
         />
         <div className="mt-2 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-coach-text [font-family:var(--font-family-heading)]">
-              {t('coach.title')}
-            </h1>
-            <p className="mt-1 text-sm text-coach-text-muted">
-              {t('coach.subtitle')}
-            </p>
+          <div className="flex items-center gap-3">
+            <img
+              src={auraIdle}
+              alt=""
+              aria-hidden="true"
+              className="h-10 w-10 shrink-0 rounded-full border border-coach-border bg-coach-bg object-contain p-0.5"
+            />
+            <div>
+              <h1 className="text-2xl font-bold text-coach-text [font-family:var(--font-family-heading)]">
+                {t('coach.title')}
+              </h1>
+              <p className="mt-1 text-sm text-coach-text-muted">
+                {t('coach.subtitle')}
+              </p>
+            </div>
           </div>
           <Button
             variant="secondary"
