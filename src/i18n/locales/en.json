@@ -41,27 +41,60 @@
     }
   },
   "coach": {
-    "title": "Coach",
-    "subtitle": "A space to dig deeper into your own thinking",
+    "title": "Aura",
+    "subtitle": "I'm Aura. In today's session, I'll listen and ask questions alongside you — no judgment, no advice imposed — and we'll keep a record of this journey together.",
     "inputPlaceholder": "Share what's on your mind...",
     "send": "Send",
     "endSession": "End session",
-    "emptyState": "Start by sharing what's on your mind right now.",
+    "emptyState": "Feel free to start — share whatever's on your mind right now. I'm here to listen.",
     "sendError": "Couldn't send your message right now. Please try again."
+  },
+  "homePreview": {
+    "chat": {
+      "title": "Chat with your AI Coach",
+      "tag1": "Calm",
+      "tag2": "Curious",
+      "userMessage": "I've been feeling a bit unsure about my direction lately.",
+      "aiMessage": "Hi there. That sense of uncertainty often shows up when we're at a crossroads, or searching for something more meaningful. Would you like to start by sharing what's weighing on you the most right now?",
+      "inputPlaceholder": "Share what's on your mind..."
+    },
+    "map": {
+      "title": "Relationship map",
+      "centerLabel": "Me",
+      "node1": "Family",
+      "node2": "Colleagues",
+      "node3": "Mentor",
+      "node4": "Friends"
+    },
+    "insights": {
+      "title": "Insight timeline",
+      "today": "Today",
+      "todayTime": "2:32 PM",
+      "todayCategory": "Value",
+      "todayText": "Valuing creative freedom over stability.",
+      "lastWeek": "Last week",
+      "lastWeekTime": "Tue, Jul 29",
+      "lastWeekCategory": "Behavior pattern",
+      "lastWeekText": "Tends to avoid direct conflict in group conversations."
+    },
+    "cta": "Learn more"
   },
   "brand": {
     "name": "Aura Self AI",
     "acronym": "AI Coach for Self-Understanding",
     "slogan": "Understand yourself, one conversation at a time",
-    "description": "Aura Self AI is an AI Coach that talks with you — automatically building your relationship map and personal insights, with no judgment and no advice imposed on you.",
+    "description": "Aura Self AI is an AI Coach that talks with you, automatically building your relationship map and personal insights.",
     "tagline": "Talk to understand yourself, every day.",
     "footer": "© 2026 Aura Self AI. Walking with you on the path of Self-Understanding & Self-Leadership.",
     "welcome": "Welcome back to Aura Self AI.",
     "ctaLoggedOut": "Start chatting with your Coach",
     "ctaLoggedIn": "Continue the conversation"
   },
+  "chatFab": {
+    "label": "Chat with AI"
+  },
   "nav": {
-    "coach": "Coach",
+    "coach": "AI Coach",
     "garden": "Home",
     "reflection": "Reflection",
     "emotion": "Emotion",
@@ -169,11 +202,11 @@
     "journal": "Reflectly",
     "profile": "Profile",
     "method": "Method",
-    "coach": "Coach",
+    "coach": "AI Coach",
     "dashboard": "Insights"
   },
   "mobileFooter": {
-    "coach": "Coach",
+    "coach": "AI Coach",
     "dashboard": "Insights",
     "garden": "Home",
     "journal": "Reflectly",

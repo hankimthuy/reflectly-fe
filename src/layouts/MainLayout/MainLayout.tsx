@@ -2,6 +2,7 @@ import { type ReactNode } from 'react';
 import MimoHeader from '../MimoHeader/MimoHeader.tsx';
 import MobileFooter from '../MobileFooter/MobileFooter';
 import PageTransition from '../../components/PageTransition/PageTransition';
+import ChatFab from '../../components/ChatFab/ChatFab';
 import './MainLayout.scss';
 
 interface MainLayoutProps {
@@ -19,6 +20,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                     </div>
                 </main>
                 <MobileFooter />
+                <ChatFab />
             </div>
         </div>
     );

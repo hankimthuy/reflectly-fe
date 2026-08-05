@@ -17,7 +17,7 @@
     height: auto;
     z-index: 10;
     transition: transform 0.3s ease;
-    
+
     animation: float 6s ease-in-out infinite;
 
     @media (max-width: 768px) {
@@ -80,7 +80,17 @@
 
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); } 
+  50% { transform: translateY(-15px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mimo-character__body {
+    animation: none !important;
+  }
+
+  .mimo-character__shadow {
+    animation: none !important;
+  }
 }
 
 @keyframes shadowPulse {
