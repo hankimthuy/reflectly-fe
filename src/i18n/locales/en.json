@@ -1,51 +1,190 @@
 {
+  "onboarding": {
+    "step": "Step {{current}}/2",
+    "step1Title": "What matters to you?",
+    "step1Subtitle": "Pick the core values that resonate with you most.",
+    "step2Title": "Who matters to you?",
+    "step2Subtitle": "Add 3-5 people you'd like to track your relationship with.",
+    "selectAtLeastOne": "Select at least one value to continue.",
+    "addAtLeastOnePerson": "Add at least one person, or tap \"Skip, go straight to Coach\".",
+    "submitError": "Something went wrong, please try again.",
+    "namePlaceholder": "Name",
+    "removePerson": "Remove",
+    "addPerson": "+ Add person",
+    "back": "Back",
+    "continue": "Continue",
+    "submitting": "Saving...",
+    "finish": "Finish",
+    "skipStep": "Skip this step",
+    "skipToCoach": "Skip, go straight to Coach",
+    "value": {
+      "honesty": "Honesty",
+      "family": "Family",
+      "freedom": "Freedom",
+      "creativity": "Creativity",
+      "connection": "Connection",
+      "growth": "Growth",
+      "balance": "Balance",
+      "courage": "Courage",
+      "peace": "Peace",
+      "contribution": "Contribution",
+      "achievement": "Achievement",
+      "learning": "Learning"
+    },
+    "relationshipType": {
+      "FAMILY": "Family",
+      "FRIEND": "Friend",
+      "PARTNER": "Partner/Spouse",
+      "COLLEAGUE": "Colleague",
+      "MANAGER": "Manager",
+      "OTHER": "Other"
+    }
+  },
+  "coach": {
+    "title": "Coach",
+    "subtitle": "A space to dig deeper into your own thinking",
+    "inputPlaceholder": "Share what's on your mind...",
+    "send": "Send",
+    "endSession": "End session",
+    "emptyState": "Start by sharing what's on your mind right now.",
+    "sendError": "Couldn't send your message right now. Please try again."
+  },
+  "brand": {
+    "name": "Aura Self AI",
+    "acronym": "AI Coach for Self-Understanding",
+    "slogan": "Understand yourself, one conversation at a time",
+    "description": "Aura Self AI is an AI Coach that talks with you — automatically building your relationship map and personal insights, with no judgment and no advice imposed on you.",
+    "tagline": "Talk to understand yourself, every day.",
+    "footer": "© 2026 Aura Self AI. Walking with you on the path of Self-Understanding & Self-Leadership.",
+    "welcome": "Welcome back to Aura Self AI.",
+    "ctaLoggedOut": "Start chatting with your Coach",
+    "ctaLoggedIn": "Continue the conversation"
+  },
+  "nav": {
+    "coach": "Coach",
+    "garden": "Home",
+    "reflection": "Reflection",
+    "emotion": "Emotion",
+    "energy": "Energy",
+    "dashboard": "Insights",
+    "protocols": "Protocols",
+    "method": "Method",
+    "journal": "Reflectly",
+    "profile": "Me",
+    "login": "Log In",
+    "startJourney": "Start your journey",
+    "groupSpaces": "Spaces",
+    "groupJourney": "Your journey"
+  },
+  "garden": {
+    "mapTitle": "My Mind Space",
+    "mapSubtitle": "Pick a corner to connect with and understand yourself.",
+    "mapAlt": "Map with a central house and four surrounding areas",
+    "comingSoon": "Coming soon",
+    "quote": "I can't control what happens to me, but I always have the choice of how I listen and respond.",
+    "legend": {
+      "goOut": "Reach out and experience",
+      "comeBack": "Take time to recover"
+    },
+    "zones": {
+      "mind": {
+        "title": "Mind",
+        "description": "A quiet corner — where you return to find your balance."
+      },
+      "reflection": {
+        "title": "Reflection",
+        "description": "A corner to look back — for deep dialogue with yourself."
+      },
+      "creativity": {
+        "title": "Creativity",
+        "description": "A corner to express — turning emotion into creative flow."
+      },
+      "connection": {
+        "title": "Relationships",
+        "description": "A corner to connect — recognizing the sources of energy around you."
+      },
+      "emotion": {
+        "title": "Emotion",
+        "description": "A corner to be present — naming and welcoming every emotion."
+      },
+      "filter": {
+        "title": "Value filter",
+        "description": "A corner to sift through — actively choosing what to keep and what to release."
+      }
+    },
+    "framework": {
+      "goOut": {
+        "title": "Chat with your AI Coach",
+        "intro": "A Socratic conversation space — the Coach asks open questions so you find your own answers.",
+        "steps": ["Share what's on your mind, no preparation needed.", "The Coach remembers what matters to you, conversation by conversation."],
+        "linkLabel": "Start chatting"
+      },
+      "comeBack": {
+        "title": "Your relationship map",
+        "intro": "Built automatically from what you share — so you can see clearly who energizes you and who drains you.",
+        "steps": ["No manual data entry — the Coach recognizes people as you talk.", "Add or edit anyone directly, any time you want."],
+        "linkLabel": "View your map"
+      },
+      "filter": {
+        "title": "Insight timeline",
+        "intro": "A running summary of your core values, behavior patterns, and insights the Coach has picked up on over time.",
+        "steps": ["Notice what keeps repeating — the next decision is always yours.", "Core values update the moment you change them."],
+        "linkLabel": "View about you"
+      },
+      "principlesTitle": "Four Principles of Experience & Transformation",
+      "principles": [
+        { "title": "Action is core", "description": "Every tool points toward a real experience — helping you turn awareness into lived habits, not just theory." },
+        { "title": "Open up your own agency", "description": "Aura Self AI offers open-ended questions so you find your own answers, instead of imposed advice." },
+        { "title": "Continuous growth", "description": "Insights and your relationship map are nurtured, tracked, and upgraded as you grow — never a one-off fix." },
+        { "title": "The map is yours", "description": "Data is only a mirror. You always own the decisions for your own journey." }
+      ]
+    },
+    "bridge": {
+      "heading": "Your bridge from insight to action",
+      "subtitle": "Small shifts that turn understanding into change.",
+      "energy": {
+        "title": "Today's energy",
+        "body": "Last logged: level {{level}} · {{days}} days ago",
+        "bodyToday": "Last logged: level {{level}} · today",
+        "empty": "No presence logged yet — a light tap to begin",
+        "cta": "Presence history"
+      },
+      "protocols": {
+        "title": "Your protocols",
+        "body": "{{count}} protocols ready to accompany you",
+        "empty": "No protocol yet — set up your first",
+        "cta": "View protocols"
+      },
+      "dashboard": {
+        "title": "The bigger picture",
+        "body": "See your last-7-day rhythm",
+        "cta": "View dashboard"
+      }
+    }
+  },
   "breadcrumb": {
     "home": "Home",
-    "innerverse": "The Innerverse",
-    "outerverse": "The Outerverse",
-    "safeSpace": "Safe Space",
-    "journal": "Journal",
-    "profile": "Profile"
+    "reflection": "Reflection",
+    "emotion": "Emotion",
+    "journal": "Reflectly",
+    "profile": "Profile",
+    "method": "Method",
+    "coach": "Coach",
+    "dashboard": "Insights"
   },
   "mobileFooter": {
+    "coach": "Coach",
+    "dashboard": "Insights",
+    "garden": "Home",
+    "journal": "Reflectly",
+    "emotion": "Emotion",
     "energy": "Energy",
+    "profile": "Me",
     "authDialog": {
       "title": "Login Required",
       "message": "You need to log in to create or view your entries.",
       "confirm": "Log In",
       "cancel": "Later"
-    }
-  },
-  "nav": {
-    "energy": "Energy",
-    "dashboard": "Dashboard",
-    "protocols": "Protocols",
-    "journal": "Journal",
-    "groupSpaces": "Spaces",
-    "groupJourney": "Your journey"
-  },
-  "garden": {
-    "bridge": {
-      "heading": "Your bridge to action",
-      "subtitle": "Three small steps to turn insight into action.",
-      "energy": {
-        "title": "Today's energy",
-        "body": "Last logged: level {{level}} · {{days}} days ago",
-        "bodyToday": "Last logged: level {{level}} · today",
-        "empty": "No entries yet — start with one tap",
-        "cta": "View history"
-      },
-      "protocols": {
-        "title": "Your protocols",
-        "body": "{{count}} protocols ready when you need them",
-        "empty": "No protocol yet — create your first",
-        "cta": "View protocols"
-      },
-      "dashboard": {
-        "title": "Look back at your journey",
-        "body": "See your last-7-day trend",
-        "cta": "View dashboard"
-      }
     }
   },
   "energyLog": {
@@ -100,24 +239,83 @@
       "average": "Average level",
       "totalLogs": "Total logs",
       "bestContext": "Highest energy context"
+    },
+    "you": "You",
+    "pageTitle": "Insights",
+    "pageSubtitle": "Everything the Coach has learned about you — core values, the people who matter, and the insights gathered so far.",
+    "mapTitle": "Relationship Map",
+    "mapSubtitle": "Built up gradually from what you share with the Coach.",
+    "mapEmpty": "No one on the map yet — tell the Coach about the people who matter to you.",
+    "talkToCoach": "Talk to the Coach",
+    "noNudge": "This relationship looks stable.",
+    "loading": "Loading...",
+    "loadMore": "Load more",
+    "insightsTitle": "Insight Timeline",
+    "insightsEmpty": "No insights yet — talk to the Coach to get started.",
+    "category": {
+      "value": "Value",
+      "behaviorPattern": "Behavior pattern",
+      "relationship": "Relationship"
+    },
+    "person": {
+      "add": "+ Add person",
+      "edit": "Edit",
+      "save": "Save",
+      "cancel": "Cancel",
+      "nameRequired": "Enter a name first.",
+      "saveError": "Something went wrong, please try again.",
+      "notesPlaceholder": "Notes (optional)"
     }
   },
   "profilePage": {
+    "title": "My Profile",
     "loginRequired": "Please log in to view your profile.",
     "stats": {
       "dayStreak": "Day Streak",
       "topMood": "Top Mood"
+    },
+    "coreValues": {
+      "title": "Core Values",
+      "edit": "Edit",
+      "add": "+ Set up",
+      "save": "Save",
+      "cancel": "Cancel",
+      "empty": "Not set up yet — the Coach will understand you better once you share what matters to you.",
+      "saveError": "Could not save your core values."
     },
     "emotionOverview": {
       "title": "Emotion Overview",
       "subtitle": "{{entries}} entries, {{emotions}} emotions tagged",
       "empty": "Start journaling to see your emotion patterns."
     },
+    "editName": {
+      "label": "Display Name",
+      "edit": "Edit",
+      "emptyError": "Name cannot be empty.",
+      "updateError": "Failed to update name."
+    },
+    "changePassword": {
+      "label": "Change Password",
+      "change": "Change",
+      "cancel": "Cancel",
+      "currentPlaceholder": "Current password",
+      "newPlaceholder": "New password",
+      "confirmPlaceholder": "Confirm new password",
+      "save": "Save Password",
+      "saving": "Saving...",
+      "fillAllFields": "Please fill in all fields.",
+      "mismatch": "New passwords do not match.",
+      "tooShort": "New password must be at least 6 characters.",
+      "success": "Password changed successfully.",
+      "error": "Failed to change password."
+    },
+    "avatarError": "Failed to upload avatar. Please try again.",
     "settings": {
       "title": "Settings",
       "language": "Language",
       "notifications": "Notifications",
-      "exportData": "Export Data"
+      "exportData": "Export Data",
+      "soon": "Soon"
     },
     "logout": "Log Out",
     "logoutDialog": {
@@ -187,33 +385,33 @@
     }
   },
   "entriesPage": {
-    "title": "Journal",
-    "subtitle": "Every entry is a step toward understanding yourself.",
+    "title": "Reflectly",
+    "subtitle": "Every reflection is a step toward understanding yourself.",
     "loadMore": "Load More",
     "showing": "Showing {{current}} of {{total}} entries",
-    "emptyState": "The courage to begin is the courage to grow.",
-    "emptyStateHint": "Start your first journal entry and take the first step.",
+    "emptyState": "No reflections yet",
+    "emptyStateHint": "Jot down what's on your mind right now — it only takes a minute.",
+    "startWriting": "Start writing",
     "loginRequired": "Log in to begin your journey of self-understanding.",
-    "loginRequiredHint": "Your journal is private, encrypted, and waiting for you.",
-    "laoTzuQuote": "A journey of a thousand miles begins with a single step — yours starts right here.",
-    "searchPlaceholder": "Search entries...",
+    "loginRequiredHint": "Your reflections are private, encrypted, and waiting for you.",
+    "searchPlaceholder": "Search reflections...",
     "filterAll": "All",
     "filterToday": "Today",
     "filterWeek": "This Week",
     "filterMonth": "This Month",
     "filterYear": "This Year",
-    "noResults": "No entries match your search.",
-    "edit": "Edit Entry",
-    "deleteConfirmTitle": "Delete Entry",
-    "deleteConfirmMessage": "Are you sure you want to delete this entry?",
+    "noResults": "No reflections match your search.",
+    "edit": "Edit Reflection",
+    "deleteConfirmTitle": "Delete Reflection",
+    "deleteConfirmMessage": "Are you sure you want to delete this reflection?",
     "deleteConfirmBtn": "Delete",
     "deleteCancel": "Cancel",
-    "editTitle": "Edit Entry",
+    "editTitle": "Edit Reflection",
     "editSubtitle": "Revisit and refine your reflection.",
-    "updateSuccess": "Your entry has been updated.",
-    "updateError": "Failed to update entry.",
-    "deleteSuccess": "Entry deleted.",
-    "deleteError": "Failed to delete entry."
+    "updateSuccess": "Your reflection has been updated.",
+    "updateError": "Failed to update reflection.",
+    "deleteSuccess": "Reflection deleted.",
+    "deleteError": "Failed to delete reflection."
   },
   "actionProtocol": {
     "list": {
@@ -266,43 +464,14 @@
       "DIDNT_WORK": "It didn't work"
     }
   },
-  "garden": {
-    "framework": {
-      "goOut": {
-        "title": "How I go out",
-        "intro": "Before stepping into the outside world, I pause to check my energy and emotions — this is Layer 1 Innerverse.",
-        "steps": ["Log your current energy level (1-10) before you start", "Tag the emotion you're feeling, without judging it right or wrong", "Notice patterns — which activities lift your energy, which drain it", "Choose how to engage based on your actual state right now"],
-        "linkLabel": "View your energy"
-      },
-      "comeBack": {
-        "title": "How I come back",
-        "intro": "When a hard moment hits, I use an Action Protocol — MimoSe's core differentiator — instead of reacting on the spot.",
-        "steps": ["Write the protocol in advance, while your mind is calm", "Use the protocol you prepared as soon as the situation happens", "Mark it as used and record the outcome", "Track its effectiveness over time and adjust if needed"],
-        "linkLabel": "View your protocols"
-      },
-      "filter": {
-        "title": "How I look back",
-        "intro": "The Dashboard and trend charts (Layer 5 Insight & Growth) show me patterns over time — so I can recognize them myself, not have the app conclude for me.",
-        "steps": ["Review your energy trend chart by day and by week", "Compare energy levels across different activities", "Notice the moments when your energy tends to run lowest", "Draw your own conclusions about what's repeating — the next decision is yours"],
-        "linkLabel": "View your dashboard"
-      },
-      "principlesTitle": "Four operating principles",
-      "principles": [
-        { "title": "Accompany, don't theorize", "description": "Every feature ties to a concrete action — not reading material." },
-        { "title": "Self-resolve", "description": "Tools offer question frameworks; the app never gives advice on your behalf." },
-        { "title": "Protocols have a lifecycle", "description": "Action Protocols are tracked and revisited over time, not used once and forgotten." },
-        { "title": "Convenience at the right moment", "description": "1-2 tap interactions are favored, especially in stressful moments." }
-      ]
-    }
-  },
   "phuongPhapPage": {
     "hero": {
       "badge": "Self-leadership foundations",
-      "title": "Why MimoSe <span class=\"highlight\">works this way</span>",
-      "subtitle": "MimoSe is built on Leading Self: understanding and guiding yourself comes before guiding anyone else. This page explains the reasoning behind the features you use every day."
+      "title": "Why Aura Self AI <span class=\"highlight\">works this way</span>",
+      "subtitle": "Aura Self AI is built on Leading Self: understanding and guiding yourself comes before guiding anyone else. This page explains the reasoning behind the features you use every day."
     },
     "layers": {
-      "title": "The four layers MimoSe has today",
+      "title": "The four layers Aura Self AI has today",
       "subtitle": "Every feature you use belongs to one layer of the self-leadership model.",
       "items": {
         "foundation": {
@@ -327,6 +496,58 @@
       "title": "Ready to apply it?",
       "subtitle": "Start with your first entry — a journal line, an energy log, or a protocol.",
       "button": "Start your first entry"
+    }
+  },
+  "zonePage": {
+    "comingSoon": "Coming soon",
+    "comingSoonDesc": "This feature is still being built. Please check back later.",
+    "writeJournal": "Write a reflection",
+    "viewJournal": "View reflections",
+    "backToGarden": "Back to Home"
+  },
+  "emotionPage": {
+    "title": "Emotion Profile",
+    "subtitle": "Recognize and track your emotion patterns — the first step to understanding yourself.",
+    "empty": "Start journaling to see your emotion patterns take shape."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "subtitle": "This link may be outdated or no longer exists.",
+    "back": "Back to Home"
+  },
+  "auth": {
+    "loginTitle": "Log In",
+    "signupTitle": "Create Account",
+    "fullName": "Full Name",
+    "username": "Username",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "loginButton": "Log In",
+    "signupButton": "Sign Up",
+    "googleLogin": "Continue with Google",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signupLink": "Sign up",
+    "loginLink": "Sign in",
+    "fullNamePlaceholder": "Your full name",
+    "usernamePlaceholder": "Enter your username",
+    "usernameChoosePlaceholder": "Choose a username",
+    "forgotPassword": "Forgot?",
+    "or": "or",
+    "signingIn": "Signing in...",
+    "creatingAccount": "Creating account...",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "errors": {
+      "fillAllFields": "Please fill in all fields.",
+      "usernamePasswordRequired": "Please enter both username and password.",
+      "loginFailed": "Login failed. Please check your credentials.",
+      "googleCodeMissing": "Did not receive authorization code from Google.",
+      "googleFailed": "Google authentication failed. Please try again.",
+      "networkError": "Network error: login failed during backend authentication.",
+      "passwordMismatch": "Passwords do not match.",
+      "passwordTooShort": "Password must be at least 6 characters.",
+      "signupFailed": "Signup failed. Please try again."
     }
   }
 }

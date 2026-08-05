@@ -113,13 +113,6 @@
     background: color-mix(in srgb, var(--c-background-dark), transparent 10%);
     backdrop-filter: blur(16px);
     border-top: 1px solid var(--c-border-dark);
-
-    &--active {
-      .safe-space__save-btn {
-        opacity: 1;
-        pointer-events: auto;
-      }
-    }
   }
 
   &__privacy {
@@ -128,54 +121,6 @@
     gap: 6px;
     font-size: var(--font-size-xs);
     color: var(--c-text-muted-on-dark);
-  }
-
-  &__back-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: var(--border-radius-sm);
-    background: transparent;
-    color: var(--c-text-muted-on-dark);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-
-    &:hover {
-      border-color: rgba(255, 255, 255, 0.3);
-      color: var(--c-text-on-dark);
-    }
-  }
-
-  &__save-btn {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-sm) var(--spacing-lg);
-    border: none;
-    border-radius: var(--border-radius-md);
-    background: var(--c-secondary);
-    color: var(--c-white);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-bold);
-    cursor: pointer;
-    transition: all var(--transition-normal);
-    opacity: 0.4;
-    pointer-events: none;
-
-    &:not(:disabled):hover {
-      background: var(--c-secondary-hover);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 20px color-mix(in srgb, var(--c-secondary), transparent 60%);
-    }
-
-    &:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
   }
 
   // Override MimoHeader for dark background

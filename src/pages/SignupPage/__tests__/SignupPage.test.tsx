@@ -32,9 +32,25 @@ vi.mock('react-i18next', () => ({
     useTranslation: () => ({
         t: (key: string) => {
             const labels: Record<string, string> = {
-                'brand.name': 'MimoSe',
-                'brand.acronym': 'Make Sense Of ME',
+                'brand.name': 'Aura Self AI',
+                'brand.acronym': 'AI Coach for Self-Understanding',
                 'auth.signupTitle': 'Tạo tài khoản',
+                'auth.fullName': 'Full Name',
+                'auth.username': 'Username',
+                'auth.password': 'Password',
+                'auth.confirmPassword': 'Confirm Password',
+                'auth.fullNamePlaceholder': 'Your full name',
+                'auth.usernameChoosePlaceholder': 'Choose a username',
+                'auth.signupButton': 'Create Account',
+                'auth.creatingAccount': 'Creating account...',
+                'auth.hasAccount': 'Already have an account?',
+                'auth.loginLink': 'Sign in',
+                'auth.privacyPolicy': 'Privacy Policy',
+                'auth.termsOfService': 'Terms of Service',
+                'auth.errors.fillAllFields': 'Please fill in all fields.',
+                'auth.errors.passwordMismatch': 'Passwords do not match.',
+                'auth.errors.passwordTooShort': 'Password must be at least 6 characters.',
+                'auth.errors.signupFailed': 'Signup failed. Please try again.',
             };
             return labels[key] ?? key;
         },
@@ -59,7 +75,7 @@ describe('SignupPage', () => {
         it('should render the page title and subtitle', () => {
             renderSignupPage();
 
-            expect(screen.getByText('MimoSe')).toBeInTheDocument();
+            expect(screen.getByText('Aura Self AI')).toBeInTheDocument();
             expect(screen.getByText('Tạo tài khoản')).toBeInTheDocument();
         });
 

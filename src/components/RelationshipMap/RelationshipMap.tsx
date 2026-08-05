@@ -64,9 +64,14 @@ const RelationshipMap = ({ people, emptyLabel }: RelationshipMapProps) => {
     );
   }
 
+  const selectPerson = (personId: string) => {
+    setIsEditing(false);
+    setSelectedId(personId === selectedId ? null : personId);
+  };
+
   return (
     <div className="rounded-2xl border border-coach-border bg-coach-surface p-4">
-      <svg viewBox={`0 0 ${SIZE} ${SIZE}`} className="w-full" role="img">
+      <svg viewBox={`0 0 ${SIZE} ${SIZE}`} className="w-full">
         {nodes.map(({ person, x, y }) => (
           <line
             key={`line-${person.id}`}
@@ -81,16 +86,23 @@ const RelationshipMap = ({ people, emptyLabel }: RelationshipMapProps) => {
 
         <circle cx={CENTER} cy={CENTER} r={30} fill="var(--color-coach-primary)" />
         <text x={CENTER} y={CENTER + 5} textAnchor="middle" fontSize={13} fill="white" fontWeight={600}>
-          {t('dashboard.you', 'Bạn')}
+          {t('dashboard.you')}
         </text>
 
         {nodes.map(({ person, x, y }) => (
           <g
             key={person.id}
             className="cursor-pointer"
-            onClick={() => {
-              setIsEditing(false);
-              setSelectedId(person.id === selectedId ? null : person.id);
+            tabIndex={0}
+            role="button"
+            aria-label={person.name}
+            aria-pressed={person.id === selectedId}
+            onClick={() => selectPerson(person.id)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                selectPerson(person.id);
+              }
             }}
           >
             <circle
@@ -115,7 +127,7 @@ const RelationshipMap = ({ people, emptyLabel }: RelationshipMapProps) => {
         <div className="mt-3">
           <PersonForm
             initialValue={{ name: selected.name, relationshipType: selected.relationshipType, notes: selected.notes ?? undefined }}
-            submitLabel={t('dashboard.person.save', 'Lưu')}
+            submitLabel={t('dashboard.person.save')}
             onCancel={() => setIsEditing(false)}
             onSubmit={async (person) => {
               await updatePerson.mutateAsync({ id: selected.id, person });
@@ -134,7 +146,7 @@ const RelationshipMap = ({ people, emptyLabel }: RelationshipMapProps) => {
               onClick={() => setIsEditing(true)}
               className="text-xs font-medium text-coach-primary hover:underline"
             >
-              {t('dashboard.person.edit', 'Chỉnh sửa')}
+              {t('dashboard.person.edit')}
             </button>
           </div>
           {selected.notes && <p className="mt-1 text-coach-text-muted">{selected.notes}</p>}
@@ -142,7 +154,7 @@ const RelationshipMap = ({ people, emptyLabel }: RelationshipMapProps) => {
             <p className="mt-1 text-coach-text-muted">{selected.nudgeText}</p>
           ) : (
             <p className="mt-1 text-coach-text-muted">
-              {t('dashboard.noNudge', 'Mối quan hệ này đang ổn định.')}
+              {t('dashboard.noNudge')}
             </p>
           )}
         </div>

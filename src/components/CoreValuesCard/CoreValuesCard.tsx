@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CORE_VALUE_KEYS } from '../../constants/coreValues';
+import { Button } from '../Button/Button';
 
 interface CoreValuesCardProps {
   coreValues: string[] | undefined;
@@ -55,16 +56,12 @@ const CoreValuesCard = ({ coreValues, onSave, autoEdit = false, className = '' }
     <section className={`rounded-2xl border border-coach-border bg-coach-surface p-4 ${className}`}>
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold text-coach-text">
-          {t('profilePage.coreValues.title', 'Giá trị cốt lõi')}
+          {t('profilePage.coreValues.title')}
         </h3>
         {!isEditing && (
-          <button
-            type="button"
-            onClick={startEdit}
-            className="text-xs font-medium text-coach-primary hover:underline"
-          >
-            {hasValues ? t('profilePage.coreValues.edit', 'Chỉnh sửa') : t('profilePage.coreValues.add', '+ Thiết lập')}
-          </button>
+          <Button variant="ghost" size="sm" onClick={startEdit}>
+            {hasValues ? t('profilePage.coreValues.edit') : t('profilePage.coreValues.add')}
+          </Button>
         )}
       </div>
 
@@ -90,22 +87,12 @@ const CoreValuesCard = ({ coreValues, onSave, autoEdit = false, className = '' }
             })}
           </div>
           <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={handleSave}
-              disabled={saving}
-              className="rounded-lg bg-coach-primary px-3 py-1.5 text-xs font-medium text-white disabled:opacity-50"
-            >
-              {saving ? t('onboarding.submitting', 'Đang lưu...') : t('profilePage.coreValues.save', 'Lưu')}
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsEditing(false)}
-              disabled={saving}
-              className="rounded-lg border border-coach-border px-3 py-1.5 text-xs font-medium text-coach-text-muted"
-            >
-              {t('onboarding.back', 'Hủy')}
-            </button>
+            <Button variant="primary" size="sm" onClick={handleSave} disabled={saving}>
+              {saving ? t('onboarding.submitting') : t('profilePage.coreValues.save')}
+            </Button>
+            <Button variant="secondary" size="sm" onClick={() => setIsEditing(false)} disabled={saving}>
+              {t('profilePage.coreValues.cancel')}
+            </Button>
           </div>
         </div>
       ) : hasValues ? (
@@ -121,7 +108,7 @@ const CoreValuesCard = ({ coreValues, onSave, autoEdit = false, className = '' }
         </div>
       ) : (
         <p className="mt-3 text-xs text-coach-text-muted">
-          {t('profilePage.coreValues.empty', 'Chưa thiết lập — Coach sẽ hiểu bạn hơn nếu bạn cho biết điều gì quan trọng với mình.')}
+          {t('profilePage.coreValues.empty')}
         </p>
       )}
     </section>

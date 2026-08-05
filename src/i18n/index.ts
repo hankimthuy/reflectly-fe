@@ -12,11 +12,15 @@ const resources = {
   }
 };
 
+const LANGUAGE_STORAGE_KEY = 'app_language';
+const storedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+const initialLanguage = storedLanguage === 'en' || storedLanguage === 'vi' ? storedLanguage : 'vi';
+
 i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'vi',
+    lng: initialLanguage,
     fallbackLng: 'vi',
     debug: import.meta.env.DEV,
     interpolation: {
@@ -26,5 +30,9 @@ i18n
       useSuspense: false // Disable suspense mode
     }
   });
+
+i18n.on('languageChanged', (lng) => {
+  localStorage.setItem(LANGUAGE_STORAGE_KEY, lng);
+});
 
 export default i18n;

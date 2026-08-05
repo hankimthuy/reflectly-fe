@@ -13,6 +13,7 @@ import { entriesService } from '../../../services/entriesService';
 import { APP_ROUTES } from '../../../constants/route';
 import { useSnackbar } from '../../../providers/SnackbarProvider';
 import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
+import { Button } from '../../../components/Button/Button';
 
 const NewEntryPage: React.FC = () => {
   const navigate = useNavigate();
@@ -134,11 +135,7 @@ const NewEntryPage: React.FC = () => {
             <LuLock size={14} />
             <span>{t('newEntryPage.privacy')}</span>
           </div>
-          <button
-            className="safe-space__save-btn"
-            onClick={handleSave}
-            disabled={!canSave || isLoading}
-          >
+          <Button variant="primary" size="md" shape="pill" onClick={handleSave} disabled={!canSave || isLoading}>
             {isLoading ? (
               <span>{t('newEntryPage.saving')}</span>
             ) : (
@@ -147,7 +144,7 @@ const NewEntryPage: React.FC = () => {
                 <span>{t('newEntryPage.save')}</span>
               </>
             )}
-          </button>
+          </Button>
         </div>
       )}
     </div>

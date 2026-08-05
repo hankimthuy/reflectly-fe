@@ -1,7 +1,7 @@
 import React, { useRef, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { LuLogOut, LuGlobe, LuBell, LuDownload, LuBookOpen, LuPencil, LuLock, LuCamera, LuCheck, LuX, LuTreePine } from 'react-icons/lu';
+import { LuLogOut, LuGlobe, LuBell, LuDownload, LuBookOpen, LuPencil, LuLock, LuCamera, LuCheck, LuX, LuMessageCircle } from 'react-icons/lu';
 import { useAuth } from '../../providers/AuthProvider';
 import { updateUserProfile, changePassword, uploadAvatar, completeOnboarding } from '../../services/userService';
 import CoreValuesCard from '../../components/CoreValuesCard/CoreValuesCard';
@@ -14,6 +14,7 @@ import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog';
 import LanguageSwitcher from '../../components/LanguageSwitcher/LanguageSwitcher';
 import { APP_ROUTES } from '../../constants/route';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { Button } from '../../components/Button/Button';
 import SnackbarComponent from '../../components/Snackbar/Snackbar';
 import type { SnackbarType } from '../../components/Snackbar/Snackbar';
 import './ProfilePage.scss';
@@ -81,7 +82,7 @@ const ProfilePage: React.FC = () => {
 
     const handleSaveName = async () => {
         if (!editName.trim()) {
-            setNameError('Name cannot be empty.');
+            setNameError(t('profilePage.editName.emptyError'));
             return;
         }
         setNameLoading(true);
@@ -91,7 +92,7 @@ const ProfilePage: React.FC = () => {
             setCurrentUser(updatedUser);
             setIsEditingName(false);
         } catch (err) {
-            setNameError(err instanceof Error ? err.message : 'Failed to update name.');
+            setNameError(err instanceof Error ? err.message : t('profilePage.editName.updateError'));
         } finally {
             setNameLoading(false);
         }
@@ -108,7 +109,7 @@ const ProfilePage: React.FC = () => {
             const updatedUser = await completeOnboarding({ coreValues: values, people: [] });
             setCurrentUser(updatedUser);
         } catch (err) {
-            const message = err instanceof Error ? err.message : 'Failed to save core values.';
+            const message = err instanceof Error ? err.message : t('profilePage.coreValues.saveError');
             setSnackbar({ open: true, message, type: 'error' });
             throw err;
         }
@@ -120,22 +121,22 @@ const ProfilePage: React.FC = () => {
         setPasswordSuccess('');
 
         if (!currentPassword.trim() || !newPassword.trim()) {
-            setPasswordError('Please fill in all fields.');
+            setPasswordError(t('profilePage.changePassword.fillAllFields'));
             return;
         }
         if (newPassword !== confirmNewPassword) {
-            setPasswordError('New passwords do not match.');
+            setPasswordError(t('profilePage.changePassword.mismatch'));
             return;
         }
         if (newPassword.length < 6) {
-            setPasswordError('New password must be at least 6 characters.');
+            setPasswordError(t('profilePage.changePassword.tooShort'));
             return;
         }
 
         setPasswordLoading(true);
         try {
             await changePassword({ currentPassword, newPassword });
-            setPasswordSuccess('Password changed successfully.');
+            setPasswordSuccess(t('profilePage.changePassword.success'));
             setCurrentPassword('');
             setNewPassword('');
             setConfirmNewPassword('');
@@ -144,7 +145,7 @@ const ProfilePage: React.FC = () => {
                 setPasswordSuccess('');
             }, 2000);
         } catch (err) {
-            setPasswordError(err instanceof Error ? err.message : 'Failed to change password.');
+            setPasswordError(err instanceof Error ? err.message : t('profilePage.changePassword.error'));
         } finally {
             setPasswordLoading(false);
         }
@@ -165,7 +166,7 @@ const ProfilePage: React.FC = () => {
             setCurrentUser({ ...currentUser, pictureUrl });
         } catch (err) {
             console.error('Avatar upload failed:', err);
-            const message = err instanceof Error ? err.message : 'Failed to upload avatar. Please try again.';
+            const message = err instanceof Error ? err.message : t('profilePage.avatarError');
             setSnackbar({ open: true, message, type: 'error' });
         } finally {
             setAvatarLoading(false);
@@ -252,12 +253,12 @@ const ProfilePage: React.FC = () => {
                 <div className="profile-page__actions">
                     <div
                         className="profile-page__action-card profile-page__action-card--garden"
-                        onClick={() => navigate(APP_ROUTES.WELCOME)}
+                        onClick={() => navigate(APP_ROUTES.COACH_CHAT)}
                     >
-                        <div className="profile-page__action-card-icon"><LuTreePine size={20} /></div>
+                        <div className="profile-page__action-card-icon"><LuMessageCircle size={20} /></div>
                         <div className="profile-page__action-card-body">
-                            <span className="profile-page__action-card-title">{t('nav.garden')}</span>
-                            <span className="profile-page__action-card-desc">{t('brand.tagline')}</span>
+                            <span className="profile-page__action-card-title">{t('nav.coach')}</span>
+                            <span className="profile-page__action-card-desc">{t('coach.subtitle')}</span>
                         </div>
                     </div>
                     <div
@@ -267,7 +268,7 @@ const ProfilePage: React.FC = () => {
                         <div className="profile-page__action-card-icon"><LuBookOpen size={20} /></div>
                         <div className="profile-page__action-card-body">
                             <span className="profile-page__action-card-title">{t('zonePage.writeJournal')}</span>
-                            <span className="profile-page__action-card-desc">{t('garden.zones.reflection.description')}</span>
+                            <span className="profile-page__action-card-desc">{t('newEntryPage.subtitle')}</span>
                         </div>
                     </div>
                 </div>
@@ -328,10 +329,10 @@ const ProfilePage: React.FC = () => {
                         <div className="settings-list__item">
                             <div className="settings-list__left">
                                 <LuPencil size={18} />
-                                <span>Display Name</span>
+                                <span>{t('profilePage.editName.label')}</span>
                             </div>
                             {!isEditingName ? (
-                                <button className="settings-list__toggle" onClick={handleStartEditName}>Edit</button>
+                                <Button variant="ghost" size="sm" onClick={handleStartEditName}>{t('profilePage.editName.edit')}</Button>
                             ) : (
                                 <div className="settings-list__inline-edit">
                                     <input
@@ -357,44 +358,50 @@ const ProfilePage: React.FC = () => {
                                 <div className="settings-list__item">
                                     <div className="settings-list__left">
                                         <LuLock size={18} />
-                                        <span>Change Password</span>
+                                        <span>{t('profilePage.changePassword.label')}</span>
                                     </div>
-                                    <button className="settings-list__toggle" onClick={() => { setIsChangingPassword(!isChangingPassword); setPasswordError(''); setPasswordSuccess(''); }}>
-                                        {isChangingPassword ? 'Cancel' : 'Change'}
-                                    </button>
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => { setIsChangingPassword(!isChangingPassword); setPasswordError(''); setPasswordSuccess(''); }}
+                                    >
+                                        {isChangingPassword ? t('profilePage.changePassword.cancel') : t('profilePage.changePassword.change')}
+                                    </Button>
                                 </div>
                                 {isChangingPassword && (
                                     <div className="settings-list__password-form">
                                         <input
                                             className="settings-list__password-input"
                                             type="password"
-                                            placeholder="Current password"
+                                            placeholder={t('profilePage.changePassword.currentPlaceholder')}
                                             value={currentPassword}
                                             onChange={(e) => setCurrentPassword(e.target.value)}
                                         />
                                         <input
                                             className="settings-list__password-input"
                                             type="password"
-                                            placeholder="New password"
+                                            placeholder={t('profilePage.changePassword.newPlaceholder')}
                                             value={newPassword}
                                             onChange={(e) => setNewPassword(e.target.value)}
                                         />
                                         <input
                                             className="settings-list__password-input"
                                             type="password"
-                                            placeholder="Confirm new password"
+                                            placeholder={t('profilePage.changePassword.confirmPlaceholder')}
                                             value={confirmNewPassword}
                                             onChange={(e) => setConfirmNewPassword(e.target.value)}
                                         />
                                         {passwordError && <div className="settings-list__error">{passwordError}</div>}
                                         {passwordSuccess && <div className="settings-list__success">{passwordSuccess}</div>}
-                                        <button
-                                            className="settings-list__password-btn"
+                                        <Button
+                                            variant="primary"
+                                            size="sm"
+                                            className="w-full"
                                             onClick={handleSavePassword}
                                             disabled={passwordLoading}
                                         >
-                                            {passwordLoading ? 'Saving...' : 'Save Password'}
-                                        </button>
+                                            {passwordLoading ? t('profilePage.changePassword.saving') : t('profilePage.changePassword.save')}
+                                        </Button>
                                     </div>
                                 )}
                             </>
@@ -412,14 +419,14 @@ const ProfilePage: React.FC = () => {
                                 <LuBell size={18} />
                                 <span>{t('profilePage.settings.notifications')}</span>
                             </div>
-                            <span className="settings-list__badge">Soon</span>
+                            <span className="settings-list__badge">{t('profilePage.settings.soon')}</span>
                         </div>
                         <div className="settings-list__item">
                             <div className="settings-list__left">
                                 <LuDownload size={18} />
                                 <span>{t('profilePage.settings.exportData')}</span>
                             </div>
-                            <span className="settings-list__badge">Soon</span>
+                            <span className="settings-list__badge">{t('profilePage.settings.soon')}</span>
                         </div>
                         <div className="settings-list__item settings-list__item--danger" onClick={() => setLogoutDialogOpen(true)}>
                             <div className="settings-list__left">

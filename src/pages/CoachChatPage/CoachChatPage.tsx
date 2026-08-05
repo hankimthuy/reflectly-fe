@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import MessageList from '../../components/Chat/MessageList';
 import MessageInput from '../../components/Chat/MessageInput';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { Button } from '../../components/Button/Button';
 import type { ConversationMessage } from '../../models/conversation';
 import { conversationsService } from '../../services/conversationsService';
 import { useSendMessageMutation, useEndConversationMutation } from '../../queries/conversationsQueryHook';
@@ -68,33 +70,41 @@ const CoachChatPage = () => {
   };
 
   return (
-    <div className="flex h-[calc(100dvh-var(--header-h,64px)-var(--footer-h,64px))] flex-col bg-coach-bg">
-      <div className="flex items-center justify-between border-b border-coach-border bg-coach-surface px-4 py-3">
-        <div>
-          <h1 className="text-base font-semibold text-coach-text">{t('coach.title', 'Coach')}</h1>
-          <p className="text-xs text-coach-text-muted">
-            {t('coach.subtitle', 'Một không gian để bạn tự đào sâu suy nghĩ của mình')}
-          </p>
+    <div className="mx-auto flex h-[calc(100dvh-var(--header-h,64px)-var(--footer-h,64px))] w-full max-w-2xl flex-col border-x border-coach-border bg-coach-bg">
+      <div className="border-b border-coach-border bg-coach-surface px-4 pt-3 pb-4 sm:px-6">
+        <Breadcrumb
+          variant="light"
+          items={[{ label: t('breadcrumb.home'), path: APP_ROUTES.WELCOME }, { label: t('breadcrumb.coach') }]}
+        />
+        <div className="mt-2 flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-coach-text [font-family:var(--font-family-heading)]">
+              {t('coach.title')}
+            </h1>
+            <p className="mt-1 text-sm text-coach-text-muted">
+              {t('coach.subtitle')}
+            </p>
+          </div>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={handleEndSession}
+            disabled={!conversationId || endConversation.isPending}
+          >
+            {t('coach.endSession')}
+          </Button>
         </div>
-        <button
-          type="button"
-          onClick={handleEndSession}
-          disabled={!conversationId || endConversation.isPending}
-          className="rounded-lg border border-coach-border px-3 py-1.5 text-xs font-medium text-coach-text-muted hover:bg-coach-bg disabled:opacity-40"
-        >
-          {t('coach.endSession', 'Kết thúc phiên')}
-        </button>
       </div>
 
       {messages.length === 0 && !isStarting && (
         <div className="flex flex-1 items-center justify-center px-8 text-center text-sm text-coach-text-muted">
-          {t('coach.emptyState', 'Bắt đầu bằng cách chia sẻ điều đang ở trong đầu bạn lúc này.')}
+          {t('coach.emptyState')}
         </div>
       )}
 
       {sendMessage.isError && (
         <p className="px-4 pb-1 text-center text-xs text-red-500">
-          {t('coach.sendError', 'Không thể gửi tin nhắn lúc này. Vui lòng thử lại.')}
+          {t('coach.sendError')}
         </p>
       )}
 

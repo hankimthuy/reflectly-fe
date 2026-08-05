@@ -3,6 +3,9 @@
 @use '../../styles/_responsive' as *;
 
 // === BACKGROUND LAYER ===
+// Same garden gradient + soft ambient glow language as the homepage
+// (MimoLandingPage.scss / EntriesListPage.scss __glow) — kept visually
+// part of the same product instead of the old Innerverse/Outerverse split.
 .login-bg {
   position: fixed;
   inset: 0;
@@ -13,8 +16,7 @@
   &__split {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, #0B121E 50%, #F9F6F0 50%);
-    transition: background 0.7s ease;
+    background: linear-gradient(180deg, var(--garden-sky) 0%, #f0f7eb 100%);
   }
 
   &__orb {
@@ -26,9 +28,9 @@
       left: -10%;
       width: 50%;
       height: 50%;
-      background: #3B82F6;
-      filter: blur(60px);
-      opacity: 0.3;
+      background: var(--garden-grass-light);
+      filter: blur(80px);
+      opacity: 0.35;
     }
 
     &--orange {
@@ -36,9 +38,9 @@
       right: -10%;
       width: 50%;
       height: 50%;
-      background: #FDBA74;
-      filter: blur(60px);
-      opacity: 0.4;
+      background: var(--garden-bloom);
+      filter: blur(80px);
+      opacity: 0.25;
     }
   }
 }
@@ -78,71 +80,47 @@
   @include margin-responsive(0 0 var(--spacing-xl), 0 0 var(--spacing-2xl), 0 0 var(--spacing-3xl));
 
   &__title {
-    font-family: var(--font-family-primary), sans-serif;
-    color: white;
-    mix-blend-mode: difference;
-    letter-spacing: -0.02em;
+    font-family: var(--font-family-heading), serif;
+    letter-spacing: -0.01em;
     line-height: var(--line-height-tight);
     margin: 0 0 var(--spacing-sm);
-    @include font-responsive(2.8rem, 3.2rem, 3.6rem);
+    background: var(--grad-garden-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    @include font-responsive(2.4rem, 2.8rem, 3.2rem);
   }
 
   &__acronym {
     font-size: var(--font-size-xs);
-    letter-spacing: 0.12em;
-    color: rgba(255, 255, 255, 0.6);
-    mix-blend-mode: difference;
+    font-weight: var(--font-weight-normal);
+    letter-spacing: 0.1em;
+    color: var(--garden-text-muted);
     margin: 0 0 var(--spacing-xs);
   }
 
   &__subtitle {
     text-transform: uppercase;
-    letter-spacing: 0.3em;
-    color: rgba(255, 255, 255, 0.7);
-    mix-blend-mode: difference;
-    opacity: 0.8;
+    letter-spacing: 0.25em;
+    color: var(--garden-text-muted);
+    opacity: 0.9;
     margin: 0;
     @include font-responsive(var(--font-size-xs), var(--font-size-xs), var(--font-size-sm));
   }
 }
 
 // === FORM AREA ===
+// A contained card, matching the parchment-panel style used by FrameworkPanels
+// on the homepage, instead of fields floating loosely on the background.
 .login-body {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
-}
-
-// === GOOGLE BUTTON ===
-.login-google-btn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-sm);
-  background: var(--c-white);
-  border: 1px solid var(--c-border);
+  background: var(--c-surface);
+  border: 1px solid rgba(91, 140, 90, 0.15);
   border-radius: var(--border-radius-xl);
-  padding: var(--spacing-md) var(--spacing-lg);
-  box-shadow: var(--shadow-sm);
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-base));
-  font-weight: var(--font-weight-medium);
-  color: var(--c-text-on-surface);
-
-  &:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
-
-  svg {
-    flex-shrink: 0;
-  }
+  box-shadow: var(--shadow-md);
+  @include padding-responsive(var(--spacing-lg), var(--spacing-xl), var(--spacing-xl));
 }
 
 // Google OAuth wrapper (for the actual GoogleLogin component)
@@ -173,7 +151,7 @@
   &__line {
     flex: 1;
     height: 1px;
-    background: rgba(148, 163, 184, 0.4);
+    background: rgba(91, 140, 90, 0.2);
   }
 
   &__text {
@@ -181,7 +159,7 @@
     margin: 0 var(--spacing-md);
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    color: rgba(148, 163, 184, 0.7);
+    color: var(--garden-text-muted);
     font-weight: var(--font-weight-medium);
     @include font-responsive(var(--font-size-xs), var(--font-size-xs), var(--font-size-xs));
   }
@@ -210,13 +188,13 @@
     display: block;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: rgba(100, 116, 139, 0.85);
+    color: var(--garden-text-muted);
     font-weight: var(--font-weight-semibold);
     @include font-responsive(var(--font-size-xs), var(--font-size-xs), var(--font-size-xs));
   }
 
   &__forgot {
-    color: var(--c-background-dark);
+    color: var(--garden-grass);
     font-weight: var(--font-weight-medium);
     text-decoration: none;
     @include font-responsive(var(--font-size-xs), var(--font-size-xs), var(--font-size-xs));
@@ -233,24 +211,23 @@
   &__input {
     width: 100%;
     padding: var(--spacing-md);
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(148, 163, 184, 0.35);
+    background: var(--garden-sky);
+    border: 1px solid rgba(91, 140, 90, 0.25);
     border-radius: var(--border-radius-xl);
     outline: none;
-    color: #1e293b;
+    color: var(--garden-text);
     font-family: var(--font-family-primary), sans-serif;
     transition: all var(--transition-normal);
     @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-base));
 
     &::placeholder {
-      color: rgba(148, 163, 184, 0.6);
+      color: var(--garden-text-muted);
+      opacity: 0.6;
     }
 
     &:focus {
-      border-color: var(--c-background-dark);
-      box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+      border-color: var(--garden-grass);
+      box-shadow: 0 0 0 3px rgba(91, 140, 90, 0.12);
     }
   }
 
@@ -262,7 +239,7 @@
     background: none;
     border: none;
     padding: 0;
-    color: rgba(148, 163, 184, 0.7);
+    color: var(--garden-text-muted);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -272,43 +249,11 @@
     box-shadow: none;
 
     &:hover {
-      color: var(--c-text-on-surface);
+      color: var(--garden-text);
       background: none;
       transform: translateY(-50%);
       box-shadow: none;
     }
-  }
-}
-
-// === SUBMIT BUTTON ===
-.login-submit-btn {
-  width: 100%;
-  background: var(--c-background-dark);
-  color: var(--c-white);
-  padding: var(--spacing-md);
-  border-radius: var(--border-radius-xl);
-  border: none;
-  font-weight: var(--font-weight-semibold);
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
-  cursor: pointer;
-  transition: all var(--transition-normal);
-  margin-top: var(--spacing-xs);
-  @include font-responsive(var(--font-size-sm), var(--font-size-base), var(--font-size-base));
-
-  &:hover {
-    box-shadow: 0 14px 35px rgba(15, 23, 42, 0.3);
-    transform: translateY(-2px);
-    background: var(--c-background-dark);
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
-
-  &:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
   }
 }
 
@@ -326,8 +271,7 @@
 // === LOADING ===
 .login-loading {
   text-align: center;
-  color: rgba(255, 255, 255, 0.7);
-  mix-blend-mode: difference;
+  color: var(--garden-text-muted);
   @include font-responsive(var(--font-size-xs), var(--font-size-sm), var(--font-size-sm));
 }
 
@@ -338,15 +282,14 @@
   text-align: center;
 
   &__signup {
-    color: rgba(148, 163, 184, 0.8);
+    color: var(--garden-text-muted);
     margin-bottom: var(--spacing-lg);
     @include font-responsive(var(--font-size-sm), var(--font-size-sm), var(--font-size-base));
 
     a {
-      color: var(--c-background-dark);
+      color: var(--garden-grass);
       font-weight: var(--font-weight-semibold);
       text-decoration: none;
-      mix-blend-mode: difference;
 
       &:hover {
         text-decoration: underline;
@@ -364,17 +307,17 @@
     a {
       text-transform: uppercase;
       letter-spacing: 0.15em;
-      color: rgba(148, 163, 184, 0.6);
+      color: var(--garden-text-muted);
       text-decoration: none;
       transition: color var(--transition-fast);
 
       &:hover {
-        color: var(--c-background-dark);
+        color: var(--garden-grass);
       }
     }
 
     &-dot {
-      color: rgba(148, 163, 184, 0.4);
+      color: rgba(91, 140, 90, 0.35);
     }
   }
 }
@@ -383,8 +326,8 @@
 .login-decor {
   position: fixed;
   pointer-events: none;
-  opacity: 0.2;
-  color: rgba(148, 163, 184, 0.6);
+  opacity: 0.25;
+  color: var(--garden-grass-light);
   display: none;
 
   @include respond-to(laptop) {

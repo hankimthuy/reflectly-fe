@@ -415,24 +415,6 @@
     font-weight: var(--font-weight-medium);
   }
 
-  &__toggle {
-    padding: var(--spacing-xs) var(--spacing-md);
-    border: 1px solid var(--c-border);
-    border-radius: var(--border-radius-sm);
-    background: var(--c-surface);
-    color: var(--c-text-on-surface);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-semibold);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-
-    &:hover:not(:disabled) {
-      background-color: var(--c-surface);
-      border-color: var(--c-primary);
-      color: var(--c-primary);
-    }
-  }
-
   &__inline-edit {
     display: flex;
     align-items: center;
@@ -529,25 +511,4 @@
     }
   }
 
-  &__password-btn {
-    align-self: flex-start;
-    padding: var(--spacing-xs) var(--spacing-lg);
-    border: none;
-    border-radius: var(--border-radius-sm);
-    background: var(--c-primary);
-    color: var(--c-white);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-
-    &:hover {
-      background: var(--c-primary-hover);
-    }
-
-    &:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-  }
 }

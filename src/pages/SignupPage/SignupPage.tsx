@@ -4,6 +4,7 @@ import {LuEye, LuEyeOff, LuGlobe, LuSparkles} from 'react-icons/lu';
 import {Link, useNavigate} from 'react-router-dom';
 import {APP_ROUTES} from '../../constants/route';
 import {useAuth} from '../../providers/AuthProvider';
+import {Button} from '../../components/Button/Button';
 import '../LoginPage/LoginPage.scss';
 import './SignupPage.scss';
 
@@ -26,17 +27,17 @@ const SignupPage = () => {
         e.preventDefault();
 
         if (!fullName.trim() || !username.trim() || !password.trim()) {
-            setError('Please fill in all fields.');
+            setError(t('auth.errors.fillAllFields'));
             return;
         }
 
         if (password !== confirmPassword) {
-            setError('Passwords do not match.');
+            setError(t('auth.errors.passwordMismatch'));
             return;
         }
 
         if (password.length < 6) {
-            setError('Password must be at least 6 characters.');
+            setError(t('auth.errors.passwordTooShort'));
             return;
         }
 
@@ -50,7 +51,7 @@ const SignupPage = () => {
             console.error('SignupPage: Signup error:', error);
             const errorMessage = error instanceof Error
                 ? error.message
-                : 'Signup failed. Please try again.';
+                : t('auth.errors.signupFailed');
             setError(errorMessage);
         } finally {
             setIsSubmitting(false);
@@ -87,13 +88,13 @@ const SignupPage = () => {
                         {/* Full Name */}
                         <div className="login-field">
                             <label className="login-field__label" htmlFor="signup-name">
-                                Full Name
+                                {t('auth.fullName')}
                             </label>
                             <input
                                 className="login-field__input"
                                 id="signup-name"
                                 type="text"
-                                placeholder="Your full name"
+                                placeholder={t('auth.fullNamePlaceholder')}
                                 value={fullName}
                                 onChange={(e) => setFullName(e.target.value)}
                                 autoComplete="name"
@@ -103,13 +104,13 @@ const SignupPage = () => {
                         {/* Username */}
                         <div className="login-field">
                             <label className="login-field__label" htmlFor="signup-username">
-                                Username
+                                {t('auth.username')}
                             </label>
                             <input
                                 className="login-field__input"
                                 id="signup-username"
                                 type="text"
-                                placeholder="Choose a username"
+                                placeholder={t('auth.usernameChoosePlaceholder')}
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 autoComplete="username"
@@ -119,7 +120,7 @@ const SignupPage = () => {
                         {/* Password */}
                         <div className="login-field">
                             <label className="login-field__label" htmlFor="signup-password">
-                                Password
+                                {t('auth.password')}
                             </label>
                             <div className="login-field__input-wrapper">
                                 <input
@@ -145,7 +146,7 @@ const SignupPage = () => {
                         {/* Confirm Password */}
                         <div className="login-field">
                             <label className="login-field__label" htmlFor="signup-confirm">
-                                Confirm Password
+                                {t('auth.confirmPassword')}
                             </label>
                             <div className="login-field__input-wrapper">
                                 <input
@@ -169,26 +170,29 @@ const SignupPage = () => {
                         </div>
 
                         {/* Submit */}
-                        <button
+                        <Button
                             type="submit"
-                            className="login-submit-btn"
+                            variant="primary"
+                            size="lg"
+                            shape="pill"
+                            className="mt-1 w-full"
                             disabled={isSubmitting}
                         >
-                            {isSubmitting ? 'Creating account...' : 'Create Account'}
-                        </button>
+                            {isSubmitting ? t('auth.creatingAccount') : t('auth.signupButton')}
+                        </Button>
                     </form>
                 </div>
 
                 {/* Footer */}
                 <footer className="login-footer">
                     <p className="login-footer__signup">
-                        Already have an account?{' '}
-                        <Link to={APP_ROUTES.LOGIN}>Sign in</Link>
+                        {t('auth.hasAccount')}{' '}
+                        <Link to={APP_ROUTES.LOGIN}>{t('auth.loginLink')}</Link>
                     </p>
                     <div className="login-footer__links">
-                        <a href="#">Privacy Policy</a>
+                        <a href="#">{t('auth.privacyPolicy')}</a>
                         <span className="login-footer__links-dot">•</span>
-                        <a href="#">Terms of Service</a>
+                        <a href="#">{t('auth.termsOfService')}</a>
                     </div>
                 </footer>
             </div>
