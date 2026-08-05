@@ -19,7 +19,7 @@ vi.mock('react-i18next', () => ({
             const labels: Record<string, string> = {
                 'mobileFooter.coach': 'Coach',
                 'mobileFooter.dashboard': 'Bảng thông tin',
-                'mobileFooter.journal': 'Nhật ký',
+                'mobileFooter.journal': 'Đúc kết',
                 'mobileFooter.profile': 'Tôi',
             };
             return labels[key] ?? key;
@@ -59,7 +59,7 @@ describe('MobileFooter', () => {
 
             expect(screen.getByRole('button', { name: 'Coach' })).toBeInTheDocument();
             expect(screen.getByRole('button', { name: 'Bảng thông tin' })).toBeInTheDocument();
-            expect(screen.getByRole('button', { name: 'Nhật ký' })).toBeInTheDocument();
+            expect(screen.getByRole('button', { name: 'Đúc kết' })).toBeInTheDocument();
             expect(screen.getByRole('button', { name: 'Tôi' })).toBeInTheDocument();
             expect(document.querySelector('.mobile-footer__fab')).toBeInTheDocument();
         });
@@ -79,7 +79,7 @@ describe('MobileFooter', () => {
 
             const activeItems = document.querySelectorAll('.mobile-footer__item--active');
             expect(activeItems.length).toBe(1);
-            expect(activeItems[0].textContent).toContain('Nhật ký');
+            expect(activeItems[0].textContent).toContain('Đúc kết');
         });
 
         it('should mark dashboard as active when on /dashboard', () => {

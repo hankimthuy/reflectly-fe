@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { CreatePersonRequest, RelationshipType } from '../../models/person';
+import { Button } from '../Button/Button';
 
 const RELATIONSHIP_TYPES: RelationshipType[] = ['FAMILY', 'FRIEND', 'PARTNER', 'COLLEAGUE', 'MANAGER', 'OTHER'];
 
@@ -25,7 +26,7 @@ const PersonForm = ({ initialValue, onSubmit, onCancel, submitLabel }: PersonFor
 
   const handleSubmit = async () => {
     if (!name.trim()) {
-      setError(t('dashboard.person.nameRequired', 'Nhập tên trước đã.'));
+      setError(t('dashboard.person.nameRequired'));
       return;
     }
     setError(null);
@@ -33,7 +34,7 @@ const PersonForm = ({ initialValue, onSubmit, onCancel, submitLabel }: PersonFor
     try {
       await onSubmit({ name: name.trim(), relationshipType, notes: notes.trim() || undefined });
     } catch {
-      setError(t('dashboard.person.saveError', 'Có lỗi xảy ra, vui lòng thử lại.'));
+      setError(t('dashboard.person.saveError'));
     } finally {
       setSaving(false);
     }
@@ -46,7 +47,7 @@ const PersonForm = ({ initialValue, onSubmit, onCancel, submitLabel }: PersonFor
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder={t('onboarding.namePlaceholder', 'Tên')}
+          placeholder={t('onboarding.namePlaceholder')}
           className="flex-1 rounded-lg border border-coach-border bg-coach-surface px-3 py-2 text-sm text-coach-text outline-none focus:border-coach-primary"
         />
         <select
@@ -64,28 +65,18 @@ const PersonForm = ({ initialValue, onSubmit, onCancel, submitLabel }: PersonFor
       <textarea
         value={notes}
         onChange={(e) => setNotes(e.target.value)}
-        placeholder={t('dashboard.person.notesPlaceholder', 'Ghi chú (tuỳ chọn)')}
+        placeholder={t('dashboard.person.notesPlaceholder')}
         rows={2}
         className="rounded-lg border border-coach-border bg-coach-surface px-3 py-2 text-sm text-coach-text outline-none focus:border-coach-primary"
       />
       {error && <p className="text-xs text-red-500">{error}</p>}
       <div className="flex gap-2">
-        <button
-          type="button"
-          onClick={handleSubmit}
-          disabled={saving}
-          className="rounded-lg bg-coach-primary px-3 py-1.5 text-xs font-medium text-white disabled:opacity-50"
-        >
-          {saving ? t('onboarding.submitting', 'Đang lưu...') : submitLabel}
-        </button>
-        <button
-          type="button"
-          onClick={onCancel}
-          disabled={saving}
-          className="rounded-lg border border-coach-border px-3 py-1.5 text-xs font-medium text-coach-text-muted"
-        >
-          {t('onboarding.back', 'Hủy')}
-        </button>
+        <Button variant="primary" size="sm" onClick={handleSubmit} disabled={saving}>
+          {saving ? t('onboarding.submitting') : submitLabel}
+        </Button>
+        <Button variant="secondary" size="sm" onClick={onCancel} disabled={saving}>
+          {t('dashboard.person.cancel')}
+        </Button>
       </div>
     </div>
   );

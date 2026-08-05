@@ -6,6 +6,7 @@ import { useCompleteOnboardingMutation } from '../../queries/authQueryHook';
 import type { RelationshipType } from '../../models/person';
 import { APP_ROUTES } from '../../constants/route';
 import { CORE_VALUE_KEYS } from '../../constants/coreValues';
+import { Button } from '../../components/Button/Button';
 
 const RELATIONSHIP_TYPES: RelationshipType[] = ['FAMILY', 'FRIEND', 'PARTNER', 'COLLEAGUE', 'MANAGER', 'OTHER'];
 
@@ -48,7 +49,7 @@ const OnboardingPage = () => {
 
   const handleContinue = () => {
     if (selectedValues.length === 0) {
-      setError(t('onboarding.selectAtLeastOne', 'Chọn ít nhất một giá trị để tiếp tục.'));
+      setError(t('onboarding.selectAtLeastOne'));
       return;
     }
     setError(null);
@@ -77,7 +78,7 @@ const OnboardingPage = () => {
           navigate(APP_ROUTES.COACH_CHAT);
         },
         onError: () => {
-          setError(t('onboarding.submitError', 'Có lỗi xảy ra, vui lòng thử lại.'));
+          setError(t('onboarding.submitError'));
         },
       },
     );
@@ -86,7 +87,7 @@ const OnboardingPage = () => {
   const handleSubmit = () => {
     const validPeople = people.filter((row) => row.name.trim().length > 0);
     if (validPeople.length === 0) {
-      setError(t('onboarding.addAtLeastOnePerson', 'Thêm ít nhất một người, hoặc bấm "Bỏ qua, vào Coach luôn".'));
+      setError(t('onboarding.addAtLeastOnePerson'));
       return;
     }
     submit(validPeople);
@@ -101,17 +102,17 @@ const OnboardingPage = () => {
     <div className="mx-auto flex min-h-[calc(100dvh-64px)] max-w-lg flex-col justify-center gap-6 bg-coach-bg px-4 py-8">
       <div>
         <p className="text-xs font-medium text-coach-primary">
-          {t('onboarding.step', 'Bước {{current}}/2', { current: step })}
+          {t('onboarding.step', { current: step })}
         </p>
         <h1 className="mt-1 text-xl font-semibold text-coach-text">
           {step === 1
-            ? t('onboarding.step1Title', 'Điều gì quan trọng với bạn?')
-            : t('onboarding.step2Title', 'Ai là người quan trọng với bạn?')}
+            ? t('onboarding.step1Title')
+            : t('onboarding.step2Title')}
         </h1>
         <p className="mt-1 text-sm text-coach-text-muted">
           {step === 1
-            ? t('onboarding.step1Subtitle', 'Chọn những giá trị cốt lõi cộng hưởng với bạn nhất.')
-            : t('onboarding.step2Subtitle', 'Thêm 3-5 người bạn muốn theo dõi mối quan hệ cùng.')}
+            ? t('onboarding.step1Subtitle')
+            : t('onboarding.step2Subtitle')}
         </p>
       </div>
 
@@ -144,7 +145,7 @@ const OnboardingPage = () => {
                   type="text"
                   value={row.name}
                   onChange={(e) => updatePerson(index, { name: e.target.value })}
-                  placeholder={t('onboarding.namePlaceholder', 'Tên')}
+                  placeholder={t('onboarding.namePlaceholder')}
                   className="flex-1 rounded-lg border border-coach-border bg-coach-bg px-3 py-2 text-sm text-coach-text outline-none focus:border-coach-primary"
                 />
                 <select
@@ -162,8 +163,8 @@ const OnboardingPage = () => {
                   <button
                     type="button"
                     onClick={() => removePersonRow(index)}
-                    className="px-1.5 text-coach-text-muted hover:text-coach-text"
-                    aria-label={t('onboarding.removePerson', 'Xóa') as string}
+                    className="cursor-pointer bg-transparent px-1.5 text-coach-text-muted transition-colors hover:text-coach-text"
+                    aria-label={t('onboarding.removePerson') as string}
                   >
                     ✕
                   </button>
@@ -173,13 +174,14 @@ const OnboardingPage = () => {
           ))}
 
           {people.length < 5 && (
-            <button
-              type="button"
+            <Button
+              variant="secondary"
+              size="sm"
               onClick={addPersonRow}
-              className="self-start rounded-lg border border-dashed border-coach-border px-3 py-1.5 text-xs font-medium text-coach-text-muted hover:bg-coach-surface"
+              className="self-start border-dashed"
             >
-              {t('onboarding.addPerson', '+ Thêm người')}
-            </button>
+              {t('onboarding.addPerson')}
+            </Button>
           )}
         </div>
       )}
@@ -188,41 +190,33 @@ const OnboardingPage = () => {
 
       <div className="flex items-center justify-between">
         {step === 2 ? (
-          <button
-            type="button"
-            onClick={() => setStep(1)}
-            className="text-sm font-medium text-coach-text-muted hover:text-coach-text"
-          >
-            {t('onboarding.back', 'Quay lại')}
-          </button>
+          <Button variant="ghost" size="sm" onClick={() => setStep(1)} className="!text-coach-text-muted">
+            {t('onboarding.back')}
+          </Button>
         ) : (
           <span />
         )}
 
-        <button
-          type="button"
-          onClick={step === 1 ? handleContinue : handleSubmit}
-          disabled={mutation.isPending}
-          className="rounded-xl bg-coach-primary px-5 py-2.5 text-sm font-medium text-white disabled:opacity-50"
-        >
+        <Button variant="primary" size="md" onClick={step === 1 ? handleContinue : handleSubmit} disabled={mutation.isPending}>
           {step === 1
-            ? t('onboarding.continue', 'Tiếp tục')
+            ? t('onboarding.continue')
             : mutation.isPending
-              ? t('onboarding.submitting', 'Đang lưu...')
-              : t('onboarding.finish', 'Hoàn tất')}
-        </button>
+              ? t('onboarding.submitting')
+              : t('onboarding.finish')}
+        </Button>
       </div>
 
-      <button
-        type="button"
+      <Button
+        variant="ghost"
+        size="sm"
         onClick={step === 1 ? handleSkipStep1 : handleSkipStep2}
         disabled={mutation.isPending}
-        className="self-center text-xs text-coach-text-muted underline-offset-2 hover:underline disabled:opacity-50"
+        className="!text-coach-text-muted self-center"
       >
         {step === 1
-          ? t('onboarding.skipStep', 'Bỏ qua bước này')
-          : t('onboarding.skipToCoach', 'Bỏ qua, vào Coach luôn')}
-      </button>
+          ? t('onboarding.skipStep')
+          : t('onboarding.skipToCoach')}
+      </Button>
     </div>
   );
 };

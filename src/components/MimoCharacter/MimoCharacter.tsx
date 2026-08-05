@@ -13,7 +13,7 @@ const MimoCharacter = ({ theme = 'bridge', className = '' }: MimoCharacterProps)
       <div className={`mimo-character__body mimo-character__body--${theme}`}>
          <img 
             src={mimoImage} 
-            alt="Mimo Mascot" 
+            alt="Aura mascot"
             className="mimo-character__image"
          />
          

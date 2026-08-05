@@ -9,13 +9,13 @@ const InsightTimelineList = () => {
   const insights = data?.pages.flatMap((page) => page.content) ?? [];
 
   if (isLoading) {
-    return <p className="text-sm text-coach-text-muted">{t('dashboard.loading', 'Đang tải...')}</p>;
+    return <p className="text-sm text-coach-text-muted">{t('dashboard.loading')}</p>;
   }
 
   if (insights.length === 0) {
     return (
       <div className="rounded-2xl border border-coach-border bg-coach-surface p-8 text-center text-sm text-coach-text-muted">
-        {t('dashboard.insightsEmpty', 'Chưa có insight nào — hãy trò chuyện với Coach để bắt đầu.')}
+        {t('dashboard.insightsEmpty')}
       </div>
     );
   }
@@ -33,7 +33,7 @@ const InsightTimelineList = () => {
           disabled={isFetchingNextPage}
           className="mt-1 self-center rounded-lg border border-coach-border px-4 py-1.5 text-xs font-medium text-coach-text-muted hover:bg-coach-bg disabled:opacity-40"
         >
-          {isFetchingNextPage ? t('dashboard.loading', 'Đang tải...') : t('dashboard.loadMore', 'Tải thêm')}
+          {isFetchingNextPage ? t('dashboard.loading') : t('dashboard.loadMore')}
         </button>
       )}
     </div>

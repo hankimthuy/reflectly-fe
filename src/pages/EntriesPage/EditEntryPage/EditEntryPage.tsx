@@ -12,6 +12,7 @@ import { useUpdateEntryMutation } from '../../../queries/entriesQueryHook';
 import { APP_ROUTES } from '../../../constants/route';
 import { useSnackbar } from '../../../providers/SnackbarProvider';
 import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
+import { Button } from '../../../components/Button/Button';
 import type { Entry } from '../../../models/entry';
 import './EditEntryPage.scss';
 
@@ -149,20 +150,24 @@ const EditEntryPage: React.FC = () => {
       {/* Floating Footer */}
       {selectedEmotions.length > 0 && (
         <div className={`safe-space__footer ${canSave ? 'safe-space__footer--active' : ''}`}>
-          <button
-            className="safe-space__back-btn"
+          <Button
+            variant="secondary"
+            size="sm"
+            className="!border-white/15 !bg-transparent !text-coach-bg hover:!bg-white/10"
             onClick={() => navigate(APP_ROUTES.ENTRIES_LIST)}
           >
             <LuArrowLeft size={16} />
             <span>{t('breadcrumb.journal')}</span>
-          </button>
+          </Button>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div className="safe-space__privacy">
               <LuLock size={14} />
               <span>{t('newEntryPage.privacy')}</span>
             </div>
-            <button
-              className="safe-space__save-btn"
+            <Button
+              variant="primary"
+              size="md"
+              shape="pill"
               onClick={handleSave}
               disabled={!canSave || updateEntryMutation.isPending}
             >
@@ -174,7 +179,7 @@ const EditEntryPage: React.FC = () => {
                   <span>{t('newEntryPage.save')}</span>
                 </>
               )}
-            </button>
+            </Button>
           </div>
         </div>
       )}

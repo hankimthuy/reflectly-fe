@@ -38,22 +38,4 @@
     gap: var(--spacing-md);
   }
 
-  &__btn {
-    padding: 12px 24px;
-    border-radius: 999px;
-    font-size: var(--font-size-base);
-    cursor: pointer;
-    border: none;
-    transition: transform 0.2s ease;
-
-    &--primary {
-      background-color: var(--garden-grass);
-      color: white;
-
-      &:hover {
-        background-color: var(--c-primary-hover);
-        transform: translateY(-2px);
-      }
-    }
-  }
 }

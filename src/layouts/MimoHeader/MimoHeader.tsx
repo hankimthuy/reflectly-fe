@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { LuLogOut, LuMenu, LuUser, LuX } from 'react-icons/lu';
+import { LuLogOut, LuMenu, LuX } from 'react-icons/lu';
 import { APP_ROUTES } from '../../constants/route';
 import { useAuth } from '../../providers/AuthProvider';
 import LanguageSwitcher from '../../components/LanguageSwitcher/LanguageSwitcher';
+import { Button } from '../../components/Button/Button';
 import './MimoHeader.scss';
 
 interface MimoHeaderProps {
@@ -66,6 +67,13 @@ const MimoHeader = ({ scrolled = false }: MimoHeaderProps) => {
         <div className="mimo-header__nav">
           <div className="mimo-header__nav-links">
             <a
+              onClick={() => navigate(APP_ROUTES.WELCOME)}
+              className={isActive(APP_ROUTES.WELCOME) ? 'active' : ''}
+              style={{ cursor: 'pointer' }}
+            >
+              {t('nav.garden')}
+            </a>
+            <a
               onClick={() => navigate(APP_ROUTES.COACH_CHAT)}
               className={isActive(APP_ROUTES.COACH_CHAT) ? 'active' : ''}
               style={{ cursor: 'pointer' }}
@@ -86,6 +94,15 @@ const MimoHeader = ({ scrolled = false }: MimoHeaderProps) => {
             >
               {t('nav.journal')}
             </a>
+            {currentUser && (
+              <a
+                onClick={() => navigate(APP_ROUTES.PROFILE)}
+                className={isActive(APP_ROUTES.PROFILE) ? 'active' : ''}
+                style={{ cursor: 'pointer' }}
+              >
+                {t('nav.profile')}
+              </a>
+            )}
           </div>
 
           {currentUser ? (
@@ -98,7 +115,7 @@ const MimoHeader = ({ scrolled = false }: MimoHeaderProps) => {
                 {currentUser.pictureUrl && !avatarError ? (
                   <img
                     src={currentUser.pictureUrl}
-                    alt="User Avatar"
+                    alt={currentUser.fullName}
                     className="avatar-img"
                     onError={() => setAvatarError(true)}
                     referrerPolicy="no-referrer"
@@ -121,10 +138,6 @@ const MimoHeader = ({ scrolled = false }: MimoHeaderProps) => {
                     <LanguageSwitcher />
                   </div>
                   <div className="dropdown-divider" />
-                  <button onClick={handleGoProfile} className="dropdown-item">
-                    <LuUser size={16} /> {t('nav.profile')}
-                  </button>
-                  <div className="dropdown-divider" />
                   <button onClick={handleLogout} className="dropdown-item text-red-500">
                     <LuLogOut size={16} /> {t('profilePage.logout')}
                   </button>
@@ -134,9 +147,9 @@ const MimoHeader = ({ scrolled = false }: MimoHeaderProps) => {
           ) : (
             <div className="mimo-header__auth-section">
               <LanguageSwitcher />
-              <button className="btn-cta" onClick={handleLogin}>
+              <Button variant="primary" size="sm" shape="pill" onClick={handleLogin}>
                 {t('nav.startJourney')}
-              </button>
+              </Button>
             </div>
           )}
         </div>
@@ -148,6 +161,7 @@ const MimoHeader = ({ scrolled = false }: MimoHeaderProps) => {
 
       {isMenuOpen && (
         <div className="mimo-header__mobile-menu">
+          <a onClick={() => navTo(APP_ROUTES.WELCOME)} style={{ cursor: 'pointer' }}>{t('nav.garden')}</a>
           <a onClick={() => navTo(APP_ROUTES.COACH_CHAT)} style={{ cursor: 'pointer' }}>{t('nav.coach')}</a>
           <a onClick={() => navTo(APP_ROUTES.DASHBOARD)} style={{ cursor: 'pointer' }}>{t('nav.dashboard')}</a>
           <a onClick={() => navTo(APP_ROUTES.ENTRIES_LIST)} style={{ cursor: 'pointer' }}>{t('nav.journal')}</a>
@@ -164,7 +178,7 @@ const MimoHeader = ({ scrolled = false }: MimoHeaderProps) => {
                   {currentUser.pictureUrl && !avatarError ? (
                     <img
                       src={currentUser.pictureUrl}
-                      alt="User Avatar"
+                      alt={currentUser.fullName}
                       className="mobile-avatar-img"
                       onError={() => setAvatarError(true)}
                       referrerPolicy="no-referrer"

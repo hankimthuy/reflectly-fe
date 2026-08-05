@@ -37,15 +37,25 @@ vi.mock('react-i18next', () => ({
     useTranslation: () => ({
         t: (key: string) => {
             const labels: Record<string, string> = {
-                'brand.name': 'MimoSe',
-                'brand.acronym': 'Make Sense Of ME',
-                'brand.welcome': 'Chào mừng trở lại khu vườn của bạn.',
+                'brand.name': 'Aura Self AI',
+                'brand.acronym': 'AI Coach for Self-Understanding',
+                'brand.welcome': 'Welcome back to Aura Self AI.',
                 'auth.username': 'Username',
                 'auth.password': 'Password',
                 'auth.loginButton': 'Sign In',
                 'auth.googleLogin': 'Sign in with Google',
                 'auth.noAccount': "Don't have an account?",
                 'auth.signupLink': 'Start your journey',
+                'auth.usernamePlaceholder': 'Enter your username',
+                'auth.forgotPassword': 'Forgot?',
+                'auth.or': 'or',
+                'auth.signingIn': 'Signing in...',
+                'auth.privacyPolicy': 'Privacy Policy',
+                'auth.termsOfService': 'Terms of Service',
+                'auth.errors.usernamePasswordRequired': 'Please enter both username and password.',
+                'auth.errors.loginFailed': 'Login failed. Please check your credentials.',
+                'auth.errors.googleCodeMissing': 'Did not receive authorization code from Google.',
+                'auth.errors.googleFailed': 'Google authentication failed. Please try again.',
             };
             return labels[key] ?? key;
         },
@@ -87,8 +97,8 @@ describe('LoginPage', () => {
         it('should render the page title and subtitle', () => {
             renderLoginPage();
 
-            expect(screen.getByText('MimoSe')).toBeInTheDocument();
-            expect(screen.getByText('Chào mừng trở lại khu vườn của bạn.')).toBeInTheDocument();
+            expect(screen.getByText('Aura Self AI')).toBeInTheDocument();
+            expect(screen.getByText('Welcome back to Aura Self AI.')).toBeInTheDocument();
         });
 
         it('should render the username and password fields', () => {

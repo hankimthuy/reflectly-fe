@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { usePeopleQuery, useCreatePersonMutation } from '../../queries/peopleQueryHook';
 import RelationshipMap from '../../components/RelationshipMap/RelationshipMap';
 import InsightTimelineList from '../../components/InsightTimeline/InsightTimelineList';
 import CoreValuesCard from '../../components/CoreValuesCard/CoreValuesCard';
 import PersonForm from '../../components/PersonForm/PersonForm';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { Button, ButtonLink } from '../../components/Button/Button';
 import { APP_ROUTES } from '../../constants/route';
 import { useAuth } from '../../providers/AuthProvider';
 import { completeOnboarding } from '../../services/userService';
@@ -24,11 +26,17 @@ const DashboardPage = () => {
   };
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-8 bg-coach-bg px-4 py-6">
+    <div className="mx-auto flex max-w-2xl flex-col gap-10 bg-coach-bg px-4 py-8 sm:px-6">
       <div>
-        <h1 className="text-xl font-semibold text-coach-text">{t('dashboard.pageTitle', 'Về bạn')}</h1>
-        <p className="text-xs text-coach-text-muted">
-          {t('dashboard.pageSubtitle', 'Mọi thứ Coach đã hiểu về bạn — giá trị cốt lõi, những người quan trọng, và những insight đã đúc kết được.')}
+        <Breadcrumb
+          variant="light"
+          items={[{ label: t('breadcrumb.home'), path: APP_ROUTES.WELCOME }, { label: t('breadcrumb.dashboard') }]}
+        />
+        <h1 className="mt-2 text-2xl font-bold text-coach-text [font-family:var(--font-family-heading)]">
+          {t('dashboard.pageTitle')}
+        </h1>
+        <p className="mt-1 text-sm text-coach-text-muted">
+          {t('dashboard.pageSubtitle')}
         </p>
       </div>
 
@@ -42,33 +50,26 @@ const DashboardPage = () => {
         <div className="mb-3 flex items-center justify-between">
           <div>
             <h2 className="text-lg font-semibold text-coach-text">
-              {t('dashboard.mapTitle', 'Bản đồ mối quan hệ')}
+              {t('dashboard.mapTitle')}
             </h2>
             <p className="text-xs text-coach-text-muted">
-              {t('dashboard.mapSubtitle', 'Được xây dựng dần từ những gì bạn chia sẻ với Coach.')}
+              {t('dashboard.mapSubtitle')}
             </p>
           </div>
           <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={() => setIsAddingPerson((prev) => !prev)}
-              className="rounded-lg border border-coach-border px-3 py-1.5 text-xs font-medium text-coach-text hover:bg-coach-bg"
-            >
-              {t('dashboard.person.add', '+ Thêm người')}
-            </button>
-            <Link
-              to={APP_ROUTES.COACH_CHAT}
-              className="rounded-lg bg-coach-primary px-3 py-1.5 text-xs font-medium text-white"
-            >
-              {t('dashboard.talkToCoach', 'Trò chuyện với Coach')}
-            </Link>
+            <Button variant="secondary" size="sm" onClick={() => setIsAddingPerson((prev) => !prev)}>
+              {t('dashboard.person.add')}
+            </Button>
+            <ButtonLink to={APP_ROUTES.COACH_CHAT} variant="primary" size="sm">
+              {t('dashboard.talkToCoach')}
+            </ButtonLink>
           </div>
         </div>
 
         {isAddingPerson && (
           <div className="mb-3">
             <PersonForm
-              submitLabel={t('dashboard.person.add', '+ Thêm người')}
+              submitLabel={t('dashboard.person.add')}
               onCancel={() => setIsAddingPerson(false)}
               onSubmit={async (person) => {
                 await createPerson.mutateAsync(person);
@@ -79,21 +80,18 @@ const DashboardPage = () => {
         )}
 
         {isLoading ? (
-          <p className="text-sm text-coach-text-muted">{t('dashboard.loading', 'Đang tải...')}</p>
+          <p className="text-sm text-coach-text-muted">{t('dashboard.loading')}</p>
         ) : (
           <RelationshipMap
             people={people ?? []}
-            emptyLabel={t(
-              'dashboard.mapEmpty',
-              'Chưa có ai trong bản đồ — hãy chia sẻ về những người quan trọng với bạn khi trò chuyện với Coach.',
-            )}
+            emptyLabel={t('dashboard.mapEmpty')}
           />
         )}
       </section>
 
       <section>
         <h2 className="mb-3 text-lg font-semibold text-coach-text">
-          {t('dashboard.insightsTitle', 'Dòng thời gian Insight')}
+          {t('dashboard.insightsTitle')}
         </h2>
         <InsightTimelineList />
       </section>

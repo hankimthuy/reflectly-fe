@@ -154,6 +154,12 @@
   --nav-height-laptop: 70px;
   --nav-height-desktop: 80px;
 
+  // Generic header/footer chrome height, for pages (e.g. CoachChatPage) that need to
+  // size themselves to exactly fill the viewport below the fixed header / above the
+  // floating MobileFooter. Mirrors the breakpoints MainLayout/MobileFooter already use.
+  --header-h: var(--header-height-mobile);
+  --footer-h: calc(var(--nav-height-mobile) + 32px);
+
   // Z-index Scale
   --z-dropdown: 1000;
   --z-sticky: 1020;
@@ -213,6 +219,22 @@
     --border-radius-md: 16px;
     --border-radius-lg: 20px;
     --border-radius-xl: 32px;
+  }
+}
+
+// Header grows from mobile to desktop size at the same breakpoint MainLayout/GardenHero
+// use for their own --header-height-mobile / --header-height-desktop switch.
+@media screen and (min-width: 768px) {
+  :root {
+    --header-h: var(--header-height-desktop);
+  }
+}
+
+// MobileFooter is display:none from this width up (see MobileFooter.scss respond-to(laptop)),
+// so there's no floating footer chrome left to clear.
+@media screen and (min-width: 992px) {
+  :root {
+    --footer-h: 0px;
   }
 }
 
