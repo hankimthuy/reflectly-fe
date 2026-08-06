@@ -28,11 +28,9 @@
 
       .content-wrapper {
         width: 100%;
-        padding-top: var(--header-height-mobile);
-
-        @media (min-width: 768px) {
-          padding-top: var(--header-height-desktop);
-        }
+        // No padding-top here: MimoHeader is a normal in-flow element rendered right above
+        // <main> (see MainLayout.tsx), so it already occupies its own space — no header-height
+        // compensation needed or wanted (see MimoHeader.scss for why that used to exist).
 
         @include mobile-only {
           padding-bottom: calc(var(--nav-height-mobile) + 32px);

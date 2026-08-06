@@ -50,6 +50,19 @@ const MimoHeader = ({ scrolled = false }: MimoHeaderProps) => {
     navigate(APP_ROUTES.LOGIN, { state: { explicit: true } });
   };
 
+  // Separate from handleLogin: this button's copy ("Bắt đầu hành trình") reads as a new-user
+  // invitation, so it should land on Signup — same destination as the Hero's CTA — not Login.
+  // (Returning users still have a "Log in instead" link from the Signup page.)
+  const handleStartJourney = () => {
+    setIsMenuOpen(false);
+    navigate(APP_ROUTES.SIGNUP, { state: { explicit: true } });
+  };
+
+  // The homepage's Hero already has this exact CTA front and center — showing it again in the
+  // header on that page is a duplicate, not a second chance. Elsewhere (no Hero on screen) it's
+  // the only "get started" affordance, so it stays.
+  const isHomepage = location.pathname === APP_ROUTES.WELCOME || location.pathname === APP_ROUTES.HOME;
+
   const navTo = (path: string) => {
     setIsMenuOpen(false);
     navigate(path);
@@ -147,9 +160,11 @@ const MimoHeader = ({ scrolled = false }: MimoHeaderProps) => {
           ) : (
             <div className="mimo-header__auth-section">
               <LanguageSwitcher />
-              <Button variant="primary" size="sm" shape="pill" onClick={handleLogin}>
-                {t('nav.startJourney')}
-              </Button>
+              {!isHomepage && (
+                <Button variant="secondary" size="sm" shape="pill" onClick={handleStartJourney}>
+                  {t('nav.startJourney')}
+                </Button>
+              )}
             </div>
           )}
         </div>

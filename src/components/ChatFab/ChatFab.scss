@@ -1,0 +1,63 @@
+.chat-fab {
+  position: fixed;
+  right: 20px;
+  bottom: 24px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 18px 8px 8px;
+  border-radius: 9999px;
+  border: none;
+  background: var(--color-coach-primary);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  transition: transform 0.2s ease, background 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--color-coach-primary-light);
+    transform: translateY(-2px);
+  }
+
+  // Below the "laptop" breakpoint (992px, matching src/styles/_responsive.scss), MobileFooter
+  // is visible and already has its own dedicated coach shortcuts (a "coach" tab + a center fab
+  // button that both open the same chat) — showing this too would be a third, redundant way to
+  // do the same thing crammed into a small screen. Only show once MobileFooter hides itself.
+  @media (max-width: 991px) {
+    display: none;
+  }
+
+  &__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: contain;
+    background: #fff;
+    padding: 2px;
+    flex-shrink: 0;
+    animation: chatFabFloat 3s ease-in-out infinite;
+  }
+
+  &__label {
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+}
+
+@keyframes chatFabFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-fab {
+    transition: none;
+  }
+
+  .chat-fab__avatar {
+    animation: none;
+  }
+}

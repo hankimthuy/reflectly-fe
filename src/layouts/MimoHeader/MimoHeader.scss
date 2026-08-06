@@ -2,11 +2,12 @@
 @use '../../styles/_responsive' as *;
 
 .mimo-header {
-  position: fixed;
-  top: 0;
-  left: 0;
+  // Deliberately NOT position:fixed/sticky — a fixed header requires every page to fake its
+  // height back via padding-top, which is exactly what caused the header-overlaps-content bugs
+  // here before. A normal in-flow header (rendered once, above the scrollable <main> in
+  // MainLayout) can't get out of sync with its own height. If sticky-on-scroll is wanted later,
+  // reintroduce it deliberately together with the matching clearance, not as a leftover.
   width: 100%;
-  z-index: 100;
   padding: 12px 0;
   transition: all 0.5s ease;
 
