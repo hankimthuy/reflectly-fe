@@ -50,7 +50,15 @@
     "sendError": "Couldn't send your message right now. Please try again."
   },
   "homePreview": {
+    "pillars": {
+      "coach": "Companion AI Coach",
+      "map": "Relationship Map (PRM)",
+      "johari": "Johari Window",
+      "insights": "Insight Timeline"
+    },
     "chat": {
+      "sectionTitle": "Chat with your AI Coach",
+      "sectionDescription": "Aura listens and asks open questions — no judgment, no advice imposed, just help finding your own answers.",
       "title": "Chat with your AI Coach",
       "tag1": "Calm",
       "tag2": "Curious",
@@ -59,15 +67,28 @@
       "inputPlaceholder": "Share what's on your mind..."
     },
     "map": {
-      "title": "Relationship map",
+      "sectionTitle": "Relationship Map (PRM)",
+      "sectionDescription": "Personal Relationship Management — see the full picture of the people who matter most to you, and how you connect with them.",
       "centerLabel": "Me",
       "node1": "Family",
       "node2": "Colleagues",
       "node3": "Mentor",
       "node4": "Friends"
     },
+    "johari": {
+      "sectionTitle": "Johari Window — 4 views of yourself",
+      "sectionDescription": "A classic self-leadership framework that helps you tell apart what you already know, what others see that you don't, and the potential still waiting to be discovered.",
+      "open": { "label": "Open Area", "desc": "What you know about yourself, and others see too." },
+      "blind": { "label": "Blind Spot", "desc": "What others — or Aura — notice in you, but you haven't yet." },
+      "hidden": { "label": "Hidden Area", "desc": "What you know about yourself but have never shared." },
+      "unknown": { "label": "Unknown Area", "desc": "Untapped potential, waiting to surface through conversation." }
+    },
     "insights": {
+      "sectionTitle": "Insight Timeline",
+      "sectionDescription": "Track your psychological shifts over time — each insight comes with an energy indicator, helping you spot your own behavior patterns, not just re-read the past.",
       "title": "Insight timeline",
+      "energyHigh": "High energy",
+      "energyLow": "Low energy",
       "today": "Today",
       "todayTime": "2:32 PM",
       "todayCategory": "Value",
@@ -82,8 +103,11 @@
   "brand": {
     "name": "Aura Self AI",
     "acronym": "AI Coach for Self-Understanding",
-    "slogan": "Understand yourself, one conversation at a time",
-    "description": "Aura Self AI is an AI Coach that talks with you, automatically building your relationship map and personal insights.",
+    "slogan": "Why am I here?",
+    "heroLine1": "No one else can answer that for you.",
+    "heroLine2": "At Aura Self AI, conversations and insight maps help you untangle what's on your mind.",
+    "heroLine3": "The final answer is yours alone to find.",
+    "description": "Discover yourself through every conversation. Your relationship map and insights are personalized from what you share.",
     "tagline": "Talk to understand yourself, every day.",
     "footer": "© 2026 Aura Self AI. Walking with you on the path of Self-Understanding & Self-Leadership.",
     "welcome": "Welcome back to Aura Self AI.",

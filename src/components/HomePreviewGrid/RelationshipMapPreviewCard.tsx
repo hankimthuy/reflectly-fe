@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { LuUsers } from 'react-icons/lu';
+import { LuArrowRight } from 'react-icons/lu';
 import { ButtonLink } from '../Button/Button';
 import { APP_ROUTES } from '../../constants/route';
 
@@ -15,9 +15,14 @@ const CENTER_NODE_RADIUS = 24;
 const NODE_KEYS = ['node1', 'node2', 'node3', 'node4'] as const;
 
 /**
- * Static, illustrative preview of the relationship map for the (public, unauthenticated)
- * homepage — modeled on RelationshipMap.tsx's visual language but with hardcoded example
- * nodes instead of real Person[] data (which requires an authenticated usePeopleQuery()).
+ * Static, illustrative preview of the relationship map (PRM — Personal Relationship Management)
+ * for the (public, unauthenticated) homepage — modeled on RelationshipMap.tsx's visual language
+ * but with hardcoded example nodes instead of real Person[] data (which requires an
+ * authenticated usePeopleQuery()).
+ *
+ * The Johari Window used to share this card behind a view-switcher dropdown; it's now its own
+ * section (see JohariWindowCard.tsx) so neither concept is hidden behind a click on a page whose
+ * job is to introduce both.
  *
  * Nodes are plain colored circles for now (no avatar imagery) — a person-avatar picker
  * (library-driven, user-selectable) is a planned future enhancement, not built here.
@@ -36,12 +41,7 @@ const RelationshipMapPreviewCard = () => {
   });
 
   return (
-    <div className="rounded-2xl border border-coach-border bg-coach-surface p-5">
-      <h3 className="mb-3 flex items-center gap-2 text-base font-semibold text-coach-text">
-        <LuUsers size={18} className="text-coach-primary" />
-        {t('homePreview.map.title')}
-      </h3>
-
+    <div className="mx-auto flex max-w-md flex-col rounded-2xl border border-coach-border bg-coach-surface p-4">
       <svg viewBox={`0 0 ${WIDTH} ${HEIGHT}`} className="mx-auto w-full max-w-[200px]" aria-hidden="true">
         {nodes.map((node) => (
           <line
@@ -84,8 +84,9 @@ const RelationshipMapPreviewCard = () => {
         ))}
       </svg>
 
-      <ButtonLink to={APP_ROUTES.DASHBOARD} variant="ghost" size="sm" className="mt-2 self-start !px-0">
+      <ButtonLink to={APP_ROUTES.DASHBOARD} variant="ghost" size="sm" className="mt-1 self-end !px-0">
         {t('homePreview.cta')}
+        <LuArrowRight size={14} />
       </ButtonLink>
     </div>
   );

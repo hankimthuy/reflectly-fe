@@ -5,11 +5,6 @@
 .landing-page {
   min-height: 100vh;
   background-color: var(--color-coach-bg);
-  // Note: no negative margin-top here (the old garden hero used one to cancel out
-  // MainLayout's `.content-wrapper` header-clearance padding-top and re-implement its own —
-  // GardenHero no longer does that, so this page now relies on the same global header
-  // clearance every other page uses. Do not re-add a cancelling margin here without also
-  // re-adding equivalent clearance in GardenHero, or the fixed header will overlap the hero.
 
   ::selection {
     background-color: rgba(63, 92, 82, 0.25);

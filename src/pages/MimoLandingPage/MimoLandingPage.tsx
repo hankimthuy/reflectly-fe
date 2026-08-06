@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import HomePreviewGrid from '../../components/HomePreviewGrid/HomePreviewGrid';
+import HomeValueSections from '../../components/HomePreviewGrid/HomeValueSections';
 import GardenHero from './GardenHero/GardenHero';
 import './MimoLandingPage.scss';
 
@@ -9,7 +9,7 @@ const MimoLandingPage = () => {
   return (
     <div className="landing-page">
       <GardenHero />
-      <HomePreviewGrid />
+      <HomeValueSections />
       <footer className="footer">
         <span>{t('brand.footer')}</span>
       </footer>

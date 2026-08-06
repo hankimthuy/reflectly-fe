@@ -50,7 +50,15 @@
     "sendError": "Không thể gửi tin nhắn lúc này. Vui lòng thử lại."
   },
   "homePreview": {
+    "pillars": {
+      "coach": "AI Coach đồng hành",
+      "map": "Bản đồ mối quan hệ (PRM)",
+      "johari": "Cửa sổ Johari",
+      "insights": "Dòng thời gian Insight"
+    },
     "chat": {
+      "sectionTitle": "Trò chuyện cùng AI Coach",
+      "sectionDescription": "Aura lắng nghe và đặt câu hỏi gợi mở — không phán xét, không áp đặt lời khuyên, chỉ giúp bạn tự tìm ra câu trả lời của mình.",
       "title": "Trò chuyện cùng AI Coach",
       "tag1": "Bình yên",
       "tag2": "Tò mò",
@@ -59,15 +67,28 @@
       "inputPlaceholder": "Chia sẻ điều bạn đang nghĩ..."
     },
     "map": {
-      "title": "Bản đồ mối quan hệ",
+      "sectionTitle": "Bản đồ mối quan hệ (PRM)",
+      "sectionDescription": "Personal Relationship Management — nhìn thấy toàn cảnh những người quan trọng trong đời bạn và cách bạn kết nối với họ.",
       "centerLabel": "Tôi",
       "node1": "Gia đình",
       "node2": "Đồng nghiệp",
       "node3": "Mentor",
       "node4": "Bạn bè"
     },
+    "johari": {
+      "sectionTitle": "Cửa sổ Johari — 4 góc nhìn về bản thân",
+      "sectionDescription": "Một khung tư duy kinh điển trong khoa học lãnh đạo bản thân, giúp bạn phân biệt điều bạn đã biết, điều người khác thấy mà bạn chưa nhận ra, và những tiềm năng còn chưa được khám phá.",
+      "open": { "label": "Vùng mở", "desc": "Điều bạn hiểu rõ về mình và người khác cũng nhận thấy." },
+      "blind": { "label": "Vùng mù", "desc": "Điều người khác — hay Aura — nhận ra ở bạn, nhưng bạn chưa thấy." },
+      "hidden": { "label": "Vùng ẩn", "desc": "Điều bạn biết về mình nhưng chưa từng chia sẻ cùng ai." },
+      "unknown": { "label": "Vùng đóng", "desc": "Tiềm năng còn ngủ quên, chờ được khám phá qua từng cuộc trò chuyện." }
+    },
     "insights": {
+      "sectionTitle": "Dòng thời gian Insight",
+      "sectionDescription": "Ghi lại diễn biến tâm lý theo thời gian — mỗi insight kèm chỉ báo năng lượng, giúp bạn nhìn ra mô thức hành vi của chính mình, không chỉ đọc lại quá khứ.",
       "title": "Dòng thời gian Insight",
+      "energyHigh": "Năng lượng cao",
+      "energyLow": "Cạn năng lượng",
       "today": "Hôm nay",
       "todayTime": "14:32",
       "todayCategory": "Giá trị",
@@ -82,8 +103,11 @@
   "brand": {
     "name": "Aura Self AI",
     "acronym": "AI Coach Thấu Hiểu Bản Thân",
-    "slogan": "Hiểu mình rõ hơn, qua từng cuộc trò chuyện",
-    "description": "Aura Self AI là AI Coach trò chuyện cùng bạn, tự động dựng nên bản đồ mối quan hệ và những insight về chính bạn.",
+    "slogan": "Tôi đến thế giới này để làm gì?",
+    "heroLine1": "Không ai có thể trả lời thay bạn.",
+    "heroLine2": "Tại Aura Self AI, các cuộc đối thoại và bản đồ insight sẽ giúp bạn bóc tách vướng mắc.",
+    "heroLine3": "Câu trả lời sau cùng do chính bạn tự tìm ra.",
+    "description": "Khám phá bản thân qua từng cuộc hội thoại. Bản đồ insight và các mối quan hệ được cá nhân hóa từ chính những chia sẻ của bạn.",
     "tagline": "Trò chuyện để thấu hiểu chính mình, mỗi ngày.",
     "footer": "© 2026 Aura Self AI. Đồng hành cùng hành trình Thấu hiểu & Lãnh đạo Bản thân.",
     "welcome": "Chào mừng bạn quay lại với Aura Self AI.",

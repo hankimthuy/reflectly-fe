@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { LuMessageCircle } from 'react-icons/lu';
+import { LuArrowRight } from 'react-icons/lu';
 import { ButtonLink } from '../Button/Button';
 import { APP_ROUTES } from '../../constants/route';
 import auraIdle from '../../assets/aura/aura-idle.gif';
@@ -9,6 +9,9 @@ import auraIdle from '../../assets/aura/aura-idle.gif';
  * homepage. Deliberately NOT wired to real conversation data — see MessageList/ChatBubble for
  * the live version used inside CoachChatPage once a user is signed in.
  *
+ * No internal title here — it lives inside a HomeSection, which already renders the section
+ * heading, so repeating "Trò chuyện cùng AI Coach" here would just duplicate it.
+ *
  * The Aura avatar sits directly beside the AI turn (not just a small header icon) so the
  * character-to-message association reads clearly at a glance — "this reply is Aura talking".
  */
@@ -16,23 +19,17 @@ const ChatPreviewCard = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="flex h-full flex-col rounded-2xl border border-coach-border bg-coach-surface p-5">
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-        <h3 className="flex items-center gap-2 text-base font-semibold text-coach-text">
-          <LuMessageCircle size={18} className="text-coach-primary" />
-          {t('homePreview.chat.title')}
-        </h3>
-        <div className="flex gap-1.5">
-          <span className="rounded-full bg-coach-bg px-2.5 py-0.5 text-xs font-medium text-coach-primary">
-            {t('homePreview.chat.tag1')}
-          </span>
-          <span className="rounded-full bg-coach-bg px-2.5 py-0.5 text-xs font-medium text-coach-primary">
-            {t('homePreview.chat.tag2')}
-          </span>
-        </div>
+    <div className="mx-auto flex max-w-md flex-col rounded-2xl border border-coach-border bg-coach-surface p-4">
+      <div className="mb-3 flex justify-center gap-1.5">
+        <span className="rounded-full bg-coach-bg px-2.5 py-0.5 text-xs font-medium text-coach-primary">
+          {t('homePreview.chat.tag1')}
+        </span>
+        <span className="rounded-full bg-coach-bg px-2.5 py-0.5 text-xs font-medium text-coach-primary">
+          {t('homePreview.chat.tag2')}
+        </span>
       </div>
 
-      <div className="flex flex-1 flex-col gap-2.5">
+      <div className="flex flex-col gap-2">
         <div className="flex w-full justify-end">
           <div className="max-w-[80%] rounded-2xl rounded-br-sm bg-coach-primary px-4 py-2.5 text-sm leading-relaxed text-white">
             {t('homePreview.chat.userMessage')}
@@ -50,12 +47,13 @@ const ChatPreviewCard = () => {
         </div>
       </div>
 
-      <div className="mt-4 flex items-center justify-between gap-3 rounded-full border border-coach-border bg-coach-bg px-4 py-2 text-sm text-coach-text-muted">
+      <div className="mt-3 flex items-center justify-between gap-3 rounded-full border border-coach-border bg-coach-bg px-4 py-2 text-sm text-coach-text-muted">
         <span className="truncate">{t('homePreview.chat.inputPlaceholder')}</span>
       </div>
 
-      <ButtonLink to={APP_ROUTES.COACH_CHAT} variant="ghost" size="sm" className="mt-3 self-start !px-0">
+      <ButtonLink to={APP_ROUTES.COACH_CHAT} variant="ghost" size="sm" className="mt-2 self-end !px-0">
         {t('homePreview.cta')}
+        <LuArrowRight size={14} />
       </ButtonLink>
     </div>
   );
