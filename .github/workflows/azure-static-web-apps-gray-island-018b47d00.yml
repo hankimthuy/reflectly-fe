@@ -1,3 +1,13 @@
+# =============================================================================
+# Deploy Frontend (Vite + React) -> Azure Static Web Apps
+#
+# THAY ĐỔI QUAN TRỌNG so với file Azure tự sinh:
+# Trước đây Azure tự build code bên trong container của nó (Oryx). Khi build
+# hỏng, log rất khó đọc và biến môi trường VITE_* hay bị nuốt mất -> ra trang
+# trắng mà không biết vì sao.
+# Giờ ta tự build ngay trong GitHub Actions (nhìn được log rõ ràng), rồi chỉ
+# đưa thư mục dist/ đã build xong cho Azure (skip_app_build: true).
+# =============================================================================
 name: Azure Static Web Apps CI/CD
 
 on:
@@ -15,57 +25,118 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     permissions:
-       id-token: write
-       contents: read
+      id-token: write
+      contents: read
+
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      # -----------------------------------------------------------------------
+      # Chặn sớm: thiếu secret -> fail ngay với thông báo rõ, thay vì deploy ra
+      # một trang trắng. Đây chính là lỗi "trắng trang" hay gặp: VITE_API_URL
+      # rỗng -> axios không biết gọi đi đâu, VITE_GOOGLE_CLIENT_ID rỗng ->
+      # GoogleOAuthProvider ném lỗi -> React không render được gì cả.
+      # -----------------------------------------------------------------------
+      - name: Kiểm tra GitHub Secrets bắt buộc
+        env:
+          S_API_URL:   ${{ secrets.VITE_API_URL }}
+          S_GOOGLE_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
+          S_SWA_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GRAY_ISLAND_018B47D00 }}
+        run: |
+          MISSING=""
+
+          # Dùng if/fi chứ không dùng "test && gán": GitHub Actions chạy bash -e,
+          # nên một dòng test trả về sai sẽ làm thoát cả step.
+          need() {
+            if [ -z "$2" ]; then
+              MISSING="${MISSING}
+            - $1"
+            fi
+          }
+
+          need "VITE_API_URL (vd: https://reflectlybe-xxxx.azurewebsites.net/api)" "$S_API_URL"
+          need "VITE_GOOGLE_CLIENT_ID"                                            "$S_GOOGLE_ID"
+          need "AZURE_STATIC_WEB_APPS_API_TOKEN_GRAY_ISLAND_018B47D00"            "$S_SWA_TOKEN"
+
+          if [ -n "$MISSING" ]; then
+            echo "Thiếu các GitHub Secrets sau:"
+            echo "$MISSING"
+            echo "Khai báo tại: repo -> Settings -> Secrets and variables -> Actions"
+            echo "::error::Thiếu GitHub Secrets bắt buộc — xem danh sách ở log phía trên."
+            exit 1
+          fi
+          echo "Đủ secrets."
+
+      - name: Cài Node.js 20
+        uses: actions/setup-node@v4
         with:
-          submodules: true
-          lfs: false
-      - name: Install OIDC Client from Core Package
-        run: npm install @actions/core@1.6.0 @actions/http-client
-      - name: Get Id Token
-        uses: actions/github-script@v6
-        id: idtoken
-        with:
-           script: |
-               const coredemo = require('@actions/core')
-               return await coredemo.getIDToken()
-           result-encoding: string
-      - name: Build And Deploy
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Cài dependencies
+        run: npm ci
+
+      # Biến VITE_* được "nướng cứng" vào file JS lúc build.
+      # Đổi secret xong PHẢI chạy lại workflow này thì FE mới nhận giá trị mới.
+      - name: Build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
+        run: npm run build
+
+      # Kiểm tra thật: URL backend có nằm trong bundle không.
+      # Nếu không -> chắc chắn sẽ trắng trang / gọi API sai, chặn luôn ở đây.
+      - name: Xác minh biến môi trường đã vào bundle
+        env:
+          S_API_URL: ${{ secrets.VITE_API_URL }}
+        run: |
+          # -F = so khớp chuỗi nguyên văn, không coi là biểu thức chính quy
+          # (URL có dấu . và / nên dùng regex sẽ khớp sai).
+          if grep -rqF "$S_API_URL" dist/; then
+            echo "OK: VITE_API_URL đã nằm trong bundle."
+          else
+            echo "::error::Không tìm thấy VITE_API_URL trong dist/. Build không nhận được biến môi trường -> deploy lên sẽ ra trang trắng."
+            exit 1
+          fi
+          ls -la dist/
+
+      # staticwebapp.config.json phải nằm trong thư mục được upload, nếu không
+      # SPA sẽ 404 khi user F5 ở route con (ví dụ /dashboard).
+      - name: Copy staticwebapp.config.json vào dist
+        run: cp staticwebapp.config.json dist/staticwebapp.config.json
+
+      - name: Deploy lên Azure Static Web Apps
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GRAY_ISLAND_018B47D00 }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "/" # App source code path
-          api_location: "" # Api source code path - optional
-          output_location: "dist" # Built app content directory - optional
-          github_id_token: ${{ steps.idtoken.outputs.result }}
-          ###### End of Repository/Build Configurations ######
-        env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
-          VITE_GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
+          app_location: "dist"      # đã build sẵn
+          api_location: ""
+          output_location: ""       # để rỗng khi skip_app_build
+          skip_app_build: true
+          skip_api_build: true
+
       - name: Health check
         if: github.event_name == 'push'
         run: |
           FE_URL="${{ secrets.FE_HEALTH_URL }}"
           if [ -z "$FE_URL" ]; then
-            echo "FE_HEALTH_URL secret not set, skipping health check"
+            echo "Chưa đặt secret FE_HEALTH_URL, bỏ qua health check."
             exit 0
           fi
-          for i in {1..6}; do
-            if curl -sf "$FE_URL"; then
-              echo "Frontend health check passed"
+          for i in $(seq 1 6); do
+            if curl -sf "$FE_URL" > /dev/null; then
+              echo "Frontend sống."
               exit 0
             fi
-            echo "Waiting for frontend... ($i/6)"
+            echo "Chờ frontend... ($i/6)"
             sleep 10
           done
-          echo "Frontend health check failed"
+          echo "::error::Frontend health check thất bại."
           exit 1
+
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
@@ -77,5 +148,3 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GRAY_ISLAND_018B47D00 }}
           action: "close"
-
-
