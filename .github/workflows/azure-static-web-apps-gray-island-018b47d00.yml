@@ -31,6 +31,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Azure Static Web App này được liên kết qua GitHub integration, nên
+      # content server đòi thêm một GitHub OIDC id-token đi kèm deployment
+      # token — thiếu bước này thì deploy bị từ chối "BadRequest: No matching
+      # Static Web App was found or the api key was invalid" dù token đúng.
+      - name: Install OIDC Client from Core Package
+        run: npm install @actions/core@1.6.0 @actions/http-client
+      - name: Get Id Token
+        uses: actions/github-script@v6
+        id: idtoken
+        with:
+          script: |
+            const coredemo = require('@actions/core')
+            return await coredemo.getIDToken()
+          result-encoding: string
+
       # -----------------------------------------------------------------------
       # Chặn sớm: thiếu secret -> fail ngay với thông báo rõ, thay vì deploy ra
       # một trang trắng. Đây chính là lỗi "trắng trang" hay gặp: VITE_API_URL
@@ -111,6 +126,7 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GRAY_ISLAND_018B47D00 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
+          github_id_token: ${{ steps.idtoken.outputs.result }}
           action: "upload"
           app_location: "dist"      # đã build sẵn
           api_location: ""
