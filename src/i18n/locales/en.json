@@ -47,7 +47,92 @@
     "send": "Send",
     "endSession": "End session",
     "emptyState": "Feel free to start — share whatever's on your mind right now. I'm here to listen.",
-    "sendError": "Couldn't send your message right now. Please try again."
+    "sendError": "Couldn't send your message right now. Please try again.",
+    "summarize": "Summarize",
+    "summarizing": "Summarizing...",
+    "summarizeError": "Couldn't summarize right now. Please try again.",
+    "summarizeNudge": "💡 Want to save this? Pick a format on the right.",
+    "historyLink": "Chat history",
+    "history": {
+      "title": "Chat history",
+      "empty": "No sessions yet.",
+      "noSummary": "No summary for this session yet.",
+      "statusActive": "In progress",
+      "statusEnded": "Ended",
+      "statusExtracting": "Processing",
+      "back": "Back",
+      "backToChat": "New chat",
+      "sessionTitle": "Session details",
+      "summaryLabel": "Summary",
+      "loadError": "Couldn't load this session."
+    }
+  },
+  "insightCatcher": {
+    "title": "Capture an insight",
+    "subtitle": "Pick a framework to save what you just realized.",
+    "freeformLabel": "Free-form log",
+    "freeformDesc": "Write down a thought your own way — no template needed.",
+    "johariWindowLabel": "Johari Window",
+    "johariWindowDesc": "Separate what you already know from what others see but you don't.",
+    "actMatrix": "ACT Matrix",
+    "actMatrixDesc": "Spot what you're avoiding and the actions that actually match your values.",
+    "personalSwot": "Personal SWOT",
+    "personalSwotDesc": "See your strengths, weaknesses, opportunities, and threats clearly.",
+    "lifePositions": "Life Positions",
+    "lifePositionsDesc": "Assess where you stand in one specific relationship (the OK Corral model).",
+    "titlePlaceholder": "Title (optional)",
+    "save": "Save",
+    "saveChanges": "Save changes",
+    "saving": "Saving...",
+    "saveError": "Couldn't save right now. Please try again.",
+    "updateSuccess": "Updated.",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "freeform": {
+      "contentPlaceholder": "What did you just realize?",
+      "tagsPlaceholder": "Tags, comma-separated (optional)",
+      "contentRequired": "Please enter some content."
+    },
+    "johari": {
+      "open": "Open — Both you and others know",
+      "blind": "Blind spot — Others know, you don't",
+      "hidden": "Hidden — You know, others don't",
+      "unknown": "Unknown — Neither of you knows yet",
+      "atLeastOneRequired": "Please fill in at least one box."
+    },
+    "relationshipTitle": "Relationship Map (PRM)",
+    "relationshipSubtitle": "Capture an insight about a specific relationship, or update that person on the map.",
+    "prm": "Add / update in PRM",
+    "prmDesc": "Add or update a person in your Relationship Map (PRM).",
+    "actMatrixForm": {
+      "atLeastOneRequired": "Please fill in at least one box.",
+      "fiveSenses": "5 senses — Who/what was around you then?",
+      "values": "What matters to me",
+      "awayMoves": "Avoidance behavior",
+      "towardMoves": "Values-based action"
+    },
+    "swotForm": {
+      "atLeastOneRequired": "Please fill in at least one box.",
+      "strengths": "Strengths",
+      "weaknesses": "Weaknesses",
+      "opportunities": "Opportunities",
+      "threats": "Threats"
+    },
+    "lifePositionsForm": {
+      "personRequired": "Please select who this is about.",
+      "person": "About whom?",
+      "personPlaceholder": "Choose a person from your relationship map",
+      "noPeople": "No one on the map yet — add a person first via 'Add / update in PRM'.",
+      "position": "Position",
+      "notesPlaceholder": "Notes (optional)",
+      "about": "About {{name}}",
+      "positions": {
+        "I_OK_YOU_OK": "I'm OK — You're OK",
+        "I_OK_YOU_NOT_OK": "I'm OK — You're not OK",
+        "I_NOT_OK_YOU_OK": "I'm not OK — You're OK",
+        "I_NOT_OK_YOU_NOT_OK": "I'm not OK — You're not OK"
+      }
+    }
   },
   "homePreview": {
     "pillars": {
@@ -321,7 +406,9 @@
       "cancel": "Cancel",
       "nameRequired": "Enter a name first.",
       "saveError": "Something went wrong, please try again.",
-      "notesPlaceholder": "Notes (optional)"
+      "notesPlaceholder": "Notes (optional)",
+      "relatedInsights": "Related insights",
+      "relatedTo": "Related to {{name}}"
     }
   },
   "profilePage": {
@@ -468,7 +555,12 @@
     "updateSuccess": "Your reflection has been updated.",
     "updateError": "Failed to update reflection.",
     "deleteSuccess": "Reflection deleted.",
-    "deleteError": "Failed to delete reflection."
+    "deleteError": "Failed to delete reflection.",
+    "tabEntries": "Journal",
+    "tabInsights": "Saved insights",
+    "insightsEmpty": "No saved insights yet.",
+    "insightsEmptyHint": "Chat with Aura and save an insight to see it here.",
+    "goChatWithAura": "Chat with Aura"
   },
   "actionProtocol": {
     "list": {

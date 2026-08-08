@@ -15,5 +15,7 @@ export const APP_ROUTES = {
     // Coach / Relationship Map pivot
     ONBOARDING: '/onboarding',
     COACH_CHAT: '/coach',
+    COACH_HISTORY: '/coach/history',
+    COACH_HISTORY_DETAIL: '/coach/history/:id',
     DASHBOARD: '/dashboard',
 };

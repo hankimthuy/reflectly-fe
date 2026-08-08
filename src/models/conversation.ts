@@ -15,4 +15,7 @@ export interface Conversation {
   startedAt: string;
   endedAt?: string;
   messages: ConversationMessage[];
+
+  /** AI-generated markdown recap, present once the user has requested a summary at least once. */
+  summary?: string;
 }

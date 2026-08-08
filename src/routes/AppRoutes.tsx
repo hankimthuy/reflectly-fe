@@ -13,6 +13,8 @@ const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
 const MimoLandingPage = lazy(() => import('../pages/MimoLandingPage/MimoLandingPage'));
 const SignupPage = lazy(() => import('../pages/SignupPage/SignupPage'));
 const CoachChatPage = lazy(() => import('../pages/CoachChatPage/CoachChatPage'));
+const CoachHistoryListPage = lazy(() => import('../pages/CoachHistoryPage/CoachHistoryListPage'));
+const CoachHistoryDetailPage = lazy(() => import('../pages/CoachHistoryPage/CoachHistoryDetailPage'));
 const DashboardPage = lazy(() => import('../pages/DashboardPage/DashboardPage'));
 const OnboardingPage = lazy(() => import('../pages/OnboardingPage/OnboardingPage'));
 
@@ -31,6 +33,16 @@ export const AppRoutes = () => {
                 <Route path={APP_ROUTES.COACH_CHAT} element={
                     <ProtectedRoute>
                         <CoachChatPage />
+                    </ProtectedRoute>
+                } />
+                <Route path={APP_ROUTES.COACH_HISTORY} element={
+                    <ProtectedRoute>
+                        <CoachHistoryListPage />
+                    </ProtectedRoute>
+                } />
+                <Route path={APP_ROUTES.COACH_HISTORY_DETAIL} element={
+                    <ProtectedRoute>
+                        <CoachHistoryDetailPage />
                     </ProtectedRoute>
                 } />
                 <Route path={APP_ROUTES.DASHBOARD} element={

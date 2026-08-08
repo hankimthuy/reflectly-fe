@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Person } from '../../models/person';
 import { useUpdatePersonMutation } from '../../queries/peopleQueryHook';
+import { usePersonInsightsQuery } from '../../queries/insightsQueryHook';
 import PersonForm from '../PersonForm/PersonForm';
 
 interface RelationshipMapProps {
@@ -55,6 +56,7 @@ const RelationshipMap = ({ people, emptyLabel }: RelationshipMapProps) => {
   }, [people]);
 
   const selected = people.find((p) => p.id === selectedId) ?? null;
+  const { data: personInsights } = usePersonInsightsQuery(selected?.id ?? null);
 
   if (people.length === 0) {
     return (
@@ -156,6 +158,21 @@ const RelationshipMap = ({ people, emptyLabel }: RelationshipMapProps) => {
             <p className="mt-1 text-coach-text-muted">
               {t('dashboard.noNudge')}
             </p>
+          )}
+
+          {personInsights && personInsights.content.length > 0 && (
+            <div className="mt-3 border-t border-coach-border pt-2">
+              <p className="text-xs font-semibold tracking-wide text-coach-text-muted uppercase">
+                {t('dashboard.person.relatedInsights')}
+              </p>
+              <ul className="mt-1 flex flex-col gap-1">
+                {personInsights.content.map((insight) => (
+                  <li key={insight.id} className="text-xs text-coach-text-muted">
+                    {insight.insightText}
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </div>
       )}
