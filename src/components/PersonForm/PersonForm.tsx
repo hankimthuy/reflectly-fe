@@ -42,26 +42,27 @@ const PersonForm = ({ initialValue, onSubmit, onCancel, submitLabel }: PersonFor
 
   return (
     <div className="flex flex-col gap-2 rounded-xl border border-coach-border bg-coach-bg p-3">
-      <div className="flex items-center gap-2">
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder={t('onboarding.namePlaceholder')}
-          className="flex-1 rounded-lg border border-coach-border bg-coach-surface px-3 py-2 text-sm text-coach-text outline-none focus:border-coach-primary"
-        />
-        <select
-          value={relationshipType}
-          onChange={(e) => setRelationshipType(e.target.value as RelationshipType)}
-          className="rounded-lg border border-coach-border bg-coach-surface px-2 py-2 text-sm text-coach-text outline-none focus:border-coach-primary"
-        >
-          {RELATIONSHIP_TYPES.map((type) => (
-            <option key={type} value={type}>
-              {t(`onboarding.relationshipType.${type}`)}
-            </option>
-          ))}
-        </select>
-      </div>
+      {/* Stacked, not side-by-side: a fixed-width select next to a flex-1 input overflows in
+          narrow containers (e.g. the 320px Insight Catcher panel) since neither shrinks below
+          its content's intrinsic width by default. */}
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder={t('onboarding.namePlaceholder')}
+        className="w-full min-w-0 rounded-lg border border-coach-border bg-coach-surface px-3 py-2 text-sm text-coach-text outline-none focus:border-coach-primary"
+      />
+      <select
+        value={relationshipType}
+        onChange={(e) => setRelationshipType(e.target.value as RelationshipType)}
+        className="w-full min-w-0 rounded-lg border border-coach-border bg-coach-surface px-2 py-2 text-sm text-coach-text outline-none focus:border-coach-primary"
+      >
+        {RELATIONSHIP_TYPES.map((type) => (
+          <option key={type} value={type}>
+            {t(`onboarding.relationshipType.${type}`)}
+          </option>
+        ))}
+      </select>
       <textarea
         value={notes}
         onChange={(e) => setNotes(e.target.value)}

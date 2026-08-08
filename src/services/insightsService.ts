@@ -8,4 +8,11 @@ export const insightsService = {
     const { data } = await axiosInstance.get<PaginatedResponse<Insight>>(requestUrl);
     return data;
   },
+
+  async getInsightsForPerson(personId: string): Promise<PaginatedResponse<Insight>> {
+    const { data } = await axiosInstance.get<PaginatedResponse<Insight>>('/insights', {
+      params: { personId, page: 0, size: 20 },
+    });
+    return data;
+  },
 };

@@ -1,17 +1,21 @@
 import { CircularProgress } from '@mui/material';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { LuPenLine, LuSearch } from 'react-icons/lu';
 import { useAuth } from '../../../providers/AuthProvider';
 import { useSnackbar } from '../../../providers/SnackbarProvider';
 import { useEntriesInfiniteQuery } from '../../../queries/entriesQueryHook';
+import { useSavedFrameworkEntriesInfiniteQuery } from '../../../queries/savedFrameworkEntriesQueryHook';
 import type { Entry } from '../../../models/entry';
 import EntryCard from '../components/EntryCard/EntryCard';
+import SavedFrameworkEntryCard from '../components/SavedFrameworkEntryCard/SavedFrameworkEntryCard';
 import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
 import { Button } from '../../../components/Button/Button';
 import { APP_ROUTES } from '../../../constants/route';
 import './EntriesListPage.scss';
+
+type EntriesTab = 'entries' | 'insights';
 
 type TimeFilter = 'all' | 'today' | 'week' | 'month' | 'year';
 
@@ -58,9 +62,12 @@ const EntriesListPage: React.FC = () => {
   const { showSnackbar } = useSnackbar();
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const highlightId = searchParams.get('highlight');
 
   const [activeFilter, setActiveFilter] = useState<TimeFilter>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState<EntriesTab>(highlightId ? 'insights' : 'entries');
 
   const {
     data,
@@ -71,6 +78,14 @@ const EntriesListPage: React.FC = () => {
     isFetchingNextPage
   } = useEntriesInfiniteQuery();
 
+  const {
+    data: savedEntriesData,
+    isLoading: isSavedEntriesLoading,
+    fetchNextPage: fetchNextSavedEntriesPage,
+    hasNextPage: hasNextSavedEntriesPage,
+    isFetchingNextPage: isFetchingNextSavedEntriesPage,
+  } = useSavedFrameworkEntriesInfiniteQuery();
+
   useEffect(() => {
     if (isError) {
       showSnackbar('Failed to load entries', 'error');
@@ -80,6 +95,16 @@ const EntriesListPage: React.FC = () => {
   const entries = useMemo(() => {
     return data?.pages.flatMap(page => page.content) || [];
   }, [data]);
+
+  const savedEntries = useMemo(() => {
+    return savedEntriesData?.pages.flatMap(page => page.content) || [];
+  }, [savedEntriesData]);
+
+  useEffect(() => {
+    if (!highlightId || activeTab !== 'insights') return;
+    const el = document.getElementById(`saved-entry-${highlightId}`);
+    el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, [highlightId, activeTab, savedEntries]);
 
   const total = data?.pages[0]?.total || 0;
 
@@ -122,8 +147,26 @@ const EntriesListPage: React.FC = () => {
       {/* Content */}
       <div className="entries-page__content">
 
+        {/* Tabs: manual journal entries vs saved framework entries captured from Aura chats */}
+        {currentUser && (
+          <div className="entries-page__filters">
+            <button
+              className={`entries-page__filter-pill ${activeTab === 'entries' ? 'entries-page__filter-pill--active' : ''}`}
+              onClick={() => setActiveTab('entries')}
+            >
+              {t('entriesPage.tabEntries')}
+            </button>
+            <button
+              className={`entries-page__filter-pill ${activeTab === 'insights' ? 'entries-page__filter-pill--active' : ''}`}
+              onClick={() => setActiveTab('insights')}
+            >
+              {t('entriesPage.tabInsights')}
+            </button>
+          </div>
+        )}
+
         {/* Filter toolbar + search */}
-        {currentUser && entries.length > 0 && (
+        {activeTab === 'entries' && currentUser && entries.length > 0 && (
           <div className="entries-page__toolbar">
             <div className="entries-page__filters">
               {FILTER_KEYS.map((key) => (
@@ -150,7 +193,7 @@ const EntriesListPage: React.FC = () => {
         )}
 
         {/* Not logged in */}
-        {!currentUser && !isLoading && (
+        {activeTab === 'entries' && !currentUser && !isLoading && (
           <div className="entries-page__empty">
             <p className="entries-page__empty-title">{t('entriesPage.loginRequired')}</p>
             <p className="entries-page__empty-hint">{t('entriesPage.loginRequiredHint')}</p>
@@ -158,7 +201,7 @@ const EntriesListPage: React.FC = () => {
         )}
 
         {/* Logged in but no entries at all */}
-        {currentUser && !isLoading && entries.length === 0 && (
+        {activeTab === 'entries' && currentUser && !isLoading && entries.length === 0 && (
           <div className="entries-page__empty">
             <p className="entries-page__empty-title">{t('entriesPage.emptyState')}</p>
             <p className="entries-page__empty-hint">{t('entriesPage.emptyStateHint')}</p>
@@ -176,14 +219,14 @@ const EntriesListPage: React.FC = () => {
         )}
 
         {/* No results after filter/search */}
-        {currentUser && !isLoading && entries.length > 0 && filteredEntries.length === 0 && (
+        {activeTab === 'entries' && currentUser && !isLoading && entries.length > 0 && filteredEntries.length === 0 && (
           <div className="entries-page__empty">
             <p className="entries-page__empty-hint">{t('entriesPage.noResults')}</p>
           </div>
         )}
 
         {/* Calendar grid */}
-        {filteredEntries.length > 0 && (
+        {activeTab === 'entries' && filteredEntries.length > 0 && (
           <div className="entries-page__grid">
             {filteredEntries.map((entry) => (
               <EntryCard key={entry.id} entry={entry} />
@@ -192,6 +235,7 @@ const EntriesListPage: React.FC = () => {
         )}
 
         {/* Load more */}
+        {activeTab === 'entries' && (
         <div className="entries-page__load-more">
           {(isFetchingNextPage || isLoading) && (<CircularProgress size={24} sx={{ mb: 1 }} />)}
 
@@ -213,6 +257,54 @@ const EntriesListPage: React.FC = () => {
             </span>
           )}
         </div>
+        )}
+
+        {/* Insights tab: framework entries captured from Aura chats (Free-form, Johari Window, ...) */}
+        {activeTab === 'insights' && (
+          <>
+            {!isSavedEntriesLoading && savedEntries.length === 0 && (
+              <div className="entries-page__empty">
+                <p className="entries-page__empty-title">{t('entriesPage.insightsEmpty')}</p>
+                <p className="entries-page__empty-hint">{t('entriesPage.insightsEmptyHint')}</p>
+                <Button
+                  variant="primary"
+                  size="md"
+                  shape="pill"
+                  className="mt-4"
+                  onClick={() => navigate(APP_ROUTES.COACH_CHAT)}
+                >
+                  <span>{t('entriesPage.goChatWithAura')}</span>
+                </Button>
+              </div>
+            )}
+
+            {savedEntries.length > 0 && (
+              <div className="entries-page__grid">
+                {savedEntries.map((entry) => (
+                  <SavedFrameworkEntryCard key={entry.id} entry={entry} highlighted={entry.id === highlightId} />
+                ))}
+              </div>
+            )}
+
+            <div className="entries-page__load-more">
+              {(isFetchingNextSavedEntriesPage || isSavedEntriesLoading) && (
+                <CircularProgress size={24} sx={{ mb: 1 }} />
+              )}
+
+              {!isSavedEntriesLoading && hasNextSavedEntriesPage && (
+                <Button
+                  variant="secondary"
+                  size="md"
+                  shape="pill"
+                  onClick={() => fetchNextSavedEntriesPage()}
+                  className="!border-white/20 !bg-transparent !text-coach-bg hover:!bg-white/10"
+                >
+                  {t('entriesPage.loadMore')}
+                </Button>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

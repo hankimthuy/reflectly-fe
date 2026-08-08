@@ -47,7 +47,92 @@
     "send": "Gửi",
     "endSession": "Kết thúc phiên",
     "emptyState": "Bạn cứ thoải mái bắt đầu — chia sẻ điều đang ở trong đầu bạn lúc này, mình ở đây để lắng nghe.",
-    "sendError": "Không thể gửi tin nhắn lúc này. Vui lòng thử lại."
+    "sendError": "Không thể gửi tin nhắn lúc này. Vui lòng thử lại.",
+    "summarize": "Tóm tắt",
+    "summarizing": "Đang tóm tắt...",
+    "summarizeError": "Không thể tóm tắt lúc này. Vui lòng thử lại.",
+    "summarizeNudge": "💡 Muốn lưu lại? Chọn một định dạng ở bảng bên phải.",
+    "historyLink": "Lịch sử trò chuyện",
+    "history": {
+      "title": "Lịch sử trò chuyện",
+      "empty": "Chưa có phiên trò chuyện nào.",
+      "noSummary": "Chưa có tóm tắt cho phiên này.",
+      "statusActive": "Đang diễn ra",
+      "statusEnded": "Đã kết thúc",
+      "statusExtracting": "Đang xử lý",
+      "back": "Quay lại",
+      "backToChat": "Trò chuyện mới",
+      "sessionTitle": "Chi tiết phiên",
+      "summaryLabel": "Tóm tắt",
+      "loadError": "Không thể tải phiên trò chuyện này."
+    }
+  },
+  "insightCatcher": {
+    "title": "Ghi lại insight",
+    "subtitle": "Chọn một khung tư duy để lưu lại điều bạn vừa nhận ra.",
+    "freeformLabel": "Log tự do",
+    "freeformDesc": "Ghi lại một suy nghĩ theo cách của riêng bạn — không cần khuôn mẫu.",
+    "johariWindowLabel": "Cửa sổ Johari",
+    "johariWindowDesc": "Phân biệt điều bạn đã biết, điều người khác thấy mà bạn chưa nhận ra.",
+    "actMatrix": "ACT Matrix",
+    "actMatrixDesc": "Nhận diện điều bạn đang né tránh và hành động thực sự phù hợp với giá trị của bạn.",
+    "personalSwot": "SWOT Cá Nhân",
+    "personalSwotDesc": "Nhìn rõ điểm mạnh, điểm yếu, cơ hội và thách thức của bản thân.",
+    "lifePositions": "Life Positions",
+    "lifePositionsDesc": "Đánh giá vị thế của bạn trong một mối quan hệ cụ thể (mô hình OK Corral).",
+    "titlePlaceholder": "Tiêu đề (không bắt buộc)",
+    "save": "Lưu",
+    "saveChanges": "Lưu thay đổi",
+    "saving": "Đang lưu...",
+    "saveError": "Không thể lưu lúc này. Vui lòng thử lại.",
+    "updateSuccess": "Đã cập nhật.",
+    "cancel": "Huỷ",
+    "edit": "Sửa",
+    "freeform": {
+      "contentPlaceholder": "Bạn vừa nhận ra điều gì?",
+      "tagsPlaceholder": "Thẻ, cách nhau bởi dấu phẩy (không bắt buộc)",
+      "contentRequired": "Vui lòng nhập nội dung."
+    },
+    "johari": {
+      "open": "Open — Bản thân & người khác đều biết",
+      "blind": "Blind spot — Người khác biết, bản thân không biết",
+      "hidden": "Hidden — Bản thân biết, người khác không biết",
+      "unknown": "Unknown — Cả hai đều chưa biết",
+      "atLeastOneRequired": "Vui lòng điền ít nhất một ô."
+    },
+    "relationshipTitle": "Bản đồ mối quan hệ (PRM)",
+    "relationshipSubtitle": "Ghi lại insight về một mối quan hệ cụ thể, hoặc cập nhật người đó vào bản đồ.",
+    "prm": "Thêm / cập nhật vào PRM",
+    "prmDesc": "Thêm hoặc cập nhật một người vào Bản đồ mối quan hệ (PRM) của bạn.",
+    "actMatrixForm": {
+      "atLeastOneRequired": "Vui lòng điền ít nhất một ô.",
+      "fiveSenses": "5 giác quan — Ai/điều gì xung quanh bạn lúc đó?",
+      "values": "Điều quan trọng với tôi",
+      "awayMoves": "Hành vi né tránh",
+      "towardMoves": "Hành động hướng tới giá trị"
+    },
+    "swotForm": {
+      "atLeastOneRequired": "Vui lòng điền ít nhất một ô.",
+      "strengths": "Điểm mạnh",
+      "weaknesses": "Điểm yếu",
+      "opportunities": "Cơ hội",
+      "threats": "Thách thức"
+    },
+    "lifePositionsForm": {
+      "personRequired": "Vui lòng chọn người liên quan.",
+      "person": "Về ai?",
+      "personPlaceholder": "Chọn một người trong bản đồ mối quan hệ",
+      "noPeople": "Chưa có ai trong bản đồ — hãy thêm người trước qua nút 'Thêm / cập nhật vào PRM'.",
+      "position": "Vị thế",
+      "notesPlaceholder": "Ghi chú (tuỳ chọn)",
+      "about": "Về {{name}}",
+      "positions": {
+        "I_OK_YOU_OK": "Tôi ổn — Bạn cũng ổn",
+        "I_OK_YOU_NOT_OK": "Tôi ổn — Bạn không ổn",
+        "I_NOT_OK_YOU_OK": "Tôi không ổn — Bạn ổn",
+        "I_NOT_OK_YOU_NOT_OK": "Tôi không ổn — Bạn cũng không ổn"
+      }
+    }
   },
   "homePreview": {
     "pillars": {
@@ -321,7 +406,9 @@
       "cancel": "Hủy",
       "nameRequired": "Nhập tên trước đã.",
       "saveError": "Có lỗi xảy ra, vui lòng thử lại.",
-      "notesPlaceholder": "Ghi chú (tuỳ chọn)"
+      "notesPlaceholder": "Ghi chú (tuỳ chọn)",
+      "relatedInsights": "Insight liên quan",
+      "relatedTo": "Liên quan đến {{name}}"
     }
   },
   "profilePage": {
@@ -468,7 +555,12 @@
     "updateSuccess": "Đúc kết đã được cập nhật.",
     "updateError": "Không thể cập nhật đúc kết.",
     "deleteSuccess": "Đã xóa đúc kết.",
-    "deleteError": "Không thể xóa đúc kết."
+    "deleteError": "Không thể xóa đúc kết.",
+    "tabEntries": "Nhật ký",
+    "tabInsights": "Insight đã lưu",
+    "insightsEmpty": "Chưa có insight nào được lưu.",
+    "insightsEmptyHint": "Trò chuyện với Aura và lưu lại insight để xem tại đây.",
+    "goChatWithAura": "Trò chuyện với Aura"
   },
   "actionProtocol": {
     "list": {

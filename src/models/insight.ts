@@ -5,4 +5,7 @@ export interface Insight {
   insightText: string;
   category: InsightCategory;
   createdAt: string;
+  /** Which person (relationship map) this insight is about, if the extraction could tell. */
+  personId?: string;
+  personName?: string;
 }

@@ -28,6 +28,11 @@ const InsightCard = ({ insight }: InsightCardProps) => {
         <span className="text-xs text-coach-text-muted">{dateLabel}</span>
       </div>
       <p className="text-sm text-coach-text">{insight.insightText}</p>
+      {insight.personName && (
+        <p className="mt-1.5 text-xs text-coach-primary">
+          {t('dashboard.person.relatedTo', { name: insight.personName })}
+        </p>
+      )}
     </div>
   );
 };
