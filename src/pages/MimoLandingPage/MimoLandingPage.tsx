@@ -12,6 +12,14 @@ const MimoLandingPage = () => {
       <HomeValueSections />
       <footer className="footer">
         <span>{t('brand.footer')}</span>
+        <a
+          className="footer__contact-link"
+          href="https://hankimthuy.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {t('brand.contactLink')}
+        </a>
       </footer>
     </div>
   );

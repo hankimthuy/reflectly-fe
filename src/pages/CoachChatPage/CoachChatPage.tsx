@@ -27,6 +27,7 @@ const CoachChatPage = () => {
   const [isStarting, setIsStarting] = useState(true);
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
   const [latestSummary, setLatestSummary] = useState<string | null>(null);
+  const [startError, setStartError] = useState<string | null>(null);
   const hasStartedRef = useRef(false);
   const lastHandledReplyIdRef = useRef<string | null>(null);
 
@@ -62,12 +63,23 @@ const CoachChatPage = () => {
         localStorage.removeItem(ACTIVE_CONVERSATION_KEY);
       }
 
-      const conversation = await conversationsService.startConversation();
-      localStorage.setItem(ACTIVE_CONVERSATION_KEY, conversation.id);
-      setConversationId(conversation.id);
+      try {
+        const conversation = await conversationsService.startConversation();
+        localStorage.setItem(ACTIVE_CONVERSATION_KEY, conversation.id);
+        setConversationId(conversation.id);
+      } catch (error) {
+        const status = (error as { response?: { status?: number } })?.response?.status;
+        const serverMessage = (error as { response?: { data?: { message?: string } } })?.response?.data?.message;
+        setStartError(
+          status === 429
+            ? serverMessage || t('coach.quotaExceeded')
+            : t('coach.startError'),
+        );
+      }
     };
 
     resume().finally(() => setIsStarting(false));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -191,21 +203,32 @@ const CoachChatPage = () => {
           )}
         </div>
 
-        {messages.length === 0 && !isStarting && (
-          <div className="flex flex-1 items-center justify-center px-8 text-center text-sm text-coach-text-muted">
-            {t('coach.emptyState')}
+        {startError ? (
+          <div className="flex flex-1 flex-col items-center justify-center gap-3 px-8 text-center">
+            <p className="text-sm text-coach-text">{startError}</p>
+            <Button variant="secondary" size="sm" onClick={() => navigate(APP_ROUTES.DASHBOARD)}>
+              {t('coach.backToDashboard')}
+            </Button>
           </div>
+        ) : (
+          <>
+            {messages.length === 0 && !isStarting && (
+              <div className="flex flex-1 items-center justify-center px-8 text-center text-sm text-coach-text-muted">
+                {t('coach.emptyState')}
+              </div>
+            )}
+
+            {sendMessage.isError && (
+              <p className="px-4 pb-1 text-center text-xs text-red-500">
+                {t('coach.sendError')}
+              </p>
+            )}
+
+            <MessageList messages={messages} isThinking={sendMessage.isPending || isStarting} />
+
+            <MessageInput onSend={handleSend} disabled={!conversationId || sendMessage.isPending} />
+          </>
         )}
-
-        {sendMessage.isError && (
-          <p className="px-4 pb-1 text-center text-xs text-red-500">
-            {t('coach.sendError')}
-          </p>
-        )}
-
-        <MessageList messages={messages} isThinking={sendMessage.isPending || isStarting} />
-
-        <MessageInput onSend={handleSend} disabled={!conversationId || sendMessage.isPending} />
       </div>
 
       <div className="w-full shrink-0 border-t border-coach-border bg-coach-surface lg:h-auto lg:w-80 lg:overflow-y-auto lg:rounded-2xl lg:border lg:border-t lg:border-coach-border">
