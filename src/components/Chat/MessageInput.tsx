@@ -2,6 +2,9 @@ import { useRef, useState, type KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '../Button/Button';
 
+/** Mirrors the backend's SendMessageRequestDto @Size(max = 4000) cap. */
+const MAX_MESSAGE_LENGTH = 4000;
+
 interface MessageInputProps {
   onSend: (content: string) => void;
   disabled?: boolean;
@@ -46,6 +49,7 @@ const MessageInput = ({ onSend, disabled }: MessageInputProps) => {
         onKeyDown={handleKeyDown}
         disabled={disabled}
         rows={1}
+        maxLength={MAX_MESSAGE_LENGTH}
         placeholder={t('coach.inputPlaceholder') as string}
         className="max-h-32 flex-1 resize-none overflow-y-auto rounded-xl border border-coach-border bg-coach-bg px-3 py-2 text-sm text-coach-text outline-none focus:border-coach-primary disabled:opacity-50"
       />

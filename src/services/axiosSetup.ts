@@ -14,6 +14,19 @@ const axiosInstance = axios.create({
 let isRedirecting = false;
 const REDIRECT_DEBOUNCE_MS = 2000;
 
+/** Dispatched app-wide on 429 (quota/rate-limit) so any mounted listener (see SnackbarProvider)
+ * can surface it without axiosSetup needing to depend on React. */
+export const RATE_LIMITED_EVENT = 'api:rate-limited';
+
+const DEFAULT_RATE_LIMIT_MESSAGE = 'Bạn đang thao tác quá nhanh hoặc đã dùng hết lượt cho phép. Vui lòng thử lại sau.';
+
+const handleRateLimitedError = (error: unknown): void => {
+    const message =
+        (error as { response?: { data?: { message?: string } } })?.response?.data?.message ||
+        DEFAULT_RATE_LIMIT_MESSAGE;
+    window.dispatchEvent(new CustomEvent(RATE_LIMITED_EVENT, { detail: { message } }));
+};
+
 const handleUnauthorizedError = (): void => {
     if (isRedirecting) {
         return;
@@ -52,6 +65,10 @@ axiosInstance.interceptors.response.use(
     (error) => {
         if (error.response?.status === 401) {
             handleUnauthorizedError();
+        }
+
+        if (error.response?.status === 429) {
+            handleRateLimitedError(error);
         }
 
         return Promise.reject(error);

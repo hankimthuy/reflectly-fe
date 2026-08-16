@@ -48,6 +48,9 @@
     "endSession": "Kết thúc phiên",
     "emptyState": "Bạn cứ thoải mái bắt đầu — chia sẻ điều đang ở trong đầu bạn lúc này, mình ở đây để lắng nghe.",
     "sendError": "Không thể gửi tin nhắn lúc này. Vui lòng thử lại.",
+    "startError": "Không thể bắt đầu phiên trò chuyện lúc này. Vui lòng thử lại sau.",
+    "quotaExceeded": "Bạn đã dùng hết lượt trò chuyện thử nghiệm với Aura trong giai đoạn này. Cảm ơn bạn đã quan tâm — hãy quay lại sau nhé!",
+    "backToDashboard": "Quay lại Dashboard",
     "summarize": "Tóm tắt",
     "summarizing": "Đang tóm tắt...",
     "summarizeError": "Không thể tóm tắt lúc này. Vui lòng thử lại.",
@@ -195,6 +198,7 @@
     "description": "Khám phá bản thân qua từng cuộc hội thoại. Bản đồ insight và các mối quan hệ được cá nhân hóa từ chính những chia sẻ của bạn.",
     "tagline": "Trò chuyện để thấu hiểu chính mình, mỗi ngày.",
     "footer": "© 2026 Aura Self AI. Đồng hành cùng hành trình Thấu hiểu & Lãnh đạo Bản thân.",
+    "contactLink": "Liên hệ tác giả",
     "welcome": "Chào mừng bạn quay lại với Aura Self AI.",
     "ctaLoggedOut": "Bắt đầu trò chuyện với Coach",
     "ctaLoggedIn": "Tiếp tục trò chuyện"
