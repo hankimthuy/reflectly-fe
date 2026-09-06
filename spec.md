@@ -1,0 +1,214 @@
+# Reflectly (Aura Self AI) — Tài liệu Sản phẩm & Nghiệp vụ (Frontend)
+
+> Tài liệu này mô tả **hiện trạng thực tế** của ứng dụng, dựa trên việc đọc trực tiếp source code (không phải mô tả kỳ vọng/kế hoạch). Mục đích: làm nguồn tham chiếu duy nhất, đáng tin cậy để redesign UI/UX cho app dễ dùng hơn. Tài liệu **không** đề cập tới việc nên thiết kế UI như thế nào — chỉ mô tả tính năng, luồng nghiệp vụ, dữ liệu và quy tắc hiện có.
+>
+> Tài liệu song song ở backend: [`reflectly-be/spec.md`](https://github.com/hankimthuy/reflectly-be/blob/main/spec.md) (API, database, business logic server-side, AI Coach engine).
+>
+> Cách duy trì tài liệu này khi có thay đổi mới: xem [`CLAUDE.md`](./CLAUDE.md).
+
+---
+
+## 1. Tổng quan sản phẩm
+
+**Tên hiện tại: "Aura Self AI"** (tên nội bộ trước đây: **"MimoSe" — Make Sense Of ME**, tagline gốc "Leading Self"). Đây là app tự phản chiếu bản thân (self-reflection / self-leadership companion): người dùng ("Self") trò chuyện với một AI companion tên **"Aura"**, các phiên trò chuyện được tóm tắt và trích xuất tự động thành các insight, đồng thời người dùng có thể tự ghi nhật ký (journal) và xây dựng một **Bản đồ Mối quan hệ Cá nhân (Personal Relationship Map — PRM)**.
+
+Ngôn ngữ chính của app là **Tiếng Việt** (mặc định), có hỗ trợ tiếng Anh (chưa đầy đủ, thiếu một số namespace).
+
+### 1.1. Lịch sử phát triển (2 lần pivot)
+
+Sản phẩm đã đổi hướng 2 lần, quan trọng để hiểu vì sao trong code còn tồn tại các phần "chết" (không còn UI dùng tới):
+
+1. **Giai đoạn 1 — "MimoSe" (garden-metaphor journal):** Ẩn dụ khu vườn, chia thành các "zone" — Innerverse (năng lượng, giá trị bản thân), Outerverse (mối quan hệ/orbit xã hội), Bridge (Action Protocol — kịch bản ứng phó tình huống lặp lại). Có tính năng Energy Tracking (chấm điểm năng lượng theo ngữ cảnh) và Action Protocol.
+2. **Giai đoạn 2 — Pivot sang "AI Coach + Relationship Map"** (commit `49e1e3c`, 2026-08-04): Bỏ ẩn dụ khu vườn, giới thiệu tính năng chat AI Coach và Personal Relationship Map, bỏ khung Innerverse/Outerverse.
+3. **Giai đoạn 3 — Rebrand "Aura Self AI"** (commit `00f36ff`, 2026-08-06): Đổi persona "Coach" thành "Aura" (người bạn đồng hành, không phải huấn luyện viên), làm lại design token (`coach-*`), tổng rà soát i18n, chuẩn hoá hệ thống Button.
+4. **Gần nhất:** Thêm tính năng lưu trữ lịch sử chat + "Insight Catcher" (commit `9904031`, 2026-08-08) và cảnh báo giới hạn chống-lạm-dụng (rate limit) hiển thị lên UI (commit `172fbc5`, 2026-08-09).
+
+**Hệ quả cho tài liệu này:** một số model dữ liệu và khoá i18n của giai đoạn 1 (Energy Tracking, Action Protocol, khu vườn) vẫn còn trong code nhưng **không có màn hình nào sử dụng nữa** — xem mục 5 "Tính năng đã chết".
+
+### 1.2. Repo liên quan
+- Frontend (repo này): `hankimthuy/reflectly-fe` — React SPA.
+- Backend: `hankimthuy/reflectly-be` — Spring Boot API + AI Coach engine (Gemini).
+
+---
+
+## 2. Kiến trúc tổng quan (tóm tắt)
+
+- **Loại ứng dụng:** Single Page Application (SPA), không SSR. React 19 + TypeScript, build bằng Vite.
+- **Điều hướng:** react-router-dom, có `ProtectedRoute` chặn truy cập khi chưa đăng nhập hoặc chưa hoàn thành onboarding.
+- **Trạng thái server:** TanStack React Query (cache dữ liệu API), bị xoá cache khi gặp lỗi 401 (hết phiên).
+- **Giao tiếp API:** một axios instance duy nhất, tự động gắn JWT vào header, tự động đăng xuất khi 401, tự động phát sự kiện toàn cục khi bị giới hạn tần suất (429).
+- **Giao diện:** đang trong giai đoạn chuyển đổi giữa 2 hệ thống style song song:
+  - Các trang/khối chức năng mới (Coach, Dashboard, Onboarding) dùng Tailwind CSS với bộ token màu riêng (`coach-*`).
+  - Các trang cũ hơn (Login, Signup, Profile, Entries, trang chủ) dùng SCSS module + biến CSS cũ (`--garden-*`, `--c-*`) — đã được đánh dấu là "deprecated" trong tài liệu thiết kế nội bộ nhưng chưa được thay thế hết.
+- **Đa ngôn ngữ:** i18next, 2 ngôn ngữ VI (mặc định)/EN, một số namespace tiếng Anh chưa dịch đầy đủ.
+- **Đăng nhập:** Google OAuth (luồng auth-code) hoặc tài khoản/mật khẩu; JWT lưu ở `localStorage`.
+- **Triển khai:** nhánh `main` → Azure Static Web Apps (production); nhánh `develop` → AWS EC2 (staging).
+
+---
+
+## 3. Bản đồ màn hình / Route đầy đủ
+
+Đây là bảng route **thực tế theo code** (khác với bảng route cũ trong README — xem mục 9). Layout chung: mọi trang (trừ Login/Signup) đều nằm trong `MainLayout` gồm: header (logo + nav), nội dung trang, thanh tab dưới cùng trên mobile (Coach / Dashboard / Journal / Profile), và nút nổi (FAB) mở nhanh Coach chat (ẩn khi đang ở trang Coach).
+
+| Route | Quyền truy cập | Màn hình | Mô tả nghiệp vụ |
+|---|---|---|---|
+| `/` | Công khai | Trang chủ marketing | Hero giới thiệu sản phẩm + 4 khối giới thiệu minh hoạ (không phải dữ liệu thật): xem trước Chat với Aura, xem trước Bản đồ Mối quan hệ, xem trước Johari Window, xem trước Dòng thời gian Insight. Dành cho khách chưa đăng nhập. |
+| `/login` | Công khai | Đăng nhập | Đăng nhập bằng Google (auth-code flow) hoặc bằng tài khoản/mật khẩu. Sau khi đăng nhập thành công, chuyển hướng về trang trước đó hoặc `/home`. |
+| `/signup` | Công khai | Đăng ký | Tạo tài khoản mới bằng thông tin (họ tên, tên đăng nhập, mật khẩu). |
+| `/home` | Đã đăng nhập | Trang chủ (bản đã đăng nhập) | Cùng component với `/`, hiển thị cho người dùng đã đăng nhập. |
+| `/onboarding` | Đã đăng nhập, chỉ hiện khi `onboardingCompleted = false` | Onboarding (2 bước) | **Bước 1:** chọn các giá trị cốt lõi (Core Values) từ danh sách cố định. **Bước 2:** thêm tối đa 5 người trong Bản đồ Mối quan hệ ban đầu. Cả 2 bước đều có thể bỏ qua (skip). Sau khi hoàn thành/skip, gọi 1 API duy nhất lưu toàn bộ và đánh dấu đã onboarding xong. |
+| `/coach` | Đã đăng nhập | Chat với Aura (màn hình lõi) | Trò chuyện thời gian thực với AI companion "Aura". Có thể: gửi/nhận tin nhắn, kết thúc phiên (End session), yêu cầu AI tóm tắt phiên trò chuyện (dạng markdown). Có panel bên "Insight Catcher" cho phép người dùng chủ động lưu lại nội dung từ cuộc trò chuyện thành: ghi chú tự do (Freeform), khung Johari Window, hoặc thêm/cập nhật nhanh một người vào Bản đồ Mối quan hệ. Phiên chat được lưu lại qua `localStorage` để có thể tiếp tục sau khi tải lại trang. Bị giới hạn số lượt nhắn/số phiên theo chống-lạm-dụng (xem mục 4.9). |
+| `/coach/history` | Đã đăng nhập | Lịch sử trò chuyện | Danh sách các phiên chat trước đây (trạng thái, đoạn tóm tắt xem trước), phân trang. |
+| `/coach/history/:id` | Đã đăng nhập | Chi tiết một phiên chat | Xem lại toàn bộ transcript và bản tóm tắt markdown (chỉ đọc) của một phiên đã kết thúc. |
+| `/dashboard` | Đã đăng nhập | Dashboard tổng hợp | 3 khối chính: (1) Thẻ Giá trị cốt lõi (Core Values) — xem/sửa; (2) Bản đồ Mối quan hệ (PRM) — sơ đồ dạng tia (radial graph) quanh nút trung tâm "Bạn", thêm/sửa người; (3) Dòng thời gian Insight — danh sách các insight do AI tự động trích xuất. |
+| `/profile` | Đã đăng nhập | Hồ sơ cá nhân & Cài đặt | Sửa avatar/tên, đổi mật khẩu (chỉ tài khoản đăng ký bằng mật khẩu), thống kê chuỗi ngày liên tục ghi nhật ký (day-streak) và cảm xúc phổ biến nhất (tính từ các entry), biểu đồ phân bố cảm xúc, xem/sửa Core Values, danh sách cài đặt: đổi ngôn ngữ (EN/VI), Thông báo ("sắp ra mắt" — placeholder, **chưa hoạt động**), Xuất dữ liệu ("sắp ra mắt" — placeholder, **chưa hoạt động**), Đăng xuất. |
+| `/entries/new` | Đã đăng nhập | Tạo nhật ký mới | Chọn mẫu gợi ý (template) hoặc viết tự do, gắn nhãn cảm xúc, nhập nội dung phản chiếu (reflection), lưu lại. |
+| `/entries/edit/:id` | Đã đăng nhập | Sửa nhật ký | Sửa một entry đã tạo trước đó (cùng các trường như tạo mới). |
+| `/entries/list` | Đã đăng nhập | Danh sách nhật ký | 2 tab: **"Entries"** (các nhật ký tự viết, có bộ lọc theo khoảng thời gian + tìm kiếm) và **"Insights"** (các "đúc kết" — Saved Framework Entries — nội dung được lưu lại từ các phiên chat với Aura). |
+| bất kỳ đường dẫn nào khác | — | 404 Not Found | Trang báo lỗi không tìm thấy. |
+
+---
+
+## 4. Tính năng theo module (đang hoạt động)
+
+### 4.1. Xác thực (Authentication)
+- Đăng nhập/đăng ký bằng **Google OAuth** (luồng auth-code — trao đổi code phía backend, an toàn hơn luồng chỉ dùng ID token).
+- Đăng nhập/đăng ký bằng **tài khoản/mật khẩu** (họ tên, username, mật khẩu).
+- JWT do backend tự phát hành, lưu trong `localStorage`.
+- Khi gặp lỗi 401 (hết hạn/không hợp lệ): tự động xoá token, xoá cache dữ liệu, chuyển hướng về `/login`.
+
+### 4.2. Onboarding (trải nghiệm lần đầu)
+- Chạy đúng 1 lần cho tài khoản mới, dựa trên cờ `onboardingCompleted` của user.
+- 2 bước: chọn Core Values → thêm tối đa 5 người quen ban đầu. Có thể bỏ qua từng bước.
+- Nếu người dùng chưa hoàn thành onboarding mà cố truy cập trang khác, hệ thống tự chuyển hướng về `/onboarding`.
+
+### 4.3. AI Coach Chat ("Aura")
+- Khung chat 1-1 với AI, có thể bắt đầu phiên mới hoặc tiếp tục phiên đang mở (được nhớ qua `localStorage`).
+- Gửi tin nhắn → nhận phản hồi từ AI (xem chi tiết cơ chế AI ở backend spec).
+- Có thể yêu cầu tóm tắt phiên (dạng văn bản markdown, hiển thị bằng renderer markdown).
+- Kết thúc phiên (End session) — sau khi kết thúc, backend sẽ tự động phân tích và trích xuất thông tin (người được nhắc tới, sự kiện mối quan hệ, insight) — xem mục 4.5, 4.6.
+
+### 4.4. Insight Catcher (bắt ý trong lúc chat)
+- Panel bên cạnh màn hình chat, cho phép người dùng **chủ động** (không phải AI tự động) lưu lại nội dung cuộc trò chuyện dưới dạng có cấu trúc:
+  - **Freeform** — ghi chú tự do (có thể gắn tag).
+  - **Johari Window** — 4 ô: Open/Blind/Hidden/Unknown.
+  - (Model dữ liệu còn hỗ trợ ACT Matrix, Personal SWOT, Life Positions nhưng **hiện tại UI chỉ cho thao tác được với Freeform và Johari Window** — các loại còn lại "để dành cho giai đoạn sau", chưa có form nhập trên giao diện.)
+- Cũng cho phép thêm nhanh/cập nhật một người vào Bản đồ Mối quan hệ ngay từ trong lúc chat.
+
+### 4.5. Bản đồ Mối quan hệ Cá nhân (Personal Relationship Map — PRM)
+- Hiển thị dạng sơ đồ tia (SVG radial graph): nút trung tâm là "Bạn", các nút xung quanh là từng người (Person).
+- Mỗi người có: tên, loại quan hệ (Gia đình/Bạn bè/Người yêu/Đồng nghiệp/Quản lý/Khác), ghi chú, thời điểm được nhắc tới gần nhất, và một **chỉ số sức khoẻ mối quan hệ (healthSignal, thang 0.0–1.0)** thể hiện bằng màu đỏ→vàng→xanh, kèm gợi ý nhắc nhở (nudge text) nếu có.
+- Có thể thêm người mới hoặc sửa thông tin người đã có; xem danh sách insight liên quan tới từng người.
+
+### 4.6. Dòng thời gian Insight (Insight Timeline)
+- Danh sách các "insight" **do AI tự động trích xuất** sau mỗi phiên chat (không phải người dùng tự nhập) — chỉ đọc.
+- Mỗi insight thuộc 1 trong 3 nhóm: **Giá trị bản thân (VALUE)**, **Khuôn mẫu hành vi (BEHAVIOR_PATTERN)**, **Mối quan hệ (RELATIONSHIP)** — nhóm sau có thể gắn với một người cụ thể trong PRM.
+- Hiển thị trên Dashboard.
+
+### 4.7. Nhật ký (Journal Entries) & Mẫu gợi ý (Templates)
+- Người dùng tự viết nhật ký: tiêu đề, nội dung phản chiếu, gắn 1 hoặc nhiều nhãn cảm xúc (chọn từ danh sách cố định — xem mục 6).
+- 3 mẫu gợi ý câu hỏi dẫn dắt khi viết: **Cuộc trò chuyện khó khăn**, **Tình huống mất năng lượng**, **Biết ơn/Thành công** — mỗi mẫu có 4 câu hỏi gợi ý.
+- CRUD đầy đủ: tạo, xem danh sách (lọc theo thời gian, tìm kiếm), sửa, xoá.
+
+### 4.8. Saved Framework Entries ("Đúc kết")
+- Các mục người dùng tự lưu/sửa (khác với Insight ở mục 4.6 — Insight là AI tự trích xuất và chỉ đọc, còn mục này người dùng chủ động tạo/sửa/xoá được).
+- Hiển thị ở tab "Insights" trong `/entries/list`, cũng là nơi Insight Catcher (mục 4.4) ghi dữ liệu vào.
+
+### 4.9. Giá trị cốt lõi (Core Values)
+- Bộ 12 giá trị cố định: Trung thực, Gia đình, Tự do, Sáng tạo, Kết nối, Trưởng thành, Cân bằng, Can đảm, Bình yên, Cống hiến, Thành tựu, Học hỏi.
+- Người dùng chọn trong Onboarding, có thể xem/sửa lại sau ở Dashboard và Profile.
+
+### 4.10. Hồ sơ & Cài đặt (Profile/Settings)
+- Sửa tên hiển thị, tải ảnh đại diện.
+- Đổi mật khẩu (chỉ áp dụng cho tài khoản đăng ký bằng mật khẩu, không áp dụng cho tài khoản Google-only).
+- Thống kê cá nhân tính toán **phía frontend** từ dữ liệu entries: số ngày liên tục ghi nhật ký (streak), cảm xúc xuất hiện nhiều nhất, biểu đồ phân bố cảm xúc.
+- Chuyển đổi ngôn ngữ EN/VI.
+- Mục "Thông báo" và "Xuất dữ liệu": hiển thị nhãn "sắp ra mắt", **chưa có chức năng thật**.
+
+### 4.11. Nút Chat nổi toàn cục (Chat FAB)
+- Xuất hiện ở mọi trang (trừ chính trang `/coach`) để mở nhanh Coach chat từ bất kỳ đâu trong app.
+
+### 4.12. Chống lạm dụng / Giới hạn tần suất (hiển thị UI)
+- Khi backend trả lỗi 429 (vượt giới hạn), frontend phát 1 sự kiện toàn cục và hiển thị thông báo (snackbar) bằng tiếng Việt cho người dùng biết họ đã vượt hạn mức (ví dụ: số tin nhắn/số phiên chat AI cho phép).
+
+### 4.13. Trang chủ công khai (Public Marketing Home)
+- Dành cho khách chưa đăng nhập: hero + 4 khối minh hoạ tính năng (Chat, Relationship Map, Johari Window, Insight Timeline). Đây là **nội dung tĩnh/minh hoạ**, không phải dữ liệu thật của người dùng.
+
+---
+
+## 5. Tính năng đã có dữ liệu/model nhưng KHÔNG còn UI (dead / orphaned)
+
+Các phần này còn tồn tại trong code (model dữ liệu, khoá đa ngôn ngữ) nhưng **không có màn hình, service hay hook nào gọi tới** — thuộc về giai đoạn sản phẩm cũ trước khi pivot. Liệt kê ở đây để tránh mất công redesign UI cho tính năng không còn tồn tại, hoặc để cân nhắc "hồi sinh" có chủ đích:
+
+- **Theo dõi năng lượng (Energy Tracking):** model dữ liệu (mức 1–10, gắn ngữ cảnh: công việc/xã hội/nghỉ ngơi/vận động/sáng tạo/học tập/gia đình/một mình) và các khoá i18n liên quan (biểu đồ xu hướng, phân loại theo ngữ cảnh...) vẫn còn, nhưng không có trang hay component nào sử dụng. Đây là phần thuộc concept "Innerverse" cũ.
+- **Kịch bản ứng phó (Action Protocol):** model dữ liệu (tình huống kích hoạt, kịch bản ứng phó, đánh giá hiệu quả) và khoá i18n liên quan vẫn còn nhưng không có UI.
+- **Khu vườn / Trang "Phương pháp":** các khoá i18n liên quan tới ẩn dụ khu vườn và trang phương pháp luận cũ không còn route/trang tương ứng (đã bị xoá ở một đợt dọn dẹp code trước đây).
+
+> Lưu ý: backend (`reflectly-be`) **vẫn còn API đầy đủ cho Energy Logs và Action Protocol** (CRUD hoạt động bình thường) — chỉ riêng frontend là không còn dùng tới. Xem backend spec mục "Tính năng có ở BE nhưng FE không dùng".
+
+---
+
+## 6. Model dữ liệu phía Frontend (tóm tắt nghiệp vụ)
+
+| Model | Ý nghĩa nghiệp vụ | Field chính |
+|---|---|---|
+| **User** | Tài khoản người dùng | `id, email, pictureUrl, fullName, hasPassword?, coreValues?, onboardingCompleted?` |
+| **Person** | Một người trong Bản đồ Mối quan hệ | `id, name, relationshipType (FAMILY/FRIEND/PARTNER/COLLEAGUE/MANAGER/OTHER), notes?, lastMentionedAt?, daysSinceLastMention?, healthSignal (0–1), nudgeText?` |
+| **Conversation** | Một phiên chat với Aura | `id, status (ACTIVE/ENDED/EXTRACTING/EXTRACTED/EXTRACTION_FAILED), startedAt, endedAt?, messages[], summary?` |
+| **ConversationMessage** | Một tin nhắn trong phiên chat | `id, role (USER/ASSISTANT), content, createdAt` |
+| **Insight** | Insight do AI tự động trích xuất (chỉ đọc) | `id, insightText, category (VALUE/BEHAVIOR_PATTERN/RELATIONSHIP), createdAt, personId?, personName?` |
+| **SavedFrameworkEntry** | "Đúc kết" người dùng tự lưu/sửa | `id, frameworkType (FREEFORM/JOHARI_WINDOW/ACT_MATRIX/PERSONAL_SWOT/LIFE_POSITIONS), title?, payload, conversationId?, personId?, personName?, createdAt, updatedAt` (payload có cấu trúc riêng theo từng loại framework) |
+| **Entry** | Nhật ký người dùng tự viết | `id, userId, title, reflection, emotions[], templateKey?, createdAt, updatedAt` |
+| **Emotion** | Nhãn cảm xúc (enum cố định) | `happy, blessed, good, confused, bored, awkward, angry, anxious, down` — mỗi cảm xúc có icon/màu/nhãn/mô tả riêng |
+| **EntryTemplate** | Mẫu gợi ý viết nhật ký | 3 mẫu: `difficult_conversation, energy_drain, gratitude_win`, mỗi mẫu 4 câu hỏi gợi ý |
+| **EnergyLog / ActionProtocol** | *(đã chết, xem mục 5)* | — |
+
+---
+
+## 7. Tích hợp API (endpoint frontend đang gọi)
+
+Base URL cấu hình qua biến môi trường `VITE_API_URL`. Mọi request kèm `Authorization: Bearer <token>`. Chi tiết đầy đủ về backend nằm ở [`reflectly-be/spec.md`](https://github.com/hankimthuy/reflectly-be/blob/main/spec.md); bảng dưới đây chỉ để tra cứu nhanh phía frontend gọi gì:
+
+| Nhóm | Endpoint | Mục đích |
+|---|---|---|
+| Auth | `POST /auth/google`, `POST /auth/login`, `POST /auth/signup` | Đăng nhập Google / đăng nhập / đăng ký bằng tài khoản-mật khẩu |
+| Người dùng | `GET/PUT /users/profile`, `PUT /users/password`, `POST /users/avatar`, `PUT /users/onboarding` | Xem/sửa hồ sơ, đổi mật khẩu, tải avatar, hoàn tất onboarding |
+| Nhật ký | `GET/POST /entries`, `GET/PUT/DELETE /entries/:id` | CRUD nhật ký |
+| Trò chuyện (Coach) | `POST /conversations`, `GET /conversations`, `GET /conversations/:id`, `POST /conversations/:id/messages`, `POST /conversations/:id/end`, `POST /conversations/:id/summarize` | Toàn bộ vòng đời một phiên chat Aura |
+| Mối quan hệ | `GET/POST /people`, `PUT /people/:id` | Quản lý người trong PRM |
+| Insight | `GET /insights` (lọc theo `personId`) | Xem dòng thời gian insight |
+| Đúc kết | `GET/POST /saved-framework-entries`, `GET/PUT/DELETE /saved-framework-entries/:id` | CRUD saved framework entries |
+
+---
+
+## 8. Khoảng trống / placeholder / chưa hoàn thiện
+
+Những điểm này đáng lưu ý khi redesign UI vì hiện đang là "chỗ trống" hoặc trải nghiệm chưa trọn vẹn:
+
+- **Thông báo (Notifications)** và **Xuất dữ liệu (Export)** trong Profile: chỉ là placeholder gắn nhãn "sắp ra mắt", chưa có chức năng thật.
+- **ACT Matrix, Personal SWOT, Life Positions**: có model dữ liệu ở cả FE/BE nhưng chưa có form nhập trên UI (chỉ Freeform và Johari Window dùng được).
+- **Avatar/hình đại diện cho từng người trong Bản đồ Mối quan hệ**: chưa có, hiện chỉ hiển thị theo tên/màu.
+- **Logo/wordmark chính thức của thương hiệu "Aura Self AI"**: còn thiếu (theo tài liệu thiết kế nội bộ), linh vật "Aura" hiện dùng ảnh GIF tạm.
+- **Bản dịch tiếng Anh**: một số namespace i18n chưa hoàn chỉnh, tiếng Việt là ngôn ngữ chính được ưu tiên phát triển.
+- **Bộ lọc entries theo cảm xúc/khoảng ngày** ở service tầng dưới tồn tại nhưng chưa chắc được UI hiện tại sử dụng đầy đủ — cần kiểm tra khi redesign trang danh sách.
+
+---
+
+## 9. Ghi chú về tài liệu cũ trong repo (KHÔNG dùng làm nguồn sự thật)
+
+Các file sau đã lỗi thời, mô tả sản phẩm ở giai đoạn "MimoSe" garden-journal trước khi pivot — **không phản ánh đúng hiện trạng**, chỉ giữ lại làm tư liệu lịch sử:
+
+- `README.md` — riêng bảng danh sách route (`/entries`, `/statistics`, `/quotes`, `/innerverse`, `/outerverse`, `/mimo-method`) đã lỗi thời; các phần khác (setup, deploy) vẫn dùng được.
+- `documentation/02-Integration/API-Contracts.md` — mô tả endpoint hoàn toàn khác thực tế (`/energy-log`, `/journal/entries`, `/social-orbit`, `/tasks`, `/goals`, base `/api/v1`); README cũng tự ghi chú file này "Outdated — use `src/services/` instead".
+- `documentation/MimoSe-copy-audit.md` — audit nội dung/copy của bản concept "khu vườn" cũ, mang tính lịch sử.
+- `documentation/01-UX-UI-Specs/Design-System.md` — đây là tài liệu **còn giá trị/đang sống**, mô tả brand & design system hiện tại ("Aura Self — Brand & Design System"), hữu ích khi redesign UI (màu sắc `coach-*`, typography, giọng văn thương hiệu).
+
+Nguồn sự thật cho tài liệu này: code trong `src/routes/`, `src/pages/`, `src/models/`, `src/services/`.
+
+---
+
+## 10. Update Log
+
+| Ngày (UTC) | Tác giả | Nội dung cập nhật |
+|---|---|---|
+| 2026-09-06 | Claude (agent) | Khởi tạo `spec.md` — khảo sát toàn bộ codebase frontend hiện tại (routes, features, data models, API, tài liệu cũ) và viết tài liệu nghiệp vụ đầy đủ lần đầu tiên. |
