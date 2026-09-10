@@ -2,13 +2,15 @@ import { useEffect, useRef } from 'react';
 import type { ConversationMessage } from '../../models/conversation';
 import ChatBubble from './ChatBubble';
 import ThinkingBubble from './ThinkingBubble';
+import './Chat.scss';
 
 interface MessageListProps {
   messages: ConversationMessage[];
   isThinking: boolean;
+  onCatch?: (content: string) => void;
 }
 
-const MessageList = ({ messages, isThinking }: MessageListProps) => {
+const MessageList = ({ messages, isThinking, onCatch }: MessageListProps) => {
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -16,9 +18,9 @@ const MessageList = ({ messages, isThinking }: MessageListProps) => {
   }, [messages.length, isThinking]);
 
   return (
-    <div className="flex flex-1 flex-col gap-3 overflow-y-auto px-4 py-4">
+    <div className="chat-message-list">
       {messages.map((message) => (
-        <ChatBubble key={message.id} message={message} />
+        <ChatBubble key={message.id} message={message} onCatch={onCatch} />
       ))}
       {isThinking && <ThinkingBubble />}
       <div ref={bottomRef} />

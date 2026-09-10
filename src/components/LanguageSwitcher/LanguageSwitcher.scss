@@ -1,0 +1,24 @@
+.language-switcher {
+  display: flex;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.language-switcher__option {
+  padding: 4px 12px;
+  font: 600 12px var(--font-body);
+  border: 0;
+  background: none;
+  color: var(--color-text);
+  cursor: pointer;
+
+  &:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+}
+
+.language-switcher__option--active {
+  background: var(--color-text);
+  color: var(--color-bg);
+
+  &:hover { background: var(--color-text); }
+}

@@ -1,21 +1,23 @@
-import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { LuHistory, LuSparkles } from 'react-icons/lu';
 import MessageList from '../../components/Chat/MessageList';
 import MessageInput from '../../components/Chat/MessageInput';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
-import { Button } from '../../components/Button/Button';
 import InsightCatcherPanel from '../../components/InsightCatcher/InsightCatcherPanel';
-import auraIdle from '../../assets/aura/aura-idle.gif';
 import type { ConversationMessage } from '../../models/conversation';
 import { conversationsService } from '../../services/conversationsService';
 import {
   useSendMessageMutation,
   useEndConversationMutation,
   useSummarizeConversationMutation,
+  useConversationsInfiniteQuery,
 } from '../../queries/conversationsQueryHook';
 import { APP_ROUTES } from '../../constants/route';
+import { useSidebarFooter } from '../../layouts/AppShell/AppShellContext';
+import { useLiveMoodRead } from '../../hooks/useLiveMoodRead';
+import { moodBucket, heavinessColorVar } from '../../utils/moodUtil';
+import { sessionTitleFromSummary } from '../../utils/textUtil';
+import './CoachChatPage.scss';
 
 /** Survives a refresh so an in-progress session can be resumed instead of silently restarted. */
 const ACTIVE_CONVERSATION_KEY = 'aura_active_conversation_id';
@@ -23,17 +25,21 @@ const ACTIVE_CONVERSATION_KEY = 'aura_active_conversation_id';
 const CoachChatPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
   const [conversationId, setConversationId] = useState<string | null>(null);
+  const [startedAt, setStartedAt] = useState<string | null>(null);
   const [isStarting, setIsStarting] = useState(true);
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
-  const [latestSummary, setLatestSummary] = useState<string | null>(null);
   const [startError, setStartError] = useState<string | null>(null);
+  const [catchDraft, setCatchDraft] = useState<string | null>(null);
+  const [catchOpenOnMobile, setCatchOpenOnMobile] = useState(false);
   const hasStartedRef = useRef(false);
   const lastHandledReplyIdRef = useRef<string | null>(null);
 
   const sendMessage = useSendMessageMutation(conversationId ?? '');
   const endConversation = useEndConversationMutation();
   const summarizeConversation = useSummarizeConversationMutation();
+  const recentSessions = useConversationsInfiniteQuery();
 
   // Deliberately bypasses useMutation here: calling .mutate() synchronously from a mount
   // effect races with StrictMode's dev-only double-invoke of effects and can leave the
@@ -54,6 +60,7 @@ const CoachChatPage = () => {
           const existing = await conversationsService.getConversation(storedId);
           if (existing.status === 'ACTIVE') {
             setConversationId(existing.id);
+            setStartedAt(existing.startedAt);
             setMessages(existing.messages);
             return;
           }
@@ -67,6 +74,7 @@ const CoachChatPage = () => {
         const conversation = await conversationsService.startConversation();
         localStorage.setItem(ACTIVE_CONVERSATION_KEY, conversation.id);
         setConversationId(conversation.id);
+        setStartedAt(conversation.startedAt);
       } catch (error) {
         const status = (error as { response?: { status?: number } })?.response?.status;
         const serverMessage = (error as { response?: { data?: { message?: string } } })?.response?.data?.message;
@@ -93,7 +101,7 @@ const CoachChatPage = () => {
   useEffect(() => {
     if (endConversation.isSuccess) {
       localStorage.removeItem(ACTIVE_CONVERSATION_KEY);
-      navigate(APP_ROUTES.DASHBOARD);
+      navigate(APP_ROUTES.HOME);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endConversation.isSuccess]);
@@ -121,7 +129,6 @@ const CoachChatPage = () => {
     summarizeConversation.mutate(conversationId, {
       onSuccess: (conversation) => {
         if (!conversation.summary) return;
-        setLatestSummary(conversation.summary);
         setMessages((prev) => [
           ...prev,
           {
@@ -135,109 +142,128 @@ const CoachChatPage = () => {
     });
   };
 
-  const handleInsightSaved = (entryId: string) => {
-    navigate(`${APP_ROUTES.ENTRIES_LIST}?highlight=${entryId}`);
+  const openCatch = (text: string) => {
+    setCatchDraft(text);
+    setCatchOpenOnMobile(true);
+  };
+
+  const closeCatchSheet = () => setCatchOpenOnMobile(false);
+
+  const handleInsightSaved = () => {
+    // Stays on Talk — the Catch panel already gave feedback by clearing its draft. Sending
+    // people away from the conversation they were just in to look at what they saved would
+    // interrupt the thing this feature exists to not interrupt.
   };
 
   const handlePersonSaved = () => {
-    navigate(APP_ROUTES.DASHBOARD);
+    // Same reasoning as handleInsightSaved above.
   };
 
+  const mood = useLiveMoodRead(messages);
+  const bucket = moodBucket(mood.heaviness);
+  const elapsedMinutes = startedAt ? Math.max(0, Math.round((Date.now() - new Date(startedAt).getTime()) / 60000)) : 0;
+
+  const recentList = useMemo(
+    () =>
+      (recentSessions.data?.pages.flatMap((p) => p.content) ?? [])
+        .filter((c) => c.id !== conversationId)
+        .slice(0, 2),
+    [recentSessions.data, conversationId],
+  );
+  useSidebarFooter(
+    <>
+      <div className="app-shell__footer-label">{t('talk.recent')}</div>
+      {recentList.length === 0 ? (
+        <div className="app-shell__footer-name" style={{ fontWeight: 400, fontSize: 12.5 }}>
+          {t('coach.history.empty')}
+        </div>
+      ) : (
+        recentList.map((c) => (
+          <button
+            key={c.id}
+            type="button"
+            className="talk-sidebar-session"
+            onClick={() => navigate(`${APP_ROUTES.COACH_HISTORY}/${c.id}`)}
+          >
+            {sessionTitleFromSummary(c.summary, t('coach.history.noSummary'), 44)}
+          </button>
+        ))
+      )}
+      <button type="button" className="talk-sidebar-allsessions" onClick={() => navigate(APP_ROUTES.COACH_HISTORY)}>
+        {t('talk.allSessions')}
+      </button>
+    </>,
+  );
+
+  const prefill = (location.state as { prefill?: string } | null)?.prefill;
+
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col lg:h-[calc(100dvh-var(--header-h,64px)-var(--footer-h,64px))] lg:flex-row lg:gap-4 lg:py-4">
-      <div className="flex h-[calc(100dvh-var(--header-h,64px)-var(--footer-h,64px))] min-w-0 flex-col border-x border-coach-border bg-coach-bg lg:h-auto lg:flex-1 lg:rounded-2xl lg:border">
-        <div className="border-b border-coach-border bg-coach-surface px-4 pt-3 pb-4 sm:px-6">
-          <Breadcrumb
-            variant="light"
-            items={[{ label: t('breadcrumb.home'), path: APP_ROUTES.WELCOME }, { label: t('breadcrumb.coach') }]}
+    <div className="talk">
+      <div className="talk__ribbon">
+        <div className="talk__ribbon-top">
+          <div className="talk__reading">
+            <span className="talk__reading-label">{t('talk.readingLabel')}</span>
+            <span className="talk__reading-value">{t(`talk.moodBuckets.${bucket}`)}</span>
+          </div>
+        </div>
+        <div className="talk__ribbon-track">
+          <div
+            className="talk__ribbon-marker"
+            style={{ left: `${mood.heaviness * 100}%`, background: heavinessColorVar(mood.heaviness) }}
           />
-          <div className="mt-2 flex items-center justify-between gap-2">
-            <div className="flex items-center gap-3">
-              <img
-                src={auraIdle}
-                alt=""
-                aria-hidden="true"
-                className="h-10 w-10 shrink-0 rounded-full border border-coach-border bg-coach-bg object-contain p-0.5"
+        </div>
+        <div className="talk__ribbon-scale">
+          <span>{t('talk.heavy')}</span>
+          <span>
+            {mood.openedAt
+              ? t('talk.openedAt', { emotion: t(`emotion.${mood.openedAt}`), minutes: elapsedMinutes })
+              : t('talk.minutesElapsed', { minutes: elapsedMinutes })}
+          </span>
+          <span>{t('talk.light')}</span>
+        </div>
+      </div>
+
+      <div className="talk__body">
+        <div className="talk__main">
+          {startError ? (
+            <div className="talk__error">
+              <p>{startError}</p>
+              <button type="button" className="btn btn-secondary" onClick={() => navigate(APP_ROUTES.HOME)}>
+                {t('coach.backToDashboard')}
+              </button>
+            </div>
+          ) : (
+            <>
+              {messages.length === 0 && !isStarting && (
+                <div className="talk__empty">{t('coach.emptyState')}</div>
+              )}
+              {sendMessage.isError && <p className="talk__send-error">{t('coach.sendError')}</p>}
+              <MessageList messages={messages} isThinking={sendMessage.isPending || isStarting} onCatch={openCatch} />
+              <MessageInput
+                onSend={handleSend}
+                disabled={!conversationId || sendMessage.isPending}
+                initialValue={prefill}
+                onOpenCatch={() => openCatch('')}
+                onSummarize={handleSummarize}
+                summarizeDisabled={!conversationId || messages.length === 0 || summarizeConversation.isPending}
+                summarizing={summarizeConversation.isPending}
+                onEndSession={handleEndSession}
+                endSessionDisabled={!conversationId || endConversation.isPending}
               />
-              <div>
-                <h1 className="text-2xl font-bold text-coach-text [font-family:var(--font-family-heading)]">
-                  {t('coach.title')}
-                </h1>
-                <p className="mt-1 text-sm text-coach-text-muted">
-                  {t('coach.subtitle')}
-                </p>
-              </div>
-            </div>
-            <div className="flex shrink-0 items-center gap-1">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => navigate(APP_ROUTES.COACH_HISTORY)}
-                title={t('coach.historyLink') as string}
-              >
-                <LuHistory size={16} />
-              </Button>
-            </div>
-          </div>
-          <div className="mt-3 flex flex-wrap items-center justify-end gap-2">
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={handleSummarize}
-              disabled={!conversationId || messages.length === 0 || summarizeConversation.isPending}
-            >
-              <LuSparkles size={14} />
-              <span>{summarizeConversation.isPending ? t('coach.summarizing') : t('coach.summarize')}</span>
-            </Button>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={handleEndSession}
-              disabled={!conversationId || endConversation.isPending}
-            >
-              {t('coach.endSession')}
-            </Button>
-          </div>
-          {summarizeConversation.isError && (
-            <p className="mt-1 text-right text-xs text-red-500">{t('coach.summarizeError')}</p>
+            </>
           )}
         </div>
 
-        {startError ? (
-          <div className="flex flex-1 flex-col items-center justify-center gap-3 px-8 text-center">
-            <p className="text-sm text-coach-text">{startError}</p>
-            <Button variant="secondary" size="sm" onClick={() => navigate(APP_ROUTES.DASHBOARD)}>
-              {t('coach.backToDashboard')}
-            </Button>
-          </div>
-        ) : (
-          <>
-            {messages.length === 0 && !isStarting && (
-              <div className="flex flex-1 items-center justify-center px-8 text-center text-sm text-coach-text-muted">
-                {t('coach.emptyState')}
-              </div>
-            )}
-
-            {sendMessage.isError && (
-              <p className="px-4 pb-1 text-center text-xs text-red-500">
-                {t('coach.sendError')}
-              </p>
-            )}
-
-            <MessageList messages={messages} isThinking={sendMessage.isPending || isStarting} />
-
-            <MessageInput onSend={handleSend} disabled={!conversationId || sendMessage.isPending} />
-          </>
-        )}
-      </div>
-
-      <div className="w-full shrink-0 border-t border-coach-border bg-coach-surface lg:h-auto lg:w-80 lg:overflow-y-auto lg:rounded-2xl lg:border lg:border-t lg:border-coach-border">
-        <InsightCatcherPanel
-          conversationId={conversationId}
-          latestSummary={latestSummary}
-          onSaved={handleInsightSaved}
-          onPersonSaved={handlePersonSaved}
-        />
+        <div className={`talk__catch ${catchOpenOnMobile ? 'talk__catch--open' : ''}`}>
+          <InsightCatcherPanel
+            conversationId={conversationId}
+            draftText={catchDraft}
+            onSaved={handleInsightSaved}
+            onPersonSaved={handlePersonSaved}
+            onClose={closeCatchSheet}
+          />
+        </div>
+        {catchOpenOnMobile && <button type="button" className="talk__catch-backdrop" aria-label={t('insightCatcher.cancel') as string} onClick={closeCatchSheet} />}
       </div>
     </div>
   );

@@ -57,6 +57,10 @@ vi.mock('react-i18next', () => ({
     }),
 }));
 
+vi.mock('@react-oauth/google', () => ({
+    useGoogleLogin: () => () => undefined,
+}));
+
 const renderSignupPage = () => {
     return render(
         <MemoryRouter initialEntries={['/signup']}>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CORE_VALUE_KEYS } from '../../constants/coreValues';
-import { Button } from '../Button/Button';
+import './CoreValuesCard.scss';
 
 interface CoreValuesCardProps {
   coreValues: string[] | undefined;
@@ -12,8 +12,9 @@ interface CoreValuesCardProps {
 }
 
 /**
- * View/edit widget for a user's self-selected core values. Shared by ProfilePage (settings
- * context) and DashboardPage (self-understanding context) — same data, two entry points.
+ * View/edit widget for a user's self-selected core values — see mockup 1d's "Core values · N of
+ * 12 chosen" block. Shared by ProfilePage (settings context) and onboarding step 1 (first-pick
+ * context) — same data, two entry points.
  */
 const CoreValuesCard = ({ coreValues, onSave, autoEdit = false, className = '' }: CoreValuesCardProps) => {
   const { t } = useTranslation();
@@ -53,21 +54,21 @@ const CoreValuesCard = ({ coreValues, onSave, autoEdit = false, className = '' }
   const hasValues = coreValues && coreValues.length > 0;
 
   return (
-    <section className={`rounded-2xl border border-coach-border bg-coach-surface p-4 ${className}`}>
-      <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-coach-text">
-          {t('profilePage.coreValues.title')}
-        </h3>
+    <section className={className}>
+      <div className="core-values-card__head">
+        <span className="core-values-card__title">
+          {t('profilePage.coreValues.title')}{hasValues ? ` · ${t('profilePage.coreValues.count', { count: coreValues!.length })}` : ''}
+        </span>
         {!isEditing && (
-          <Button variant="ghost" size="sm" onClick={startEdit}>
+          <button type="button" className="btn btn-ghost" onClick={startEdit}>
             {hasValues ? t('profilePage.coreValues.edit') : t('profilePage.coreValues.add')}
-          </Button>
+          </button>
         )}
       </div>
 
       {isEditing ? (
-        <div className="mt-3 flex flex-col gap-3">
-          <div className="flex flex-wrap gap-2">
+        <div className="core-values-card__edit">
+          <div className="core-values-card__tags">
             {CORE_VALUE_KEYS.map((key) => {
               const selected = selectedValues.includes(key);
               return (
@@ -75,41 +76,30 @@ const CoreValuesCard = ({ coreValues, onSave, autoEdit = false, className = '' }
                   key={key}
                   type="button"
                   onClick={() => toggleValue(key)}
-                  className={`rounded-full border px-3 py-1 text-xs transition-colors ${
-                    selected
-                      ? 'border-coach-primary bg-coach-primary text-white'
-                      : 'border-coach-border bg-coach-bg text-coach-text hover:bg-coach-border'
-                  }`}
+                  className={`tag ${selected ? 'tag-accent' : 'tag-outline'} core-values-card__tag-btn`}
                 >
                   {t(`onboarding.value.${key}`)}
                 </button>
               );
             })}
           </div>
-          <div className="flex gap-2">
-            <Button variant="primary" size="sm" onClick={handleSave} disabled={saving}>
+          <div className="core-values-card__actions">
+            <button type="button" className="btn btn-primary" onClick={handleSave} disabled={saving}>
               {saving ? t('onboarding.submitting') : t('profilePage.coreValues.save')}
-            </Button>
-            <Button variant="secondary" size="sm" onClick={() => setIsEditing(false)} disabled={saving}>
+            </button>
+            <button type="button" className="btn btn-secondary" onClick={() => setIsEditing(false)} disabled={saving}>
               {t('profilePage.coreValues.cancel')}
-            </Button>
+            </button>
           </div>
         </div>
       ) : hasValues ? (
-        <div className="mt-3 flex flex-wrap gap-2">
+        <div className="core-values-card__tags">
           {coreValues!.map((key) => (
-            <span
-              key={key}
-              className="rounded-full border border-coach-border bg-coach-bg px-3 py-1 text-xs text-coach-text"
-            >
-              {t(`onboarding.value.${key}`, key)}
-            </span>
+            <span key={key} className="tag tag-accent">{t(`onboarding.value.${key}`, key)}</span>
           ))}
         </div>
       ) : (
-        <p className="mt-3 text-xs text-coach-text-muted">
-          {t('profilePage.coreValues.empty')}
-        </p>
+        <p className="core-values-card__empty">{t('profilePage.coreValues.empty')}</p>
       )}
     </section>
   );

@@ -1,0 +1,235 @@
+@use '../../styles/_responsive' as *;
+
+.talk {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.talk-sidebar-session {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: none;
+  padding: 4px 0;
+  font: 400 12px/1.4 var(--font-body);
+  color: var(--color-neutral-800);
+  cursor: pointer;
+
+  &:hover { color: var(--color-accent-700); }
+}
+
+.talk-sidebar-allsessions {
+  display: block;
+  border: 0;
+  background: none;
+  padding: 8px 0 0;
+  font: 600 11px var(--font-body);
+  color: var(--color-accent-700);
+  cursor: pointer;
+}
+
+// — Mood ribbon —
+.talk__ribbon {
+  border-bottom: 1px solid var(--color-divider);
+  background: var(--color-neutral-100);
+  padding: 14px 20px 15px;
+
+  @include laptop-up { padding: 14px 30px 15px; }
+}
+
+.talk__ribbon-top {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.talk__reading-label {
+  font: 400 9.5px var(--font-body);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-neutral-600);
+  margin-right: 8px;
+}
+
+.talk__reading-value {
+  font: 600 13.5px var(--font-body);
+  color: var(--color-accent-700);
+}
+
+.talk__ribbon-track {
+  position: relative;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  background: linear-gradient(to right, var(--color-accent-600), var(--color-accent-300) 40%, var(--color-pine-300) 75%, var(--color-pine-400));
+}
+
+.talk__ribbon-marker {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--color-text);
+  transition: left 0.6s ease-in-out;
+}
+
+.talk__ribbon-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font: 400 10px var(--font-body);
+  color: var(--color-neutral-600);
+}
+
+// — Body: conversation + catch —
+.talk__body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  position: relative;
+}
+
+.talk__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.talk__empty,
+.talk__error {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 32px;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--color-neutral-700);
+}
+
+.talk__send-error {
+  padding: 0 20px;
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--color-accent-700);
+}
+
+// — Composer —
+.chat-composer {
+  border-top: 1px solid var(--color-divider);
+  background: var(--color-neutral-100);
+  padding: 14px 20px 16px;
+
+  @include laptop-up { padding: 16px 30px 18px; }
+}
+
+.chat-composer-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  border: 1.5px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  padding: 6px 6px 6px 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.chat-composer-textarea {
+  flex: 1;
+  min-width: 0;
+  resize: none;
+  border: 0;
+  background: transparent;
+  padding: 10px 0;
+  font: inherit;
+  font-size: 15px;
+  color: var(--color-text);
+  max-height: 140px;
+
+  &:focus-visible { outline: none; }
+}
+
+.chat-composer-send {
+  padding: 11px 22px;
+  font-size: 14px;
+  flex: none;
+}
+
+.chat-composer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 11px;
+  flex-wrap: wrap;
+}
+
+.chat-composer-shortcuts {
+  display: flex;
+  gap: 8px;
+}
+
+.chat-composer-shortcut {
+  cursor: pointer;
+  background: transparent;
+  border: 1.5px solid var(--color-accent);
+}
+
+.chat-composer-end {
+  font-size: 12px;
+}
+
+// — Catch rail / sheet —
+.talk__catch {
+  display: none;
+
+  @include laptop-up {
+    display: block;
+    width: 312px;
+    flex: none;
+    border-left: 1px solid var(--color-divider);
+    background: var(--color-surface);
+    overflow-y: auto;
+  }
+}
+
+.talk__catch--open {
+  display: block;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  max-height: 80vh;
+  border: 1px solid var(--color-divider);
+  border-bottom: 0;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lg);
+  overflow-y: auto;
+
+  @include laptop-up {
+    position: static;
+    max-height: none;
+    box-shadow: none;
+    border: 0;
+    border-left: 1px solid var(--color-divider);
+  }
+}
+
+.talk__catch-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  border: 0;
+  background: color-mix(in srgb, var(--color-neutral-900) 45%, transparent);
+
+  @include laptop-up { display: none; }
+}

@@ -1,8 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { LuLock, LuCheck } from 'react-icons/lu';
-import './NewEntryPage.scss';
+import './EntryEditor.scss';
 import EmotionCapture from '../components/EmotionCapture/EmotionCapture';
 import ReflectionCapture from '../components/ReflectionCapture/ReflectionCapture';
 import TemplatePicker from '../../../components/TemplatePicker/TemplatePicker';
@@ -10,10 +9,8 @@ import { Emotion } from '../../../models/emotion';
 import type { CreateEntryRequest } from '../../../models/entry';
 import { getEntryTemplate } from '../../../models/entryTemplate';
 import { entriesService } from '../../../services/entriesService';
-import { APP_ROUTES } from '../../../constants/route';
+import { APP_ROUTES, reflectTabPath } from '../../../constants/route';
 import { useSnackbar } from '../../../providers/SnackbarProvider';
-import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
-import { Button } from '../../../components/Button/Button';
 
 const NewEntryPage: React.FC = () => {
   const navigate = useNavigate();
@@ -21,36 +18,20 @@ const NewEntryPage: React.FC = () => {
   const { showSnackbar } = useSnackbar();
   const [selectedEmotions, setSelectedEmotions] = useState<Emotion[]>([]);
   const [selectedTemplateKey, setSelectedTemplateKey] = useState<string | null>(null);
+  const [showPrompts, setShowPrompts] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [reflectionTitle, setReflectionTitle] = useState('');
   const [reflectionText, setReflectionText] = useState('');
-  const reflectionRef = useRef<HTMLDivElement>(null);
 
   const selectedTemplate = getEntryTemplate(selectedTemplateKey);
   const guidingPrompts = selectedTemplate?.questionKeys.map((key) => t(key));
 
   const handleEmotionToggle = (emotion: Emotion) => {
-    setSelectedEmotions(prev => {
-      return prev.includes(emotion)
-        ? prev.filter(e => e !== emotion)
-        : [...prev, emotion];
-    });
+    setSelectedEmotions((prev) => (prev.includes(emotion) ? prev.filter((e) => e !== emotion) : [...prev, emotion]));
   };
 
-  // Scroll reflection section into view when first emotion is selected
-  useEffect(() => {
-    if (selectedEmotions.length === 1 && reflectionRef.current) {
-      setTimeout(() => {
-        reflectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 300);
-    }
-  }, [selectedEmotions.length]);
-
   const handleSave = async () => {
-    if (!reflectionTitle.trim() || !reflectionText.trim()) {
-      return;
-    }
-
+    if (!reflectionTitle.trim() || !reflectionText.trim()) return;
     setIsLoading(true);
     try {
       const entry: CreateEntryRequest = {
@@ -59,94 +40,52 @@ const NewEntryPage: React.FC = () => {
         emotions: selectedEmotions,
         ...(selectedTemplateKey ? { templateKey: selectedTemplateKey } : {}),
       };
-
       await entriesService.createEntry(entry);
-      
       showSnackbar(t('newEntryPage.successMessage'), 'success', 5000, t('newEntryPage.successTitle'));
-      navigate(APP_ROUTES.ENTRIES_LIST);
+      navigate(reflectTabPath('journal'));
     } catch {
       showSnackbar(t('newEntryPage.errorMessage'), 'error', 5000, t('newEntryPage.errorTitle'));
-    } 
-    finally {
+    } finally {
       setIsLoading(false);
     }
   };
 
-  const handleFormChange = (title: string, reflection: string) => {
-    setReflectionTitle(title);
-    setReflectionText(reflection);
-  };
-
-  const canSave = reflectionTitle.trim() && reflectionText.trim() && selectedEmotions.length > 0;
+  const canSave = reflectionTitle.trim() && reflectionText.trim();
 
   return (
-    <div className="safe-space">
-      <div className="safe-space__glow" />
+    <div className="entry-editor">
+      <div className="entry-editor__topbar">
+        <button type="button" className="btn btn-ghost" onClick={() => navigate(reflectTabPath('journal'))}>
+          {t('newEntryPage.cancel')}
+        </button>
+        <span className="entry-editor__status">{t('newEntryPage.draft')}</span>
+        <button type="button" className="btn btn-primary" onClick={handleSave} disabled={!canSave || isLoading}>
+          {isLoading ? t('newEntryPage.saving') : t('newEntryPage.save')}
+        </button>
+      </div>
 
-      {/* Header */}
-      <div className="safe-space__header">
-        <Breadcrumb
-          variant="dark"
-          items={[
-            { label: t('breadcrumb.home'), path: APP_ROUTES.WELCOME },
-            { label: t('breadcrumb.journal') },
-          ]}
+      <div className="entry-editor__body">
+        <EmotionCapture selectedEmotions={selectedEmotions} onEmotionToggle={handleEmotionToggle} maxSelections={10} />
+        <ReflectionCapture
+          onFormChange={(title, reflection) => { setReflectionTitle(title); setReflectionText(reflection); }}
+          guidingPrompts={showPrompts ? guidingPrompts : undefined}
+          templateLabel={selectedTemplate ? t(selectedTemplate.labelKey) : undefined}
         />
-        <h1 className="safe-space__title">{t('newEntryPage.title')}</h1>
-        <p className="safe-space__subtitle">{t('newEntryPage.subtitle')}</p>
-      </div>
-
-      {/* Content */}
-      <div className="safe-space__content">
-        <div className="safe-space__card">
-          {/* Template Section */}
-          <TemplatePicker
-            selectedTemplateKey={selectedTemplateKey}
-            onSelect={setSelectedTemplateKey}
-          />
-
-          <div className="safe-space__divider" />
-
-          {/* Emotion Section */}
-          <EmotionCapture
-            selectedEmotions={selectedEmotions}
-            onEmotionToggle={handleEmotionToggle}
-            maxSelections={10}
-          />
-
-          {/* Reflection Section — appears when emotions selected */}
-          {selectedEmotions.length > 0 && (
-            <div className="safe-space__reflection" ref={reflectionRef}>
-              <div className="safe-space__divider" />
-              <ReflectionCapture
-                selectedEmotions={selectedEmotions}
-                onFormChange={handleFormChange}
-                guidingPrompts={guidingPrompts}
-              />
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Floating Save */}
-      {selectedEmotions.length > 0 && (
-        <div className={`safe-space__footer ${canSave ? 'safe-space__footer--active' : ''}`}>
-          <div className="safe-space__privacy">
-            <LuLock size={14} />
-            <span>{t('newEntryPage.privacy')}</span>
+        {showPrompts && (
+          <div className="entry-editor__template-picker">
+            <TemplatePicker selectedTemplateKey={selectedTemplateKey} onSelect={setSelectedTemplateKey} />
           </div>
-          <Button variant="primary" size="md" shape="pill" onClick={handleSave} disabled={!canSave || isLoading}>
-            {isLoading ? (
-              <span>{t('newEntryPage.saving')}</span>
-            ) : (
-              <>
-                <LuCheck size={18} />
-                <span>{t('newEntryPage.save')}</span>
-              </>
-            )}
-          </Button>
-        </div>
-      )}
+        )}
+      </div>
+
+      <div className="entry-editor__footer">
+        <button type="button" className="btn btn-secondary" onClick={() => setShowPrompts((v) => !v)}>
+          {t('newEntryPage.prompts')}
+        </button>
+        <button type="button" className="btn btn-ghost entry-editor__talk-instead" onClick={() => navigate(APP_ROUTES.COACH_CHAT)}>
+          {t('newEntryPage.talkInstead')}
+        </button>
+      </div>
     </div>
   );
 };

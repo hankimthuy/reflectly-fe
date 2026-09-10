@@ -1,10 +1,12 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import type { Components } from 'react-markdown';
+import { useTranslation } from 'react-i18next';
 import type { ConversationMessage } from '../../models/conversation';
 
 interface ChatBubbleProps {
   message: ConversationMessage;
+  onCatch?: (content: string) => void;
 }
 
 // Minimal, chat-bubble-scoped overrides — deliberately not pulling in @tailwindcss/typography
@@ -30,26 +32,32 @@ const MARKDOWN_COMPONENTS: Components = {
   h3: ({ children }) => <p className="mb-2 font-semibold last:mb-0">{children}</p>,
 };
 
-const ChatBubble = ({ message }: ChatBubbleProps) => {
+/** One turn of the conversation, labeled flush-left above the bubble (Modernist keeps the label
+ * outside the bubble rather than an avatar beside it — see mockup 1b). Aura's replies render in
+ * the heading typeface, matching the "a real opener" treatment used everywhere else Aura speaks
+ * (Today's opener, the landing page). */
+const ChatBubble = ({ message, onCatch }: ChatBubbleProps) => {
+  const { t } = useTranslation();
   const isUser = message.role === 'USER';
+  const isOptimistic = message.id.startsWith('optimistic-');
 
   return (
-    <div className={`flex w-full ${isUser ? 'justify-end' : 'justify-start'}`}>
-      <div
-        className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-          isUser
-            ? 'bg-coach-primary text-white rounded-br-sm whitespace-pre-wrap'
-            : 'bg-coach-surface text-coach-text border border-coach-border rounded-bl-sm'
-        }`}
-      >
-        {isUser ? (
-          message.content
-        ) : (
+    <div className={`chat-bubble-row ${isUser ? 'chat-bubble-row--user' : ''}`}>
+      <div className="chat-bubble-label">{isUser ? t('talk.you') : t('brand.name')}</div>
+      {isUser ? (
+        <div className="chat-bubble chat-bubble--user">{message.content}</div>
+      ) : (
+        <div className="chat-bubble chat-bubble--aura">
           <ReactMarkdown remarkPlugins={[remarkGfm]} components={MARKDOWN_COMPONENTS}>
             {message.content}
           </ReactMarkdown>
-        )}
-      </div>
+        </div>
+      )}
+      {onCatch && !isOptimistic && (
+        <button type="button" className="chat-bubble-catch" onClick={() => onCatch(message.content)}>
+          {t('talk.catchThis')}
+        </button>
+      )}
     </div>
   );
 };

@@ -1,0 +1,121 @@
+@use '../../../styles/_responsive' as *;
+
+.entry-editor {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.entry-editor__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 13px 20px;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.entry-editor__status {
+  font: 400 11px var(--font-body);
+  color: var(--color-neutral-600);
+}
+
+.entry-editor__body {
+  flex: 1;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  @include laptop-up { padding: 24px 30px; }
+}
+
+.entry-editor__section-label {
+  font: 400 10.5px var(--font-body);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-neutral-600);
+  margin-bottom: 9px;
+}
+
+.entry-editor__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.entry-editor__tag-btn {
+  cursor: pointer;
+  border: 0;
+  font-size: 13px;
+  padding: 8px 13px;
+}
+
+.entry-editor__title-input {
+  border: 0;
+  background: none;
+  font: 600 21px var(--font-body);
+  color: var(--color-text);
+  padding: 0;
+  width: 100%;
+
+  &:focus-visible { outline: none; }
+  &::placeholder { color: var(--color-neutral-500); }
+}
+
+.entry-editor__body-input {
+  min-height: 160px;
+  border: 0;
+  background: none;
+  padding: 0;
+  font-size: 15px;
+  line-height: 1.65;
+
+  &:focus-visible { outline: none; }
+}
+
+.entry-editor__prompts {
+  border-left: 4px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  padding: 2px 0 2px 13px;
+}
+
+.entry-editor__prompts-label {
+  font: 600 10px var(--font-body);
+  letter-spacing: 0.12em;
+  color: var(--color-accent-700);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.entry-editor__prompts-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  font-family: var(--font-heading);
+}
+
+.entry-editor__template-picker {
+  border-top: 1px solid var(--color-divider);
+  padding-top: 16px;
+}
+
+.entry-editor__footer {
+  border-top: 1px solid var(--color-divider);
+  background: var(--color-neutral-100);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  @include laptop-up { padding: 12px 30px; }
+}
+
+.entry-editor__talk-instead {
+  margin-left: auto;
+  font-size: 12px;
+}

@@ -1,41 +1,36 @@
 .not-found-page {
-  min-height: 70vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background-color: var(--garden-sky);
-  color: var(--garden-text);
-  padding: var(--spacing-xl);
+  background: var(--color-bg);
+  color: var(--color-text);
+  padding: 20px;
+}
 
-  &__code {
-    font-family: var(--font-family-heading);
-    font-size: 6rem;
-    font-weight: bold;
-    color: rgba(91, 140, 90, 0.3);
-    margin: 0;
-    line-height: 1;
-  }
+.not-found-page__wordmark {
+  font: 600 15px var(--font-body);
+  letter-spacing: -0.02em;
+}
 
-  &__title {
-    font-family: var(--font-family-heading);
-    font-size: var(--font-size-2xl);
-    font-weight: 600;
-    margin: var(--spacing-md) 0;
-    color: var(--garden-text);
-  }
+.not-found-page__body {
+  margin-top: auto;
+  max-width: 420px;
+}
 
-  &__message {
-    font-size: var(--font-size-base);
-    color: var(--garden-text-muted);
-    max-width: 500px;
-    margin-bottom: var(--spacing-xl);
-  }
+.not-found-page__code {
+  font: 600 76px var(--font-body);
+  line-height: 0.9;
+  color: var(--color-accent);
+  margin-bottom: 14px;
+}
 
-  &__actions {
-    display: flex;
-    gap: var(--spacing-md);
-  }
+.not-found-page__title {
+  font-size: 24px;
+  margin: 0 0 7px;
+}
 
+.not-found-page__message {
+  font-size: 14px;
+  color: var(--color-neutral-700);
+  margin: 0 0 20px;
 }

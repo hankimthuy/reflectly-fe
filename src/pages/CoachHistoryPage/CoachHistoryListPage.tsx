@@ -1,88 +1,77 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { CircularProgress } from '@mui/material';
-import { LuMessageCircle } from 'react-icons/lu';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
-import { Button } from '../../components/Button/Button';
 import { useConversationsInfiniteQuery } from '../../queries/conversationsQueryHook';
 import { APP_ROUTES } from '../../constants/route';
-import type { ConversationStatus } from '../../models/conversation';
-
-const STATUS_LABEL_KEY: Record<ConversationStatus, string> = {
-  ACTIVE: 'coach.history.statusActive',
-  ENDED: 'coach.history.statusEnded',
-  EXTRACTING: 'coach.history.statusExtracting',
-  EXTRACTED: 'coach.history.statusEnded',
-  EXTRACTION_FAILED: 'coach.history.statusEnded',
-};
+import { sessionTitleFromSummary, stripMarkdown } from '../../utils/textUtil';
+import Loading from '../../components/Loading/Loading';
+import './CoachHistoryPage.scss';
 
 /** Read-only list of past Aura chat sessions — reachable now that transcripts aren't purged
- * after a session ends (see [[project-mimose-pivot]] purge-after-extraction default flip). */
+ * after a session ends. Search is a local filter over each session's summary text (there's no
+ * full-text search endpoint), matching mockup 1e's "Search what you said…" in spirit if not in
+ * literal reach — a session with no summary yet just isn't matchable by text. */
 const CoachHistoryListPage = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const [search, setSearch] = useState('');
 
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useConversationsInfiniteQuery();
+  const conversations = useMemo(() => data?.pages.flatMap((page) => page.content) ?? [], [data]);
+  const total = data?.pages[0]?.total ?? 0;
 
-  const conversations = useMemo(() => data?.pages.flatMap((page) => page.content) || [], [data]);
+  const filtered = useMemo(() => {
+    if (!search.trim()) return conversations;
+    const q = search.toLowerCase();
+    return conversations.filter((c) => c.summary && stripMarkdown(c.summary).toLowerCase().includes(q));
+  }, [conversations, search]);
+
+  if (isLoading) return <Loading message={t('dashboard.loading') as string} fullHeight />;
 
   return (
-    <div className="mx-auto w-full max-w-2xl px-4 py-6 sm:px-6">
-      <Breadcrumb
-        variant="dark"
-        items={[
-          { label: t('breadcrumb.home'), path: APP_ROUTES.WELCOME },
-          { label: t('breadcrumb.coach'), path: APP_ROUTES.COACH_CHAT },
-          { label: t('coach.history.title') },
-        ]}
-      />
-      <h1 className="mt-2 text-2xl font-bold text-coach-text [font-family:var(--font-family-heading)]">
-        {t('coach.history.title')}
-      </h1>
-
-      {isLoading && (
-        <div className="flex justify-center py-10">
-          <CircularProgress size={24} />
-        </div>
-      )}
-
-      {!isLoading && conversations.length === 0 && (
-        <p className="mt-8 text-center text-sm text-coach-text-muted">{t('coach.history.empty')}</p>
-      )}
-
-      <div className="mt-4 flex flex-col gap-2">
-        {conversations.map((conversation) => (
-          <button
-            key={conversation.id}
-            onClick={() => navigate(`${APP_ROUTES.COACH_HISTORY}/${conversation.id}`)}
-            className="flex items-center gap-3 rounded-xl border border-coach-border bg-coach-surface px-4 py-3 text-left transition-colors hover:bg-coach-bg"
-          >
-            <LuMessageCircle size={18} className="shrink-0 text-coach-primary" />
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-sm font-medium text-coach-text">
-                  {new Date(conversation.startedAt).toLocaleString()}
-                </span>
-                <span className="shrink-0 text-xs text-coach-text-muted">
-                  {t(STATUS_LABEL_KEY[conversation.status])}
-                </span>
-              </div>
-              <p className="mt-1 truncate text-xs text-coach-text-muted">
-                {conversation.summary || t('coach.history.noSummary')}
-              </p>
-            </div>
-          </button>
-        ))}
+    <div className="sessions-page">
+      <div className="sessions-page__head">
+        <h3 className="sessions-page__title">{t('coach.history.title')}</h3>
+        <input
+          type="text"
+          className="input"
+          placeholder={t('sessions.searchPlaceholder') as string}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
 
-      {hasNextPage && (
-        <div className="mt-4 flex justify-center">
-          <Button variant="secondary" size="sm" onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
-            {isFetchingNextPage ? <CircularProgress size={14} /> : t('entriesPage.loadMore')}
-          </Button>
+      {filtered.length === 0 ? (
+        <p className="sessions-page__empty">{t('coach.history.empty')}</p>
+      ) : (
+        <div className="sessions-page__list">
+          {filtered.map((conversation) => (
+            <button
+              key={conversation.id}
+              type="button"
+              className="sessions-page__row"
+              onClick={() => navigate(`${APP_ROUTES.COACH_HISTORY}/${conversation.id}`)}
+            >
+              <span className="sessions-page__row-title">
+                {sessionTitleFromSummary(conversation.summary, t('coach.history.noSummary'), 72)}
+              </span>
+              <span className="sessions-page__row-meta">
+                {new Intl.DateTimeFormat(i18n.language, { day: 'numeric', month: 'short' }).format(new Date(conversation.startedAt))}
+                {conversation.endedAt && ` · ${Math.max(1, Math.round((new Date(conversation.endedAt).getTime() - new Date(conversation.startedAt).getTime()) / 60000))} ${t('sessions.min')}`}
+              </span>
+            </button>
+          ))}
         </div>
       )}
+
+      <div className="sessions-page__footer">
+        <span className="sessions-page__count">{t('sessions.showing', { current: conversations.length, total })}</span>
+        {hasNextPage && (
+          <button type="button" className="btn btn-secondary btn-icon" onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
+            ›
+          </button>
+        )}
+      </div>
     </div>
   );
 };

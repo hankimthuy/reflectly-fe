@@ -1,67 +1,118 @@
+import { useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { CircularProgress } from '@mui/material';
-import { LuArrowLeft } from 'react-icons/lu';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
-import { Button } from '../../components/Button/Button';
 import MessageList from '../../components/Chat/MessageList';
 import { useConversationQuery } from '../../queries/conversationsQueryHook';
+import { useSavedFrameworkEntriesInfiniteQuery } from '../../queries/savedFrameworkEntriesQueryHook';
 import { APP_ROUTES } from '../../constants/route';
+import { readMoodFromText, EMOTION_HEAVINESS } from '../../utils/moodUtil';
+import { firstNonEmptyPayloadField } from '../../utils/textUtil';
+import Loading from '../../components/Loading/Loading';
+import './CoachHistoryPage.scss';
 
-/** Read-only transcript view for a past Aura chat session. */
+const SNIPPET_FIELDS: Record<string, string[]> = {
+  FREEFORM: ['content'],
+  JOHARI_WINDOW: ['open', 'blind', 'hidden', 'unknown'],
+  ACT_MATRIX: ['values', 'towardMoves', 'awayMoves', 'fiveSenses'],
+  PERSONAL_SWOT: ['strengths', 'weaknesses', 'opportunities', 'threats'],
+  LIFE_POSITIONS: ['notes'],
+};
+
+const TYPE_TAG_LABEL: Record<string, string> = {
+  FREEFORM: 'insightCatcher.freeformLabel',
+  JOHARI_WINDOW: 'mirror.title',
+  ACT_MATRIX: 'insightCatcher.actMatrix',
+  PERSONAL_SWOT: 'insightCatcher.personalSwot',
+  LIFE_POSITIONS: 'insightCatcher.lifePositions',
+};
+
+/** Read-only transcript view for a past Aura chat session. The "shift" bar is derived the same
+ * way Talk's live ribbon is (a keyword scan, not real sentiment) — see moodUtil.ts — so it's
+ * omitted entirely rather than shown as false precision when neither end of the conversation
+ * has a keyword match. */
 const CoachHistoryDetailPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { data: conversation, isLoading, isError } = useConversationQuery(id);
+  const { data: notesData } = useSavedFrameworkEntriesInfiniteQuery();
+  const caughtHere = useMemo(
+    () => (notesData?.pages.flatMap((p) => p.content) ?? []).filter((e) => e.conversationId === id),
+    [notesData, id],
+  );
+
+  const shift = useMemo(() => {
+    if (!conversation) return null;
+    const userMessages = conversation.messages.filter((m) => m.role === 'USER');
+    const reads = userMessages.map((m) => readMoodFromText(m.content)).filter((e): e is NonNullable<typeof e> => e !== null);
+    if (reads.length === 0) return null;
+    return { opened: reads[0], closed: reads[reads.length - 1] };
+  }, [conversation]);
+
+  if (isLoading) return <Loading message={t('dashboard.loading') as string} fullHeight />;
 
   return (
-    <div className="mx-auto flex w-full max-w-2xl flex-col px-4 py-6 sm:px-6">
-      <Breadcrumb
-        variant="dark"
-        items={[
-          { label: t('breadcrumb.home'), path: APP_ROUTES.WELCOME },
-          { label: t('breadcrumb.coach'), path: APP_ROUTES.COACH_CHAT },
-          { label: t('coach.history.title'), path: APP_ROUTES.COACH_HISTORY },
-          { label: t('coach.history.sessionTitle') },
-        ]}
-      />
-
-      <div className="mt-2 flex items-center justify-between gap-2">
-        <Button variant="ghost" size="sm" onClick={() => navigate(APP_ROUTES.COACH_HISTORY)}>
-          <LuArrowLeft size={14} />
-          <span>{t('coach.history.back')}</span>
-        </Button>
-        <Button variant="secondary" size="sm" onClick={() => navigate(APP_ROUTES.COACH_CHAT)}>
-          {t('coach.history.backToChat')}
-        </Button>
+    <div className="session-detail">
+      <div className="session-detail__head">
+        <div className="session-detail__head-row">
+          <h3 className="session-detail__title">
+            {conversation ? new Date(conversation.startedAt).toLocaleDateString() : ''}
+          </h3>
+          <span className="tag tag-outline">{t('sessions.readOnly')}</span>
+        </div>
+        {shift && (
+          <div className="session-detail__shift">
+            <span className="session-detail__shift-label">{t('sessions.shift')}</span>
+            <span className="session-detail__shift-open">{t(`emotion.${shift.opened}`)}</span>
+            <span
+              className="session-detail__shift-track"
+              style={{ background: `linear-gradient(to right, var(--color-accent-600), ${EMOTION_HEAVINESS[shift.closed] < 0.4 ? 'var(--color-pine-400)' : 'var(--color-neutral-400)'})` }}
+            />
+            <span className="session-detail__shift-close">{t(`emotion.${shift.closed}`)}</span>
+          </div>
+        )}
       </div>
 
-      {isLoading && (
-        <div className="flex justify-center py-10">
-          <CircularProgress size={24} />
-        </div>
-      )}
-
-      {isError && <p className="mt-8 text-center text-sm text-red-500">{t('coach.history.loadError')}</p>}
+      {isError && <p className="session-detail__error">{t('coach.history.loadError')}</p>}
 
       {conversation && (
         <>
           {conversation.summary && (
-            <div className="mt-4 rounded-xl border border-coach-border bg-coach-surface p-4">
-              <h2 className="text-xs font-semibold tracking-wide text-coach-text-muted uppercase">
-                {t('coach.history.summaryLabel')}
-              </h2>
-              <div className="mt-2 text-sm text-coach-text">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{conversation.summary}</ReactMarkdown>
+            <div className="session-detail__summary">
+              <div className="session-detail__section-label">{t('sessions.whatAuraWrote')}</div>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{conversation.summary}</ReactMarkdown>
+            </div>
+          )}
+
+          <div className="session-detail__transcript">
+            <MessageList messages={conversation.messages} isThinking={false} />
+          </div>
+
+          {caughtHere.length > 0 && (
+            <div className="session-detail__caught">
+              <div className="session-detail__section-label">
+                {t('sessions.caughtFromSession', { count: caughtHere.length })}
+              </div>
+              <div className="session-detail__caught-list">
+                {caughtHere.map((entry) => (
+                  <div key={entry.id} className="session-detail__caught-item">
+                    <div className="session-detail__caught-type">{t(TYPE_TAG_LABEL[entry.frameworkType])}</div>
+                    <div>{firstNonEmptyPayloadField(entry.payload, SNIPPET_FIELDS[entry.frameworkType] ?? [])}</div>
+                  </div>
+                ))}
               </div>
             </div>
           )}
 
-          <div className="mt-4 flex-1 rounded-xl border border-coach-border bg-coach-bg">
-            <MessageList messages={conversation.messages} isThinking={false} />
+          <div className="session-detail__footer">
+            <button type="button" className="btn btn-secondary" onClick={() => navigate(APP_ROUTES.COACH_CHAT)}>
+              {t('coach.history.backToChat')}
+            </button>
+            <button type="button" className="btn btn-ghost" onClick={() => navigate(APP_ROUTES.COACH_HISTORY)}>
+              {t('coach.history.back')}
+            </button>
           </div>
         </>
       )}

@@ -1,92 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Emotion, EMOTION_DATA } from '../../../../models/emotion';
-import './ReflectionCapture.scss';
 
 interface ReflectionCaptureProps {
-  selectedEmotions: Emotion[];
   onFormChange?: (title: string, reflection: string) => void;
   initialTitle?: string;
   initialReflection?: string;
   guidingPrompts?: string[];
+  templateLabel?: string;
 }
 
+/** Title + the reflection itself, plus the selected template's guiding questions rendered as an
+ * accent-bordered aside — see mockup 2d's "DIFFICULT CONVERSATION · 2 OF 4" block. */
 const ReflectionCapture: React.FC<ReflectionCaptureProps> = ({
-  selectedEmotions,
   onFormChange,
   initialTitle = '',
   initialReflection = '',
-  guidingPrompts
+  guidingPrompts,
+  templateLabel,
 }) => {
   const { t } = useTranslation();
   const [title, setTitle] = useState(initialTitle);
   const [reflection, setReflection] = useState(initialReflection);
 
   useEffect(() => {
-    if (onFormChange) {
-      onFormChange(title, reflection);
-    }
+    onFormChange?.(title, reflection);
   }, [title, reflection, onFormChange]);
 
-  const selectedEmotionData = selectedEmotions.map(emotion => EMOTION_DATA[emotion]);
-
   return (
-    <div className="reflection-capture">
-      <div className="step-content">
-        <div className="selected-emotions">
-          <div className="emotion-tags">
-            {selectedEmotionData.map((emotion) => (
-              <div
-                key={emotion.id}
-                className="emotion-tag"
-                style={{
-                  '--emotion-color': emotion.color
-                } as React.CSSProperties}
-              >
-                <span className="emotion-icon">{emotion.icon}</span>
-                <span className="emotion-label">{emotion.label}</span>
-              </div>
+    <div className="entry-editor__reflection">
+      <input
+        type="text"
+        className="entry-editor__title-input"
+        placeholder={t('newEntryPage.titlePlaceholder') as string}
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        maxLength={100}
+      />
+      <textarea
+        className="input entry-editor__body-input"
+        placeholder={t('newEntryPage.reflectionPlaceholder') as string}
+        value={reflection}
+        onChange={(e) => setReflection(e.target.value)}
+        rows={6}
+        maxLength={1000}
+      />
+
+      {guidingPrompts && guidingPrompts.length > 0 && (
+        <div className="entry-editor__prompts">
+          {templateLabel && (
+            <div className="entry-editor__prompts-label">{templateLabel} · {guidingPrompts.length} {t('entryTemplates.guidingPromptsHeading')}</div>
+          )}
+          <ul className="entry-editor__prompts-list">
+            {guidingPrompts.map((prompt, index) => (
+              <li key={index}>{prompt}</li>
             ))}
-          </div>
+          </ul>
         </div>
-
-        {guidingPrompts && guidingPrompts.length > 0 && (
-          <div className="guiding-prompts">
-            <p className="guiding-prompts__heading">{t('entryTemplates.guidingPromptsHeading')}</p>
-            <ul className="guiding-prompts__list">
-              {guidingPrompts.map((prompt, index) => (
-                <li key={index} className="guiding-prompts__item">{prompt}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        <div className="reflection-form">
-          <div className="input-group">
-            <input
-              id="title-input"
-              type="text"
-              className="title-input"
-              placeholder={t('newEntryPage.titlePlaceholder')}
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              maxLength={100}
-            />
-          </div>
-
-          <div className="input-group">
-            <textarea
-              id="reflection-input"
-              className="reflection-input"
-              placeholder={t('newEntryPage.reflectionPlaceholder')}
-              value={reflection}
-              onChange={(e) => setReflection(e.target.value)}
-              rows={4}
-              maxLength={1000}
-            />
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -1,4 +1,3 @@
-import React from 'react';
 import './MimoCharacter.scss';
 import auraIdle from '../../assets/aura/aura-idle.gif';
 
