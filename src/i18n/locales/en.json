@@ -890,5 +890,85 @@
     "shift": "SHIFT",
     "whatAuraWrote": "What Aura wrote back",
     "caughtFromSession": "Caught from this session · {{count}}"
+  },
+  "landing": {
+    "hero": {
+      "headline": "No one else can answer that for you.",
+      "body": "Aura is a place to think out loud. Conversations, a map of the people in them, and four views of yourself — so you can untangle what is on your mind. The answer stays yours to find.",
+      "cta": "Start a conversation",
+      "ctaLoggedIn": "Go to Today",
+      "note": "Free · nothing shared · delete it all any time",
+      "photoCaption": "photograph — one person, window light, b/w",
+      "openerLabel": "Aura · a real opener",
+      "openerQuote": "\"You have described that job three times without once saying what you like about it.\""
+    },
+    "functions": {
+      "label": "Six things it does",
+      "talk": {
+        "kicker": "01 · Talk",
+        "title": "A conversation, not a script",
+        "body": "It follows what you actually said, and reads the mood you are writing in — out loud, so you can disagree with it."
+      },
+      "catch": {
+        "kicker": "02 · Catch",
+        "title": "Keep the sentence that lands",
+        "body": "One keystroke on any message. Nothing is filed about you without you putting it there.",
+        "example": "I stay quiet in rooms where I have the most to lose."
+      },
+      "mirror": {
+        "kicker": "03 · Your mirror",
+        "title": "Four views of yourself",
+        "body": "The Johari window, kept live: what is open, what is blind, what you hold back, what has yet to surface."
+      },
+      "people": {
+        "kicker": "04 · The people in it",
+        "title": "Who you keep talking about",
+        "body": "A map of your relationships — and who has quietly gone missing from the story.",
+        "example": "Ba — 31 days since he came up"
+      },
+      "timeline": {
+        "kicker": "05 · Insight timeline",
+        "title": "A log, not a feeling",
+        "body": "Every noticing keeps its date, its category and the energy you had that day — so patterns show up on their own."
+      },
+      "values": {
+        "kicker": "06 · Your values",
+        "title": "What you will not trade away",
+        "body": "Choose from twelve. Aura uses them to notice when you are talking yourself out of something that matters."
+      }
+    },
+    "why": {
+      "label": "Why it works",
+      "title": "Leading yourself comes before leading anyone else.",
+      "subtitle": "Every feature above belongs to one layer of that model. Nothing in Aura exists because it demoed well.",
+      "layer0": {
+        "kicker": "Layer 0 · Foundation",
+        "title": "Your values",
+        "body": "The ground you judge everything else against."
+      },
+      "layer1": {
+        "kicker": "Layer 1 · Innerverse",
+        "title": "Talk · Mirror",
+        "body": "Naming what is happening inside, in your own words."
+      },
+      "layer3": {
+        "kicker": "Layer 3 · Bridge",
+        "title": "The people in it",
+        "body": "Where the inside meets everyone you have to deal with."
+      },
+      "layer5": {
+        "kicker": "Layer 5 · Insight & Growth",
+        "title": "Catch · Timeline",
+        "body": "What you keep, and what it adds up to over months."
+      }
+    },
+    "closing": {
+      "title": "Say the thing you have been circling.",
+      "cta": "Start free →"
+    },
+    "footer": {
+      "rights": "AuraSelfAI · 2026",
+      "links": "Privacy · Terms · EN / VI"
+    }
   }
 }

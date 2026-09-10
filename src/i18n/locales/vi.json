@@ -894,5 +894,85 @@
     "shift": "THAY ĐỔI",
     "whatAuraWrote": "Điều Aura đã viết lại",
     "caughtFromSession": "Đã giữ lại trong phiên này · {{count}}"
+  },
+  "landing": {
+    "hero": {
+      "headline": "Không ai khác trả lời được điều đó thay bạn.",
+      "body": "Aura là nơi để bạn nghĩ thành lời. Những cuộc trò chuyện, một bản đồ những người xuất hiện trong đó, và bốn góc nhìn về chính bạn — để bạn gỡ rối những gì đang vướng trong đầu. Câu trả lời vẫn luôn là của riêng bạn.",
+      "cta": "Bắt đầu trò chuyện",
+      "ctaLoggedIn": "Vào Hôm nay",
+      "note": "Miễn phí · không chia sẻ với ai · xóa bất cứ lúc nào",
+      "photoCaption": "ảnh — một người, ánh sáng cửa sổ, đen trắng",
+      "openerLabel": "Aura · một câu mở đầu thật",
+      "openerQuote": "\"Bạn đã kể về công việc đó ba lần mà chưa từng nói bạn thích điều gì ở nó.\""
+    },
+    "functions": {
+      "label": "Sáu điều Aura làm",
+      "talk": {
+        "kicker": "01 · Trò chuyện",
+        "title": "Một cuộc trò chuyện, không phải kịch bản",
+        "body": "Nó theo sát những gì bạn thực sự nói, và đọc được tâm trạng bạn đang viết ra — nói thẳng, để bạn có thể không đồng ý."
+      },
+      "catch": {
+        "kicker": "02 · Giữ lại",
+        "title": "Giữ lại câu nói chạm đến bạn",
+        "body": "Một phím bấm trên bất kỳ tin nhắn nào. Không gì được lưu về bạn nếu bạn không tự đặt nó vào.",
+        "example": "Tôi im lặng ở những nơi tôi có nhiều thứ để mất nhất."
+      },
+      "mirror": {
+        "kicker": "03 · Tấm gương của bạn",
+        "title": "Bốn góc nhìn về chính mình",
+        "body": "Cửa sổ Johari, luôn cập nhật: điều gì cởi mở, điều gì là điểm mù, điều gì bạn giữ kín, điều gì chưa lộ ra."
+      },
+      "people": {
+        "kicker": "04 · Những người trong đó",
+        "title": "Bạn hay nhắc tới ai",
+        "body": "Một bản đồ các mối quan hệ của bạn — và ai đã âm thầm biến mất khỏi câu chuyện.",
+        "example": "Ba — 31 ngày chưa được nhắc tới"
+      },
+      "timeline": {
+        "kicker": "05 · Dòng thời gian",
+        "title": "Một bản ghi, không phải cảm giác",
+        "body": "Mỗi điều nhận ra đều giữ ngày tháng, phân loại và mức năng lượng hôm đó — để các khuôn mẫu tự hiện ra."
+      },
+      "values": {
+        "kicker": "06 · Giá trị của bạn",
+        "title": "Điều bạn sẽ không đánh đổi",
+        "body": "Chọn từ mười hai giá trị. Aura dùng chúng để nhận ra khi bạn đang tự thuyết phục mình từ bỏ điều quan trọng."
+      }
+    },
+    "why": {
+      "label": "Vì sao nó hiệu quả",
+      "title": "Dẫn dắt chính mình đến trước khi dẫn dắt bất kỳ ai khác.",
+      "subtitle": "Mỗi tính năng trên thuộc về một lớp trong mô hình đó. Không gì trong Aura tồn tại chỉ vì nó trình diễn đẹp.",
+      "layer0": {
+        "kicker": "Lớp 0 · Nền tảng",
+        "title": "Giá trị của bạn",
+        "body": "Nền tảng để bạn đánh giá mọi thứ khác."
+      },
+      "layer1": {
+        "kicker": "Lớp 1 · Thế giới nội tâm",
+        "title": "Trò chuyện · Tấm gương",
+        "body": "Gọi tên điều đang diễn ra bên trong, bằng chính lời của bạn."
+      },
+      "layer3": {
+        "kicker": "Lớp 3 · Cầu nối",
+        "title": "Những người trong đó",
+        "body": "Nơi bên trong bạn gặp gỡ mọi người bạn phải đối diện."
+      },
+      "layer5": {
+        "kicker": "Lớp 5 · Thấu hiểu & Trưởng thành",
+        "title": "Giữ lại · Dòng thời gian",
+        "body": "Những gì bạn giữ lại, và chúng cộng lại thành điều gì sau nhiều tháng."
+      }
+    },
+    "closing": {
+      "title": "Nói ra điều bạn vẫn cứ vòng vo.",
+      "cta": "Bắt đầu miễn phí →"
+    },
+    "footer": {
+      "rights": "AuraSelfAI · 2026",
+      "links": "Riêng tư · Điều khoản · EN / VI"
+    }
   }
 }
