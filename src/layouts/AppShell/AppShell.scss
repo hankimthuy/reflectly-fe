@@ -1,0 +1,176 @@
+@use '../../styles/_responsive' as *;
+
+// The authenticated app's own shell (Today / Talk / Reflect / You) — a left sidebar on
+// desktop, a bottom tab bar on mobile, no top header and no floating FAB (Today itself is the
+// entry to a conversation now — see the redesign brief, section 02).
+.app-shell {
+  height: 100dvh;
+  width: 100%;
+  display: flex;
+  background: var(--color-bg);
+  overflow: hidden;
+}
+
+.app-shell__sidebar {
+  display: none;
+  flex: none;
+  width: 212px;
+  flex-direction: column;
+  padding: 22px 0 18px;
+  border-right: 2px solid var(--color-divider);
+  overflow-y: auto;
+
+  @include laptop-up {
+    display: flex;
+  }
+}
+
+.app-shell__brand {
+  padding: 0 18px 18px;
+  border-bottom: 2px solid var(--color-divider);
+}
+
+.app-shell__wordmark {
+  font: 800 20px 'Archivo', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.app-shell__tagline {
+  font: 400 10.5px 'Archivo', sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-neutral-600);
+  margin-top: 3px;
+}
+
+.app-shell__nav {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0 0;
+}
+
+.app-shell__nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 18px;
+  text-decoration: none;
+  color: var(--color-text);
+  font: 800 14px 'Archivo', sans-serif;
+
+  &:hover {
+    background: color-mix(in srgb, var(--color-text) 7%, transparent);
+  }
+}
+
+.app-shell__nav-dot {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border: 1.5px solid var(--color-neutral-500);
+}
+
+.app-shell__nav-item--active {
+  background: var(--color-text);
+  color: var(--color-bg);
+
+  &:hover {
+    background: var(--color-text);
+  }
+
+  .app-shell__nav-dot {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+}
+
+.app-shell__footer {
+  margin-top: auto;
+  padding: 16px 18px 0;
+  border-top: 2px solid var(--color-divider);
+}
+
+.app-shell__footer-label {
+  font: 400 10px 'Archivo', sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-neutral-600);
+  margin-bottom: 6px;
+}
+
+.app-shell__footer-name {
+  font: 800 15px 'Archivo', sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-shell__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding-bottom: 68px;
+
+  @include laptop-up {
+    padding-bottom: 0;
+  }
+}
+
+// Bottom tab bar — mobile only.
+.app-shell__tabbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  display: flex;
+  border-top: 2px solid var(--color-text);
+  background: var(--color-neutral-100);
+
+  @include laptop-up {
+    display: none;
+  }
+}
+
+.app-shell__tabbar--hidden {
+  display: none;
+}
+
+.app-shell__tab {
+  flex: 1;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 14px;
+  text-decoration: none;
+  color: var(--color-text);
+
+  & + & {
+    border-left: 2px solid var(--color-text);
+  }
+}
+
+.app-shell__tab-dot {
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid var(--color-neutral-500);
+}
+
+.app-shell__tab-label {
+  font: 800 11.5px 'Archivo', sans-serif;
+}
+
+.app-shell__tab--active {
+  background: var(--color-text);
+  color: var(--color-bg);
+
+  .app-shell__tab-dot {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+}

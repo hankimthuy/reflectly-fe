@@ -1,16 +1,173 @@
 @import "tailwindcss";
 
 /*
- * Fresh, calm palette for the new Coach/Dashboard/Onboarding surfaces — deliberately
- * decoupled from the legacy --garden-* SCSS variables in src/styles/_variables.scss.
+ * ─────────────────────────────────────────────────────────────────────────
+ * Modernist — Aura's design system (see the Claude Design handoff bundle's
+ * _ds/modernist.../readme.md for the full system this was derived from).
+ *
+ * Ground: "Clay & pine" — a sand paper ground with red as the one accent
+ * that carries charge/tension, and pine as a second, calmer color the
+ * mood ribbon and a few status reads can settle toward. Flat, architectural,
+ * set in Archivo: 2px rules do the organising, zero corner radius, labels
+ * flush left. Every color below is exposed as a Tailwind v4 theme token
+ * (`--color-foo` → `bg-foo` / `text-foo` / `border-foo` utilities) so
+ * components can be built with ordinary Tailwind classes.
+ *
+ * Replaces the old `coach-*` palette — every screen that used it is being
+ * repainted onto this one (see the redesign branch), so there is no
+ * transition period to support here.
+ *
+ * Tonal ramps are derived with `color-mix()` off the two ground roles
+ * (--color-bg, --color-text) rather than hand-picked hexes, so every ramp
+ * stays perceptually tied to the ground it's mixed against.
+ * ─────────────────────────────────────────────────────────────────────────
  */
 @theme {
-  --color-coach-bg: #f7f5f2;
-  --color-coach-surface: #ffffff;
-  --color-coach-primary: #3f5c52;
-  --color-coach-primary-light: #6b8a7e;
-  --color-coach-accent: #c98a5e;
-  --color-coach-text: #26302c;
-  --color-coach-text-muted: #6b7570;
-  --color-coach-border: #e3e0da;
+  --color-bg: #ece3d5;
+  --color-surface: color-mix(in srgb, #1f2420 7%, #ece3d5);
+  --color-text: #1f2420;
+  --color-divider: color-mix(in srgb, #1f2420 40%, transparent);
+
+  /* Neutral ramp — text mixed into the ground, light steps for tints/fills,
+     dark steps for muted copy. */
+  --color-neutral-100: color-mix(in srgb, #1f2420 6%, #ece3d5);
+  --color-neutral-200: color-mix(in srgb, #1f2420 13%, #ece3d5);
+  --color-neutral-300: color-mix(in srgb, #1f2420 24%, #ece3d5);
+  --color-neutral-400: color-mix(in srgb, #1f2420 38%, #ece3d5);
+  --color-neutral-500: color-mix(in srgb, #1f2420 52%, #ece3d5);
+  --color-neutral-600: color-mix(in srgb, #1f2420 66%, #ece3d5);
+  --color-neutral-700: color-mix(in srgb, #1f2420 78%, #ece3d5);
+  --color-neutral-800: color-mix(in srgb, #1f2420 88%, #ece3d5);
+  --color-neutral-900: color-mix(in srgb, #1f2420 95%, #ece3d5);
+
+  /* Accent — red, the one color allowed to carry charge/tension. Fixed
+     hexes (not ground-mixed): the same red must read as "the accent" no
+     matter which ground the system is painted on. */
+  --color-accent: #ec3013;
+  --color-accent-100: #fff2ef;
+  --color-accent-200: #ffe0d9;
+  --color-accent-300: #ffc4b8;
+  --color-accent-400: #ff9783;
+  --color-accent-500: #ff563c;
+  --color-accent-600: #dd2b0f;
+  --color-accent-700: #ae1800;
+  --color-accent-800: #7c1405;
+  --color-accent-900: #4d170e;
+
+  /* Pine — the second color "clay & pine" adds: the settled state a mood
+     can travel *to*, instead of just fading to gray. Used deliberately and
+     sparingly (the live mood read, a handful of status fills) — red still
+     carries every primary action. */
+  --color-pine: #2f3a30;
+  --color-pine-100: color-mix(in srgb, #2f3a30 10%, #ece3d5);
+  --color-pine-200: color-mix(in srgb, #2f3a30 20%, #ece3d5);
+  --color-pine-300: color-mix(in srgb, #2f3a30 35%, #ece3d5);
+  --color-pine-400: color-mix(in srgb, #2f3a30 55%, #ece3d5);
+  --color-pine-500: #2f3a30;
+  --color-pine-600: color-mix(in srgb, #2f3a30 85%, black);
+  --color-pine-700: color-mix(in srgb, #2f3a30 65%, black);
+  --color-pine-800: color-mix(in srgb, #2f3a30 45%, black);
+  --color-pine-900: color-mix(in srgb, #2f3a30 25%, black);
+
+  --font-heading: "Archivo", system-ui, sans-serif;
+  --font-body: "Archivo", system-ui, sans-serif;
+
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #1f2420 14%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, #1f2420 16%, transparent);
+  --shadow-lg: 0 12px 32px color-mix(in srgb, #1f2420 22%, transparent);
+
+  /* Zero radius everywhere, on purpose — see the system readme's "Don't".
+     Kept as theme tokens (rather than left undefined) so `rounded-md` etc.
+     resolve to 0 if anything still reaches for them during the migration. */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
 }
+
+@keyframes aura-drift {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(18px); }
+  100% { transform: translateX(0); }
+}
+@keyframes aura-breathe {
+  0% { opacity: .35; }
+  50% { opacity: .9; }
+  100% { opacity: .35; }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   Base type + component classes — plain CSS, ported from the Modernist
+   design system and repainted for the clay & pine ground. Unlayered on
+   purpose: this repo's Tailwind utilities and per-page SCSS both need to
+   be able to override a specific instance, so nothing here should out-rank
+   a class selector — see index.scss's own note on the same cascade issue.
+   ══════════════════════════════════════════════════════════════════════ */
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  margin: 0 0 8px;
+}
+h6 { letter-spacing: 0.08em; text-transform: uppercase; }
+
+.text-muted { color: color-mix(in srgb, var(--color-text) 55%, transparent); }
+
+/* — rules — */
+.hr { height: 2px; border: 0; margin: 16px 0; background: var(--color-divider); }
+
+/* — buttons — */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  cursor: pointer; text-decoration: none;
+  font-family: var(--font-heading); font-weight: 800;
+  font-size: 14px; line-height: 1.2; color: var(--color-text);
+  background: transparent; border: 2px solid transparent;
+  padding: 10px 15px; border-radius: 0;
+  transition: background-color .12s ease-in-out;
+}
+.btn svg { display: block; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn-primary { background: var(--color-accent); color: var(--color-bg); }
+.btn-primary:hover { background: var(--color-accent-600); }
+.btn-primary:active { background: var(--color-accent-700); }
+.btn-secondary { border-color: var(--color-text); }
+.btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.btn-secondary:active { background: color-mix(in srgb, var(--color-text) 14%, transparent); }
+.btn-ghost { color: var(--color-accent-700); padding-inline: 4px; border-color: transparent; }
+.btn-ghost:hover { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
+.btn-ghost:active { background: color-mix(in srgb, var(--color-accent) 18%, transparent); }
+.btn-icon { width: 36px; height: 36px; padding: 0; }
+.btn-block { width: 100%; margin-top: 8px; justify-content: flex-start; text-align: left; }
+.btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+
+/* — forms — */
+.field > label { display: block; font-size: 12px; margin-bottom: 5px; color: color-mix(in srgb, var(--color-text) 70%, transparent); }
+.input {
+  width: 100%; min-height: 44px; padding: 8px 12px; font: inherit;
+  font-size: 14px; color: var(--color-text); caret-color: var(--color-accent);
+  background: var(--color-bg); border: 2px solid var(--color-text); border-radius: 0;
+}
+.input::placeholder { color: var(--color-neutral-600); }
+.input:focus-visible { border-color: var(--color-accent); outline: none; }
+textarea.input { min-height: 90px; resize: vertical; }
+
+/* — tags — */
+.tag { display: inline-flex; align-items: center; font-size: 11px; letter-spacing: 0.02em; padding: 3px 10px; border-radius: 0; font-family: var(--font-heading); font-weight: 800; }
+.tag-accent { background: var(--color-accent-200); color: var(--color-accent-800); }
+.tag-pine { background: var(--color-pine-200); color: var(--color-pine-800); }
+.tag-neutral { background: var(--color-neutral-200); color: var(--color-neutral-800); }
+.tag-outline { border: 1.5px solid var(--color-accent); color: var(--color-accent-700); }
+
+/* — cards / elevation — */
+.elev-sm { box-shadow: var(--shadow-sm); }
+.elev-md { box-shadow: var(--shadow-md); }
+.elev-lg { box-shadow: var(--shadow-lg); }
+
+::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }

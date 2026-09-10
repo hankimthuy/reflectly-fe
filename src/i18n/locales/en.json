@@ -163,10 +163,22 @@
     "johari": {
       "sectionTitle": "Johari Window — 4 views of yourself",
       "sectionDescription": "A classic self-leadership framework that helps you tell apart what you already know, what others see that you don't, and the potential still waiting to be discovered.",
-      "open": { "label": "Open Area", "desc": "What you know about yourself, and others see too." },
-      "blind": { "label": "Blind Spot", "desc": "What others — or Aura — notice in you, but you haven't yet." },
-      "hidden": { "label": "Hidden Area", "desc": "What you know about yourself but have never shared." },
-      "unknown": { "label": "Unknown Area", "desc": "Untapped potential, waiting to surface through conversation." }
+      "open": {
+        "label": "Open Area",
+        "desc": "What you know about yourself, and others see too."
+      },
+      "blind": {
+        "label": "Blind Spot",
+        "desc": "What others — or Aura — notice in you, but you haven't yet."
+      },
+      "hidden": {
+        "label": "Hidden Area",
+        "desc": "What you know about yourself but have never shared."
+      },
+      "unknown": {
+        "label": "Unknown Area",
+        "desc": "Untapped potential, waiting to surface through conversation."
+      }
     },
     "insights": {
       "sectionTitle": "Insight Timeline",
@@ -186,14 +198,14 @@
     "cta": "Learn more"
   },
   "brand": {
-    "name": "Aura Self AI",
+    "name": "AURA",
     "acronym": "AI Coach for Self-Understanding",
     "slogan": "Why am I here?",
     "heroLine1": "No one else can answer that for you.",
     "heroLine2": "At Aura Self AI, conversations and insight maps help you untangle what's on your mind.",
     "heroLine3": "The final answer is yours alone to find.",
     "description": "Discover yourself through every conversation. Your relationship map and insights are personalized from what you share.",
-    "tagline": "Talk to understand yourself, every day.",
+    "tagline": "Thinking partner",
     "footer": "© 2026 Aura Self AI. Walking with you on the path of Self-Understanding & Self-Leadership.",
     "welcome": "Welcome back to Aura Self AI.",
     "ctaLoggedOut": "Start chatting with your Coach",
@@ -216,7 +228,11 @@
     "login": "Log In",
     "startJourney": "Start your journey",
     "groupSpaces": "Spaces",
-    "groupJourney": "Your journey"
+    "groupJourney": "Your journey",
+    "today": "Today",
+    "talk": "Talk",
+    "reflect": "Reflect",
+    "you": "You"
   },
   "garden": {
     "mapTitle": "My Mind Space",
@@ -258,27 +274,48 @@
       "goOut": {
         "title": "Chat with your AI Coach",
         "intro": "A Socratic conversation space — the Coach asks open questions so you find your own answers.",
-        "steps": ["Share what's on your mind, no preparation needed.", "The Coach remembers what matters to you, conversation by conversation."],
+        "steps": [
+          "Share what's on your mind, no preparation needed.",
+          "The Coach remembers what matters to you, conversation by conversation."
+        ],
         "linkLabel": "Start chatting"
       },
       "comeBack": {
         "title": "Your relationship map",
         "intro": "Built automatically from what you share — so you can see clearly who energizes you and who drains you.",
-        "steps": ["No manual data entry — the Coach recognizes people as you talk.", "Add or edit anyone directly, any time you want."],
+        "steps": [
+          "No manual data entry — the Coach recognizes people as you talk.",
+          "Add or edit anyone directly, any time you want."
+        ],
         "linkLabel": "View your map"
       },
       "filter": {
         "title": "Insight timeline",
         "intro": "A running summary of your core values, behavior patterns, and insights the Coach has picked up on over time.",
-        "steps": ["Notice what keeps repeating — the next decision is always yours.", "Core values update the moment you change them."],
+        "steps": [
+          "Notice what keeps repeating — the next decision is always yours.",
+          "Core values update the moment you change them."
+        ],
         "linkLabel": "View about you"
       },
       "principlesTitle": "Four Principles of Experience & Transformation",
       "principles": [
-        { "title": "Action is core", "description": "Every tool points toward a real experience — helping you turn awareness into lived habits, not just theory." },
-        { "title": "Open up your own agency", "description": "Aura Self AI offers open-ended questions so you find your own answers, instead of imposed advice." },
-        { "title": "Continuous growth", "description": "Insights and your relationship map are nurtured, tracked, and upgraded as you grow — never a one-off fix." },
-        { "title": "The map is yours", "description": "Data is only a mirror. You always own the decisions for your own journey." }
+        {
+          "title": "Action is core",
+          "description": "Every tool points toward a real experience — helping you turn awareness into lived habits, not just theory."
+        },
+        {
+          "title": "Open up your own agency",
+          "description": "Aura Self AI offers open-ended questions so you find your own answers, instead of imposed advice."
+        },
+        {
+          "title": "Continuous growth",
+          "description": "Insights and your relationship map are nurtured, tracked, and upgraded as you grow — never a one-off fix."
+        },
+        {
+          "title": "The map is yours",
+          "description": "Data is only a mirror. You always own the decisions for your own journey."
+        }
       ]
     },
     "bridge": {
@@ -698,5 +735,81 @@
       "passwordTooShort": "Password must be at least 6 characters.",
       "signupFailed": "Signup failed. Please try again."
     }
+  },
+  "appShell": {
+    "defaultFooter": {
+      "label": "Signed in as"
+    },
+    "thisWeek": {
+      "label": "This week",
+      "value": "{{sessions}} sessions · {{entries}} entries"
+    }
+  },
+  "publicLayout": {
+    "goToToday": "Go to Today",
+    "startFree": "Start free"
+  },
+  "emotion": {
+    "happy": "Happy",
+    "blessed": "Blessed",
+    "good": "Good",
+    "confused": "Confused",
+    "bored": "Bored",
+    "awkward": "Awkward",
+    "angry": "Angry",
+    "anxious": "Anxious",
+    "down": "Down"
+  },
+  "mirror": {
+    "title": "Your mirror",
+    "open": {
+      "label": "Open",
+      "sub": "known to both"
+    },
+    "blind": {
+      "label": "Blind",
+      "sub": "others see it"
+    },
+    "hidden": {
+      "label": "Hidden",
+      "sub": "held back"
+    },
+    "unknown": {
+      "label": "Unknown",
+      "sub": "yet to surface"
+    },
+    "openLink": "Open →",
+    "whichPane": "Which pane of your mirror?"
+  },
+  "today": {
+    "greetingMorning": "Morning, {{name}}.",
+    "greetingAfternoon": "Afternoon, {{name}}.",
+    "greetingEvening": "Evening, {{name}}.",
+    "subtitleStreak": "You've shown up {{count}} days running.",
+    "subtitleNone": "A blank page today — that’s fine too.",
+    "openerLabel": "Today's opener",
+    "openers": [
+      "What have you been avoiding saying out loud this week?",
+      "Who came up in your head today without you meaning them to?",
+      "What did you say yes to that you wanted to say no to?",
+      "What's the thing you keep almost bringing up?",
+      "Where did you feel most like yourself today?",
+      "What's a conversation you're still replaying?",
+      "What are you pretending not to notice?"
+    ],
+    "startHere": "Start here →",
+    "somethingElse": "Something else on my mind",
+    "lastSevenDays": "Last seven days",
+    "noMoodYet": "Write or talk a few times and a pattern will show up here.",
+    "pickBackUp": "Pick back up",
+    "emptyPickBackUp": "Nothing yet — this fills in as you talk and write.",
+    "session": "Session",
+    "entry": "Entry",
+    "needsAttention": "Needs attention",
+    "daysSince_one": "{{count}} day",
+    "daysSince_other": "{{count}} days",
+    "noAttention": "Everyone you've mapped is steady right now.",
+    "preferAlone": "Prefer to write alone?",
+    "newEntry": "New journal entry"
   }
 }

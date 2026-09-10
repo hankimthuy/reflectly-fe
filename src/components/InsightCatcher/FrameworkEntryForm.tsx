@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '../Button/Button';
 import { usePeopleQuery } from '../../queries/peopleQueryHook';
 import type { FrameworkType, LifePosition } from '../../models/savedFrameworkEntry';
+export { stripMarkdown } from '../../utils/textUtil';
 
 interface FrameworkEntryFormProps {
   frameworkType: FrameworkType;
@@ -20,17 +21,6 @@ const FIELD_CLASSES =
 const LIFE_POSITIONS: LifePosition[] = ['I_OK_YOU_OK', 'I_OK_YOU_NOT_OK', 'I_NOT_OK_YOU_OK', 'I_NOT_OK_YOU_NOT_OK'];
 
 const asString = (value: unknown): string => (typeof value === 'string' ? value : '');
-
-/** Strips common markdown markup (headers, bold/italic, list bullets, inline code) so AI-generated
- * text (e.g. the session summary) can seed a plain-text form field without literal `**`/`#` noise. */
-export const stripMarkdown = (text: string): string =>
-  text
-    .replace(/^#{1,6}\s+/gm, '')
-    .replace(/\*\*(.+?)\*\*/g, '$1')
-    .replace(/\*(.+?)\*/g, '$1')
-    .replace(/^[-*]\s+/gm, '')
-    .replace(/`(.+?)`/g, '$1')
-    .trim();
 
 /**
  * Shared create/edit form for a saved framework entry — reused by InsightCatcherPanel (creating
