@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Emotion, EMOTION_DATA } from '../../../../models/emotion';
-import './EmotionCapture.scss';
 
 interface EmotionCaptureProps {
   selectedEmotions: Emotion[];
@@ -9,45 +8,33 @@ interface EmotionCaptureProps {
   maxSelections?: number;
 }
 
-const EmotionCapture: React.FC<EmotionCaptureProps> = ({
-  selectedEmotions,
-  onEmotionToggle,
-  maxSelections = 10
-}) => {
+/** Typographic mood tags, not emoji buttons — see the design system's "One visual language"
+ * direction (section 05 of the redesign brief): emoji mood icons are replaced by words. */
+const EmotionCapture: React.FC<EmotionCaptureProps> = ({ selectedEmotions, onEmotionToggle, maxSelections = 10 }) => {
   const { t } = useTranslation();
   const emotions = Object.values(EMOTION_DATA);
   const canSelectMore = selectedEmotions.length < maxSelections;
 
-  const handleEmotionClick = (emotion: Emotion) => {
-    if (selectedEmotions.includes(emotion) || canSelectMore) {
-      onEmotionToggle(emotion);
-    }
-  };
-
   const isSelected = (emotion: Emotion) => selectedEmotions.includes(emotion);
 
   return (
-    <div className="emotion-capture">
-      <div className="step-header">
-        <h2 className="question">{t('newEntryPage.emotionQuestion')}</h2>
-        <p className="instruction">{t('newEntryPage.emotionInstruction')}</p>
-      </div>
-
-      <div className="emotions-grid">
-        {emotions.map((emotionData) => (
-          <button
-            key={emotionData.id}
-            className={`emotion-button ${isSelected(emotionData.id) ? 'selected' : ''}`}
-            onClick={() => handleEmotionClick(emotionData.id)}
-            disabled={!isSelected(emotionData.id) && !canSelectMore}
-            style={{
-              '--emotion-color': emotionData.color
-            } as React.CSSProperties}
-          >
-            <div className="emotion-icon">{emotionData.icon}</div>
-            <span className="emotion-label">{emotionData.label}</span>
-          </button>
-        ))}
+    <div className="entry-editor__emotions">
+      <div className="entry-editor__section-label">{t('newEntryPage.emotionQuestion')}</div>
+      <div className="entry-editor__tags">
+        {emotions.map((emotionData) => {
+          const selected = isSelected(emotionData.id);
+          return (
+            <button
+              key={emotionData.id}
+              type="button"
+              className={`tag ${selected ? 'tag-accent' : 'tag-outline'} entry-editor__tag-btn`}
+              onClick={() => onEmotionToggle(emotionData.id)}
+              disabled={!selected && !canSelectMore}
+            >
+              {t(`emotion.${emotionData.id}`)}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

@@ -516,18 +516,22 @@
   "newEntryPage": {
     "title": "Your Safe Space",
     "subtitle": "Right here, right now — how are you?",
-    "emotionQuestion": "What's present for you right now?",
+    "emotionQuestion": "Where is it sitting?",
     "emotionInstruction": "Tap what resonates. No wrong answers.",
     "reflectionStep": "Speak Your Truth",
-    "titlePlaceholder": "Give this moment a name...",
-    "reflectionPlaceholder": "What would you tell your future self about right now?",
-    "save": "Seal This Moment",
+    "titlePlaceholder": "Give this a name",
+    "reflectionPlaceholder": "Say it plainly. No one is grading this.",
+    "save": "Done",
     "saving": "Saving...",
     "privacy": "Private & encrypted",
     "successMessage": "Your moment has been sealed safely.",
     "successTitle": "Sealed",
     "errorMessage": "Your reflection has not been saved yet!",
-    "errorTitle": "Error"
+    "errorTitle": "Error",
+    "cancel": "Cancel",
+    "draft": "Draft",
+    "prompts": "Prompts",
+    "talkInstead": "Talk it out instead →"
   },
   "entryTemplates": {
     "picker": {

@@ -520,18 +520,22 @@
   "newEntryPage": {
     "title": "Góc tự chiêm nghiệm",
     "subtitle": "Ngay lúc này — bạn đang cảm thấy thế nào?",
-    "emotionQuestion": "Điều gì đang hiện diện trong bạn?",
+    "emotionQuestion": "Cảm xúc này đang ở đâu?",
     "emotionInstruction": "Chọn những gì cộng hưởng. Không có đáp án sai.",
     "reflectionStep": "Nói Lên Sự Thật",
-    "titlePlaceholder": "Đặt tên cho khoảnh khắc này...",
-    "reflectionPlaceholder": "Bạn muốn nói gì với bản thân tương lai về lúc này?",
-    "save": "Lưu Khoảnh Khắc",
+    "titlePlaceholder": "Đặt tên cho khoảnh khắc này",
+    "reflectionPlaceholder": "Nói thẳng ra. Không ai chấm điểm điều này cả.",
+    "save": "Xong",
     "saving": "Đang lưu...",
     "privacy": "Riêng tư & mã hóa",
     "successMessage": "Khoảnh khắc của bạn đã được lưu an toàn.",
     "successTitle": "Đã lưu",
     "errorMessage": "Bài viết của bạn chưa được lưu!",
-    "errorTitle": "Lỗi"
+    "errorTitle": "Lỗi",
+    "cancel": "Hủy",
+    "draft": "Bản nháp",
+    "prompts": "Gợi ý",
+    "talkInstead": "Trò chuyện thay vì viết →"
   },
   "entryTemplates": {
     "picker": {
