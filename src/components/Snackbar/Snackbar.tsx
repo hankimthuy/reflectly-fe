@@ -1,7 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Snackbar.scss';
-import { Alert, Snackbar } from '@mui/material';
-import Typography from '@mui/material/Typography';
 
 export type SnackbarType = 'success' | 'error' | 'warning' | 'info';
 
@@ -14,65 +12,28 @@ interface SnackbarProps {
   autoHideDuration?: number;
 }
 
-const SnackbarComponent: React.FC<SnackbarProps> = ({
-  open,
-  message,
-  title,
-  type,
-  onClose,
-  autoHideDuration,
-}) => {
-  const getColor = (type: SnackbarType): 'success' | 'danger' | 'warning' | 'primary' => {
-    switch (type) {
-      case 'success':
-        return 'success';
-      case 'error':
-        return 'danger';
-      case 'warning':
-        return 'warning';
-      case 'info':
-        return 'primary';
-      default:
-        return 'primary';
-    }
-  };
+/** A flat, bordered notice — see mockup 3c's rate-limit card for the reference look (dark chip,
+ * accent dot, message). Fixed bottom-right rather than inline like that mockup, since this one
+ * has to work from any page, not just the one screen that mocked it. */
+const SnackbarComponent: React.FC<SnackbarProps> = ({ open, message, title, type, onClose, autoHideDuration }) => {
+  useEffect(() => {
+    if (!open || !autoHideDuration) return undefined;
+    const timer = setTimeout(onClose, autoHideDuration);
+    return () => clearTimeout(timer);
+  }, [open, autoHideDuration, onClose]);
+
+  if (!open) return null;
 
   return (
-    <Snackbar
-      open={open}
-      autoHideDuration={autoHideDuration}
-      onClose={onClose}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      color={getColor(type)}
-    >
-      <Alert
-        onClose={onClose}
-        severity={type}
-        variant="filled"
-        sx={{ width: '100%' }}
-      >
-        <div className="snackbar-content">
-          {title && (
-            <Typography
-              className="snackbar-title"
-              variant="h6"
-              component="span"
-            >
-              {title}
-            </Typography>
-          )}
-          <Typography
-            className="snackbar-message"
-            variant="body2"
-            component="span"
-          >
-            {message}
-          </Typography>
-        </div>
-      </Alert>
-    </Snackbar>
+    <div className={`snackbar snackbar--${type}`} role="status">
+      <span className="snackbar__dot" />
+      <div className="snackbar-content">
+        {title && <span className="snackbar-title">{title}</span>}
+        <span className="snackbar-message">{message}</span>
+      </div>
+      <button type="button" className="snackbar__close" onClick={onClose} aria-label="Close">✕</button>
+    </div>
   );
 };
 
 export default SnackbarComponent;
-

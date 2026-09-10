@@ -1,10 +1,56 @@
+.snackbar {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: min(420px, calc(100vw - 40px));
+  border: 2px solid var(--color-text);
+  background: var(--color-text);
+  color: var(--color-bg);
+  padding: 13px 14px;
+  box-shadow: var(--shadow-lg);
+}
+
+.snackbar__dot {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  background: var(--color-accent);
+}
+
+.snackbar--success .snackbar__dot { background: var(--color-pine-400); }
+.snackbar--error .snackbar__dot { background: var(--color-accent); }
+.snackbar--warning .snackbar__dot { background: var(--color-accent-400); }
+
 .snackbar-content {
   display: flex;
   flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
 }
 
 .snackbar-title {
-  font-weight: bold;
-  margin-bottom: 4px;
+  font: 800 13px 'Archivo', sans-serif;
 }
 
+.snackbar-message {
+  font-size: 12.5px;
+  line-height: 1.45;
+  opacity: 0.85;
+}
+
+.snackbar__close {
+  border: 0;
+  background: none;
+  color: var(--color-bg);
+  opacity: 0.7;
+  cursor: pointer;
+  font-size: 12px;
+  flex: none;
+
+  &:hover { opacity: 1; }
+}

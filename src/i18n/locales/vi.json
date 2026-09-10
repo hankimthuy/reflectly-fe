@@ -213,7 +213,7 @@
     "tagline": "Bạn đồng hành tư duy",
     "footer": "© 2026 Aura Self AI. Đồng hành cùng hành trình Thấu hiểu & Lãnh đạo Bản thân.",
     "contactLink": "Liên hệ tác giả",
-    "welcome": "Chào mừng bạn quay lại với Aura Self AI.",
+    "welcome": "Chào mừng trở lại.",
     "ctaLoggedOut": "Bắt đầu trò chuyện với Coach",
     "ctaLoggedIn": "Tiếp tục trò chuyện"
   },
@@ -712,23 +712,23 @@
     "empty": "Bắt đầu viết đúc kết để thấy mẫu hình cảm xúc của bạn hiện rõ hơn."
   },
   "notFound": {
-    "title": "Trang bạn tìm không tồn tại",
-    "subtitle": "Có thể đường dẫn đã thay đổi hoặc không còn tồn tại.",
-    "back": "Về trang chủ"
+    "title": "Không có gì để suy ngẫm ở đây.",
+    "subtitle": "Trang này không tồn tại — ít ra đó là một vấn đề dễ giải quyết.",
+    "back": "Về trang Hôm nay"
   },
   "auth": {
     "loginTitle": "Đăng nhập",
-    "signupTitle": "Tạo tài khoản",
+    "signupTitle": "Hai phút nữa, chúng ta sẽ trò chuyện.",
     "fullName": "Họ và tên",
     "username": "Tên đăng nhập",
     "password": "Mật khẩu",
     "confirmPassword": "Xác nhận mật khẩu",
     "loginButton": "Đăng nhập",
-    "signupButton": "Đăng ký",
+    "signupButton": "Tạo tài khoản",
     "googleLogin": "Tiếp tục với Google",
     "noAccount": "Chưa có tài khoản?",
     "hasAccount": "Đã có tài khoản?",
-    "signupLink": "Đăng ký",
+    "signupLink": "Tạo tài khoản",
     "loginLink": "Đăng nhập",
     "fullNamePlaceholder": "Họ và tên của bạn",
     "usernamePlaceholder": "Nhập tên đăng nhập",
@@ -749,7 +749,12 @@
       "passwordMismatch": "Mật khẩu không khớp.",
       "passwordTooShort": "Mật khẩu phải có ít nhất 6 ký tự.",
       "signupFailed": "Đăng ký thất bại. Vui lòng thử lại."
-    }
+    },
+    "loginNote": "Mọi thứ vẫn như lúc bạn rời đi.",
+    "signupSubtitle": "Không xác minh email, không khảo sát làm quen bạn sẽ chán.",
+    "signupNote": "Nhật ký của bạn là của riêng bạn. Aura chỉ đọc để trả lời bạn, không vì mục đích nào khác.",
+    "whatShouldAuraCallYou": "Aura nên gọi bạn là gì?",
+    "passwordMinChars": "Mật khẩu · tối thiểu 8 ký tự"
   },
   "appShell": {
     "defaultFooter": {

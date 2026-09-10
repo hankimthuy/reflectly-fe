@@ -209,7 +209,7 @@
     "description": "Discover yourself through every conversation. Your relationship map and insights are personalized from what you share.",
     "tagline": "Thinking partner",
     "footer": "© 2026 Aura Self AI. Walking with you on the path of Self-Understanding & Self-Leadership.",
-    "welcome": "Welcome back to Aura Self AI.",
+    "welcome": "Welcome back.",
     "ctaLoggedOut": "Start chatting with your Coach",
     "ctaLoggedIn": "Continue the conversation"
   },
@@ -708,23 +708,23 @@
     "empty": "Start journaling to see your emotion patterns take shape."
   },
   "notFound": {
-    "title": "Page not found",
-    "subtitle": "This link may be outdated or no longer exists.",
-    "back": "Back to Home"
+    "title": "Nothing here to reflect on.",
+    "subtitle": "This page does not exist — which is at least an easy problem.",
+    "back": "Back to Today"
   },
   "auth": {
     "loginTitle": "Log In",
-    "signupTitle": "Create Account",
+    "signupTitle": "Two minutes, then we talk.",
     "fullName": "Full Name",
     "username": "Username",
     "password": "Password",
     "confirmPassword": "Confirm Password",
-    "loginButton": "Log In",
-    "signupButton": "Sign Up",
+    "loginButton": "Sign in",
+    "signupButton": "Create account",
     "googleLogin": "Continue with Google",
     "noAccount": "Don't have an account?",
     "hasAccount": "Already have an account?",
-    "signupLink": "Sign up",
+    "signupLink": "Make an account",
     "loginLink": "Sign in",
     "fullNamePlaceholder": "Your full name",
     "usernamePlaceholder": "Enter your username",
@@ -745,7 +745,12 @@
       "passwordMismatch": "Passwords do not match.",
       "passwordTooShort": "Password must be at least 6 characters.",
       "signupFailed": "Signup failed. Please try again."
-    }
+    },
+    "loginNote": "Nothing has moved since you left.",
+    "signupSubtitle": "No email verification, no onboarding survey you will resent.",
+    "signupNote": "Your entries are yours. Aura reads them to answer you and for nothing else.",
+    "whatShouldAuraCallYou": "What should Aura call you?",
+    "passwordMinChars": "Password · 8 characters or more"
   },
   "appShell": {
     "defaultFooter": {
