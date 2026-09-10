@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PersonForm from '../PersonForm/PersonForm';
 import { useCreateSavedFrameworkEntryMutation } from '../../queries/savedFrameworkEntriesQueryHook';
@@ -37,15 +37,21 @@ const InsightCatcherPanel = ({ conversationId, draftText, onSaved, onPersonSaved
   const [tagsInput, setTagsInput] = useState('');
   const [error, setError] = useState<string | null>(null);
 
+  // Re-seed the draft whenever the parent hands in a new one (a different bubble's "Catch this",
+  // or the composer's ⌘K shortcut) — adjusted during render, per React's own guidance for this
+  // exact case, rather than in an effect (https://react.dev/learn/you-might-not-need-an-effect).
+  const [seenDraftText, setSeenDraftText] = useState(draftText);
+  if (draftText !== seenDraftText) {
+    setSeenDraftText(draftText);
+    if (draftText !== null) {
+      setText(draftText);
+      setTab('mirror');
+      setError(null);
+    }
+  }
+
   const createEntry = useCreateSavedFrameworkEntryMutation();
   const createPerson = useCreatePersonMutation();
-
-  useEffect(() => {
-    if (draftText === null) return;
-    setText(draftText);
-    setTab('mirror');
-    setError(null);
-  }, [draftText]);
 
   const handleSaveMirror = async () => {
     if (!text.trim()) {

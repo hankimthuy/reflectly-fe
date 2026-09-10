@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
+import { useRef, useState, type KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /** Mirrors the backend's SendMessageRequestDto @Size(max = 4000) cap. */
@@ -30,15 +30,11 @@ const MessageInput = ({
   endSessionDisabled,
 }: MessageInputProps) => {
   const { t } = useTranslation();
+  // Lazy initial state, not an effect: `initialValue` (Today's opener, carried via router state)
+  // is already known on first render, so there's nothing to synchronize after the fact — and
+  // seeding it via setState-in-an-effect would just cause an extra render for no reason.
   const [value, setValue] = useState(initialValue ?? '');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const seededRef = useRef(false);
-
-  useEffect(() => {
-    if (seededRef.current || !initialValue) return;
-    seededRef.current = true;
-    setValue(initialValue);
-  }, [initialValue]);
 
   const resizeToContent = (el: HTMLTextAreaElement) => {
     el.style.height = 'auto';

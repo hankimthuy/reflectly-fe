@@ -52,7 +52,7 @@ const TodayPage = () => {
     // Today's opener rotates daily (stable within a day) rather than repeating the same line
     // every visit — there's no backend concept of a personalized daily prompt yet.
     const openers = t('today.openers', { returnObjects: true }) as string[];
-    const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / DAY_MS);
+    const dayOfYear = Math.floor((new Date().getTime() - new Date(new Date().getFullYear(), 0, 0).getTime()) / DAY_MS);
     const opener = openers[dayOfYear % openers.length];
 
     const startConversation = (prefill?: string) => {
@@ -93,7 +93,7 @@ const TodayPage = () => {
             .slice(0, 3);
     }, [conversations, entries, t]);
 
-    const people = peopleQuery.data ?? [];
+    const people = useMemo(() => peopleQuery.data ?? [], [peopleQuery.data]);
     const needsAttention = useMemo(
         () =>
             [...people]
@@ -103,8 +103,9 @@ const TodayPage = () => {
         [people],
     );
 
-    const sessionsThisWeek = conversations.filter((c) => Date.now() - new Date(c.startedAt).getTime() < 7 * DAY_MS).length;
-    const entriesThisWeek = entries.filter((e) => Date.now() - new Date(e.createdAt).getTime() < 7 * DAY_MS).length;
+    const now = new Date().getTime();
+    const sessionsThisWeek = conversations.filter((c) => now - new Date(c.startedAt).getTime() < 7 * DAY_MS).length;
+    const entriesThisWeek = entries.filter((e) => now - new Date(e.createdAt).getTime() < 7 * DAY_MS).length;
     useSidebarFooter(
         <>
             <div className="app-shell__footer-label">{t('appShell.thisWeek.label')}</div>

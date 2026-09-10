@@ -17,6 +17,5 @@ export const useSidebarFooter = (node: ReactNode) => {
         if (!ctx) return undefined;
         ctx.setSidebarFooter(node);
         return () => ctx.setSidebarFooter(null);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ctx, node]);
 };

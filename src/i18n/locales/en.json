@@ -67,7 +67,10 @@
       "sessionTitle": "Session details",
       "summaryLabel": "Summary",
       "loadError": "Couldn't load this session."
-    }
+    },
+    "startError": "Couldn't start a session right now. Please try again shortly.",
+    "quotaExceeded": "You've used up your trial conversations with Aura for now. Thanks for your interest — come back later!",
+    "backToDashboard": "Back to Today"
   },
   "insightCatcher": {
     "title": "Capture an insight",
