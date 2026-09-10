@@ -12,7 +12,7 @@
 
 **Tên hiện tại: "Aura Self AI"** (tên nội bộ trước đây: **"MimoSe" — Make Sense Of ME**, tagline gốc "Leading Self"). Đây là app tự phản chiếu bản thân (self-reflection / self-leadership companion): người dùng ("Self") trò chuyện với một AI companion tên **"Aura"**, các phiên trò chuyện được tóm tắt và trích xuất tự động thành các insight, đồng thời người dùng có thể tự ghi nhật ký (journal) và xây dựng một **Bản đồ Mối quan hệ Cá nhân (Personal Relationship Map — PRM)**.
 
-Ngôn ngữ chính của app là **Tiếng Việt** (mặc định), có hỗ trợ tiếng Anh (chưa đầy đủ, thiếu một số namespace).
+App hỗ trợ 2 ngôn ngữ VI/EN, đầy đủ tương đương nhau (cả 2 file `src/i18n/locales/*.json` đồng bộ theo key). **Tiếng Anh là ngôn ngữ mặc định** khi người dùng chưa từng chọn ngôn ngữ (kể từ commit đổi mặc định, 2026-09-10) — trước đó mặc định là Tiếng Việt. Người dùng có thể đổi qua lại bất kỳ lúc nào (lựa chọn được nhớ trong `localStorage`).
 
 ### 1.1. Lịch sử phát triển (2 lần pivot)
 
@@ -209,7 +209,7 @@ Những điểm này đáng lưu ý khi redesign UI vì hiện đang là "chỗ 
 - **Dải "đang đọc tâm trạng" (mood-read ribbon) ở Trò chuyện**: chỉ là suy luận từ khớp từ khoá trên tin nhắn người dùng, tính toán phía frontend — **không phải phân tích cảm xúc bằng AI thật** và không được lưu lại sau khi rời trang. Đáng lưu ý nếu có kỳ vọng nó chính xác/khớp với insight do AI trích xuất (mục 4.8).
 - **Avatar/hình đại diện cho từng người trong Bản đồ Mối quan hệ**: chưa có, hiện chỉ hiển thị theo tên/màu.
 - **Logo/wordmark chính thức của thương hiệu "Aura Self AI"**: còn thiếu (theo tài liệu thiết kế nội bộ), linh vật "Aura" hiện dùng ảnh GIF tạm.
-- **Bản dịch tiếng Anh**: một số namespace i18n chưa hoàn chỉnh, tiếng Việt là ngôn ngữ chính được ưu tiên phát triển.
+- **1 khoá i18n mồ côi:** `brand.contactLink` chỉ tồn tại trong `vi.json`, không có trong `en.json` và không thấy được dùng ở bất kỳ component nào — có thể xoá khỏi `vi.json` ở lần dọn dẹp tiếp theo.
 - **Bộ lọc entries theo cảm xúc/khoảng ngày** ở service tầng dưới tồn tại nhưng chưa chắc được UI hiện tại sử dụng đầy đủ — tab Nhật ký hiện chỉ lọc theo khoảng thời gian cố định (hôm nay/tuần/tháng/năm) + tìm kiếm theo chữ, chưa có lọc theo nhãn cảm xúc trên UI.
 
 ---
@@ -232,4 +232,5 @@ Nguồn sự thật cho tài liệu này: code trong `src/routes/`, `src/pages/`
 | Ngày (UTC) | Tác giả | Nội dung cập nhật |
 |---|---|---|
 | 2026-09-06 | Claude (agent) | Khởi tạo `spec.md` — khảo sát toàn bộ codebase frontend hiện tại (routes, features, data models, API, tài liệu cũ) và viết tài liệu nghiệp vụ đầy đủ lần đầu tiên. |
-| 2026-09-10 | Claude (agent) | Cập nhật `spec.md` cho Giai đoạn 4 — tái cấu trúc IA "Aura" (nhánh `redesign/aura-hearth`): điều hướng 4 mục Hôm nay/Trò chuyện/Thấu hiểu/Tôi thay cho 4-tab + FAB cũ; Dashboard + danh sách nhật ký gộp thành hub "Thấu hiểu" (People/Mirror/Timeline/Journal); Johari Window thành bề mặt thường trực "Tấm gương"; "Insight Catcher" đổi tên "Catch", rút gọn còn 3 đích lưu (bỏ ACT Matrix/Personal SWOT/Life Positions khỏi UI tạo mới); thêm dải "đang đọc tâm trạng" ở Trò chuyện; `/dashboard` và `/entries/list` thành redirect. Cập nhật mục 1, 2, 3, 4, 5, 8, 9. Không có thay đổi model dữ liệu hay endpoint backend. (Không mô tả chi tiết bộ nhận diện trực quan "Hearth" — màu/font/bo góc — vì đó là thay đổi thuần hình ảnh, không phải nghiệp vụ; xem PR liên quan để biết chi tiết thị giác.) |
+| 2026-09-10 | Claude (agent) | Cập nhật `spec.md` cho Giai đoạn 4 — tái cấu trúc IA "Aura" (nhánh `redesign/aura-hearth`, PR #95, đã merge vào `main`): điều hướng 4 mục Hôm nay/Trò chuyện/Thấu hiểu/Tôi thay cho 4-tab + FAB cũ; Dashboard + danh sách nhật ký gộp thành hub "Thấu hiểu" (People/Mirror/Timeline/Journal); Johari Window thành bề mặt thường trực "Tấm gương"; "Insight Catcher" đổi tên "Catch", rút gọn còn 3 đích lưu (bỏ ACT Matrix/Personal SWOT/Life Positions khỏi UI tạo mới); thêm dải "đang đọc tâm trạng" ở Trò chuyện; `/dashboard` và `/entries/list` thành redirect. Cập nhật mục 1, 2, 3, 4, 5, 8, 9. Không có thay đổi model dữ liệu hay endpoint backend. (Không mô tả chi tiết bộ nhận diện trực quan "Hearth" — màu/font/bo góc — vì đó là thay đổi thuần hình ảnh, không phải nghiệp vụ; xem PR liên quan để biết chi tiết thị giác.) |
+| 2026-09-10 | Claude (agent) | Đổi ngôn ngữ mặc định của app từ Tiếng Việt sang **Tiếng Anh** (`src/i18n/index.ts`: `lng`/`fallbackLng` mặc định khi chưa có lựa chọn lưu trong `localStorage`; `index.html` `<html lang>`), theo yêu cầu người dùng (nhánh `chore/default-locale-en`). Khảo sát lại 2 file `en.json`/`vi.json` cho thấy cả 2 đã gần như đồng bộ hoàn toàn theo key (677 vs 678, chỉ lệch 1 khoá mồ côi) — sửa lại nhận định cũ ở mục 1 và mục 8 rằng tiếng Anh "chưa đầy đủ". Không đổi nội dung bản dịch, không đổi model dữ liệu/endpoint. |

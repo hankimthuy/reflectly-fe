@@ -14,14 +14,14 @@ const resources = {
 
 const LANGUAGE_STORAGE_KEY = 'app_language';
 const storedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY);
-const initialLanguage = storedLanguage === 'en' || storedLanguage === 'vi' ? storedLanguage : 'vi';
+const initialLanguage = storedLanguage === 'en' || storedLanguage === 'vi' ? storedLanguage : 'en';
 
 i18n
   .use(initReactI18next)
   .init({
     resources,
     lng: initialLanguage,
-    fallbackLng: 'vi',
+    fallbackLng: 'en',
     debug: import.meta.env.DEV,
     interpolation: {
       escapeValue: false // React already escapes by default
