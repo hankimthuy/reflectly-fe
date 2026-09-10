@@ -80,8 +80,10 @@ const LoginPage = () => {
         try {
             await loginWithCredentials(username, password);
             navigate(intendedDestination, { replace: true });
-        } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : t('auth.errors.loginFailed');
+        } catch (error: unknown) {
+            const errorMessage = axios.isAxiosError(error)
+                ? error.response?.data?.message ?? error.message
+                : error instanceof Error ? error.message : t('auth.errors.loginFailed');
             setError(errorMessage);
         } finally {
             setIsLoggingIn(false);
