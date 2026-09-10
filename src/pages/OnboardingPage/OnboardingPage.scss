@@ -20,6 +20,7 @@
 .onboard__progress-seg {
   flex: 1;
   height: 5px;
+  border-radius: var(--radius-pill);
   background: var(--color-neutral-300);
 }
 
@@ -28,7 +29,7 @@
 }
 
 .onboard__step {
-  font: 400 10.5px 'Archivo', sans-serif;
+  font: 400 10.5px var(--font-body);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-neutral-600);
@@ -75,7 +76,10 @@
 
 .onboard__person-row {
   display: flex;
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-surface);
 }
 
 .onboard__person-name {
@@ -84,7 +88,7 @@
   border: 0;
   background: transparent;
   padding: 12px 13px;
-  font: 800 14.5px 'Archivo', sans-serif;
+  font: 600 14.5px var(--font-body);
   color: var(--color-text);
 
   &:focus-visible { outline: none; }
@@ -92,16 +96,16 @@
 
 .onboard__person-type {
   border: 0;
-  border-left: 2px solid var(--color-text);
+  border-left: 1px solid var(--color-divider);
   background: transparent;
   padding: 12px 13px;
-  font: 400 12px 'Archivo', sans-serif;
+  font: 400 12px var(--font-body);
   color: var(--color-neutral-700);
 }
 
 .onboard__person-remove {
   border: 0;
-  border-left: 2px solid var(--color-text);
+  border-left: 1px solid var(--color-divider);
   background: transparent;
   padding: 0 13px;
   cursor: pointer;
@@ -112,31 +116,33 @@
 
 .onboard__add-person {
   display: flex;
-  border: 2px dashed var(--color-neutral-500);
+  border: 1.5px dashed var(--color-neutral-400);
+  border-radius: var(--radius-md);
+  overflow: hidden;
   background: none;
   cursor: pointer;
   color: var(--color-neutral-600);
-  font: 400 14.5px 'Archivo', sans-serif;
+  font: 400 14.5px var(--font-body);
   text-align: left;
 
   span:first-child { flex: 1; padding: 12px 13px; }
 }
 
 .onboard__add-person-plus {
-  border-left: 2px dashed var(--color-neutral-500);
+  border-left: 1.5px dashed var(--color-neutral-400);
   padding: 12px 15px !important;
-  font: 800 15px 'Archivo', sans-serif;
+  font: 600 15px var(--font-body);
   color: var(--color-accent-700);
 }
 
 .onboard__relationship-types {
   margin-top: 14px;
-  border-top: 2px solid var(--color-divider);
+  border-top: 1px solid var(--color-divider);
   padding-top: 14px;
 }
 
 .onboard__section-label {
-  font: 400 10.5px 'Archivo', sans-serif;
+  font: 400 10.5px var(--font-body);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-neutral-600);
@@ -151,7 +157,7 @@
 
 .onboard__footer {
   padding: 18px 20px 24px;
-  border-top: 2px solid var(--color-text);
+  border-top: 1px solid var(--color-divider);
   background: var(--color-neutral-100);
 }
 

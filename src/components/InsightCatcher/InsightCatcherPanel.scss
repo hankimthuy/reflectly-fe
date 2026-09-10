@@ -6,7 +6,7 @@
 
 .catch-panel__head {
   padding: 16px 20px 14px;
-  border-bottom: 2px solid var(--color-text);
+  border-bottom: 1px solid var(--color-divider);
 }
 
 .catch-panel__head-row {
@@ -17,30 +17,33 @@
 }
 
 .catch-panel__title {
-  font: 800 15px 'Archivo', sans-serif;
+  font: 600 15px var(--font-body);
 }
 
 .catch-panel__subtitle {
-  font: 400 11.5px/1.45 'Archivo', sans-serif;
+  font: 400 11.5px/1.45 var(--font-body);
   color: var(--color-neutral-700);
   margin: 3px 0 0;
 }
 
 .catch-panel__tabs {
   display: flex;
-  border-bottom: 2px solid var(--color-text);
+  margin: 0 20px 4px;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
 }
 
 .catch-panel__tab {
   flex: 1;
   border: 0;
-  font: 800 12px 'Archivo', sans-serif;
+  font: 600 12px var(--font-body);
   padding: 10px 0;
   background: none;
   color: var(--color-text);
   cursor: pointer;
 
-  & + & { border-left: 2px solid var(--color-text); }
+  & + & { border-left: 1px solid var(--color-divider); }
 
   &:hover { background: color-mix(in srgb, var(--color-text) 6%, transparent); }
 }
@@ -62,7 +65,7 @@
 }
 
 .catch-panel__hint {
-  font: 400 12.5px/1.5 'Archivo', sans-serif;
+  font: 400 12.5px/1.5 var(--font-body);
   color: var(--color-neutral-700);
   margin: 0;
 }
@@ -72,7 +75,7 @@
 }
 
 .catch-panel__pane-label {
-  font: 400 10px 'Archivo', sans-serif;
+  font: 400 10px var(--font-body);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-neutral-600);

@@ -13,7 +13,7 @@
 }
 
 .reflect-people__map {
-  border-bottom: 2px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
   padding: 18px 20px;
   display: flex;
   flex-direction: column;
@@ -21,7 +21,7 @@
 
   @include laptop-up {
     border-bottom: 0;
-    border-right: 2px solid var(--color-divider);
+    border-right: 1px solid var(--color-divider);
     padding: 22px 28px;
   }
 }
@@ -35,7 +35,7 @@
 }
 
 .reflect-people__count {
-  font: 400 10.5px 'Archivo', sans-serif;
+  font: 400 10.5px var(--font-body);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-neutral-600);
@@ -43,7 +43,8 @@
 
 .reflect-people__form {
   margin-bottom: 12px;
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
   padding: 12px;
   background: var(--color-bg);
 }
@@ -66,13 +67,15 @@
 }
 
 .reflect-people__card {
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+  overflow: hidden;
   background: var(--color-bg);
 }
 
 .reflect-people__card-head {
   padding: 14px 16px;
-  border-bottom: 2px solid var(--color-text);
+  border-bottom: 1px solid var(--color-divider);
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -80,11 +83,11 @@
 }
 
 .reflect-people__name {
-  font: 800 19px 'Archivo', sans-serif;
+  font: 600 19px var(--font-body);
 }
 
 .reflect-people__meta {
-  font: 400 11px 'Archivo', sans-serif;
+  font: 400 11px var(--font-body);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-neutral-600);
@@ -96,7 +99,7 @@
 }
 
 .reflect-people__signal-label {
-  font: 400 10.5px 'Archivo', sans-serif;
+  font: 400 10.5px var(--font-body);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-neutral-600);
@@ -105,6 +108,8 @@
 
 .reflect-people__signal-track {
   height: 12px;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
   background: var(--color-neutral-300);
 }
 
@@ -125,7 +130,7 @@
 }
 
 .reflect-people__section-label {
-  font: 400 10.5px 'Archivo', sans-serif;
+  font: 400 10.5px var(--font-body);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-neutral-600);
@@ -133,7 +138,7 @@
 }
 
 .reflect-people__insights-list {
-  border-top: 2px solid var(--color-divider);
+  border-top: 1px solid var(--color-divider);
   display: flex;
   flex-direction: column;
 }
@@ -146,7 +151,7 @@
 }
 
 .reflect-people__insight-date {
-  font: 400 10.5px 'Archivo', sans-serif;
+  font: 400 10.5px var(--font-body);
   color: var(--color-neutral-600);
   margin-top: 4px;
 }
@@ -159,7 +164,8 @@
 }
 
 .reflect-mirror__empty {
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
   background: var(--color-neutral-100);
   padding: 20px;
   text-align: center;
@@ -171,17 +177,19 @@
 .reflect-mirror__grid {
   display: grid;
   grid-template-columns: 1fr;
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+  overflow: hidden;
 
   @include laptop-up { grid-template-columns: 1fr 1fr; }
 }
 
 .reflect-mirror__pane {
-  border-bottom: 2px solid var(--color-text);
+  border-bottom: 1px solid var(--color-divider);
 
   @include laptop-up {
-    border-right: 2px solid var(--color-text);
-    border-bottom: 2px solid var(--color-text);
+    border-right: 1px solid var(--color-divider);
+    border-bottom: 1px solid var(--color-divider);
 
     &:nth-child(2n) { border-right: 0; }
     &:nth-child(3), &:nth-child(4) { border-bottom: 0; }
@@ -195,23 +203,23 @@
   align-items: flex-start;
   justify-content: space-between;
   padding: 14px 16px;
-  border-bottom: 2px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
   gap: 10px;
 }
 
 .reflect-mirror__pane-label {
-  font: 800 13px 'Archivo', sans-serif;
+  font: 600 13px var(--font-body);
   letter-spacing: 0.04em;
 }
 
 .reflect-mirror__pane-sub {
-  font: 400 11px 'Archivo', sans-serif;
+  font: 400 11px var(--font-body);
   color: var(--color-neutral-700);
   margin-top: 2px;
 }
 
 .reflect-mirror__pane-count {
-  font: 800 26px 'Archivo', sans-serif;
+  font: 600 26px var(--font-body);
 }
 
 .reflect-mirror__pane-body {
@@ -230,12 +238,13 @@
 }
 
 .reflect-mirror__catch {
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-sm);
   background: var(--color-bg);
   padding: 9px 11px;
 
   p { margin: 0; font-size: 13px; line-height: 1.45; }
-  span { display: block; margin-top: 5px; font: 400 10.5px 'Archivo', sans-serif; color: var(--color-neutral-600); }
+  span { display: block; margin-top: 5px; font: 400 10.5px var(--font-body); color: var(--color-neutral-600); }
 }
 
 // — Timeline tab —
@@ -267,6 +276,7 @@
   width: 9px;
   height: 9px;
   margin-top: 5px;
+  border-radius: 50%;
   background: var(--color-accent);
   flex: none;
 }
@@ -279,7 +289,7 @@
 }
 
 .reflect-timeline__date {
-  font: 400 11px 'Archivo', sans-serif;
+  font: 400 11px var(--font-body);
   color: var(--color-neutral-600);
 }
 
@@ -336,7 +346,7 @@
 }
 
 .reflect-journal__list {
-  border-top: 2px solid var(--color-divider);
+  border-top: 1px solid var(--color-divider);
   display: flex;
   flex-direction: column;
 }
@@ -360,26 +370,26 @@
 }
 
 .reflect-journal__row-date {
-  font: 400 11px 'Archivo', sans-serif;
+  font: 400 11px var(--font-body);
   color: var(--color-neutral-600);
   width: 90px;
   flex: none;
 }
 
 .reflect-journal__row-title {
-  font: 800 14.5px 'Archivo', sans-serif;
+  font: 600 14.5px var(--font-body);
   flex: 1;
   min-width: 0;
 }
 
 .reflect-journal__notes {
   margin-top: 28px;
-  border-top: 2px solid var(--color-divider);
+  border-top: 1px solid var(--color-divider);
   padding-top: 16px;
 }
 
 .reflect-journal__section-label {
-  font: 400 10.5px 'Archivo', sans-serif;
+  font: 400 10.5px var(--font-body);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-neutral-600);
@@ -395,14 +405,15 @@
 }
 
 .reflect-journal__note {
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-sm);
   padding: 11px 13px;
 
   p { margin: 6px 0 0; font-size: 13.5px; line-height: 1.5; }
 }
 
 .reflect-journal__note-title {
-  font: 800 13.5px 'Archivo', sans-serif !important;
+  font: 600 13.5px var(--font-body) !important;
 }
 
 .reflect-journal__note-foot {
@@ -410,6 +421,6 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 8px;
-  font: 400 10.5px 'Archivo', sans-serif;
+  font: 400 10.5px var(--font-body);
   color: var(--color-neutral-600);
 }

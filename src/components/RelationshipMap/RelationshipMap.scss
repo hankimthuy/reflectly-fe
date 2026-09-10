@@ -29,7 +29,7 @@
 .relationship-map__legend {
   display: flex;
   gap: 18px;
-  border-top: 2px solid var(--color-divider);
+  border-top: 1px solid var(--color-divider);
   padding-top: 11px;
   flex-wrap: wrap;
 }
@@ -38,12 +38,13 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  font: 400 11px 'Archivo', sans-serif;
+  font: 400 11px var(--font-body);
   color: var(--color-neutral-700);
 }
 
 .relationship-map__legend-swatch {
   width: 11px;
   height: 11px;
-  border: 1.5px solid var(--color-text);
+  border-radius: 50%;
+  border: 1px solid var(--color-divider);
 }

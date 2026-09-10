@@ -13,7 +13,7 @@
   border: 0;
   background: none;
   padding: 4px 0;
-  font: 400 12px/1.4 'Archivo', sans-serif;
+  font: 400 12px/1.4 var(--font-body);
   color: var(--color-neutral-800);
   cursor: pointer;
 
@@ -25,14 +25,14 @@
   border: 0;
   background: none;
   padding: 8px 0 0;
-  font: 800 11px 'Archivo', sans-serif;
+  font: 600 11px var(--font-body);
   color: var(--color-accent-700);
   cursor: pointer;
 }
 
 // — Mood ribbon —
 .talk__ribbon {
-  border-bottom: 2px solid var(--color-text);
+  border-bottom: 1px solid var(--color-divider);
   background: var(--color-neutral-100);
   padding: 14px 20px 15px;
 
@@ -47,7 +47,7 @@
 }
 
 .talk__reading-label {
-  font: 400 9.5px 'Archivo', sans-serif;
+  font: 400 9.5px var(--font-body);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-neutral-600);
@@ -55,21 +55,24 @@
 }
 
 .talk__reading-value {
-  font: 800 13.5px 'Archivo', sans-serif;
+  font: 600 13.5px var(--font-body);
   color: var(--color-accent-700);
 }
 
 .talk__ribbon-track {
   position: relative;
-  height: 12px;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
   background: linear-gradient(to right, var(--color-accent-600), var(--color-accent-300) 40%, var(--color-pine-300) 75%, var(--color-pine-400));
 }
 
 .talk__ribbon-marker {
   position: absolute;
-  top: -4px;
-  bottom: -4px;
-  width: 3px;
+  top: -3px;
+  bottom: -3px;
+  width: 4px;
+  border-radius: var(--radius-pill);
   background: var(--color-text);
   transition: left 0.6s ease-in-out;
 }
@@ -78,7 +81,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 6px;
-  font: 400 10px 'Archivo', sans-serif;
+  font: 400 10px var(--font-body);
   color: var(--color-neutral-600);
 }
 
@@ -121,7 +124,7 @@
 
 // — Composer —
 .chat-composer {
-  border-top: 2px solid var(--color-text);
+  border-top: 1px solid var(--color-divider);
   background: var(--color-neutral-100);
   padding: 14px 20px 16px;
 
@@ -130,7 +133,13 @@
 
 .chat-composer-row {
   display: flex;
-  border: 2px solid var(--color-text);
+  align-items: flex-end;
+  gap: 6px;
+  border: 1.5px solid var(--color-divider);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  padding: 6px 6px 6px 18px;
+  box-shadow: var(--shadow-sm);
 }
 
 .chat-composer-textarea {
@@ -139,7 +148,7 @@
   resize: none;
   border: 0;
   background: transparent;
-  padding: 12px 15px;
+  padding: 10px 0;
   font: inherit;
   font-size: 15px;
   color: var(--color-text);
@@ -149,9 +158,9 @@
 }
 
 .chat-composer-send {
-  border-radius: 0;
-  padding: 12px 20px;
+  padding: 11px 22px;
   font-size: 14px;
+  flex: none;
 }
 
 .chat-composer-actions {
@@ -186,7 +195,7 @@
     display: block;
     width: 312px;
     flex: none;
-    border-left: 2px solid var(--color-text);
+    border-left: 1px solid var(--color-divider);
     background: var(--color-surface);
     overflow-y: auto;
   }
@@ -200,7 +209,7 @@
   bottom: 0;
   z-index: 40;
   max-height: 80vh;
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-divider);
   border-bottom: 0;
   background: var(--color-surface);
   box-shadow: var(--shadow-lg);
@@ -211,7 +220,7 @@
     max-height: none;
     box-shadow: none;
     border: 0;
-    border-left: 2px solid var(--color-text);
+    border-left: 1px solid var(--color-divider);
   }
 }
 

@@ -8,7 +8,7 @@
 
 .today__header {
   padding: 20px 20px 18px;
-  border-bottom: 2px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
 
   @include laptop-up {
     padding: 26px 34px 22px;
@@ -16,7 +16,7 @@
 }
 
 .today__date {
-  font: 400 10.5px 'Archivo', sans-serif;
+  font: 400 10.5px var(--font-body);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-neutral-600);
@@ -61,7 +61,7 @@
   padding: 18px 20px 24px;
 
   @include laptop-up {
-    border-right: 2px solid var(--color-divider);
+    border-right: 1px solid var(--color-divider);
     padding: 24px 30px 26px;
     gap: 24px;
   }
@@ -76,7 +76,7 @@
 }
 
 .today__section-label {
-  font: 400 10.5px 'Archivo', sans-serif;
+  font: 400 10.5px var(--font-body);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-neutral-600);
@@ -84,16 +84,19 @@
 
 // — Opener —
 .today__opener {
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
   background: var(--color-neutral-100);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .today__opener-inner {
-  padding: 16px 18px 14px;
+  padding: 20px 22px 16px;
 }
 
 .today__opener-label {
-  font: 800 10px 'Archivo', sans-serif;
+  font: 600 10px var(--font-body);
   letter-spacing: 0.14em;
   color: var(--color-accent-700);
   margin-bottom: 9px;
@@ -113,7 +116,7 @@
 
 .today__opener-actions {
   display: flex;
-  border-top: 2px solid var(--color-text);
+  border-top: 1px solid var(--color-divider);
 }
 
 .today__opener-start {
@@ -125,7 +128,7 @@
 
 .today__opener-else {
   border: 0;
-  border-left: 2px solid var(--color-text);
+  border-left: 1px solid var(--color-divider);
   padding: 14px 16px;
 }
 
@@ -135,7 +138,7 @@
   align-items: flex-end;
   gap: 7px;
   height: 72px;
-  border-bottom: 2px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
 
   @include laptop-up {
     height: 104px;
@@ -164,7 +167,7 @@
 
 .today__mood-label {
   flex: 1;
-  font: 400 9.5px 'Archivo', sans-serif;
+  font: 400 9.5px var(--font-body);
   color: var(--color-neutral-600);
   text-align: center;
   overflow: hidden;
@@ -184,7 +187,7 @@
 }
 
 .today__pickbackup-list {
-  border-top: 2px solid var(--color-divider);
+  border-top: 1px solid var(--color-divider);
   display: flex;
   flex-direction: column;
 }
@@ -208,21 +211,22 @@
 }
 
 .today__pickbackup-date {
-  font: 400 11px 'Archivo', sans-serif;
+  font: 400 11px var(--font-body);
   color: var(--color-neutral-600);
   width: 40px;
   flex: none;
 }
 
 .today__pickbackup-label {
-  font: 800 13.5px 'Archivo', sans-serif;
+  font: 600 13.5px var(--font-body);
   flex: 1;
   min-width: 0;
 }
 
 // — Mobile-only "needs attention" strip —
 .today__mobile-attention {
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
   padding: 13px 14px;
   display: flex;
   align-items: center;
@@ -238,6 +242,7 @@
 .today__mobile-attention-dot {
   width: 12px;
   height: 12px;
+  border-radius: 50%;
   background: var(--color-accent);
   flex: none;
 }
@@ -250,7 +255,7 @@
 }
 
 .today__mobile-attention-arrow {
-  font: 800 12px 'Archivo', sans-serif;
+  font: 600 12px var(--font-body);
   color: var(--color-accent-700);
 }
 
@@ -270,31 +275,33 @@
 .today__mirror-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+  overflow: hidden;
 }
 
 .today__mirror-cell {
   padding: 14px 13px;
-  border-right: 2px solid var(--color-text);
-  border-bottom: 2px solid var(--color-text);
+  border-right: 1px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
 
   &:nth-child(2n) { border-right: 0; }
   &:nth-child(n+3) { border-bottom: 0; }
 }
 
 .today__mirror-cell-label {
-  font: 800 11px 'Archivo', sans-serif;
+  font: 600 11px var(--font-body);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .today__mirror-cell-count {
-  font: 800 26px 'Archivo', sans-serif;
+  font: 600 26px var(--font-body);
   margin-top: 4px;
 }
 
 .today__mirror-cell-sub {
-  font: 400 10.5px 'Archivo', sans-serif;
+  font: 400 10.5px var(--font-body);
   color: var(--color-neutral-700);
 }
 
@@ -303,7 +310,7 @@
 .today__mirror-cell--unknown .today__mirror-cell-label { color: var(--color-neutral-600); }
 
 .today__attention-list {
-  border-top: 2px solid var(--color-divider);
+  border-top: 1px solid var(--color-divider);
   display: flex;
   flex-direction: column;
 }
@@ -319,16 +326,17 @@
 .today__attention-dot {
   width: 10px;
   height: 10px;
+  border-radius: 50%;
   flex: none;
 }
 
 .today__attention-name {
-  font: 800 14px 'Archivo', sans-serif;
+  font: 600 14px var(--font-body);
   flex: 1;
 }
 
 .today__attention-days {
-  font: 400 11px 'Archivo', sans-serif;
+  font: 400 11px var(--font-body);
   color: var(--color-neutral-600);
 }
 
@@ -341,7 +349,7 @@
 
 .today__write-alone {
   margin-top: auto;
-  border-top: 2px solid var(--color-divider);
+  border-top: 1px solid var(--color-divider);
   padding-top: 16px;
 }
 

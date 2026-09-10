@@ -8,7 +8,7 @@
 }
 
 .not-found-page__wordmark {
-  font: 800 15px 'Archivo', sans-serif;
+  font: 600 15px var(--font-body);
   letter-spacing: -0.02em;
 }
 
@@ -18,7 +18,7 @@
 }
 
 .not-found-page__code {
-  font: 800 76px 'Archivo', sans-serif;
+  font: 600 76px var(--font-body);
   line-height: 0.9;
   color: var(--color-accent);
   margin-bottom: 14px;

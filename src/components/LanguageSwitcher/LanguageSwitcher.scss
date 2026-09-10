@@ -1,11 +1,13 @@
 .language-switcher {
   display: flex;
   border: 1px solid var(--color-divider);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
 }
 
 .language-switcher__option {
   padding: 4px 12px;
-  font: 800 12px 'Archivo', sans-serif;
+  font: 600 12px var(--font-body);
   border: 0;
   background: none;
   color: var(--color-text);

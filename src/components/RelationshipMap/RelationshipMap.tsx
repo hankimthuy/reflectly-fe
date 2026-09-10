@@ -48,8 +48,8 @@ const RelationshipMap = ({ people, emptyLabel, selectedId, onSelect }: Relations
           <line key={`line-${person.id}`} x1={CENTER} y1={CENTER} x2={x} y2={y} stroke="var(--color-text)" strokeWidth={1.5} />
         ))}
 
-        <rect x={CENTER - 34} y={CENTER - 18} width={68} height={36} fill="var(--color-text)" />
-        <text x={CENTER} y={CENTER + 5} textAnchor="middle" fontFamily="Archivo, sans-serif" fontWeight={800} fontSize={15} fill="var(--color-bg)">
+        <circle cx={CENTER} cy={CENTER} r={30} fill="var(--color-text)" />
+        <text x={CENTER} y={CENTER + 5} textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={700} fontSize={14} fill="var(--color-bg)">
           {t('dashboard.you')}
         </text>
 
@@ -78,11 +78,13 @@ const RelationshipMap = ({ people, emptyLabel, selectedId, onSelect }: Relations
                 y={y - NODE_H / 2}
                 width={NODE_W}
                 height={NODE_H}
+                rx={NODE_H / 2}
+                ry={NODE_H / 2}
                 fill={fill}
                 stroke="var(--color-text)"
-                strokeWidth={active ? 3 : 2}
+                strokeWidth={active ? 2.5 : 1.5}
               />
-              <text x={x} y={y + 5} textAnchor="middle" fontFamily="Archivo, sans-serif" fontWeight={800} fontSize={13} fill={textColor}>
+              <text x={x} y={y + 5} textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={600} fontSize={13} fill={textColor}>
                 {person.name}
               </text>
             </g>

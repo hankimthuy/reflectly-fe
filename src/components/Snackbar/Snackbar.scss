@@ -7,16 +7,18 @@
   align-items: center;
   gap: 12px;
   max-width: min(420px, calc(100vw - 40px));
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-lg);
   background: var(--color-text);
   color: var(--color-bg);
-  padding: 13px 14px;
+  padding: 14px 16px;
   box-shadow: var(--shadow-lg);
 }
 
 .snackbar__dot {
   width: 10px;
   height: 10px;
+  border-radius: 50%;
   flex: none;
   background: var(--color-accent);
 }
@@ -34,7 +36,7 @@
 }
 
 .snackbar-title {
-  font: 800 13px 'Archivo', sans-serif;
+  font: 600 13px var(--font-body);
 }
 
 .snackbar-message {

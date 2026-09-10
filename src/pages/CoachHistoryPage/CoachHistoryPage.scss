@@ -32,7 +32,7 @@
 }
 
 .sessions-page__list {
-  border-top: 2px solid var(--color-divider);
+  border-top: 1px solid var(--color-divider);
 }
 
 .sessions-page__row {
@@ -51,12 +51,12 @@
 }
 
 .sessions-page__row-title {
-  font: 800 14px 'Archivo', sans-serif;
+  font: 600 14px var(--font-body);
   display: block;
 }
 
 .sessions-page__row-meta {
-  font: 400 11px 'Archivo', sans-serif;
+  font: 400 11px var(--font-body);
   color: var(--color-neutral-700);
   margin-top: 3px;
   display: block;
@@ -66,13 +66,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 2px solid var(--color-divider);
+  border-top: 1px solid var(--color-divider);
   padding-top: 12px;
   margin-top: 4px;
 }
 
 .sessions-page__count {
-  font: 400 11px 'Archivo', sans-serif;
+  font: 400 11px var(--font-body);
   color: var(--color-neutral-600);
 }
 
@@ -85,7 +85,7 @@
 
 .session-detail__head {
   padding: 18px 20px;
-  border-bottom: 2px solid var(--color-text);
+  border-bottom: 1px solid var(--color-divider);
 
   @include laptop-up { padding: 18px 30px; }
 }
@@ -110,22 +110,24 @@
 }
 
 .session-detail__shift-label {
-  font: 400 11px 'Archivo', sans-serif;
+  font: 400 11px var(--font-body);
   color: var(--color-neutral-600);
 }
 
 .session-detail__shift-open {
-  font: 800 13px 'Archivo', sans-serif;
+  font: 600 13px var(--font-body);
   color: var(--color-accent-700);
 }
 
 .session-detail__shift-track {
   flex: 1;
   height: 8px;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
 }
 
 .session-detail__shift-close {
-  font: 800 13px 'Archivo', sans-serif;
+  font: 600 13px var(--font-body);
 }
 
 .session-detail__error {
@@ -134,7 +136,7 @@
 }
 
 .session-detail__section-label {
-  font: 400 10.5px 'Archivo', sans-serif;
+  font: 400 10.5px var(--font-body);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-neutral-600);
@@ -166,7 +168,8 @@
 }
 
 .session-detail__caught-item {
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-sm);
   padding: 9px 12px;
   max-width: 260px;
   font-size: 13px;
@@ -174,14 +177,14 @@
 }
 
 .session-detail__caught-type {
-  font: 800 10px 'Archivo', sans-serif;
+  font: 600 10px var(--font-body);
   letter-spacing: 0.08em;
   color: var(--color-accent-700);
   margin-bottom: 4px;
 }
 
 .session-detail__footer {
-  border-top: 2px solid var(--color-divider);
+  border-top: 1px solid var(--color-divider);
   padding: 13px 20px;
   display: flex;
   gap: 10px;

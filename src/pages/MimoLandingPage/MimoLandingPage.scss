@@ -6,7 +6,7 @@
 .landing__hero {
   display: grid;
   grid-template-columns: 1fr;
-  border-bottom: 2px solid var(--color-text);
+  border-bottom: 1px solid var(--color-divider);
 
   @media (min-width: 900px) {
     grid-template-columns: 1.15fr 1fr;
@@ -18,7 +18,7 @@
 
   @media (min-width: 900px) {
     padding: 56px 40px 48px;
-    border-right: 2px solid var(--color-text);
+    border-right: 1px solid var(--color-divider);
   }
 }
 
@@ -54,7 +54,7 @@
 }
 
 .landing__hero-note {
-  font: 400 12.5px 'Archivo', sans-serif;
+  font: 400 12.5px var(--font-body);
   color: var(--color-neutral-700);
 }
 
@@ -70,7 +70,7 @@
   display: flex;
   align-items: flex-end;
   padding: 16px;
-  border-bottom: 2px solid var(--color-text);
+  border-bottom: 1px solid var(--color-divider);
 }
 
 .landing__photo-placeholder span {
@@ -90,13 +90,14 @@
 .landing__opener-avatar {
   width: 40px;
   height: 40px;
+  border-radius: 50%;
   flex: none;
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-divider);
   background: repeating-linear-gradient(135deg, var(--color-neutral-400) 0 4px, var(--color-neutral-300) 4px 8px);
 }
 
 .landing__opener-label {
-  font: 400 10.5px 'Archivo', sans-serif;
+  font: 400 10.5px var(--font-body);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-neutral-600);
@@ -114,11 +115,11 @@
 // — Functions —
 .landing__functions-label {
   padding: 13px 20px;
-  font: 400 10.5px 'Archivo', sans-serif;
+  font: 400 10.5px var(--font-body);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-neutral-600);
-  border-bottom: 2px solid var(--color-text);
+  border-bottom: 1px solid var(--color-divider);
 
   @media (min-width: 900px) { padding: 13px 40px; }
 }
@@ -126,7 +127,7 @@
 .landing__functions {
   display: grid;
   grid-template-columns: 1fr;
-  border-bottom: 2px solid var(--color-text);
+  border-bottom: 1px solid var(--color-divider);
 
   @media (min-width: 640px) { grid-template-columns: 1fr 1fr; }
   @media (min-width: 900px) { grid-template-columns: repeat(3, 1fr); }
@@ -134,9 +135,9 @@
 
 .landing__function {
   padding: 24px;
-  border-bottom: 2px solid var(--color-text);
+  border-bottom: 1px solid var(--color-divider);
 
-  @media (min-width: 640px) { border-right: 2px solid var(--color-text); }
+  @media (min-width: 640px) { border-right: 1px solid var(--color-divider); }
   @media (min-width: 900px) {
     &:nth-child(3n) { border-right: 0; }
   }
@@ -145,7 +146,7 @@
 }
 
 .landing__function-kicker {
-  font: 800 11px 'Archivo', sans-serif;
+  font: 600 11px var(--font-body);
   letter-spacing: 0.12em;
   color: var(--color-accent-700);
   margin-bottom: 11px;
@@ -166,13 +167,15 @@
 .landing__function-bar {
   margin-top: 15px;
   height: 9px;
+  border-radius: var(--radius-pill);
   background: linear-gradient(to right, var(--color-accent-600), var(--color-pine-400));
 }
 
 .landing__function-quote {
   margin-top: 15px;
-  border: 2px solid var(--color-text);
-  padding: 7px 9px;
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+  padding: 9px 12px;
   font-size: 12.5px;
   line-height: 1.4;
 }
@@ -181,13 +184,15 @@
   margin-top: 15px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-md);
+  overflow: hidden;
 }
 
 .landing__function-mirror-cell {
   height: 26px;
-  border-right: 2px solid var(--color-text);
-  border-bottom: 2px solid var(--color-text);
+  border-right: 1px solid var(--color-divider);
+  border-bottom: 1px solid var(--color-divider);
 
   &:nth-child(2n) { border-right: 0; }
   &:nth-child(n+3) { border-bottom: 0; }
@@ -208,9 +213,9 @@
   width: 22px;
 }
 
-.landing__function-node--dark { background: var(--color-text); }
-.landing__function-node--accent { width: 16px; height: 16px; background: var(--color-accent); }
-.landing__function-node--outline { width: 16px; height: 16px; border: 2px solid var(--color-text); }
+.landing__function-node--dark { border-radius: 50%; background: var(--color-text); }
+.landing__function-node--accent { width: 16px; height: 16px; border-radius: 50%; background: var(--color-accent); }
+.landing__function-node--outline { width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--color-divider); }
 
 .landing__function-node-line {
   flex: 1;
@@ -220,7 +225,7 @@
 
 .landing__function-caption {
   margin-top: 7px;
-  font: 400 10.5px 'Archivo', sans-serif;
+  font: 400 10.5px var(--font-body);
   color: var(--color-neutral-600);
 }
 
@@ -228,7 +233,7 @@
 .landing__why {
   background: var(--color-text);
   color: var(--color-bg);
-  border-bottom: 2px solid var(--color-text);
+  border-bottom: 1px solid var(--color-divider);
 }
 
 .landing__why-intro {
@@ -238,7 +243,7 @@
 }
 
 .landing__why-label {
-  font: 400 10.5px 'Archivo', sans-serif;
+  font: 400 10.5px var(--font-body);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   opacity: 0.6;
@@ -264,7 +269,7 @@
 .landing__layers {
   display: grid;
   grid-template-columns: 1fr;
-  border-top: 2px solid color-mix(in srgb, var(--color-bg) 35%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--color-bg) 25%, transparent);
 
   @media (min-width: 640px) { grid-template-columns: 1fr 1fr; }
   @media (min-width: 900px) { grid-template-columns: repeat(4, 1fr); }
@@ -272,8 +277,8 @@
 
 .landing__layer {
   padding: 22px 24px 26px;
-  border-right: 2px solid color-mix(in srgb, var(--color-bg) 35%, transparent);
-  border-bottom: 2px solid color-mix(in srgb, var(--color-bg) 35%, transparent);
+  border-right: 1px solid color-mix(in srgb, var(--color-bg) 25%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-bg) 25%, transparent);
 
   @media (min-width: 900px) {
     border-bottom: 0;
@@ -282,14 +287,14 @@
 }
 
 .landing__layer-kicker {
-  font: 800 10.5px 'Archivo', sans-serif;
+  font: 600 10.5px var(--font-body);
   letter-spacing: 0.1em;
   color: var(--color-accent-400);
   margin-bottom: 8px;
 }
 
 .landing__layer-title {
-  font: 800 17px 'Archivo', sans-serif;
+  font: 600 17px var(--font-body);
   margin-bottom: 6px;
 }
 
@@ -341,7 +346,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font: 400 11.5px 'Archivo', sans-serif;
+  font: 400 11.5px var(--font-body);
   color: var(--color-neutral-700);
 
   @media (min-width: 700px) {

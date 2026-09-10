@@ -25,7 +25,7 @@
 }
 
 .chat-bubble-label {
-  font: 400 10px 'Archivo', sans-serif;
+  font: 400 10px var(--font-body);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-neutral-600);
@@ -44,19 +44,20 @@
 .chat-bubble--user {
   background: var(--color-text);
   color: var(--color-bg);
-  padding: 12px 15px;
+  padding: 12px 16px;
   font-size: 14.5px;
   line-height: 1.55;
   white-space: pre-wrap;
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-sm) var(--radius-lg);
 
-  @include laptop-up { padding: 14px 17px; font-size: 15px; }
+  @include laptop-up { padding: 14px 18px; font-size: 15px; }
 }
 
 .chat-bubble-catch {
   border: 0;
   background: none;
   padding: 6px 0 0;
-  font: 800 10.5px 'Archivo', sans-serif;
+  font: 600 10.5px var(--font-body);
   letter-spacing: 0.04em;
   color: var(--color-accent-700);
   cursor: pointer;
@@ -71,11 +72,12 @@
 .chat-thinking-dot {
   width: 7px;
   height: 7px;
+  border-radius: 50%;
   background: var(--color-accent);
   animation: aura-breathe 1.6s ease-in-out infinite;
 }
 
 .chat-thinking-label {
-  font: 400 12px 'Archivo', sans-serif;
+  font: 400 12px var(--font-body);
   color: var(--color-neutral-600);
 }

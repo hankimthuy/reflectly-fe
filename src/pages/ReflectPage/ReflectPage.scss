@@ -6,7 +6,7 @@
 
 .reflect__header {
   padding: 22px 20px 0;
-  border-bottom: 2px solid var(--color-text);
+  border-bottom: 1px solid var(--color-divider);
 
   @media (min-width: 992px) { padding: 22px 30px 0; }
 }
@@ -32,15 +32,17 @@
 }
 
 .reflect__tab {
-  border: 2px solid var(--color-text);
+  border: 1px solid var(--color-divider);
   border-bottom: 0;
   background: none;
-  font: 800 13px 'Archivo', sans-serif;
+  font: 600 13px var(--font-body);
   padding: 9px 18px;
   color: var(--color-text);
   cursor: pointer;
   white-space: nowrap;
 
+  &:first-child { border-radius: var(--radius-sm) 0 0 0; }
+  &:last-child { border-radius: 0 var(--radius-sm) 0 0; }
   & + & { border-left: 0; }
 
   &:hover { background: var(--color-accent-200); }
