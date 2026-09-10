@@ -457,7 +457,9 @@
     "loginRequired": "Vui lòng đăng nhập để xem hồ sơ của bạn.",
     "stats": {
       "dayStreak": "Chuỗi ngày",
-      "topMood": "Cảm xúc chính"
+      "topMood": "Cảm xúc chính",
+      "sessionsEntries": "Phiên · nhật ký",
+      "days": "ngày"
     },
     "coreValues": {
       "title": "Giá trị cốt lõi",
@@ -466,7 +468,8 @@
       "save": "Lưu",
       "cancel": "Hủy",
       "empty": "Chưa thiết lập — Coach sẽ hiểu bạn hơn nếu bạn cho biết điều gì quan trọng với mình.",
-      "saveError": "Lưu giá trị cốt lõi thất bại."
+      "saveError": "Lưu giá trị cốt lõi thất bại.",
+      "count": "đã chọn {{count}}/12"
     },
     "emotionOverview": {
       "title": "Tổng quan Cảm xúc",
@@ -508,7 +511,9 @@
       "message": "Bạn có chắc chắn muốn đăng xuất không?",
       "confirm": "Đăng xuất",
       "cancel": "Hủy"
-    }
+    },
+    "editProfile": "Sửa hồ sơ",
+    "uploading": "đang tải lên…"
   },
   "newEntryPage": {
     "title": "Góc tự chiêm nghiệm",

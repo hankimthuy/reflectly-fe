@@ -1,38 +1,30 @@
 import React, { useRef, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { LuLogOut, LuGlobe, LuBell, LuDownload, LuBookOpen, LuPencil, LuLock, LuCamera, LuCheck, LuX, LuMessageCircle } from 'react-icons/lu';
 import { useAuth } from '../../providers/AuthProvider';
 import { updateUserProfile, changePassword, uploadAvatar, completeOnboarding } from '../../services/userService';
 import CoreValuesCard from '../../components/CoreValuesCard/CoreValuesCard';
-
 import { useEntriesInfiniteQuery } from '../../queries/entriesQueryHook';
-import { calculateDayStreak, getTopMood, getEmotionDistribution } from '../../utils/statsUtil';
-import { EMOTION_DATA } from '../../models/emotion';
-import StatCard from '../../components/StatCard/StatCard';
+import { useConversationsInfiniteQuery } from '../../queries/conversationsQueryHook';
+import { calculateDayStreak, getEmotionDistribution } from '../../utils/statsUtil';
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog';
 import LanguageSwitcher from '../../components/LanguageSwitcher/LanguageSwitcher';
 import { APP_ROUTES } from '../../constants/route';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
-import { Button } from '../../components/Button/Button';
 import SnackbarComponent from '../../components/Snackbar/Snackbar';
 import type { SnackbarType } from '../../components/Snackbar/Snackbar';
+import { useNavigate } from 'react-router-dom';
 import './ProfilePage.scss';
 
 const ProfilePage: React.FC = () => {
     const { currentUser, logout, setCurrentUser } = useAuth();
-
     const navigate = useNavigate();
     const { t } = useTranslation();
     const [logoutDialogOpen, setLogoutDialogOpen] = useState(false);
 
-    // Edit name state
     const [isEditingName, setIsEditingName] = useState(false);
     const [editName, setEditName] = useState('');
     const [nameLoading, setNameLoading] = useState(false);
     const [nameError, setNameError] = useState('');
 
-    // Change password state
     const [isChangingPassword, setIsChangingPassword] = useState(false);
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -41,29 +33,26 @@ const ProfilePage: React.FC = () => {
     const [passwordError, setPasswordError] = useState('');
     const [passwordSuccess, setPasswordSuccess] = useState('');
 
-    // Avatar upload
     const avatarInputRef = useRef<HTMLInputElement>(null);
     const [avatarLoading, setAvatarLoading] = useState(false);
 
-    // Snackbar state
     const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; type: SnackbarType }>({
         open: false,
         message: '',
         type: 'error',
     });
 
-    const { data } = useEntriesInfiniteQuery();
+    const { data: entriesData } = useEntriesInfiniteQuery();
+    const { data: conversationsData } = useConversationsInfiniteQuery();
 
-    const entries = useMemo(() => {
-        return data?.pages.flatMap(page => page.content) || [];
-    }, [data]);
-
-    const total = data?.pages[0]?.total || 0;
+    const entries = useMemo(() => entriesData?.pages.flatMap((p) => p.content) ?? [], [entriesData]);
+    const entriesTotal = entriesData?.pages[0]?.total ?? 0;
+    const conversationsTotal = conversationsData?.pages[0]?.total ?? 0;
 
     const streak = useMemo(() => calculateDayStreak(entries), [entries]);
-    const topMood = useMemo(() => getTopMood(entries), [entries]);
-    const emotionDist = useMemo(() => getEmotionDistribution(entries), [entries]);
-    const maxEmotionCount = useMemo(() => Math.max(...emotionDist.map(e => e.count), 1), [emotionDist]);
+    const emotionDist = useMemo(() => getEmotionDistribution(entries).filter((e) => e.count > 0), [entries]);
+    const maxEmotionCount = useMemo(() => Math.max(...emotionDist.map((e) => e.count), 1), [emotionDist]);
+    const topMood = emotionDist[0] ?? null;
 
     const handleLogout = async () => {
         setLogoutDialogOpen(false);
@@ -71,7 +60,6 @@ const ProfilePage: React.FC = () => {
         navigate(APP_ROUTES.WELCOME);
     };
 
-    // --- Edit Name ---
     const handleStartEditName = () => {
         if (currentUser) {
             setEditName(currentUser.fullName);
@@ -98,12 +86,6 @@ const ProfilePage: React.FC = () => {
         }
     };
 
-    const handleCancelEditName = () => {
-        setIsEditingName(false);
-        setNameError('');
-    };
-
-    // --- Core Values ---
     const handleSaveValues = async (values: string[]) => {
         try {
             const updatedUser = await completeOnboarding({ coreValues: values, people: [] });
@@ -115,11 +97,9 @@ const ProfilePage: React.FC = () => {
         }
     };
 
-    // --- Change Password ---
     const handleSavePassword = async () => {
         setPasswordError('');
         setPasswordSuccess('');
-
         if (!currentPassword.trim() || !newPassword.trim()) {
             setPasswordError(t('profilePage.changePassword.fillAllFields'));
             return;
@@ -132,7 +112,6 @@ const ProfilePage: React.FC = () => {
             setPasswordError(t('profilePage.changePassword.tooShort'));
             return;
         }
-
         setPasswordLoading(true);
         try {
             await changePassword({ currentPassword, newPassword });
@@ -151,21 +130,16 @@ const ProfilePage: React.FC = () => {
         }
     };
 
-    // --- Avatar Upload ---
-    const handleAvatarClick = () => {
-        avatarInputRef.current?.click();
-    };
+    const handleAvatarClick = () => avatarInputRef.current?.click();
 
     const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (!file || !currentUser) return;
-
         setAvatarLoading(true);
         try {
             const { pictureUrl } = await uploadAvatar(file);
             setCurrentUser({ ...currentUser, pictureUrl });
         } catch (err) {
-            console.error('Avatar upload failed:', err);
             const message = err instanceof Error ? err.message : t('profilePage.avatarError');
             setSnackbar({ open: true, message, type: 'error' });
         } finally {
@@ -174,277 +148,150 @@ const ProfilePage: React.FC = () => {
         }
     };
 
-
     if (!currentUser) {
         return (
-            <div className="profile-page">
-                <div className="profile-page__empty">
-                    <p>{t('profilePage.loginRequired')}</p>
-                </div>
+            <div className="you-page">
+                <p className="you-page__empty">{t('profilePage.loginRequired')}</p>
             </div>
         );
     }
 
     return (
-        <div className="profile-page">
-            {/* === DARK HEADER ZONE === */}
-            <div className="profile-page__hero">
-                <div className="profile-page__breadcrumb">
-                    <Breadcrumb
-                        variant="light"
-                        items={[
-                            { label: t('breadcrumb.home'), path: APP_ROUTES.WELCOME },
-                            { label: t('breadcrumb.profile') },
-                        ]}
-                    />
-                </div>
-                <div className="profile-page__hero-content">
-                    <div className="profile-page__avatar profile-page__avatar--editable" onClick={handleAvatarClick}>
-                        {currentUser.pictureUrl ? (
-                            <img
-                                src={currentUser.pictureUrl}
-                                alt={currentUser.fullName}
-                                className="profile-page__avatar-img"
-                                referrerPolicy="no-referrer"
-                            />
-                        ) : (
-                            <div className="profile-page__avatar-placeholder">
-                                {currentUser.fullName.charAt(0).toUpperCase()}
-                            </div>
-                        )}
-                        <div className="profile-page__avatar-overlay">
-                            {avatarLoading ? '...' : <LuCamera size={18} />}
+        <div className="you-page">
+            <div className="you-page__header">
+                <button type="button" className="you-page__avatar" onClick={handleAvatarClick}>
+                    {currentUser.pictureUrl ? (
+                        <img src={currentUser.pictureUrl} alt={currentUser.fullName} referrerPolicy="no-referrer" />
+                    ) : (
+                        <span>{currentUser.fullName.charAt(0).toUpperCase()}</span>
+                    )}
+                    <input ref={avatarInputRef} type="file" accept="image/*" hidden onChange={handleAvatarChange} />
+                </button>
+                <div className="you-page__identity">
+                    {isEditingName ? (
+                        <div className="you-page__name-edit">
+                            <input className="input" value={editName} onChange={(e) => setEditName(e.target.value)} disabled={nameLoading} autoFocus />
+                            <button type="button" className="btn btn-primary" onClick={handleSaveName} disabled={nameLoading}>
+                                {t('profilePage.editName.edit')}
+                            </button>
+                            <button type="button" className="btn btn-secondary" onClick={() => setIsEditingName(false)} disabled={nameLoading}>
+                                {t('profilePage.changePassword.cancel')}
+                            </button>
                         </div>
-                        <input
-                            ref={avatarInputRef}
-                            type="file"
-                            accept="image/*"
-                            style={{ display: 'none' }}
-                            onChange={handleAvatarChange}
-                        />
+                    ) : (
+                        <h2 className="you-page__name">{currentUser.fullName}</h2>
+                    )}
+                    <div className="you-page__meta">{currentUser.email}{avatarLoading ? ` · ${t('profilePage.uploading')}` : ''}</div>
+                    {nameError && <div className="you-page__error">{nameError}</div>}
+                </div>
+                {!isEditingName && (
+                    <button type="button" className="btn btn-secondary" onClick={handleStartEditName}>
+                        {t('profilePage.editProfile')}
+                    </button>
+                )}
+            </div>
+
+            <div className="you-page__stats">
+                <div className="you-page__stat">
+                    <div className="you-page__stat-label">{t('profilePage.stats.dayStreak')}</div>
+                    <div className="you-page__stat-value">
+                        {streak.count}<span>{t('profilePage.stats.days')}</span>
                     </div>
-                    <div className="profile-page__info">
-                        <h1 className="profile-page__name">{currentUser.fullName}</h1>
-                        <p className="profile-page__email">{currentUser.email}</p>
+                </div>
+                <div className="you-page__stat">
+                    <div className="you-page__stat-label">{t('profilePage.stats.topMood')}</div>
+                    <div className="you-page__stat-value you-page__stat-value--accent">
+                        {topMood ? t(`emotion.${topMood.emotion}`) : '—'}
                     </div>
-                    <div className="profile-page__stats">
-                        <StatCard
-                            icon={<span>{streak.icon}</span>}
-                            value={streak.count}
-                            label={t('profilePage.stats.dayStreak')}
-                            variant="glass-light"
-                            accentColor={streak.color}
-                        />
-                        <StatCard
-                            icon={<span>{topMood ? topMood.icon : (EMOTION_DATA.happy?.icon || '😊')}</span>}
-                            value={topMood ? topMood.label : '—'}
-                            label={t('profilePage.stats.topMood')}
-                            variant="glass-light"
-                            accentColor={topMood?.color}
-                        />
+                </div>
+                <div className="you-page__stat">
+                    <div className="you-page__stat-label">{t('profilePage.stats.sessionsEntries')}</div>
+                    <div className="you-page__stat-value">
+                        {conversationsTotal}<span> · </span>{entriesTotal}
                     </div>
                 </div>
             </div>
 
-            {/* === WHITE CONTENT ZONE === */}
-            <div className="profile-page__content">
-
-                {/* Quick Actions */}
-                <div className="profile-page__actions">
-                    <div
-                        className="profile-page__action-card profile-page__action-card--garden"
-                        onClick={() => navigate(APP_ROUTES.COACH_CHAT)}
-                    >
-                        <div className="profile-page__action-card-icon"><LuMessageCircle size={20} /></div>
-                        <div className="profile-page__action-card-body">
-                            <span className="profile-page__action-card-title">{t('nav.coach')}</span>
-                            <span className="profile-page__action-card-desc">{t('coach.subtitle')}</span>
-                        </div>
+            <div className="you-page__body">
+                <div className="you-page__main">
+                    <div className="you-page__section">
+                        <div className="you-page__section-label">{t('profilePage.emotionOverview.title')}</div>
+                        {emotionDist.length === 0 ? (
+                            <p className="you-page__empty-inline">{t('profilePage.emotionOverview.empty')}</p>
+                        ) : (
+                            <div className="you-page__emotion-chart">
+                                {emotionDist.map((item) => (
+                                    <div key={item.emotion} className="you-page__emotion-row">
+                                        <span className="you-page__emotion-label">{t(`emotion.${item.emotion}`)}</span>
+                                        <span className="you-page__emotion-track">
+                                            <span
+                                                className="you-page__emotion-fill"
+                                                style={{ width: `${(item.count / maxEmotionCount) * 100}%` }}
+                                            />
+                                        </span>
+                                        <span className="you-page__emotion-count">{item.count}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
-                    <div
-                        className="profile-page__action-card profile-page__action-card--entry"
-                        onClick={() => navigate(APP_ROUTES.ENTRIES_NEW)}
-                    >
-                        <div className="profile-page__action-card-icon"><LuBookOpen size={20} /></div>
-                        <div className="profile-page__action-card-body">
-                            <span className="profile-page__action-card-title">{t('zonePage.writeJournal')}</span>
-                            <span className="profile-page__action-card-desc">{t('newEntryPage.subtitle')}</span>
+
+                    <CoreValuesCard coreValues={currentUser.coreValues} onSave={handleSaveValues} className="you-page__section" />
+                </div>
+
+                <div className="you-page__settings">
+                    <div className="you-page__section-label">{t('profilePage.settings.title')}</div>
+                    <div className="you-page__settings-list">
+                        <div className="you-page__settings-row">
+                            <span>{t('profilePage.settings.language')}</span>
+                            <LanguageSwitcher />
+                        </div>
+                        {currentUser.hasPassword && (
+                            <div className="you-page__settings-row">
+                                <span>{t('profilePage.changePassword.label')}</span>
+                                <button
+                                    type="button"
+                                    className="btn btn-ghost"
+                                    onClick={() => { setIsChangingPassword((v) => !v); setPasswordError(''); setPasswordSuccess(''); }}
+                                >
+                                    {isChangingPassword ? t('profilePage.changePassword.cancel') : t('profilePage.changePassword.change')}
+                                </button>
+                            </div>
+                        )}
+                        {isChangingPassword && (
+                            <div className="you-page__password-form">
+                                <input className="input" type="password" placeholder={t('profilePage.changePassword.currentPlaceholder') as string} value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} />
+                                <input className="input" type="password" placeholder={t('profilePage.changePassword.newPlaceholder') as string} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+                                <input className="input" type="password" placeholder={t('profilePage.changePassword.confirmPlaceholder') as string} value={confirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} />
+                                {passwordError && <div className="you-page__error">{passwordError}</div>}
+                                {passwordSuccess && <div className="you-page__success">{passwordSuccess}</div>}
+                                <button type="button" className="btn btn-primary btn-block" onClick={handleSavePassword} disabled={passwordLoading}>
+                                    {passwordLoading ? t('profilePage.changePassword.saving') : t('profilePage.changePassword.save')}
+                                </button>
+                            </div>
+                        )}
+                        <div className="you-page__settings-row you-page__settings-row--muted">
+                            <span>{t('profilePage.settings.notifications')}</span>
+                            <span className="tag tag-neutral">{t('profilePage.settings.soon')}</span>
+                        </div>
+                        <div className="you-page__settings-row you-page__settings-row--muted">
+                            <span>{t('profilePage.settings.exportData')}</span>
+                            <span className="tag tag-neutral">{t('profilePage.settings.soon')}</span>
+                        </div>
+                        <div className="you-page__signout">
+                            <button type="button" className="btn btn-secondary btn-block you-page__signout-btn" onClick={() => setLogoutDialogOpen(true)}>
+                                {t('profilePage.logout')}
+                            </button>
                         </div>
                     </div>
                 </div>
-
-                {/* Grid: Emotion Overview + Settings */}
-                <div className="profile-page__grid">
-
-                {/* Emotion Overview */}
-                <section className="profile-page__section">
-                    <h3 className="profile-page__section-title">
-                        {t('profilePage.emotionOverview.title')}
-                    </h3>
-                    {total > 0 && (
-                        <p className="profile-page__section-subtitle">
-                            {t('profilePage.emotionOverview.subtitle', { entries: total, emotions: entries.flatMap(e => e.emotions).length })}
-                        </p>
-                    )}
-
-                    {emotionDist.length > 0 && total > 0 ? (
-                        <div className="emotion-chart">
-                            {emotionDist.map((item) => (
-                                <div
-                                    key={item.emotion}
-                                    className={`emotion-chart__row ${item.count === 0 ? 'emotion-chart__row--empty' : ''}`}
-                                >
-                                    <span className="emotion-chart__icon">{item.icon}</span>
-                                    <span className="emotion-chart__label">{item.label}</span>
-                                    <div className="emotion-chart__bar-track">
-                                        <div
-                                            className="emotion-chart__bar-fill"
-                                            style={{
-                                                width: `${(item.count / maxEmotionCount) * 100}%`,
-                                                backgroundColor: item.color,
-                                            }}
-                                        />
-                                    </div>
-                                    <span className="emotion-chart__count">{item.count}</span>
-                                </div>
-                            ))}
-                        </div>
-                    ) : (
-                        <p className="profile-page__empty-state">
-                            {t('profilePage.emotionOverview.empty')}
-                        </p>
-                    )}
-                </section>
-
-                {/* Core Values */}
-                <CoreValuesCard coreValues={currentUser.coreValues} onSave={handleSaveValues} />
-
-                {/* Settings */}
-                <section className="profile-page__section">
-                    <h3 className="profile-page__section-title">
-                        {t('profilePage.settings.title')}
-                    </h3>
-                    <div className="settings-list">
-                        {/* Edit Name */}
-                        <div className="settings-list__item">
-                            <div className="settings-list__left">
-                                <LuPencil size={18} />
-                                <span>{t('profilePage.editName.label')}</span>
-                            </div>
-                            {!isEditingName ? (
-                                <Button variant="ghost" size="sm" onClick={handleStartEditName}>{t('profilePage.editName.edit')}</Button>
-                            ) : (
-                                <div className="settings-list__inline-edit">
-                                    <input
-                                        className="settings-list__inline-input"
-                                        value={editName}
-                                        onChange={(e) => setEditName(e.target.value)}
-                                        disabled={nameLoading}
-                                    />
-                                    <button className="settings-list__icon-btn settings-list__icon-btn--save" onClick={handleSaveName} disabled={nameLoading}>
-                                        <LuCheck size={16} />
-                                    </button>
-                                    <button className="settings-list__icon-btn settings-list__icon-btn--cancel" onClick={handleCancelEditName} disabled={nameLoading}>
-                                        <LuX size={16} />
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                        {nameError && <div className="settings-list__error">{nameError}</div>}
-
-                        {/* Change Password (only for credential users) */}
-                        {currentUser.hasPassword && (
-                            <>
-                                <div className="settings-list__item">
-                                    <div className="settings-list__left">
-                                        <LuLock size={18} />
-                                        <span>{t('profilePage.changePassword.label')}</span>
-                                    </div>
-                                    <Button
-                                        variant="ghost"
-                                        size="sm"
-                                        onClick={() => { setIsChangingPassword(!isChangingPassword); setPasswordError(''); setPasswordSuccess(''); }}
-                                    >
-                                        {isChangingPassword ? t('profilePage.changePassword.cancel') : t('profilePage.changePassword.change')}
-                                    </Button>
-                                </div>
-                                {isChangingPassword && (
-                                    <div className="settings-list__password-form">
-                                        <input
-                                            className="settings-list__password-input"
-                                            type="password"
-                                            placeholder={t('profilePage.changePassword.currentPlaceholder')}
-                                            value={currentPassword}
-                                            onChange={(e) => setCurrentPassword(e.target.value)}
-                                        />
-                                        <input
-                                            className="settings-list__password-input"
-                                            type="password"
-                                            placeholder={t('profilePage.changePassword.newPlaceholder')}
-                                            value={newPassword}
-                                            onChange={(e) => setNewPassword(e.target.value)}
-                                        />
-                                        <input
-                                            className="settings-list__password-input"
-                                            type="password"
-                                            placeholder={t('profilePage.changePassword.confirmPlaceholder')}
-                                            value={confirmNewPassword}
-                                            onChange={(e) => setConfirmNewPassword(e.target.value)}
-                                        />
-                                        {passwordError && <div className="settings-list__error">{passwordError}</div>}
-                                        {passwordSuccess && <div className="settings-list__success">{passwordSuccess}</div>}
-                                        <Button
-                                            variant="primary"
-                                            size="sm"
-                                            className="w-full"
-                                            onClick={handleSavePassword}
-                                            disabled={passwordLoading}
-                                        >
-                                            {passwordLoading ? t('profilePage.changePassword.saving') : t('profilePage.changePassword.save')}
-                                        </Button>
-                                    </div>
-                                )}
-                            </>
-                        )}
-
-                        <div className="settings-list__item">
-                            <div className="settings-list__left">
-                                <LuGlobe size={18} />
-                                <span>{t('profilePage.settings.language')}</span>
-                            </div>
-                            <LanguageSwitcher />
-                        </div>
-                        <div className="settings-list__item">
-                            <div className="settings-list__left">
-                                <LuBell size={18} />
-                                <span>{t('profilePage.settings.notifications')}</span>
-                            </div>
-                            <span className="settings-list__badge">{t('profilePage.settings.soon')}</span>
-                        </div>
-                        <div className="settings-list__item">
-                            <div className="settings-list__left">
-                                <LuDownload size={18} />
-                                <span>{t('profilePage.settings.exportData')}</span>
-                            </div>
-                            <span className="settings-list__badge">{t('profilePage.settings.soon')}</span>
-                        </div>
-                        <div className="settings-list__item settings-list__item--danger" onClick={() => setLogoutDialogOpen(true)}>
-                            <div className="settings-list__left">
-                                <LuLogOut size={18} />
-                                <span>{t('profilePage.logout')}</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                </div>{/* end grid */}
             </div>
 
             <SnackbarComponent
                 open={snackbar.open}
                 message={snackbar.message}
                 type={snackbar.type}
-                onClose={() => setSnackbar(prev => ({ ...prev, open: false }))}
+                onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
                 autoHideDuration={5000}
             />
 

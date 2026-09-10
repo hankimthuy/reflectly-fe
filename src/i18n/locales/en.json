@@ -453,7 +453,9 @@
     "loginRequired": "Please log in to view your profile.",
     "stats": {
       "dayStreak": "Day Streak",
-      "topMood": "Top Mood"
+      "topMood": "Top Mood",
+      "sessionsEntries": "Sessions · entries",
+      "days": "days"
     },
     "coreValues": {
       "title": "Core Values",
@@ -462,7 +464,8 @@
       "save": "Save",
       "cancel": "Cancel",
       "empty": "Not set up yet — the Coach will understand you better once you share what matters to you.",
-      "saveError": "Could not save your core values."
+      "saveError": "Could not save your core values.",
+      "count": "{{count}} of 12 chosen"
     },
     "emotionOverview": {
       "title": "Emotion Overview",
@@ -504,7 +507,9 @@
       "message": "Are you sure you want to log out?",
       "confirm": "Log Out",
       "cancel": "Cancel"
-    }
+    },
+    "editProfile": "Edit profile",
+    "uploading": "uploading…"
   },
   "newEntryPage": {
     "title": "Your Safe Space",
