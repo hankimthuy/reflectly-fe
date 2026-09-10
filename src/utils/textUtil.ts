@@ -20,3 +20,14 @@ export const sessionTitleFromSummary = (summary: string | undefined, fallback: s
     if (!firstLine) return fallback;
     return firstLine.length > maxLength ? `${firstLine.slice(0, maxLength - 1).trimEnd()}…` : firstLine;
 };
+
+/** The first non-empty of `keys` in a saved-framework-entry payload — used to pull a one-line
+ * preview out of whichever shape a given FrameworkType's payload happens to be (see
+ * models/savedFrameworkEntry.ts). */
+export const firstNonEmptyPayloadField = (payload: Record<string, unknown>, keys: string[]): string => {
+    for (const key of keys) {
+        const value = payload[key];
+        if (typeof value === 'string' && value.trim()) return value;
+    }
+    return '';
+};

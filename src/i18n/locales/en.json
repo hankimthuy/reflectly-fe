@@ -841,5 +841,34 @@
     },
     "recent": "Recent",
     "allSessions": "All sessions →"
+  },
+  "reflect": {
+    "title": "Reflect",
+    "subtitle": "Everything you and Aura have put down. People and mirror are yours to edit; the timeline is what Aura noticed.",
+    "tabs": {
+      "people": "People",
+      "mirror": "Mirror",
+      "timeline": "Timeline",
+      "journal": "Journal"
+    },
+    "people": {
+      "count": "{{count}} people · distance = days since mentioned",
+      "needsAttention": "Needs attention",
+      "drifting": "Drifting",
+      "steady": "Steady",
+      "selectHint": "Select someone on the map to see what Aura has noticed about them.",
+      "healthSignal": "Health signal",
+      "talkAbout": "Talk about {{name}}",
+      "talkAboutPrefill": "I've been thinking about {{name}}.",
+      "whatAuraNoticed": "What Aura noticed about them"
+    },
+    "mirror": {
+      "empty": "Nothing caught yet — Talk to Aura and catch a line into your mirror.",
+      "emptyCta": "Start a conversation",
+      "paneEmpty": "Nothing here yet."
+    },
+    "journal": {
+      "notes": "Notes caught mid-conversation"
+    }
   }
 }

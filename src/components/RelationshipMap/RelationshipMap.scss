@@ -1,0 +1,49 @@
+.relationship-map {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.relationship-map__empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: 32px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-neutral-700);
+  flex: 1;
+}
+
+.relationship-map__svg {
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+}
+
+.relationship-map__node {
+  cursor: pointer;
+}
+
+.relationship-map__legend {
+  display: flex;
+  gap: 18px;
+  border-top: 2px solid var(--color-divider);
+  padding-top: 11px;
+  flex-wrap: wrap;
+}
+
+.relationship-map__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font: 400 11px 'Archivo', sans-serif;
+  color: var(--color-neutral-700);
+}
+
+.relationship-map__legend-swatch {
+  width: 11px;
+  height: 11px;
+  border: 1.5px solid var(--color-text);
+}

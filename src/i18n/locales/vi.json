@@ -845,5 +845,34 @@
     },
     "recent": "Gần đây",
     "allSessions": "Tất cả phiên →"
+  },
+  "reflect": {
+    "title": "Thấu hiểu",
+    "subtitle": "Mọi thứ bạn và Aura đã ghi lại. Người và tấm gương là của bạn để chỉnh sửa; dòng thời gian là điều Aura nhận ra.",
+    "tabs": {
+      "people": "Mọi người",
+      "mirror": "Tấm gương",
+      "timeline": "Dòng thời gian",
+      "journal": "Nhật ký"
+    },
+    "people": {
+      "count": "{{count}} người · khoảng cách = số ngày kể từ lần nhắc tới",
+      "needsAttention": "Cần để ý",
+      "drifting": "Đang xa dần",
+      "steady": "Ổn định",
+      "selectHint": "Chọn một người trên bản đồ để xem điều Aura đã nhận ra về họ.",
+      "healthSignal": "Tín hiệu mối quan hệ",
+      "talkAbout": "Nói về {{name}}",
+      "talkAboutPrefill": "Tôi đang nghĩ về {{name}}.",
+      "whatAuraNoticed": "Điều Aura nhận ra về họ"
+    },
+    "mirror": {
+      "empty": "Chưa có gì được giữ lại — trò chuyện với Aura và giữ lại một câu vào tấm gương của bạn.",
+      "emptyCta": "Bắt đầu trò chuyện",
+      "paneEmpty": "Chưa có gì ở đây."
+    },
+    "journal": {
+      "notes": "Ghi chú giữ lại khi trò chuyện"
+    }
   }
 }

@@ -26,8 +26,8 @@ interface InsightCatcherPanelProps {
  * 04). Replaces the old framework picker (Free-form / Johari / ACT Matrix / SWOT / Life
  * Positions) with exactly what the redesign calls for: drop a line into one pane of the Mirror,
  * jot it as a plain Note, or use it to add/update someone on the People map. ACT Matrix,
- * Personal SWOT and Life Positions still exist as data (FrameworkEntryForm can still edit one if
- * a person has an old entry of that type) — they're just not a door this panel opens anymore.
+ * Personal SWOT and Life Positions aren't a door this panel opens anymore — any entry made that
+ * way before this redesign still shows up (read-only) in the Journal tab's "Notes" section.
  */
 const InsightCatcherPanel = ({ conversationId, draftText, onSaved, onPersonSaved, onClose }: InsightCatcherPanelProps) => {
   const { t } = useTranslation();
