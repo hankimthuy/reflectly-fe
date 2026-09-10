@@ -75,8 +75,10 @@ const SignupPage = () => {
         try {
             await signup(fullName, username, password);
             navigate(APP_ROUTES.HOME, { replace: true });
-        } catch (error) {
-            const errorMessage = error instanceof Error ? error.message : t('auth.errors.signupFailed');
+        } catch (error: unknown) {
+            const errorMessage = axios.isAxiosError(error)
+                ? error.response?.data?.message ?? error.message
+                : error instanceof Error ? error.message : t('auth.errors.signupFailed');
             setError(errorMessage);
         } finally {
             setIsSubmitting(false);
