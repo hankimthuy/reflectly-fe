@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import type { ConversationMessage } from '../../models/conversation';
 import ChatBubble from './ChatBubble';
 import ThinkingBubble from './ThinkingBubble';
+import './Chat.scss';
 
 interface MessageListProps {
   messages: ConversationMessage[];

@@ -875,5 +875,14 @@
     "journal": {
       "notes": "Notes caught mid-conversation"
     }
+  },
+  "sessions": {
+    "searchPlaceholder": "Search what you said…",
+    "min": "min",
+    "showing": "{{current}} of {{total}}",
+    "readOnly": "Read only",
+    "shift": "SHIFT",
+    "whatAuraWrote": "What Aura wrote back",
+    "caughtFromSession": "Caught from this session · {{count}}"
   }
 }

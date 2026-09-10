@@ -879,5 +879,14 @@
     "journal": {
       "notes": "Ghi chú giữ lại khi trò chuyện"
     }
+  },
+  "sessions": {
+    "searchPlaceholder": "Tìm điều bạn đã nói…",
+    "min": "phút",
+    "showing": "{{current}}/{{total}}",
+    "readOnly": "Chỉ xem",
+    "shift": "THAY ĐỔI",
+    "whatAuraWrote": "Điều Aura đã viết lại",
+    "caughtFromSession": "Đã giữ lại trong phiên này · {{count}}"
   }
 }
