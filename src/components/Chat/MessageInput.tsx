@@ -1,6 +1,5 @@
-import { useRef, useState, type KeyboardEvent } from 'react';
+import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button } from '../Button/Button';
 
 /** Mirrors the backend's SendMessageRequestDto @Size(max = 4000) cap. */
 const MAX_MESSAGE_LENGTH = 4000;
@@ -8,12 +7,38 @@ const MAX_MESSAGE_LENGTH = 4000;
 interface MessageInputProps {
   onSend: (content: string) => void;
   disabled?: boolean;
+  /** Seeds the composer once (e.g. Today's opener, carried via router state) — applied on mount
+   * only, never overwrites what the person has already started typing. */
+  initialValue?: string;
+  onOpenCatch: () => void;
+  onSummarize: () => void;
+  summarizeDisabled?: boolean;
+  summarizing?: boolean;
+  onEndSession: () => void;
+  endSessionDisabled?: boolean;
 }
 
-const MessageInput = ({ onSend, disabled }: MessageInputProps) => {
+const MessageInput = ({
+  onSend,
+  disabled,
+  initialValue,
+  onOpenCatch,
+  onSummarize,
+  summarizeDisabled,
+  summarizing,
+  onEndSession,
+  endSessionDisabled,
+}: MessageInputProps) => {
   const { t } = useTranslation();
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(initialValue ?? '');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const seededRef = useRef(false);
+
+  useEffect(() => {
+    if (seededRef.current || !initialValue) return;
+    seededRef.current = true;
+    setValue(initialValue);
+  }, [initialValue]);
 
   const resizeToContent = (el: HTMLTextAreaElement) => {
     el.style.height = 'auto';
@@ -38,24 +63,44 @@ const MessageInput = ({ onSend, disabled }: MessageInputProps) => {
   };
 
   return (
-    <div className="flex items-end gap-2 border-t border-coach-border bg-coach-surface px-4 py-3">
-      <textarea
-        ref={textareaRef}
-        value={value}
-        onChange={(e) => {
-          setValue(e.target.value);
-          resizeToContent(e.target);
-        }}
-        onKeyDown={handleKeyDown}
-        disabled={disabled}
-        rows={1}
-        maxLength={MAX_MESSAGE_LENGTH}
-        placeholder={t('coach.inputPlaceholder') as string}
-        className="max-h-32 flex-1 resize-none overflow-y-auto rounded-xl border border-coach-border bg-coach-bg px-3 py-2 text-sm text-coach-text outline-none focus:border-coach-primary disabled:opacity-50"
-      />
-      <Button variant="primary" onClick={handleSend} disabled={disabled || !value.trim()}>
-        {t('coach.send')}
-      </Button>
+    <div className="chat-composer">
+      <div className="chat-composer-row">
+        <textarea
+          ref={textareaRef}
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+            resizeToContent(e.target);
+          }}
+          onKeyDown={handleKeyDown}
+          disabled={disabled}
+          rows={1}
+          maxLength={MAX_MESSAGE_LENGTH}
+          placeholder={t('coach.inputPlaceholder') as string}
+          className="chat-composer-textarea"
+        />
+        <button type="button" className="btn btn-primary chat-composer-send" onClick={handleSend} disabled={disabled || !value.trim()}>
+          {t('coach.send')}
+        </button>
+      </div>
+      <div className="chat-composer-actions">
+        <div className="chat-composer-shortcuts">
+          <button type="button" className="tag tag-outline chat-composer-shortcut" onClick={onOpenCatch}>
+            {t('talk.catchShortcut')}
+          </button>
+          <button
+            type="button"
+            className="tag tag-outline chat-composer-shortcut"
+            onClick={onSummarize}
+            disabled={summarizeDisabled}
+          >
+            {summarizing ? t('coach.summarizing') : t('talk.summarizeShortcut')}
+          </button>
+        </div>
+        <button type="button" className="btn btn-secondary chat-composer-end" onClick={onEndSession} disabled={endSessionDisabled}>
+          {t('talk.endSessionKeepShift')}
+        </button>
+      </div>
     </div>
   );
 };

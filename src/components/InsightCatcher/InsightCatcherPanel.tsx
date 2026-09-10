@@ -1,176 +1,173 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { LuBookOpen, LuCompass, LuGrid2X2, LuScale, LuUserPlus, LuUsers } from 'react-icons/lu';
-import FrameworkEntryForm, { stripMarkdown } from './FrameworkEntryForm';
 import PersonForm from '../PersonForm/PersonForm';
 import { useCreateSavedFrameworkEntryMutation } from '../../queries/savedFrameworkEntriesQueryHook';
 import { useCreatePersonMutation } from '../../queries/peopleQueryHook';
-import type { FrameworkType } from '../../models/savedFrameworkEntry';
+import { MIRROR_PANES, type MirrorPane } from '../../hooks/useMirrorSnapshot';
 import type { CreatePersonRequest } from '../../models/person';
+import './InsightCatcherPanel.scss';
+
+type CatchTab = 'mirror' | 'note' | 'person';
 
 interface InsightCatcherPanelProps {
   conversationId: string | null;
-  /** Latest "Tóm tắt" text, if any — seeds the Free-form content field so the connection between
-   * summarizing and saving is shown, not just explained (see plan doc, Phase 2b). */
-  latestSummary?: string | null;
-  /** A SavedFrameworkEntry (self insight or Life Positions) was saved — redirect to Đúc kết. */
+  /** A message's text, handed in from a bubble's "Catch this" or the composer's ⌘K shortcut
+   * (empty string) — seeds the draft each time it changes. */
+  draftText: string | null;
   onSaved: (entryId: string) => void;
-  /** A Person was added/updated via the PRM quick-add flow — redirect to "Thấu hiểu". */
   onPersonSaved: (personId: string) => void;
+  /** Present only when the panel renders as a mobile overlay sheet (see mockup 2b) — gives it a
+   * "Cancel" to dismiss with. Omitted on desktop, where the panel is a permanent rail. */
+  onClose?: () => void;
 }
-
-interface FrameworkOption {
-  type: FrameworkType;
-  labelKey: string;
-  descKey: string;
-  icon: typeof LuBookOpen;
-}
-
-const SELF_FRAMEWORK_OPTIONS: FrameworkOption[] = [
-  { type: 'FREEFORM', labelKey: 'insightCatcher.freeformLabel', descKey: 'insightCatcher.freeformDesc', icon: LuBookOpen },
-  { type: 'JOHARI_WINDOW', labelKey: 'insightCatcher.johariWindowLabel', descKey: 'insightCatcher.johariWindowDesc', icon: LuGrid2X2 },
-  { type: 'ACT_MATRIX', labelKey: 'insightCatcher.actMatrix', descKey: 'insightCatcher.actMatrixDesc', icon: LuCompass },
-  { type: 'PERSONAL_SWOT', labelKey: 'insightCatcher.personalSwot', descKey: 'insightCatcher.personalSwotDesc', icon: LuScale },
-];
 
 /**
- * Right-hand "catch an insight" column on the Aura chat page. Two groups, matching the user's
- * original split: "về bản thân" (self — Free-form/Johari/ACT Matrix/SWOT, saved as
- * SavedFrameworkEntry, shown on "Đúc kết") and "Bản đồ mối quan hệ (PRM)" (relationship — Life
- * Positions, also a SavedFrameworkEntry but tied to a Person; and the PRM quick-add/update-Person
- * flow, shown on "Thấu hiểu"). Each option is a labeled card with a one-line description — plain
- * icon+label buttons tested as unexplained jargon to anyone unfamiliar with these frameworks.
+ * "Catch" — one keystroke from any message, three destinations (see the redesign brief, section
+ * 04). Replaces the old framework picker (Free-form / Johari / ACT Matrix / SWOT / Life
+ * Positions) with exactly what the redesign calls for: drop a line into one pane of the Mirror,
+ * jot it as a plain Note, or use it to add/update someone on the People map. ACT Matrix,
+ * Personal SWOT and Life Positions still exist as data (FrameworkEntryForm can still edit one if
+ * a person has an old entry of that type) — they're just not a door this panel opens anymore.
  */
-const InsightCatcherPanel = ({ conversationId, latestSummary, onSaved, onPersonSaved }: InsightCatcherPanelProps) => {
+const InsightCatcherPanel = ({ conversationId, draftText, onSaved, onPersonSaved, onClose }: InsightCatcherPanelProps) => {
   const { t } = useTranslation();
-  const [activeFramework, setActiveFramework] = useState<FrameworkType | null>(null);
-  const [isAddingPerson, setIsAddingPerson] = useState(false);
+  const [tab, setTab] = useState<CatchTab>('mirror');
+  const [text, setText] = useState('');
+  const [pane, setPane] = useState<MirrorPane>('hidden');
+  const [tagsInput, setTagsInput] = useState('');
+  const [error, setError] = useState<string | null>(null);
+
   const createEntry = useCreateSavedFrameworkEntryMutation();
   const createPerson = useCreatePersonMutation();
 
-  const handleSubmitEntry = async (title: string | undefined, payload: Record<string, unknown>, personId?: string) => {
-    if (!activeFramework) return;
+  useEffect(() => {
+    if (draftText === null) return;
+    setText(draftText);
+    setTab('mirror');
+    setError(null);
+  }, [draftText]);
+
+  const handleSaveMirror = async () => {
+    if (!text.trim()) {
+      setError(t('insightCatcher.johari.atLeastOneRequired'));
+      return;
+    }
+    setError(null);
+    const payload = Object.fromEntries(MIRROR_PANES.map((p) => [p, p === pane ? text.trim() : '']));
     const entry = await createEntry.mutateAsync({
-      frameworkType: activeFramework,
-      title,
+      frameworkType: 'JOHARI_WINDOW',
       payload,
       conversationId: conversationId ?? undefined,
-      personId,
     });
-    setActiveFramework(null);
+    setText('');
     onSaved(entry.id);
+    onClose?.();
+  };
+
+  const handleSaveNote = async () => {
+    if (!text.trim()) {
+      setError(t('insightCatcher.freeform.contentRequired'));
+      return;
+    }
+    setError(null);
+    const tags = tagsInput.split(',').map((tag) => tag.trim()).filter(Boolean);
+    const entry = await createEntry.mutateAsync({
+      frameworkType: 'FREEFORM',
+      payload: { content: text.trim(), ...(tags.length > 0 ? { tags } : {}) },
+      conversationId: conversationId ?? undefined,
+    });
+    setText('');
+    setTagsInput('');
+    onSaved(entry.id);
+    onClose?.();
   };
 
   const handleAddPerson = async (person: CreatePersonRequest) => {
     const saved = await createPerson.mutateAsync(person);
-    setIsAddingPerson(false);
     onPersonSaved(saved.id);
+    onClose?.();
   };
 
-  if (activeFramework) {
-    // Seed Free-form with the latest summary so "log theo format nào" has a concrete answer:
-    // the summary itself becomes the starting content, editable before saving.
-    const initialPayload =
-      activeFramework === 'FREEFORM' && latestSummary ? { content: stripMarkdown(latestSummary) } : undefined;
-
-    return (
-      <div className="flex h-full flex-col gap-3 p-4">
-        <h2 className="text-sm font-semibold text-coach-text">{t(labelKeyFor(activeFramework))}</h2>
-        <FrameworkEntryForm
-          frameworkType={activeFramework}
-          initialPayload={initialPayload}
-          onSubmit={handleSubmitEntry}
-          onCancel={() => setActiveFramework(null)}
-          submitLabel={t('insightCatcher.save')}
-        />
-      </div>
-    );
-  }
-
-  if (isAddingPerson) {
-    return (
-      <div className="flex h-full flex-col gap-3 p-4">
-        <h2 className="text-sm font-semibold text-coach-text">{t('insightCatcher.prm')}</h2>
-        <PersonForm onSubmit={handleAddPerson} onCancel={() => setIsAddingPerson(false)} submitLabel={t('insightCatcher.save')} />
-      </div>
-    );
-  }
+  const saving = createEntry.isPending;
 
   return (
-    <div className="flex h-full flex-col gap-4 p-4">
-      <div>
-        <h2 className="text-sm font-semibold text-coach-text">{t('insightCatcher.title')}</h2>
-        <p className="mt-1 text-xs text-coach-text-muted">{t('insightCatcher.subtitle')}</p>
-        <div className="mt-2 flex flex-col gap-2">
-          {SELF_FRAMEWORK_OPTIONS.map((option) => (
-            <FrameworkOptionCard key={option.type} option={option} onClick={() => setActiveFramework(option.type)} />
-          ))}
+    <div className="catch-panel">
+      <div className="catch-panel__head">
+        <div className="catch-panel__head-row">
+          <div className="catch-panel__title">{t('talk.catchTitle')}</div>
+          {onClose && (
+            <button type="button" className="btn btn-ghost" onClick={onClose}>
+              {t('insightCatcher.cancel')}
+            </button>
+          )}
         </div>
+        <p className="catch-panel__subtitle">{t('talk.catchSubtitle')}</p>
       </div>
 
-      <div className="border-t border-coach-border pt-3">
-        <h2 className="text-sm font-semibold text-coach-text">{t('insightCatcher.relationshipTitle')}</h2>
-        <p className="mt-1 text-xs text-coach-text-muted">{t('insightCatcher.relationshipSubtitle')}</p>
-        <div className="mt-2 flex flex-col gap-2">
-          <FrameworkOptionCard
-            option={{
-              type: 'LIFE_POSITIONS',
-              labelKey: 'insightCatcher.lifePositions',
-              descKey: 'insightCatcher.lifePositionsDesc',
-              icon: LuUsers,
-            }}
-            onClick={() => setActiveFramework('LIFE_POSITIONS')}
-          />
-          <button
-            type="button"
-            onClick={() => setIsAddingPerson(true)}
-            className="flex flex-col items-start gap-0.5 rounded-lg border border-coach-border bg-coach-bg px-3 py-2.5 text-left transition-colors hover:border-coach-primary hover:bg-coach-surface"
-          >
-            <span className="flex items-center gap-2 text-sm font-medium text-coach-text">
-              <LuUserPlus size={14} className="text-coach-primary" />
-              {t('insightCatcher.prm')}
-            </span>
-            <span className="text-xs text-coach-text-muted">{t('insightCatcher.prmDesc')}</span>
-          </button>
-        </div>
+      <div className="catch-panel__tabs">
+        <button type="button" className={`catch-panel__tab ${tab === 'mirror' ? 'catch-panel__tab--active' : ''}`} onClick={() => setTab('mirror')}>
+          {t('mirror.title')}
+        </button>
+        <button type="button" className={`catch-panel__tab ${tab === 'note' ? 'catch-panel__tab--active' : ''}`} onClick={() => setTab('note')}>
+          {t('talk.note')}
+        </button>
+        <button type="button" className={`catch-panel__tab ${tab === 'person' ? 'catch-panel__tab--active' : ''}`} onClick={() => setTab('person')}>
+          {t('talk.person')}
+        </button>
+      </div>
+
+      <div className="catch-panel__body">
+        {tab === 'person' ? (
+          <PersonForm onSubmit={handleAddPerson} onCancel={() => setTab('mirror')} submitLabel={t('insightCatcher.save')} />
+        ) : (
+          <>
+            <p className="catch-panel__hint">{tab === 'mirror' ? t('talk.dropTheLine') : t('talk.noteHint')}</p>
+            <textarea className="input catch-panel__textarea" value={text} onChange={(e) => setText(e.target.value)} rows={3} />
+
+            {tab === 'mirror' && (
+              <>
+                <div className="catch-panel__pane-label">{t('mirror.whichPane')}</div>
+                <div className="catch-panel__pane-grid">
+                  {MIRROR_PANES.map((p) => (
+                    <button
+                      key={p}
+                      type="button"
+                      onClick={() => setPane(p)}
+                      className={`btn btn-secondary catch-panel__pane-btn ${pane === p ? 'catch-panel__pane-btn--active' : ''}`}
+                    >
+                      {t(`mirror.${p}.label`)}
+                      {pane === p ? ' ✓' : ''}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {tab === 'note' && (
+              <input
+                type="text"
+                className="input catch-panel__tags"
+                value={tagsInput}
+                onChange={(e) => setTagsInput(e.target.value)}
+                placeholder={t('insightCatcher.freeform.tagsPlaceholder') as string}
+              />
+            )}
+
+            {error && <p className="catch-panel__error">{error}</p>}
+
+            <button
+              type="button"
+              className="btn btn-primary btn-block catch-panel__save"
+              onClick={tab === 'mirror' ? handleSaveMirror : handleSaveNote}
+              disabled={saving}
+            >
+              {saving ? t('insightCatcher.saving') : tab === 'mirror' ? t('talk.saveToMirror') : t('insightCatcher.save')}
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
-};
-
-const FrameworkOptionCard = ({ option, onClick }: { option: FrameworkOption; onClick: () => void }) => {
-  const { t } = useTranslation();
-  const Icon = option.icon;
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="flex flex-col items-start gap-0.5 rounded-lg border border-coach-border bg-coach-bg px-3 py-2.5 text-left transition-colors hover:border-coach-primary hover:bg-coach-surface"
-    >
-      <span className="flex items-center gap-2 text-sm font-medium text-coach-text">
-        <Icon size={14} className="text-coach-primary" />
-        {t(option.labelKey)}
-      </span>
-      <span className="text-xs text-coach-text-muted">{t(option.descKey)}</span>
-    </button>
-  );
-};
-
-const labelKeyFor = (type: FrameworkType): string => {
-  switch (type) {
-    case 'FREEFORM':
-      return 'insightCatcher.freeformLabel';
-    case 'JOHARI_WINDOW':
-      return 'insightCatcher.johariWindowLabel';
-    case 'ACT_MATRIX':
-      return 'insightCatcher.actMatrix';
-    case 'PERSONAL_SWOT':
-      return 'insightCatcher.personalSwot';
-    case 'LIFE_POSITIONS':
-      return 'insightCatcher.lifePositions';
-    default:
-      return 'insightCatcher.title';
-  }
 };
 
 export default InsightCatcherPanel;

@@ -12,8 +12,8 @@ interface PersonFormProps {
   submitLabel: string;
 }
 
-/** Add/edit form for a single relationship-map person — shared by the "add person" flow on
- * Dashboard and the "edit person" flow when a RelationshipMap node is selected. */
+/** Add/edit form for a single relationship-map person — shared by Reflect's People tab, the
+ * Catch panel's "Person" quick-add, and onboarding step 2. */
 const PersonForm = ({ initialValue, onSubmit, onCancel, submitLabel }: PersonFormProps) => {
   const { t } = useTranslation();
   const [name, setName] = useState(initialValue?.name ?? '');
@@ -41,21 +41,18 @@ const PersonForm = ({ initialValue, onSubmit, onCancel, submitLabel }: PersonFor
   };
 
   return (
-    <div className="flex flex-col gap-2 rounded-xl border border-coach-border bg-coach-bg p-3">
-      {/* Stacked, not side-by-side: a fixed-width select next to a flex-1 input overflows in
-          narrow containers (e.g. the 320px Insight Catcher panel) since neither shrinks below
-          its content's intrinsic width by default. */}
+    <div className="flex flex-col gap-2">
       <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        placeholder={t('onboarding.namePlaceholder')}
-        className="w-full min-w-0 rounded-lg border border-coach-border bg-coach-surface px-3 py-2 text-sm text-coach-text outline-none focus:border-coach-primary"
+        placeholder={t('onboarding.namePlaceholder') as string}
+        className="input"
       />
       <select
         value={relationshipType}
         onChange={(e) => setRelationshipType(e.target.value as RelationshipType)}
-        className="w-full min-w-0 rounded-lg border border-coach-border bg-coach-surface px-2 py-2 text-sm text-coach-text outline-none focus:border-coach-primary"
+        className="input"
       >
         {RELATIONSHIP_TYPES.map((type) => (
           <option key={type} value={type}>
@@ -66,11 +63,11 @@ const PersonForm = ({ initialValue, onSubmit, onCancel, submitLabel }: PersonFor
       <textarea
         value={notes}
         onChange={(e) => setNotes(e.target.value)}
-        placeholder={t('dashboard.person.notesPlaceholder')}
+        placeholder={t('dashboard.person.notesPlaceholder') as string}
         rows={2}
-        className="rounded-lg border border-coach-border bg-coach-surface px-3 py-2 text-sm text-coach-text outline-none focus:border-coach-primary"
+        className="input"
       />
-      {error && <p className="text-xs text-red-500">{error}</p>}
+      {error && <p className="text-xs" style={{ color: 'var(--color-accent-700)' }}>{error}</p>}
       <div className="flex gap-2">
         <Button variant="primary" size="sm" onClick={handleSubmit} disabled={saving}>
           {saving ? t('onboarding.submitting') : submitLabel}

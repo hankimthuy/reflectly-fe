@@ -1,0 +1,109 @@
+.catch-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.catch-panel__head {
+  padding: 16px 20px 14px;
+  border-bottom: 2px solid var(--color-text);
+}
+
+.catch-panel__head-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.catch-panel__title {
+  font: 800 15px 'Archivo', sans-serif;
+}
+
+.catch-panel__subtitle {
+  font: 400 11.5px/1.45 'Archivo', sans-serif;
+  color: var(--color-neutral-700);
+  margin: 3px 0 0;
+}
+
+.catch-panel__tabs {
+  display: flex;
+  border-bottom: 2px solid var(--color-text);
+}
+
+.catch-panel__tab {
+  flex: 1;
+  border: 0;
+  font: 800 12px 'Archivo', sans-serif;
+  padding: 10px 0;
+  background: none;
+  color: var(--color-text);
+  cursor: pointer;
+
+  & + & { border-left: 2px solid var(--color-text); }
+
+  &:hover { background: color-mix(in srgb, var(--color-text) 6%, transparent); }
+}
+
+.catch-panel__tab--active {
+  background: var(--color-text);
+  color: var(--color-bg);
+
+  &:hover { background: var(--color-text); }
+}
+
+.catch-panel__body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.catch-panel__hint {
+  font: 400 12.5px/1.5 'Archivo', sans-serif;
+  color: var(--color-neutral-700);
+  margin: 0;
+}
+
+.catch-panel__textarea {
+  min-height: 84px;
+}
+
+.catch-panel__pane-label {
+  font: 400 10px 'Archivo', sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-neutral-600);
+  margin-top: -4px;
+}
+
+.catch-panel__pane-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.catch-panel__pane-btn {
+  justify-content: flex-start;
+}
+
+.catch-panel__pane-btn--active {
+  border-color: var(--color-accent);
+  color: var(--color-accent-700);
+}
+
+.catch-panel__tags {
+  min-height: 40px;
+}
+
+.catch-panel__error {
+  font-size: 12px;
+  color: var(--color-accent-700);
+  margin: 0;
+}
+
+.catch-panel__save {
+  margin-top: auto;
+}

@@ -811,5 +811,35 @@
     "noAttention": "Everyone you've mapped is steady right now.",
     "preferAlone": "Prefer to write alone?",
     "newEntry": "New journal entry"
+  },
+  "talk": {
+    "you": "You",
+    "thinking": "Aura is thinking",
+    "catchThis": "Catch this",
+    "catchShortcut": "⌘K Catch",
+    "summarizeShortcut": "Summarise so far",
+    "endSessionKeepShift": "End session & keep the shift",
+    "catchTitle": "Catch",
+    "catchSubtitle": "Keep a line before it slips. Nothing here is auto-saved by Aura.",
+    "note": "Note",
+    "person": "Person",
+    "dropTheLine": "Drop the line into the pane it belongs in.",
+    "noteHint": "Write it down your own way — no framework needed.",
+    "saveToMirror": "Save to mirror",
+    "readingLabel": "Aura is reading",
+    "whatIsThis": "What is this?",
+    "heavy": "Heavy",
+    "light": "Light",
+    "openedAt": "opened at {{emotion}} · {{minutes}} min ago",
+    "minutesElapsed": "{{minutes}} min in",
+    "moodBuckets": {
+      "heavy": "heavy · a lot is here",
+      "charged": "tense · holding something back",
+      "settling": "settling · still finding words",
+      "easing": "easing · lighter than it opened",
+      "light": "light · easy to be in"
+    },
+    "recent": "Recent",
+    "allSessions": "All sessions →"
   }
 }

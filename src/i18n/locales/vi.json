@@ -815,5 +815,35 @@
     "noAttention": "Mọi mối quan hệ bạn đã thêm đều đang ổn định.",
     "preferAlone": "Muốn tự viết một mình?",
     "newEntry": "Viết nhật ký mới"
+  },
+  "talk": {
+    "you": "Bạn",
+    "thinking": "Aura đang suy nghĩ",
+    "catchThis": "Giữ lại câu này",
+    "catchShortcut": "⌘K Giữ lại",
+    "summarizeShortcut": "Tóm tắt đến giờ",
+    "endSessionKeepShift": "Kết thúc & lưu lại sự thay đổi",
+    "catchTitle": "Catch",
+    "catchSubtitle": "Giữ lại một câu trước khi nó trôi qua. Aura không tự động lưu gì ở đây.",
+    "note": "Ghi chú",
+    "person": "Người",
+    "dropTheLine": "Đặt câu này vào đúng ô của tấm gương.",
+    "noteHint": "Ghi lại theo cách của riêng bạn — không cần khuôn mẫu.",
+    "saveToMirror": "Lưu vào tấm gương",
+    "readingLabel": "Aura đang đọc",
+    "whatIsThis": "Đây là gì?",
+    "heavy": "Nặng nề",
+    "light": "Nhẹ nhàng",
+    "openedAt": "bắt đầu ở mức {{emotion}} · {{minutes}} phút trước",
+    "minutesElapsed": "đã {{minutes}} phút",
+    "moodBuckets": {
+      "heavy": "nặng nề · có nhiều điều đang diễn ra",
+      "charged": "căng thẳng · đang giữ điều gì đó",
+      "settling": "đang lắng lại · còn đang tìm lời",
+      "easing": "nhẹ dần · nhẹ hơn lúc bắt đầu",
+      "light": "nhẹ nhàng · dễ chịu"
+    },
+    "recent": "Gần đây",
+    "allSessions": "Tất cả phiên →"
   }
 }
