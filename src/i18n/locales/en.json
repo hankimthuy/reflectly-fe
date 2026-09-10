@@ -1,10 +1,10 @@
 {
   "onboarding": {
     "step": "Step {{current}}/2",
-    "step1Title": "What matters to you?",
-    "step1Subtitle": "Pick the core values that resonate with you most.",
-    "step2Title": "Who matters to you?",
-    "step2Subtitle": "Add 3-5 people you'd like to track your relationship with.",
+    "step1Title": "What do you not want to trade away?",
+    "step1Subtitle": "Pick three or four. Aura uses them to notice when you are talking yourself out of something that matters.",
+    "step2Title": "Who is in the room with you?",
+    "step2Subtitle": "Up to five people who take up space in your head — good or bad. Names only; you never have to explain them here.",
     "selectAtLeastOne": "Select at least one value to continue.",
     "addAtLeastOnePerson": "Add at least one person, or tap \"Skip, go straight to Coach\".",
     "submitError": "Something went wrong, please try again.",
@@ -15,8 +15,8 @@
     "continue": "Continue",
     "submitting": "Saving...",
     "finish": "Finish",
-    "skipStep": "Skip this step",
-    "skipToCoach": "Skip, go straight to Coach",
+    "skipStep": "Skip for now",
+    "skipToCoach": "Skip — I will add people later",
     "value": {
       "honesty": "Honesty",
       "family": "Family",
@@ -38,7 +38,9 @@
       "COLLEAGUE": "Colleague",
       "MANAGER": "Manager",
       "OTHER": "Other"
-    }
+    },
+    "relationshipTypesLabel": "Relationship types",
+    "chosenCount": "{{count}} chosen · you can change these any time"
   },
   "coach": {
     "title": "Aura",

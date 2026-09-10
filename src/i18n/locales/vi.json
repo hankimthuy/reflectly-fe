@@ -1,10 +1,10 @@
 {
   "onboarding": {
     "step": "Bước {{current}}/2",
-    "step1Title": "Điều gì quan trọng với bạn?",
-    "step1Subtitle": "Chọn những giá trị cốt lõi cộng hưởng với bạn nhất.",
-    "step2Title": "Ai là người quan trọng với bạn?",
-    "step2Subtitle": "Thêm 3-5 người bạn muốn theo dõi mối quan hệ cùng.",
+    "step1Title": "Điều gì bạn không muốn đánh đổi?",
+    "step1Subtitle": "Chọn ba hoặc bốn điều. Aura dùng chúng để nhận ra khi bạn đang tự thuyết phục mình từ bỏ điều quan trọng.",
+    "step2Title": "Ai đang ở trong tâm trí bạn?",
+    "step2Subtitle": "Tối đa năm người chiếm chỗ trong đầu bạn — dù tốt hay xấu. Chỉ cần tên; bạn không cần giải thích gì ở đây.",
     "selectAtLeastOne": "Chọn ít nhất một giá trị để tiếp tục.",
     "addAtLeastOnePerson": "Thêm ít nhất một người, hoặc bấm \"Bỏ qua, vào Coach luôn\".",
     "submitError": "Có lỗi xảy ra, vui lòng thử lại.",
@@ -16,7 +16,7 @@
     "submitting": "Đang lưu...",
     "finish": "Hoàn tất",
     "skipStep": "Bỏ qua bước này",
-    "skipToCoach": "Bỏ qua, vào Coach luôn",
+    "skipToCoach": "Bỏ qua — tôi sẽ thêm người sau",
     "value": {
       "honesty": "Trung thực",
       "family": "Gia đình",
@@ -38,7 +38,9 @@
       "COLLEAGUE": "Đồng nghiệp",
       "MANAGER": "Quản lý",
       "OTHER": "Khác"
-    }
+    },
+    "relationshipTypesLabel": "Loại mối quan hệ",
+    "chosenCount": "Đã chọn {{count}} · bạn có thể đổi bất cứ lúc nào"
   },
   "coach": {
     "title": "Aura",
