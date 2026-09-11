@@ -7,18 +7,17 @@ import { APP_ROUTES } from '../../constants/route';
 import { useEntriesInfiniteQuery } from '../../queries/entriesQueryHook';
 import { useConversationsInfiniteQuery } from '../../queries/conversationsQueryHook';
 import { usePeopleQuery } from '../../queries/peopleQueryHook';
+import { useMoodSummaryQuery } from '../../queries/userQueryHook';
 import { useMirrorSnapshot, MIRROR_PANES } from '../../hooks/useMirrorSnapshot';
 import { calculateDayStreak } from '../../utils/statsUtil';
-import { EMOTION_HEAVINESS, heaviestEmotion, heavinessColorVar } from '../../utils/moodUtil';
+import { EMOTION_HEAVINESS, heavinessColorVar } from '../../utils/moodUtil';
 import { sessionTitleFromSummary } from '../../utils/textUtil';
-import { Emotion } from '../../models/emotion';
+import type { Emotion } from '../../models/emotion';
 import Loading from '../../components/Loading/Loading';
 import { ButtonLink } from '../../components/Button/Button';
 import './TodayPage.scss';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
-
-const startOfDay = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
 
 const TodayPage = () => {
     const { t, i18n } = useTranslation();
@@ -28,6 +27,7 @@ const TodayPage = () => {
     const entriesQuery = useEntriesInfiniteQuery();
     const conversationsQuery = useConversationsInfiniteQuery();
     const peopleQuery = usePeopleQuery();
+    const moodSummaryQuery = useMoodSummaryQuery(7);
     const mirror = useMirrorSnapshot();
 
     const entries = useMemo(() => entriesQuery.data?.pages.flatMap((p) => p.content) ?? [], [entriesQuery.data]);
@@ -36,7 +36,7 @@ const TodayPage = () => {
         [conversationsQuery.data],
     );
 
-    const isLoading = entriesQuery.isLoading || conversationsQuery.isLoading || peopleQuery.isLoading;
+    const isLoading = entriesQuery.isLoading || conversationsQuery.isLoading || peopleQuery.isLoading || moodSummaryQuery.isLoading;
 
     const firstName = (currentUser?.fullName ?? '').trim().split(/\s+/).pop() || currentUser?.fullName || '';
     const hour = new Date().getHours();
@@ -59,18 +59,41 @@ const TodayPage = () => {
         navigate(APP_ROUTES.COACH_CHAT, { state: prefill ? { prefill } : undefined });
     };
 
-    // Last seven days, one bar each, colored by that day's heaviest logged emotion.
-    const last7 = useMemo(() => {
-        const today = startOfDay(new Date());
-        const days = Array.from({ length: 7 }, (_, i) => new Date(today.getTime() - (6 - i) * DAY_MS));
-        return days.map((day) => {
-            const dayEntries = entries.filter((e) => startOfDay(new Date(e.createdAt)).getTime() === day.getTime());
-            const emotions = dayEntries.flatMap((e) => e.emotions) as Emotion[];
-            const heaviest = heaviestEmotion(emotions);
-            return { day, heaviest, hasData: dayEntries.length > 0 };
-        });
-    }, [entries]);
+    // Last seven days, one bar each — backed by GET /users/mood-summary (backend-authoritative,
+    // across both Talk sessions and journal entries) rather than derived from entries alone.
+    const last7 = useMemo(
+        () =>
+            (moodSummaryQuery.data?.days ?? []).map((d) => ({
+                date: d.date,
+                heaviest: (d.emotion as Emotion | null) ?? null,
+                hasData: d.hasData,
+            })),
+        [moodSummaryQuery.data],
+    );
     const hasAnyMood = last7.some((d) => d.hasData);
+
+    // A short trend line comparing the trailing days against the earlier ones in the same
+    // window — "lighter since {day}" / "about the same" / "heavier since {day}".
+    const TREND_THRESHOLD = 0.08;
+    const trendLine = useMemo(() => {
+        const withHeaviness = last7
+            .filter((d) => d.hasData && d.heaviest)
+            .map((d) => ({ date: d.date, heaviness: EMOTION_HEAVINESS[d.heaviest as Emotion] }));
+        if (withHeaviness.length < 2) return null;
+
+        const mid = Math.ceil(withHeaviness.length / 2);
+        const earlier = withHeaviness.slice(0, mid);
+        const later = withHeaviness.slice(mid);
+        if (later.length === 0) return null;
+
+        const avg = (rows: { heaviness: number }[]) => rows.reduce((sum, r) => sum + r.heaviness, 0) / rows.length;
+        const delta = avg(later) - avg(earlier);
+        const sinceDay = new Date(later[0].date).toLocaleDateString(i18n.language === 'vi' ? 'vi-VN' : 'en-US', { weekday: 'long' });
+
+        if (delta <= -TREND_THRESHOLD) return t('today.trend.lighter', { day: sinceDay });
+        if (delta >= TREND_THRESHOLD) return t('today.trend.heavier', { day: sinceDay });
+        return t('today.trend.same');
+    }, [last7, i18n.language, t]);
 
     // "Pick back up": most recent ended sessions + entries, newest first.
     const pickBackUp = useMemo(() => {
@@ -153,8 +176,8 @@ const TodayPage = () => {
                         {hasAnyMood ? (
                             <>
                                 <div className="today__mood-bars">
-                                    {last7.map(({ day, heaviest, hasData }) => (
-                                        <div key={day.toISOString()} className="today__mood-bar-col">
+                                    {last7.map(({ date, heaviest, hasData }) => (
+                                        <div key={date} className="today__mood-bar-col">
                                             <div
                                                 className="today__mood-bar"
                                                 style={{
@@ -168,12 +191,13 @@ const TodayPage = () => {
                                     ))}
                                 </div>
                                 <div className="today__mood-labels">
-                                    {last7.map(({ heaviest }, i) => (
-                                        <div key={i} className="today__mood-label">
+                                    {last7.map(({ date, heaviest }) => (
+                                        <div key={date} className="today__mood-label">
                                             {heaviest ? t(`emotion.${heaviest}`) : '—'}
                                         </div>
                                     ))}
                                 </div>
+                                {trendLine && <p className="today__mood-trend">{trendLine}</p>}
                             </>
                         ) : (
                             <p className="today__mood-empty">{t('today.noMoodYet')}</p>

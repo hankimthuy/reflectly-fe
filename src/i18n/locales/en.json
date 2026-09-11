@@ -6,7 +6,7 @@
     "step2Title": "Who is in the room with you?",
     "step2Subtitle": "Up to five people who take up space in your head — good or bad. Names only; you never have to explain them here.",
     "selectAtLeastOne": "Select at least one value to continue.",
-    "addAtLeastOnePerson": "Add at least one person, or tap \"Skip, go straight to Coach\".",
+    "addAtLeastOnePerson": "Add at least one person, or tap \"Skip — I will add people later\".",
     "submitError": "Something went wrong, please try again.",
     "namePlaceholder": "Name",
     "removePerson": "Remove",
@@ -429,13 +429,13 @@
     "pageSubtitle": "Everything the Coach has learned about you — core values, the people who matter, and the insights gathered so far.",
     "mapTitle": "Relationship Map",
     "mapSubtitle": "Built up gradually from what you share with the Coach.",
-    "mapEmpty": "No one on the map yet — tell the Coach about the people who matter to you.",
+    "mapEmpty": "No one on the map yet — tell Aura about the people who matter to you.",
     "talkToCoach": "Talk to the Coach",
     "noNudge": "This relationship looks stable.",
     "loading": "Loading...",
     "loadMore": "Load more",
     "insightsTitle": "Insight Timeline",
-    "insightsEmpty": "No insights yet — talk to the Coach to get started.",
+    "insightsEmpty": "No insights yet — talk to Aura to get started.",
     "category": {
       "value": "Value",
       "behaviorPattern": "Behavior pattern",
@@ -474,6 +474,7 @@
     },
     "emotionOverview": {
       "title": "Emotion Overview",
+      "titleWithDays": "Emotions · {{days}} days",
       "subtitle": "{{entries}} entries, {{emotions}} emotions tagged",
       "empty": "Start journaling to see your emotion patterns."
     },
@@ -820,6 +821,11 @@
     "somethingElse": "Something else on my mind",
     "lastSevenDays": "Last seven days",
     "noMoodYet": "Write or talk a few times and a pattern will show up here.",
+    "trend": {
+      "lighter": "Lighter since {{day}}.",
+      "heavier": "Heavier since {{day}}.",
+      "same": "About the same all week."
+    },
     "pickBackUp": "Pick back up",
     "emptyPickBackUp": "Nothing yet — this fills in as you talk and write.",
     "session": "Session",

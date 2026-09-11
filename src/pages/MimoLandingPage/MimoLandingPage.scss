@@ -168,7 +168,7 @@
   margin-top: 15px;
   height: 9px;
   border-radius: var(--radius-pill);
-  background: linear-gradient(to right, var(--color-accent-600), var(--color-pine-400));
+  background: var(--gradient-mood);
 }
 
 .landing__function-quote {
@@ -191,6 +191,7 @@
 
 .landing__function-mirror-cell {
   height: 26px;
+  background: var(--color-mist);
   border-right: 1px solid var(--color-divider);
   border-bottom: 1px solid var(--color-divider);
 
@@ -198,8 +199,7 @@
   &:nth-child(n+3) { border-bottom: 0; }
 }
 
-.landing__function-mirror-cell--open { background: var(--color-accent-300); }
-.landing__function-mirror-cell--hidden { background: var(--color-accent-200); }
+.landing__function-mirror-cell--open { background: var(--color-indigo); }
 
 .landing__function-nodes {
   margin-top: 15px;
@@ -214,7 +214,7 @@
 }
 
 .landing__function-node--dark { border-radius: 50%; background: var(--color-text); }
-.landing__function-node--accent { width: 16px; height: 16px; border-radius: 50%; background: var(--color-accent); }
+.landing__function-node--accent { width: 16px; height: 16px; border-radius: 50%; background: var(--color-clay); }
 .landing__function-node--outline { width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--color-divider); }
 
 .landing__function-node-line {
@@ -307,7 +307,7 @@
 
 // — Closing CTA —
 .landing__closing {
-  background: var(--color-accent);
+  background: linear-gradient(135deg, var(--color-ink), var(--color-indigo));
   padding: 36px 20px;
   display: flex;
   flex-direction: column;

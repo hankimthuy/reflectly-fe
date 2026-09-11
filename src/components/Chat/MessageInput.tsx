@@ -81,12 +81,12 @@ const MessageInput = ({
       </div>
       <div className="chat-composer-actions">
         <div className="chat-composer-shortcuts">
-          <button type="button" className="tag tag-outline chat-composer-shortcut" onClick={onOpenCatch}>
+          <button type="button" className="tag chat-composer-shortcut" onClick={onOpenCatch}>
             {t('talk.catchShortcut')}
           </button>
           <button
             type="button"
-            className="tag tag-outline chat-composer-shortcut"
+            className="tag chat-composer-shortcut"
             onClick={onSummarize}
             disabled={summarizeDisabled}
           >

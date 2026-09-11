@@ -102,13 +102,12 @@ const PeopleTab = () => {
                                 <div className="reflect-people__insights-list">
                                     {personInsights.content.map((insight) => (
                                         <div key={insight.id} className="reflect-people__insight">
-                                            <span className={`tag ${insight.category === 'RELATIONSHIP' ? 'tag-accent' : 'tag-neutral'}`}>
+                                            <div className="reflect-people__insight-eyebrow">
                                                 {t(`dashboard.category.${insight.category === 'BEHAVIOR_PATTERN' ? 'behaviorPattern' : insight.category.toLowerCase()}`)}
-                                            </span>
-                                            <p>{insight.insightText}</p>
-                                            <div className="reflect-people__insight-date">
+                                                {' · '}
                                                 {new Date(insight.createdAt).toLocaleDateString()}
                                             </div>
+                                            <p>{insight.insightText}</p>
                                         </div>
                                     ))}
                                 </div>

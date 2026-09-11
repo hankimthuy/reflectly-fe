@@ -36,7 +36,9 @@
 }
 
 .sessions-page__row {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   width: 100%;
   text-align: left;
   padding: 14px 0;
@@ -48,6 +50,20 @@
   color: var(--color-text);
 
   &:hover { background: color-mix(in srgb, var(--color-text) 5%, transparent); }
+}
+
+.sessions-page__row-mood {
+  width: 4px;
+  align-self: stretch;
+  min-height: 30px;
+  border-radius: var(--radius-pill);
+  flex: none;
+}
+
+.sessions-page__row-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
 }
 
 .sessions-page__row-title {
@@ -167,13 +183,22 @@
   flex-wrap: wrap;
 }
 
+// Notes-origin catches (FREEFORM, or an older framework kept read-only) get a plain mist fill;
+// Mirror/Johari-origin ones get periwinkle-light, so the two sources of a "catch" stay visually
+// distinct at a glance.
 .session-detail__caught-item {
-  border: 1px solid var(--color-divider);
+  border: 1px solid transparent;
   border-radius: var(--radius-sm);
+  background: var(--color-mist);
   padding: 9px 12px;
   max-width: 260px;
   font-size: 13px;
   line-height: 1.45;
+}
+
+.session-detail__caught-item--mirror {
+  background: var(--color-periwinkle-light);
+  color: var(--color-ink);
 }
 
 .session-detail__caught-type {

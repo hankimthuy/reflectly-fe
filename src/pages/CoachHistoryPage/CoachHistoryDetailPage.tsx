@@ -7,7 +7,6 @@ import MessageList from '../../components/Chat/MessageList';
 import { useConversationQuery } from '../../queries/conversationsQueryHook';
 import { useSavedFrameworkEntriesInfiniteQuery } from '../../queries/savedFrameworkEntriesQueryHook';
 import { APP_ROUTES } from '../../constants/route';
-import { readMoodFromText } from '../../utils/moodUtil';
 import { firstNonEmptyPayloadField } from '../../utils/textUtil';
 import Loading from '../../components/Loading/Loading';
 import './CoachHistoryPage.scss';
@@ -28,10 +27,10 @@ const TYPE_TAG_LABEL: Record<string, string> = {
   LIFE_POSITIONS: 'insightCatcher.lifePositions',
 };
 
-/** Read-only transcript view for a past Aura chat session. The "shift" bar is derived the same
- * way Talk's live ribbon is (a keyword scan, not real sentiment) — see moodUtil.ts — so it's
- * omitted entirely rather than shown as false precision when neither end of the conversation
- * has a keyword match. */
+/** Read-only transcript view for a past Aura chat session. The "shift" bar reads the backend's
+ * own initialMoodEmotion/finalMoodEmotion — null until the session has ended and at least one
+ * message in it was scored — so it's omitted entirely rather than shown as a guess when neither
+ * end has a score yet. */
 const CoachHistoryDetailPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -45,10 +44,10 @@ const CoachHistoryDetailPage = () => {
 
   const shift = useMemo(() => {
     if (!conversation) return null;
-    const userMessages = conversation.messages.filter((m) => m.role === 'USER');
-    const reads = userMessages.map((m) => readMoodFromText(m.content)).filter((e): e is NonNullable<typeof e> => e !== null);
-    if (reads.length === 0) return null;
-    return { opened: reads[0], closed: reads[reads.length - 1] };
+    const opened = conversation.initialMoodEmotion;
+    const closed = conversation.finalMoodEmotion;
+    if (!opened && !closed) return null;
+    return { opened: opened ?? closed, closed: closed ?? opened };
   }, [conversation]);
 
   if (isLoading) return <Loading message={t('dashboard.loading') as string} fullHeight />;
@@ -97,7 +96,10 @@ const CoachHistoryDetailPage = () => {
               </div>
               <div className="session-detail__caught-list">
                 {caughtHere.map((entry) => (
-                  <div key={entry.id} className="session-detail__caught-item">
+                  <div
+                    key={entry.id}
+                    className={`session-detail__caught-item ${entry.frameworkType === 'JOHARI_WINDOW' ? 'session-detail__caught-item--mirror' : ''}`}
+                  >
                     <div className="session-detail__caught-type">{t(TYPE_TAG_LABEL[entry.frameworkType])}</div>
                     <div>{firstNonEmptyPayloadField(entry.payload, SNIPPET_FIELDS[entry.frameworkType] ?? [])}</div>
                   </div>
