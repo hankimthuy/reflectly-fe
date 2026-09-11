@@ -6,8 +6,11 @@ import './AuraMark.scss';
  * session archive. Aura Soft v2 replaced the flush-left "Aura" text label that Modernist and
  * Hearth used with this mark sitting beside what Aura says (see artboards 5c, 5d, 6f).
  *
- * The file lives in public/ rather than src/assets/ because index.html serves it as the favicon
- * too, and Vite would otherwise fingerprint the bundled copy and leave the two out of sync.
+ * Uses the full, uncropped badge (ring + sparkle) rather than a tight face-only crop, so the
+ * antenna tips and ring aren't cut off at small sizes.
+ *
+ * The file lives in public/ rather than src/assets/ so Vite doesn't fingerprint the bundled copy
+ * and leave it out of sync with any other place that references it by this fixed path.
  */
 const SIZES = { sm: 34, md: 38, lg: 44 } as const;
 
@@ -18,7 +21,7 @@ interface AuraMarkProps {
 
 const AuraMark = ({ size = 'md', className = '' }: AuraMarkProps) => (
   <img
-    src="/logo-mark.png"
+    src="/aura-idle.png"
     alt=""
     aria-hidden="true"
     width={SIZES[size]}

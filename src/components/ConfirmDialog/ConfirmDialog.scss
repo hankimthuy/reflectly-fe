@@ -1,0 +1,48 @@
+/* The MUI Paper still carries its own elevation/background classes, which is why the overrides
+   below need `!important` — everything else in this file is plain, unforced CSS. */
+.confirm-dialog__paper {
+    background: var(--color-surface) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--shadow-lg) !important;
+}
+
+.confirm-dialog {
+    padding: 28px 24px 24px;
+    text-align: center;
+}
+
+.confirm-dialog__title {
+    margin: 0 0 8px;
+    font-family: var(--font-heading);
+    font-size: 19px;
+    color: var(--color-text);
+}
+
+.confirm-dialog__message {
+    margin: 0 0 24px;
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--color-slate);
+}
+
+/* Side by side by default, each button sharing the row equally so neither the label nor the
+   pair as a whole reads as off-center. */
+.confirm-dialog__actions {
+    display: flex;
+    gap: 10px;
+}
+
+.confirm-dialog__actions .btn {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Two half-width pills get cramped once the dialog itself is only ~90vw — stack them full-width
+   instead, confirm action on top since it's the one closest to the thumb on a phone. */
+@media (max-width: 480px) {
+    .confirm-dialog__actions {
+        flex-direction: column-reverse;
+        gap: 8px;
+    }
+}
