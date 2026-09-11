@@ -1,22 +1,22 @@
 {
   "onboarding": {
     "step": "Bước {{current}}/2",
-    "step1Title": "Điều gì bạn không muốn đánh đổi?",
-    "step1Subtitle": "Chọn ba hoặc bốn điều. Aura dùng chúng để nhận ra khi bạn đang tự thuyết phục mình từ bỏ điều quan trọng.",
+    "step1Title": "Điều gì bạn sẽ không đánh đổi?",
+    "step1Subtitle": "Chọn ba hoặc bốn điều.",
     "step2Title": "Ai đang ở trong tâm trí bạn?",
-    "step2Subtitle": "Tối đa năm người chiếm chỗ trong đầu bạn — dù tốt hay xấu. Chỉ cần tên; bạn không cần giải thích gì ở đây.",
+    "step2Subtitle": "Chỉ cần tên. Bạn không cần giải thích gì ở đây.",
     "selectAtLeastOne": "Chọn ít nhất một giá trị để tiếp tục.",
-    "addAtLeastOnePerson": "Thêm ít nhất một người, hoặc bấm \"Bỏ qua — tôi sẽ thêm người sau\".",
+    "addAtLeastOnePerson": "Thêm ít nhất một người, hoặc bấm \"Bỏ qua — thêm người sau\".",
     "submitError": "Có lỗi xảy ra, vui lòng thử lại.",
     "namePlaceholder": "Tên",
     "removePerson": "Xóa",
-    "addPerson": "+ Thêm người",
+    "addPerson": "Thêm một cái tên",
     "back": "Quay lại",
     "continue": "Tiếp tục",
     "submitting": "Đang lưu...",
-    "finish": "Hoàn tất",
+    "finish": "Đón mình vào",
     "skipStep": "Bỏ qua bước này",
-    "skipToCoach": "Bỏ qua — tôi sẽ thêm người sau",
+    "skipToCoach": "Bỏ qua — thêm người sau",
     "value": {
       "honesty": "Trung thực",
       "family": "Gia đình",
@@ -40,402 +40,62 @@
       "OTHER": "Khác"
     },
     "relationshipTypesLabel": "Loại mối quan hệ",
-    "chosenCount": "Đã chọn {{count}} · bạn có thể đổi bất cứ lúc nào"
+    "chosenCount": "Đã chọn {{count}}"
   },
   "coach": {
-    "title": "Aura",
-    "subtitle": "Mình là Aura. Đến với phiên trò chuyện hôm nay, mình sẽ lắng nghe và đặt câu hỏi cùng bạn — không phán xét, không áp đặt lời khuyên — và cùng nhau lưu lại hành trình này.",
-    "inputPlaceholder": "Chia sẻ điều bạn đang nghĩ...",
+    "inputPlaceholder": "Nói thẳng ra.",
     "send": "Gửi",
-    "endSession": "Kết thúc phiên",
     "emptyState": "Bạn cứ thoải mái bắt đầu — chia sẻ điều đang ở trong đầu bạn lúc này, mình ở đây để lắng nghe.",
     "sendError": "Không thể gửi tin nhắn lúc này. Vui lòng thử lại.",
     "startError": "Không thể bắt đầu phiên trò chuyện lúc này. Vui lòng thử lại sau.",
     "quotaExceeded": "Bạn đã dùng hết lượt trò chuyện thử nghiệm với Aura trong giai đoạn này. Cảm ơn bạn đã quan tâm — hãy quay lại sau nhé!",
-    "backToDashboard": "Quay lại Dashboard",
-    "summarize": "Tóm tắt",
+    "backToDashboard": "Quay lại Hôm nay",
     "summarizing": "Đang tóm tắt...",
-    "summarizeError": "Không thể tóm tắt lúc này. Vui lòng thử lại.",
     "summarizeNudge": "💡 Muốn lưu lại? Chọn một định dạng ở bảng bên phải.",
-    "historyLink": "Lịch sử trò chuyện",
     "history": {
-      "title": "Lịch sử trò chuyện",
+      "title": "Phiên trò chuyện",
       "empty": "Chưa có phiên trò chuyện nào.",
       "noSummary": "Chưa có tóm tắt cho phiên này.",
-      "statusActive": "Đang diễn ra",
-      "statusEnded": "Đã kết thúc",
-      "statusExtracting": "Đang xử lý",
       "back": "Quay lại",
       "backToChat": "Trò chuyện mới",
-      "sessionTitle": "Chi tiết phiên",
-      "summaryLabel": "Tóm tắt",
       "loadError": "Không thể tải phiên trò chuyện này."
     }
   },
   "insightCatcher": {
-    "title": "Ghi lại insight",
-    "subtitle": "Chọn một khung tư duy để lưu lại điều bạn vừa nhận ra.",
-    "freeformLabel": "Log tự do",
-    "freeformDesc": "Ghi lại một suy nghĩ theo cách của riêng bạn — không cần khuôn mẫu.",
-    "johariWindowLabel": "Cửa sổ Johari",
-    "johariWindowDesc": "Phân biệt điều bạn đã biết, điều người khác thấy mà bạn chưa nhận ra.",
-    "actMatrix": "ACT Matrix",
-    "actMatrixDesc": "Nhận diện điều bạn đang né tránh và hành động thực sự phù hợp với giá trị của bạn.",
-    "personalSwot": "SWOT Cá Nhân",
-    "personalSwotDesc": "Nhìn rõ điểm mạnh, điểm yếu, cơ hội và thách thức của bản thân.",
-    "lifePositions": "Life Positions",
-    "lifePositionsDesc": "Đánh giá vị thế của bạn trong một mối quan hệ cụ thể (mô hình OK Corral).",
-    "titlePlaceholder": "Tiêu đề (không bắt buộc)",
     "save": "Lưu",
-    "saveChanges": "Lưu thay đổi",
     "saving": "Đang lưu...",
-    "saveError": "Không thể lưu lúc này. Vui lòng thử lại.",
-    "updateSuccess": "Đã cập nhật.",
     "cancel": "Huỷ",
-    "edit": "Sửa",
+    "freeformLabel": "Log tự do",
+    "johariWindowLabel": "Cửa sổ Johari",
+    "actMatrix": "ACT Matrix",
+    "personalSwot": "SWOT Cá Nhân",
+    "lifePositions": "Life Positions",
     "freeform": {
-      "contentPlaceholder": "Bạn vừa nhận ra điều gì?",
       "tagsPlaceholder": "Thẻ, cách nhau bởi dấu phẩy (không bắt buộc)",
       "contentRequired": "Vui lòng nhập nội dung."
     },
     "johari": {
-      "open": "Open — Bản thân & người khác đều biết",
-      "blind": "Blind spot — Người khác biết, bản thân không biết",
-      "hidden": "Hidden — Bản thân biết, người khác không biết",
-      "unknown": "Unknown — Cả hai đều chưa biết",
       "atLeastOneRequired": "Vui lòng điền ít nhất một ô."
-    },
-    "relationshipTitle": "Bản đồ mối quan hệ (PRM)",
-    "relationshipSubtitle": "Ghi lại insight về một mối quan hệ cụ thể, hoặc cập nhật người đó vào bản đồ.",
-    "prm": "Thêm / cập nhật vào PRM",
-    "prmDesc": "Thêm hoặc cập nhật một người vào Bản đồ mối quan hệ (PRM) của bạn.",
-    "actMatrixForm": {
-      "atLeastOneRequired": "Vui lòng điền ít nhất một ô.",
-      "fiveSenses": "5 giác quan — Ai/điều gì xung quanh bạn lúc đó?",
-      "values": "Điều quan trọng với tôi",
-      "awayMoves": "Hành vi né tránh",
-      "towardMoves": "Hành động hướng tới giá trị"
-    },
-    "swotForm": {
-      "atLeastOneRequired": "Vui lòng điền ít nhất một ô.",
-      "strengths": "Điểm mạnh",
-      "weaknesses": "Điểm yếu",
-      "opportunities": "Cơ hội",
-      "threats": "Thách thức"
-    },
-    "lifePositionsForm": {
-      "personRequired": "Vui lòng chọn người liên quan.",
-      "person": "Về ai?",
-      "personPlaceholder": "Chọn một người trong bản đồ mối quan hệ",
-      "noPeople": "Chưa có ai trong bản đồ — hãy thêm người trước qua nút 'Thêm / cập nhật vào PRM'.",
-      "position": "Vị thế",
-      "notesPlaceholder": "Ghi chú (tuỳ chọn)",
-      "about": "Về {{name}}",
-      "positions": {
-        "I_OK_YOU_OK": "Tôi ổn — Bạn cũng ổn",
-        "I_OK_YOU_NOT_OK": "Tôi ổn — Bạn không ổn",
-        "I_NOT_OK_YOU_OK": "Tôi không ổn — Bạn ổn",
-        "I_NOT_OK_YOU_NOT_OK": "Tôi không ổn — Bạn cũng không ổn"
-      }
     }
-  },
-  "homePreview": {
-    "pillars": {
-      "coach": "AI Coach đồng hành",
-      "map": "Bản đồ mối quan hệ (PRM)",
-      "johari": "Cửa sổ Johari",
-      "insights": "Dòng thời gian Insight"
-    },
-    "chat": {
-      "sectionTitle": "Trò chuyện cùng AI Coach",
-      "sectionDescription": "Aura lắng nghe và đặt câu hỏi gợi mở — không phán xét, không áp đặt lời khuyên, chỉ giúp bạn tự tìm ra câu trả lời của mình.",
-      "title": "Trò chuyện cùng AI Coach",
-      "tag1": "Bình yên",
-      "tag2": "Tò mò",
-      "userMessage": "Hôm nay mình cảm thấy hơi mông lung về định hướng sắp tới.",
-      "aiMessage": "Chào bạn. Cảm giác mông lung thường xuất hiện khi chúng ta đứng trước những ngã rẽ hoặc đang tìm kiếm ý nghĩa sâu sắc hơn. Bạn muốn bắt đầu từ việc chia sẻ điều gì đang khiến bạn băn khoăn nhất lúc này không?",
-      "inputPlaceholder": "Chia sẻ điều bạn đang nghĩ..."
-    },
-    "map": {
-      "sectionTitle": "Bản đồ mối quan hệ (PRM)",
-      "sectionDescription": "Personal Relationship Management — nhìn thấy toàn cảnh những người quan trọng trong đời bạn và cách bạn kết nối với họ.",
-      "centerLabel": "Tôi",
-      "node1": "Gia đình",
-      "node2": "Đồng nghiệp",
-      "node3": "Mentor",
-      "node4": "Bạn bè"
-    },
-    "johari": {
-      "sectionTitle": "Cửa sổ Johari — 4 góc nhìn về bản thân",
-      "sectionDescription": "Một khung tư duy kinh điển trong khoa học lãnh đạo bản thân, giúp bạn phân biệt điều bạn đã biết, điều người khác thấy mà bạn chưa nhận ra, và những tiềm năng còn chưa được khám phá.",
-      "open": {
-        "label": "Vùng mở",
-        "desc": "Điều bạn hiểu rõ về mình và người khác cũng nhận thấy."
-      },
-      "blind": {
-        "label": "Vùng mù",
-        "desc": "Điều người khác — hay Aura — nhận ra ở bạn, nhưng bạn chưa thấy."
-      },
-      "hidden": {
-        "label": "Vùng ẩn",
-        "desc": "Điều bạn biết về mình nhưng chưa từng chia sẻ cùng ai."
-      },
-      "unknown": {
-        "label": "Vùng đóng",
-        "desc": "Tiềm năng còn ngủ quên, chờ được khám phá qua từng cuộc trò chuyện."
-      }
-    },
-    "insights": {
-      "sectionTitle": "Dòng thời gian Insight",
-      "sectionDescription": "Ghi lại diễn biến tâm lý theo thời gian — mỗi insight kèm chỉ báo năng lượng, giúp bạn nhìn ra mô thức hành vi của chính mình, không chỉ đọc lại quá khứ.",
-      "title": "Dòng thời gian Insight",
-      "energyHigh": "Năng lượng cao",
-      "energyLow": "Cạn năng lượng",
-      "today": "Hôm nay",
-      "todayTime": "14:32",
-      "todayCategory": "Giá trị",
-      "todayText": "Ưu tiên sự tự do trong sáng tạo hơn sự ổn định.",
-      "lastWeek": "Tuần trước",
-      "lastWeekTime": "Thứ Ba, 29/07",
-      "lastWeekCategory": "Mẫu hành vi",
-      "lastWeekText": "Thường né tránh xung đột trực tiếp trong giao tiếp nhóm."
-    },
-    "cta": "Xem thêm"
   },
   "brand": {
     "name": "AURA",
-    "acronym": "AI Coach Thấu Hiểu Bản Thân",
-    "slogan": "Tôi đến thế giới này để làm gì?",
-    "heroLine1": "Không ai có thể trả lời thay bạn.",
-    "heroLine2": "Tại Aura Self AI, các cuộc đối thoại và bản đồ insight sẽ giúp bạn bóc tách vướng mắc.",
-    "heroLine3": "Câu trả lời sau cùng do chính bạn tự tìm ra.",
-    "description": "Khám phá bản thân qua từng cuộc hội thoại. Bản đồ insight và các mối quan hệ được cá nhân hóa từ chính những chia sẻ của bạn.",
     "tagline": "Bạn đồng hành tư duy",
-    "footer": "© 2026 Aura Self AI. Đồng hành cùng hành trình Thấu hiểu & Lãnh đạo Bản thân.",
-    "contactLink": "Liên hệ tác giả",
-    "welcome": "Chào mừng trở lại.",
-    "ctaLoggedOut": "Bắt đầu trò chuyện với Coach",
-    "ctaLoggedIn": "Tiếp tục trò chuyện"
-  },
-  "chatFab": {
-    "label": "Trò chuyện với AI"
+    "welcome": "Chào mừng trở lại."
   },
   "nav": {
-    "coach": "AI Coach",
-    "garden": "Trang chủ",
-    "reflection": "Tự chiêm nghiệm",
-    "emotion": "Cảm xúc",
-    "energy": "Năng lượng",
-    "dashboard": "Thấu hiểu",
-    "protocols": "Kịch bản",
-    "method": "Phương pháp",
-    "journal": "Đúc kết",
-    "profile": "Tôi",
     "login": "Đăng nhập",
-    "startJourney": "Bắt đầu hành trình",
-    "groupSpaces": "Không gian",
-    "groupJourney": "Hành trình của bạn",
     "today": "Hôm nay",
     "talk": "Trò chuyện",
     "reflect": "Thấu hiểu",
     "you": "Tôi"
   },
-  "garden": {
-    "mapTitle": "Không gian Tâm trí của tôi",
-    "mapSubtitle": "Lựa chọn một góc nhỏ trong vườn để kết nối và thấu hiểu bản thân.",
-    "mapAlt": "Bản đồ khu vườn tâm trí với ngôi nhà trung tâm và bốn vùng xung quanh",
-    "comingSoon": "Sắp mở",
-    "quote": "Tôi không thể làm chủ hoàn cảnh, nhưng tôi luôn có quyền lựa chọn cách mình lắng nghe và đáp lại.",
-    "legend": {
-      "goOut": "Vươn ra trải nghiệm",
-      "comeBack": "Thong thả phục hồi"
-    },
-    "zones": {
-      "mind": {
-        "title": "Tâm trí",
-        "description": "Góc tĩnh lặng — nơi bạn quay về tìm lại sự cân bằng."
-      },
-      "reflection": {
-        "title": "Tự chiêm nghiệm",
-        "description": "Góc nhìn lại — nơi đối thoại sâu sắc với chính mình."
-      },
-      "creativity": {
-        "title": "Sáng tạo",
-        "description": "Góc bộc lộ — chuyển hóa cảm xúc thành dòng chảy sáng tạo."
-      },
-      "connection": {
-        "title": "Mối quan hệ",
-        "description": "Góc kết nối — nhận diện những nguồn năng lượng quanh bạn."
-      },
-      "emotion": {
-        "title": "Cảm xúc",
-        "description": "Góc hiện diện — gọi tên và đón nhận mọi cảm xúc."
-      },
-      "filter": {
-        "title": "Bộ lọc giá trị",
-        "description": "Góc gạn lọc — chủ động chọn điều giữ lại và buông xả."
-      }
-    },
-    "framework": {
-      "goOut": {
-        "title": "Trò chuyện cùng AI Coach",
-        "intro": "Một không gian trò chuyện kiểu Socratic — Coach đặt câu hỏi gợi mở để bạn tự tìm ra câu trả lời của chính mình.",
-        "steps": [
-          "Chia sẻ điều đang ở trong đầu bạn, không cần chuẩn bị trước.",
-          "Coach tự ghi nhớ điều quan trọng với bạn qua từng cuộc trò chuyện."
-        ],
-        "linkLabel": "Bắt đầu trò chuyện"
-      },
-      "comeBack": {
-        "title": "Bản đồ mối quan hệ của bạn",
-        "intro": "Tự động dựng nên từ những gì bạn chia sẻ — giúp bạn nhìn rõ ai đang nuôi dưỡng và ai đang khiến bạn cạn kiệt.",
-        "steps": [
-          "Không cần nhập liệu thủ công — Coach tự nhận diện qua trò chuyện.",
-          "Thêm hoặc chỉnh sửa trực tiếp bất cứ lúc nào bạn muốn."
-        ],
-        "linkLabel": "Xem bản đồ của bạn"
-      },
-      "filter": {
-        "title": "Dòng thời gian Insight",
-        "intro": "Tổng hợp giá trị cốt lõi, mẫu hành vi và insight Coach đã đúc kết được về bạn theo thời gian.",
-        "steps": [
-          "Tự nhận ra điều đang lặp lại — quyết định tiếp theo luôn là của bạn.",
-          "Giá trị cốt lõi được cập nhật ngay khi bạn thay đổi."
-        ],
-        "linkLabel": "Xem về bạn"
-      },
-      "principlesTitle": "Bốn Nguyên tắc Trải nghiệm & Chuyển hóa",
-      "principles": [
-        {
-          "title": "Hành động là cốt lõi",
-          "description": "Mỗi công cụ đều hướng tới một trải nghiệm thực tế — giúp bạn chuyển hóa nhận thức thành thói quen sống, không dừng ở lý thuyết."
-        },
-        {
-          "title": "Khơi mở Tính chủ thể",
-          "description": "Aura Self AI trao khung câu hỏi gợi mở để bạn tự tìm ra câu trả lời của chính mình, thay vì đưa ra lời khuyên áp đặt."
-        },
-        {
-          "title": "Phát triển liên tục",
-          "description": "Insight và bản đồ mối quan hệ được nuôi dưỡng, theo dõi và nâng cấp theo sự trưởng thành của bạn, không phải giải pháp tạm thời."
-        },
-        {
-          "title": "Bản đồ là của bạn",
-          "description": "Dữ liệu chỉ là gương soi. Bạn luôn là người làm chủ và đưa ra quyết định cho hành trình của chính mình."
-        }
-      ]
-    },
-    "bridge": {
-      "heading": "Nhịp cầu Nhận thức & Hành động",
-      "subtitle": "Những bước chuyển nhỏ để hiện thực hóa sự thấu hiểu thành thay đổi.",
-      "energy": {
-        "title": "Năng lượng hôm nay",
-        "body": "Gần nhất: mức {{level}} · {{days}} ngày trước",
-        "bodyToday": "Gần nhất: mức {{level}} · hôm nay",
-        "empty": "Chưa ghi nhận sự hiện diện — chạm nhẹ để bắt đầu",
-        "cta": "Lịch sử hiện diện"
-      },
-      "protocols": {
-        "title": "Kịch bản của bạn",
-        "body": "{{count}} kịch bản ứng phó đã sẵn sàng đồng hành",
-        "empty": "Chưa có kịch bản ứng phó — thiết lập kịch bản đầu tiên",
-        "cta": "Danh sách kịch bản ứng phó"
-      },
-      "dashboard": {
-        "title": "Bức tranh tổng thể",
-        "body": "Quan sát nhịp điệu 7 ngày qua",
-        "cta": "Xem bảng thông tin"
-      }
-    }
-  },
-  "breadcrumb": {
-    "home": "Trang chủ",
-    "reflection": "Tự chiêm nghiệm",
-    "emotion": "Cảm xúc",
-    "journal": "Đúc kết",
-    "profile": "Hồ sơ",
-    "method": "Phương pháp",
-    "coach": "AI Coach",
-    "dashboard": "Thấu hiểu"
-  },
-  "mobileFooter": {
-    "coach": "AI Coach",
-    "dashboard": "Thấu hiểu",
-    "garden": "Trang chủ",
-    "journal": "Đúc kết",
-    "emotion": "Cảm xúc",
-    "energy": "Năng lượng",
-    "profile": "Tôi",
-    "authDialog": {
-      "title": "Yêu cầu Đăng nhập",
-      "message": "Bạn cần đăng nhập để tạo hoặc xem các bài viết của mình.",
-      "confirm": "Đăng nhập",
-      "cancel": "Để sau"
-    }
-  },
-  "energyLog": {
-    "quickLogTitle": "Năng lượng của bạn lúc này thế nào?",
-    "levelLabel": "Mức năng lượng (1-10)",
-    "contextLabel": "Bạn đang làm gì?",
-    "notesLabel": "Thêm ghi chú (tùy chọn)",
-    "notesPlaceholder": "Điều gì bạn muốn ghi nhớ...",
-    "save": "Ghi lại",
-    "saving": "Đang lưu...",
-    "cancel": "Hủy",
-    "savedMessage": "Đã ghi nhận năng lượng.",
-    "errorMessage": "Không thể lưu. Vui lòng thử lại."
-  },
-  "energyHistoryPage": {
-    "title": "Lịch sử năng lượng",
-    "subtitle": "Ghi lại nhanh mức năng lượng của bạn theo thời gian.",
-    "logButton": "Ghi năng lượng",
-    "empty": "Chưa có bản ghi nào. Hãy ghi lại lần đầu tiên!",
-    "loadMore": "Xem thêm",
-    "deleted": "Đã xóa bản ghi.",
-    "deleteConfirm": {
-      "title": "Xóa bản ghi năng lượng",
-      "message": "Bạn có chắc muốn xóa bản ghi năng lượng này?",
-      "confirm": "Xóa",
-      "cancel": "Hủy"
-    }
-  },
   "dashboard": {
-    "title": "Bảng thông tin Năng lượng",
-    "subtitle": "Xem năng lượng của bạn thay đổi theo thời gian và ở đâu.",
-    "loginRequired": "Vui lòng đăng nhập để xem bảng thông tin năng lượng.",
-    "rangeLabel": "{{days}} ngày gần nhất",
-    "logButton": "Ghi năng lượng",
-    "empty": "Chưa có bản ghi năng lượng nào. Hãy ghi năng lượng để xem bảng thông tin của bạn.",
-    "trend": {
-      "title": "Xu hướng năng lượng",
-      "subtitle": "Mức năng lượng trung bình mỗi ngày",
-      "empty": "Chưa có bản ghi năng lượng trong khoảng thời gian này. Hãy bắt đầu ghi để xem xu hướng."
-    },
-    "byContext": {
-      "title": "Năng lượng theo hoạt động",
-      "subtitle": "Mức năng lượng trung bình cho mỗi hoạt động",
-      "empty": "Hãy ghi năng lượng kèm hoạt động để xem biểu đồ này."
-    },
-    "byCount": {
-      "title": "Số lần ghi theo hoạt động",
-      "subtitle": "Số lần bạn đã ghi năng lượng cho mỗi hoạt động",
-      "empty": "Chưa có bản ghi nào."
-    },
-    "summary": {
-      "average": "Mức trung bình",
-      "totalLogs": "Tổng số bản ghi",
-      "bestContext": "Hoạt động năng lượng cao nhất"
-    },
     "you": "Bạn",
-    "pageTitle": "Thấu hiểu",
-    "pageSubtitle": "Mọi thứ Coach đã hiểu về bạn — giá trị cốt lõi, những người quan trọng, và những insight đã đúc kết được.",
-    "mapTitle": "Bản đồ mối quan hệ",
-    "mapSubtitle": "Được xây dựng dần từ những gì bạn chia sẻ với Coach.",
     "mapEmpty": "Chưa có ai trong bản đồ — hãy kể cho Aura nghe về những người quan trọng với bạn.",
-    "talkToCoach": "Trò chuyện với Coach",
     "noNudge": "Mối quan hệ này đang ổn định.",
     "loading": "Đang tải...",
     "loadMore": "Tải thêm",
-    "insightsTitle": "Dòng thời gian Insight",
     "insightsEmpty": "Chưa có insight nào — hãy trò chuyện với Aura để bắt đầu.",
     "category": {
       "value": "Giá trị",
@@ -443,7 +103,7 @@
       "relationship": "Mối quan hệ"
     },
     "person": {
-      "add": "+ Thêm người",
+      "add": "Thêm ai đó",
       "edit": "Chỉnh sửa",
       "save": "Lưu",
       "cancel": "Hủy",
@@ -459,22 +119,21 @@
     "loginRequired": "Vui lòng đăng nhập để xem hồ sơ của bạn.",
     "stats": {
       "dayStreak": "Chuỗi ngày",
-      "topMood": "Cảm xúc chính",
-      "sessionsEntries": "Phiên · nhật ký",
+      "topMood": "Cảm xúc phổ biến nhất",
+      "sessionsEntries": "Trò chuyện · nhật ký",
       "days": "ngày"
     },
     "coreValues": {
-      "title": "Giá trị cốt lõi",
-      "edit": "Chỉnh sửa",
+      "title": "Giá trị",
+      "edit": "Đổi",
       "add": "+ Thiết lập",
       "save": "Lưu",
       "cancel": "Hủy",
-      "empty": "Chưa thiết lập — Coach sẽ hiểu bạn hơn nếu bạn cho biết điều gì quan trọng với mình.",
+      "empty": "Chưa thiết lập — Aura sẽ hiểu bạn hơn nếu bạn cho biết điều gì quan trọng với mình.",
       "saveError": "Lưu giá trị cốt lõi thất bại.",
-      "count": "đã chọn {{count}}/12"
+      "count": "{{count}}/12"
     },
     "emotionOverview": {
-      "title": "Tổng quan Cảm xúc",
       "titleWithDays": "Cảm xúc · {{days}} ngày",
       "subtitle": "{{entries}} bài viết, {{emotions}} cảm xúc được gắn",
       "empty": "Bắt đầu viết đúc kết để xem mẫu hình cảm xúc của bạn."
@@ -486,7 +145,7 @@
       "updateError": "Cập nhật tên thất bại."
     },
     "changePassword": {
-      "label": "Đổi mật khẩu",
+      "label": "Mật khẩu",
       "change": "Đổi",
       "cancel": "Hủy",
       "currentPlaceholder": "Mật khẩu hiện tại",
@@ -505,7 +164,7 @@
       "title": "Cài đặt",
       "language": "Ngôn ngữ",
       "notifications": "Thông báo",
-      "exportData": "Xuất dữ liệu",
+      "exportData": "Xuất dữ liệu của tôi",
       "soon": "Sắp có"
     },
     "logout": "Đăng xuất",
@@ -536,7 +195,7 @@
     "cancel": "Hủy",
     "draft": "Bản nháp",
     "prompts": "Gợi ý",
-    "talkInstead": "Trò chuyện thay vì viết →"
+    "talkInstead": "Trò chuyện luôn →"
   },
   "entryTemplates": {
     "picker": {
@@ -582,16 +241,10 @@
     }
   },
   "entriesPage": {
-    "title": "Đúc kết",
-    "subtitle": "Mỗi đúc kết là một bước để làm rõ chính mình.",
-    "loadMore": "Tải thêm",
-    "showing": "Hiển thị {{current}} trong {{total}} bài viết",
     "emptyState": "Chưa có đúc kết nào",
     "emptyStateHint": "Ghi lại điều bạn đang nghĩ ngay bây giờ — chỉ mất một phút.",
-    "startWriting": "Bắt đầu viết",
-    "loginRequired": "Đăng nhập để bắt đầu hành trình tự hiểu bản thân.",
-    "loginRequiredHint": "Đúc kết của bạn riêng tư, mã hóa và đang chờ bạn.",
-    "searchPlaceholder": "Tìm kiếm đúc kết...",
+    "startWriting": "Viết điều gì đó",
+    "searchPlaceholder": "Tìm đúc kết",
     "filterAll": "Tất cả",
     "filterToday": "Hôm nay",
     "filterWeek": "Tuần này",
@@ -603,118 +256,14 @@
     "deleteConfirmMessage": "Bạn có chắc chắn muốn xóa đúc kết này?",
     "deleteConfirmBtn": "Xóa",
     "deleteCancel": "Hủy",
-    "editTitle": "Chỉnh sửa đúc kết",
-    "editSubtitle": "Xem lại và hoàn thiện suy ngẫm của bạn.",
     "updateSuccess": "Đúc kết đã được cập nhật.",
     "updateError": "Không thể cập nhật đúc kết.",
     "deleteSuccess": "Đã xóa đúc kết.",
-    "deleteError": "Không thể xóa đúc kết.",
-    "tabEntries": "Nhật ký",
-    "tabInsights": "Insight đã lưu",
-    "insightsEmpty": "Chưa có insight nào được lưu.",
-    "insightsEmptyHint": "Trò chuyện với Aura và lưu lại insight để xem tại đây.",
-    "goChatWithAura": "Trò chuyện với Aura"
-  },
-  "actionProtocol": {
-    "list": {
-      "title": "Kịch bản ứng phó",
-      "subtitle": "Những kịch bản ứng phó bạn viết sẵn, dùng ngay khi cần.",
-      "createButton": "Kịch bản mới",
-      "empty": "Chưa có kịch bản nào. Hãy viết kịch bản đầu tiên của bạn.",
-      "loadMore": "Xem thêm",
-      "triggerLabel": "Tình huống:",
-      "usageCount": "Đã dùng {{times}} lần",
-      "lastUsed": "Dùng lần cuối {{date}}",
-      "markUsedButton": "Đánh dấu đã dùng",
-      "deleted": "Đã xóa kịch bản.",
-      "deleteConfirm": {
-        "title": "Xóa kịch bản",
-        "message": "Bạn có chắc muốn xóa kịch bản này?",
-        "confirm": "Xóa",
-        "cancel": "Hủy"
-      }
-    },
-    "form": {
-      "createTitle": "Kịch bản ứng phó mới",
-      "editTitle": "Chỉnh sửa kịch bản",
-      "titleLabel": "Tiêu đề",
-      "titlePlaceholder": "VD: Khi tôi cảm thấy quá tải trong công việc",
-      "triggerLabel": "Tình huống kích hoạt",
-      "triggerPlaceholder": "Tình huống nào cần đến kịch bản này?",
-      "scriptLabel": "Các bước ứng phó",
-      "scriptPlaceholder": "Viết các bước bạn sẽ làm theo thứ tự...",
-      "save": "Lưu",
-      "saving": "Đang lưu...",
-      "cancel": "Hủy",
-      "savedMessage": "Đã tạo kịch bản.",
-      "updatedMessage": "Đã cập nhật kịch bản.",
-      "errorMessage": "Không thể lưu kịch bản. Vui lòng thử lại."
-    },
-    "markUsed": {
-      "title": "Kết quả thế nào?",
-      "subtitle": "Đánh giá mức độ hiệu quả của kịch bản lần này.",
-      "notePlaceholder": "Thêm ghi chú (tùy chọn)...",
-      "save": "Lưu",
-      "saving": "Đang lưu...",
-      "cancel": "Hủy",
-      "savedMessage": "Đã ghi nhận lần sử dụng.",
-      "errorMessage": "Không thể ghi nhận. Vui lòng thử lại."
-    },
-    "effectiveness": {
-      "WORKED": "Hiệu quả",
-      "PARTIAL": "Hiệu quả một phần",
-      "DIDNT_WORK": "Không hiệu quả"
-    }
-  },
-  "phuongPhapPage": {
-    "hero": {
-      "badge": "Cơ sở khoa học lãnh đạo bản thân",
-      "title": "Vì sao Aura Self AI <span class=\"highlight\">vận hành như vậy</span>",
-      "subtitle": "Aura Self AI được xây dựng theo nguyên lý Leading Self: bạn cần hiểu và dẫn dắt chính mình trước khi dẫn dắt người khác. Trang này giải thích cơ sở đằng sau từng tính năng bạn đang dùng."
-    },
-    "layers": {
-      "title": "Bốn lớp Aura Self AI đã có",
-      "subtitle": "Mỗi tính năng bạn dùng đều thuộc một lớp trong mô hình lãnh đạo bản thân.",
-      "items": {
-        "foundation": {
-          "label": "Lớp 0 · Nền tảng",
-          "description": "Tài khoản, hồ sơ và đúc kết — nơi mọi dữ liệu của bạn bắt đầu."
-        },
-        "innerverse": {
-          "label": "Lớp 1 · Nội tâm (Innerverse)",
-          "description": "Theo dõi năng lượng và gắn nhãn cảm xúc — hiểu điều đang diễn ra bên trong."
-        },
-        "bridge": {
-          "label": "Lớp 3 · Cầu nối hành động (Bridge)",
-          "description": "Kịch bản ứng phó — lõi USP biến hiểu biết thành hành động cụ thể."
-        },
-        "insight": {
-          "label": "Lớp 5 · Thấu hiểu & Phát triển (Insight & Growth)",
-          "description": "Bảng thông tin và biểu đồ xu hướng — nhìn lại chặng đường đã qua."
-        }
-      }
-    },
-    "cta": {
-      "title": "Sẵn sàng áp dụng?",
-      "subtitle": "Bắt đầu bằng ghi nhận đầu tiên của bạn — một dòng đúc kết, một mức năng lượng, hay một kịch bản ứng phó.",
-      "button": "Bắt đầu ghi nhận"
-    }
-  },
-  "zonePage": {
-    "comingSoon": "Sắp mở",
-    "comingSoonDesc": "Tính năng này đang được xây dựng. Hãy quay lại sau.",
-    "writeJournal": "Viết đúc kết",
-    "viewJournal": "Xem đúc kết",
-    "backToGarden": "Về trang chủ"
-  },
-  "emotionPage": {
-    "title": "Hồ sơ cảm xúc",
-    "subtitle": "Nhận diện và theo dõi mẫu hình cảm xúc — bước đầu tiên để hiểu mình.",
-    "empty": "Bắt đầu viết đúc kết để thấy mẫu hình cảm xúc của bạn hiện rõ hơn."
+    "deleteError": "Không thể xóa đúc kết."
   },
   "notFound": {
     "title": "Không có gì để suy ngẫm ở đây.",
-    "subtitle": "Trang này không tồn tại — ít ra đó là một vấn đề dễ giải quyết.",
+    "subtitle": "Ít ra đây là một vấn đề dễ giải quyết.",
     "back": "Về trang Hôm nay"
   },
   "auth": {
@@ -727,7 +276,7 @@
     "loginButton": "Đăng nhập",
     "signupButton": "Tạo tài khoản",
     "googleLogin": "Tiếp tục với Google",
-    "noAccount": "Chưa có tài khoản?",
+    "noAccount": "Mới đến lần đầu?",
     "hasAccount": "Đã có tài khoản?",
     "signupLink": "Tạo tài khoản",
     "loginLink": "Đăng nhập",
@@ -752,10 +301,9 @@
       "signupFailed": "Đăng ký thất bại. Vui lòng thử lại."
     },
     "loginNote": "Mọi thứ vẫn như lúc bạn rời đi.",
-    "signupSubtitle": "Không xác minh email, không khảo sát làm quen bạn sẽ chán.",
-    "signupNote": "Nhật ký của bạn là của riêng bạn. Aura chỉ đọc để trả lời bạn, không vì mục đích nào khác.",
-    "whatShouldAuraCallYou": "Aura nên gọi bạn là gì?",
-    "passwordMinChars": "Mật khẩu · tối thiểu 8 ký tự"
+    "signupSubtitle": "Không cần email xác minh, không khảo sát.",
+    "signupNote": "Nhật ký của bạn là của riêng bạn. Aura chỉ đọc để trả lời bạn, không vì điều gì khác.",
+    "whatShouldAuraCallYou": "Aura nên gọi bạn là gì?"
   },
   "appShell": {
     "defaultFooter": {
@@ -763,7 +311,7 @@
     },
     "thisWeek": {
       "label": "Tuần này",
-      "value": "{{sessions}} phiên · {{entries}} nhật ký"
+      "value": "{{sessions}} cuộc trò chuyện · {{entries}} nhật ký"
     }
   },
   "publicLayout": {
@@ -799,8 +347,8 @@
       "label": "Chưa rõ",
       "sub": "chưa lộ ra"
     },
-    "openLink": "Xem →",
-    "whichPane": "Thuộc ô nào trong tấm gương của bạn?"
+    "openLink": "Xem",
+    "whichPane": "Thuộc ô nào?"
   },
   "today": {
     "greetingMorning": "Chào buổi sáng, {{name}}.",
@@ -818,31 +366,31 @@
       "Có cuộc trò chuyện nào bạn vẫn còn nghĩ lại không?",
       "Bạn đang giả vờ không để ý điều gì?"
     ],
-    "startHere": "Bắt đầu tại đây →",
-    "somethingElse": "Có chuyện khác đang nghĩ tới",
+    "startHere": "Bắt đầu tại đây",
+    "somethingElse": "Có chuyện khác",
     "lastSevenDays": "7 ngày qua",
     "noMoodYet": "Viết hoặc trò chuyện vài lần rồi bạn sẽ thấy nhịp điệu ở đây.",
     "trend": {
-      "lighter": "Nhẹ hơn kể từ {{day}}.",
-      "heavier": "Nặng hơn kể từ {{day}}.",
-      "same": "Gần như không đổi trong tuần."
+      "lighter": "nhẹ hơn kể từ {{day}}",
+      "heavier": "nặng hơn kể từ {{day}}",
+      "same": "gần như không đổi trong tuần"
     },
     "pickBackUp": "Tiếp tục từ đây",
     "emptyPickBackUp": "Chưa có gì — mục này sẽ đầy dần khi bạn trò chuyện và viết.",
     "session": "Phiên trò chuyện",
     "entry": "Nhật ký",
-    "needsAttention": "Cần bạn để ý",
+    "needsAttention": "Đã lâu không thấy",
     "daysSince_one": "{{count}} ngày",
     "daysSince_other": "{{count}} ngày",
     "noAttention": "Mọi mối quan hệ bạn đã thêm đều đang ổn định.",
-    "preferAlone": "Muốn tự viết một mình?",
+    "preferAlone": "Muốn viết ra hơn là nói?",
     "newEntry": "Viết nhật ký mới"
   },
   "talk": {
     "you": "Bạn",
     "thinking": "Aura đang suy nghĩ",
     "catchThis": "Giữ lại câu này",
-    "catchShortcut": "⌘K Giữ lại",
+    "catchShortcut": "⌘K để giữ lại một câu",
     "summarizeShortcut": "Tóm tắt đến giờ",
     "endSessionKeepShift": "Kết thúc & lưu lại sự thay đổi",
     "catchTitle": "Catch",
@@ -852,15 +400,14 @@
     "dropTheLine": "Đặt câu này vào đúng ô của tấm gương.",
     "noteHint": "Ghi lại theo cách của riêng bạn — không cần khuôn mẫu.",
     "saveToMirror": "Lưu vào tấm gương",
-    "readingLabel": "Aura đang đọc",
-    "whatIsThis": "Đây là gì?",
+    "readingLabel": "Đang đọc",
     "heavy": "Nặng nề",
     "light": "Nhẹ nhàng",
     "openedAt": "bắt đầu ở mức {{emotion}} · {{minutes}} phút trước",
     "minutesElapsed": "đã {{minutes}} phút",
     "moodBuckets": {
       "heavy": "nặng nề · có nhiều điều đang diễn ra",
-      "charged": "căng thẳng · đang giữ điều gì đó",
+      "charged": "căng thẳng · đang kìm lại điều gì đó",
       "settling": "đang lắng lại · còn đang tìm lời",
       "easing": "nhẹ dần · nhẹ hơn lúc bắt đầu",
       "light": "nhẹ nhàng · dễ chịu"
@@ -879,7 +426,7 @@
     },
     "people": {
       "count": "{{count}} người · khoảng cách = số ngày kể từ lần nhắc tới",
-      "needsAttention": "Cần để ý",
+      "needsAttention": "Cần bạn",
       "drifting": "Đang xa dần",
       "talkedAboutMost": "Được nhắc tới nhiều nhất",
       "steady": "Ổn định",
@@ -887,7 +434,7 @@
       "healthSignal": "Tín hiệu mối quan hệ",
       "talkAbout": "Nói về {{name}}",
       "talkAboutPrefill": "Tôi đang nghĩ về {{name}}.",
-      "whatAuraNoticed": "Điều Aura nhận ra về họ"
+      "whatAuraNoticed": "Điều Aura nhận ra"
     },
     "mirror": {
       "empty": "Chưa có gì được giữ lại — trò chuyện với Aura và giữ lại một câu vào tấm gương của bạn.",
@@ -905,15 +452,15 @@
     "readOnly": "Chỉ xem",
     "shift": "THAY ĐỔI",
     "whatAuraWrote": "Điều Aura đã viết lại",
-    "caughtFromSession": "Đã giữ lại trong phiên này · {{count}}"
+    "caughtFromSession": "Giữ lại ở đây · {{count}}"
   },
   "landing": {
     "hero": {
-      "headline": "Không ai khác trả lời được điều đó thay bạn.",
-      "body": "Aura là nơi để bạn nghĩ thành lời. Những cuộc trò chuyện, một bản đồ những người xuất hiện trong đó, và bốn góc nhìn về chính bạn — để bạn gỡ rối những gì đang vướng trong đầu. Câu trả lời vẫn luôn là của riêng bạn.",
+      "headline": "Nghĩ thành lời. Aura theo kịp.",
+      "body": "Aura hỏi tiếp câu tiếp theo, thay vì đưa ra câu trả lời.",
       "cta": "Bắt đầu trò chuyện",
       "ctaLoggedIn": "Vào Hôm nay",
-      "note": "Miễn phí · không chia sẻ với ai · xóa bất cứ lúc nào",
+      "note": "Miễn phí · riêng tư · xóa bất cứ lúc nào",
       "photoCaption": "ảnh — một người, ánh sáng cửa sổ, đen trắng",
       "openerLabel": "Aura · một câu mở đầu thật",
       "openerQuote": "\"Bạn đã kể về công việc đó ba lần mà chưa từng nói bạn thích điều gì ở nó.\""
@@ -923,23 +470,23 @@
       "talk": {
         "kicker": "01 · Trò chuyện",
         "title": "Một cuộc trò chuyện, không phải kịch bản",
-        "body": "Nó theo sát những gì bạn thực sự nói, và đọc được tâm trạng bạn đang viết ra — nói thẳng, để bạn có thể không đồng ý."
+        "body": "Aura đọc được tâm trạng bạn đang viết ra, và nói cho bạn biết."
       },
       "catch": {
         "kicker": "02 · Giữ lại",
         "title": "Giữ lại câu nói chạm đến bạn",
-        "body": "Một phím bấm trên bất kỳ tin nhắn nào. Không gì được lưu về bạn nếu bạn không tự đặt nó vào.",
+        "body": "Giữ lại câu nói chạm đến bạn. Nó sẽ trở thành một mẫu hình.",
         "example": "Tôi im lặng ở những nơi tôi có nhiều thứ để mất nhất."
       },
       "mirror": {
         "kicker": "03 · Tấm gương của bạn",
         "title": "Bốn góc nhìn về chính mình",
-        "body": "Cửa sổ Johari, luôn cập nhật: điều gì cởi mở, điều gì là điểm mù, điều gì bạn giữ kín, điều gì chưa lộ ra."
+        "body": "Cởi mở, điểm mù, giữ kín, chưa rõ — luôn được cập nhật."
       },
       "people": {
         "kicker": "04 · Những người trong đó",
         "title": "Bạn hay nhắc tới ai",
-        "body": "Một bản đồ các mối quan hệ của bạn — và ai đã âm thầm biến mất khỏi câu chuyện.",
+        "body": "Bạn hay nhắc tới ai — và ai đã âm thầm im lặng.",
         "example": "Ba — 31 ngày chưa được nhắc tới"
       },
       "timeline": {
@@ -980,7 +527,7 @@
     },
     "closing": {
       "title": "Nói ra điều bạn vẫn cứ vòng vo.",
-      "cta": "Bắt đầu miễn phí →"
+      "cta": "Bắt đầu miễn phí"
     },
     "footer": {
       "rights": "AuraSelfAI · 2026",

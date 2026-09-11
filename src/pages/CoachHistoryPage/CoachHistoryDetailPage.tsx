@@ -20,7 +20,7 @@ const SNIPPET_FIELDS: Record<string, string[]> = {
 };
 
 const TYPE_TAG_LABEL: Record<string, string> = {
-  FREEFORM: 'insightCatcher.freeformLabel',
+  FREEFORM: 'talk.note',
   JOHARI_WINDOW: 'mirror.title',
   ACT_MATRIX: 'insightCatcher.actMatrix',
   PERSONAL_SWOT: 'insightCatcher.personalSwot',

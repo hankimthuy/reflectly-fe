@@ -36,6 +36,7 @@ vi.mock('react-i18next', () => ({
                 'brand.acronym': 'AI Coach for Self-Understanding',
                 'auth.signupTitle': 'Tạo tài khoản',
                 'auth.fullName': 'Full Name',
+                'auth.whatShouldAuraCallYou': 'What should Aura call you?',
                 'auth.username': 'Username',
                 'auth.password': 'Password',
                 'auth.confirmPassword': 'Confirm Password',
@@ -86,7 +87,7 @@ describe('SignupPage', () => {
         it('should render all form fields', () => {
             renderSignupPage();
 
-            expect(screen.getByLabelText('Full Name')).toBeInTheDocument();
+            expect(screen.getByLabelText('What should Aura call you?')).toBeInTheDocument();
             expect(screen.getByLabelText('Username')).toBeInTheDocument();
             expect(screen.getByLabelText('Password')).toBeInTheDocument();
             expect(screen.getByLabelText('Confirm Password')).toBeInTheDocument();
@@ -138,7 +139,7 @@ describe('SignupPage', () => {
         it('should show error when username is missing', () => {
             renderSignupPage();
 
-            fireEvent.change(screen.getByLabelText('Full Name'), { target: { value: 'Test User' } });
+            fireEvent.change(screen.getByLabelText('What should Aura call you?'), { target: { value: 'Test User' } });
             fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'pass123' } });
             fireEvent.change(screen.getByLabelText('Confirm Password'), { target: { value: 'pass123' } });
             fireEvent.click(screen.getByRole('button', { name: 'Create Account' }));
@@ -149,7 +150,7 @@ describe('SignupPage', () => {
         it('should show error when passwords do not match', () => {
             renderSignupPage();
 
-            fireEvent.change(screen.getByLabelText('Full Name'), { target: { value: 'Test User' } });
+            fireEvent.change(screen.getByLabelText('What should Aura call you?'), { target: { value: 'Test User' } });
             fireEvent.change(screen.getByLabelText('Username'), { target: { value: 'testuser' } });
             fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'pass123' } });
             fireEvent.change(screen.getByLabelText('Confirm Password'), { target: { value: 'different' } });
@@ -162,7 +163,7 @@ describe('SignupPage', () => {
         it('should show error when password is less than 6 characters', () => {
             renderSignupPage();
 
-            fireEvent.change(screen.getByLabelText('Full Name'), { target: { value: 'Test User' } });
+            fireEvent.change(screen.getByLabelText('What should Aura call you?'), { target: { value: 'Test User' } });
             fireEvent.change(screen.getByLabelText('Username'), { target: { value: 'testuser' } });
             fireEvent.change(screen.getByLabelText('Password'), { target: { value: '12345' } });
             fireEvent.change(screen.getByLabelText('Confirm Password'), { target: { value: '12345' } });
@@ -179,7 +180,7 @@ describe('SignupPage', () => {
             mockSignup.mockResolvedValue(undefined);
             renderSignupPage();
 
-            fireEvent.change(screen.getByLabelText('Full Name'), { target: { value: 'Test User' } });
+            fireEvent.change(screen.getByLabelText('What should Aura call you?'), { target: { value: 'Test User' } });
             fireEvent.change(screen.getByLabelText('Username'), { target: { value: 'testuser' } });
             fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'pass123' } });
             fireEvent.change(screen.getByLabelText('Confirm Password'), { target: { value: 'pass123' } });
@@ -194,7 +195,7 @@ describe('SignupPage', () => {
             mockSignup.mockResolvedValue(undefined);
             renderSignupPage();
 
-            fireEvent.change(screen.getByLabelText('Full Name'), { target: { value: 'Test User' } });
+            fireEvent.change(screen.getByLabelText('What should Aura call you?'), { target: { value: 'Test User' } });
             fireEvent.change(screen.getByLabelText('Username'), { target: { value: 'testuser' } });
             fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'pass123' } });
             fireEvent.change(screen.getByLabelText('Confirm Password'), { target: { value: 'pass123' } });
@@ -210,7 +211,7 @@ describe('SignupPage', () => {
             mockSignup.mockImplementation(() => new Promise<void>((resolve) => { resolveSignup = resolve; }));
             renderSignupPage();
 
-            fireEvent.change(screen.getByLabelText('Full Name'), { target: { value: 'Test User' } });
+            fireEvent.change(screen.getByLabelText('What should Aura call you?'), { target: { value: 'Test User' } });
             fireEvent.change(screen.getByLabelText('Username'), { target: { value: 'testuser' } });
             fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'pass123' } });
             fireEvent.change(screen.getByLabelText('Confirm Password'), { target: { value: 'pass123' } });
@@ -232,7 +233,7 @@ describe('SignupPage', () => {
             mockSignup.mockRejectedValue(new Error('Username already taken'));
             renderSignupPage();
 
-            fireEvent.change(screen.getByLabelText('Full Name'), { target: { value: 'Test User' } });
+            fireEvent.change(screen.getByLabelText('What should Aura call you?'), { target: { value: 'Test User' } });
             fireEvent.change(screen.getByLabelText('Username'), { target: { value: 'testuser' } });
             fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'pass123' } });
             fireEvent.change(screen.getByLabelText('Confirm Password'), { target: { value: 'pass123' } });
@@ -247,7 +248,7 @@ describe('SignupPage', () => {
             mockSignup.mockRejectedValue('unknown');
             renderSignupPage();
 
-            fireEvent.change(screen.getByLabelText('Full Name'), { target: { value: 'Test User' } });
+            fireEvent.change(screen.getByLabelText('What should Aura call you?'), { target: { value: 'Test User' } });
             fireEvent.change(screen.getByLabelText('Username'), { target: { value: 'testuser' } });
             fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'pass123' } });
             fireEvent.change(screen.getByLabelText('Confirm Password'), { target: { value: 'pass123' } });
@@ -262,7 +263,7 @@ describe('SignupPage', () => {
             mockSignup.mockRejectedValue(new Error('Signup failed'));
             renderSignupPage();
 
-            fireEvent.change(screen.getByLabelText('Full Name'), { target: { value: 'Test User' } });
+            fireEvent.change(screen.getByLabelText('What should Aura call you?'), { target: { value: 'Test User' } });
             fireEvent.change(screen.getByLabelText('Username'), { target: { value: 'testuser' } });
             fireEvent.change(screen.getByLabelText('Password'), { target: { value: 'pass123' } });
             fireEvent.change(screen.getByLabelText('Confirm Password'), { target: { value: 'pass123' } });

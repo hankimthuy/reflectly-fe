@@ -19,7 +19,7 @@ const NOTE_SNIPPET_FIELDS: Record<FrameworkType, string[]> = {
 };
 
 const NOTE_TYPE_LABEL_KEY: Record<FrameworkType, string> = {
-    FREEFORM: 'insightCatcher.freeformLabel',
+    FREEFORM: 'talk.note',
     JOHARI_WINDOW: 'insightCatcher.johariWindowLabel',
     ACT_MATRIX: 'insightCatcher.actMatrix',
     PERSONAL_SWOT: 'insightCatcher.personalSwot',
