@@ -42,7 +42,7 @@
     "chosenCount": "Đã chọn {{count}}"
   },
   "coach": {
-    "inputPlaceholder": "Nói thẳng ra.",
+    "inputPlaceholder": "Nói thẳng thắn.",
     "send": "Gửi",
     "emptyState": "Bạn cứ thoải mái bắt đầu — chia sẻ điều đang ở trong đầu bạn lúc này, mình ở đây để lắng nghe.",
     "sendError": "Không thể gửi tin nhắn lúc này. Vui lòng thử lại.",
@@ -448,7 +448,7 @@
       "body": "Aura hỏi tiếp câu tiếp theo, thay vì đưa ra câu trả lời.",
       "cta": "Bắt đầu trò chuyện",
       "ctaLoggedIn": "Vào Hôm nay",
-      "note": "Miễn phí · riêng tư · xóa bất cứ lúc nào",
+      "note": "Miễn phí · riêng tư",
       "previewAura": "Tuần này bạn nhắc tới Minh hai lần. Điều gì bạn vẫn chưa nói với anh ấy?",
       "previewUser": "Anh ấy trình bày phần việc của tôi như của mình, còn tôi thì im lặng.",
       "previewMood": "căng thẳng"
