@@ -33,6 +33,9 @@ i18n
 
 i18n.on('languageChanged', (lng) => {
   localStorage.setItem(LANGUAGE_STORAGE_KEY, lng);
+  document.documentElement.lang = lng;
 });
+
+document.documentElement.lang = initialLanguage;
 
 export default i18n;
