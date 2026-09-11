@@ -7,8 +7,11 @@
 }
 
 .today__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
   padding: 20px 20px 18px;
-  border-bottom: 1px solid var(--color-divider);
 
   @include laptop-up {
     padding: 26px 34px 22px;
@@ -16,29 +19,18 @@
 }
 
 .today__date {
-  font: 400 10.5px var(--font-body);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-neutral-600);
+  flex: none;
+  font: 400 13.5px var(--font-body);
+  color: var(--color-slate);
 }
 
 .today__greeting {
   font-size: 28px;
-  margin: 7px 0 0;
+  letter-spacing: -0.02em;
+  margin: 0;
 
   @include laptop-up {
-    font-size: 36px;
-  }
-}
-
-.today__subtitle {
-  font-size: 14px;
-  color: var(--color-neutral-700);
-  margin: 8px 0 0;
-  max-width: 56ch;
-
-  @include laptop-up {
-    font-size: 15px;
+    font-size: 34px;
   }
 }
 
@@ -92,27 +84,22 @@
 }
 
 .today__opener-inner {
-  padding: 20px 22px 16px;
-}
-
-.today__opener-label {
-  font: 600 10px var(--font-body);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--color-paper) 75%, transparent);
-  margin-bottom: 9px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 24px 26px 20px;
 }
 
 .today__opener-text {
   font-size: 19px;
-  line-height: 1.35;
+  line-height: 1.36;
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 400;
   color: var(--color-paper);
 
   @include laptop-up {
-    font-size: 22px;
+    font-size: 24px;
   }
 }
 
@@ -199,9 +186,8 @@
 }
 
 .today__mood-trend {
-  font-size: 12.5px;
-  color: var(--color-neutral-700);
-  margin: 10px 0 0;
+  font: 400 13px var(--font-body);
+  color: var(--color-slate-deep);
 }
 
 // — Pick back up —
@@ -231,6 +217,12 @@
   cursor: pointer;
 
   &:hover { background: color-mix(in srgb, var(--color-text) 5%, transparent); }
+}
+
+.today__pickbackup-arrow {
+  flex: none;
+  font: 500 12px var(--font-body);
+  color: var(--color-indigo);
 }
 
 .today__pickbackup-date {
@@ -298,52 +290,45 @@
 .today__mirror-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border: 1px solid var(--color-divider);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-}
-
-.today__mirror-cell {
-  padding: 14px 13px;
-  border-right: 1px solid var(--color-divider);
-  border-bottom: 1px solid var(--color-divider);
-
-  &:nth-child(2n) { border-right: 0; }
-  &:nth-child(n+3) { border-bottom: 0; }
-}
-
-.today__mirror-cell-label {
-  font: 600 11px var(--font-body);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.today__mirror-cell-count {
-  font: 600 26px var(--font-body);
-  margin-top: 4px;
-}
-
-.today__mirror-cell-sub {
-  font: 400 10.5px var(--font-body);
-  color: var(--color-neutral-700);
+  gap: 8px;
 }
 
 .today__mirror-cell {
   background: var(--color-mist);
+  border-radius: 13px;
+  padding: 13px 14px;
+}
+
+.today__mirror-cell-label {
+  font: 500 10.5px var(--font-body);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-slate-deep);
+}
+
+.today__mirror-cell-count {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 25px;
+  margin-top: 2px;
 }
 
 .today__mirror-cell--open {
   background: var(--color-indigo);
 
   .today__mirror-cell-label,
-  .today__mirror-cell-count,
-  .today__mirror-cell-sub {
-    color: var(--color-paper);
-  }
+  .today__mirror-cell-count { color: #ffffff; }
+}
+
+.today__mirror-cell--hidden {
+  background: var(--color-periwinkle-light);
+
+  .today__mirror-cell-label,
+  .today__mirror-cell-count { color: var(--color-ink); }
 }
 
 .today__mirror-cell--unknown .today__mirror-cell-count,
-.today__mirror-cell--unknown .today__mirror-cell-label { color: var(--color-neutral-600); }
+.today__mirror-cell--unknown .today__mirror-cell-label { color: var(--color-slate); }
 
 .today__attention-list {
   border-top: 1px solid var(--color-divider);
@@ -374,13 +359,6 @@
 .today__attention-days {
   font: 400 11px var(--font-body);
   color: var(--color-neutral-600);
-}
-
-.today__attention-nudge {
-  font-size: 12.5px;
-  line-height: 1.5;
-  color: var(--color-neutral-700);
-  margin: 11px 0 0;
 }
 
 .today__write-alone {

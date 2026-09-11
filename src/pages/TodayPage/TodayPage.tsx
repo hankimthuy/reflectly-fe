@@ -9,12 +9,12 @@ import { useConversationsInfiniteQuery } from '../../queries/conversationsQueryH
 import { usePeopleQuery } from '../../queries/peopleQueryHook';
 import { useMoodSummaryQuery } from '../../queries/userQueryHook';
 import { useMirrorSnapshot, MIRROR_PANES } from '../../hooks/useMirrorSnapshot';
-import { calculateDayStreak } from '../../utils/statsUtil';
 import { EMOTION_HEAVINESS, heavinessColorVar } from '../../utils/moodUtil';
 import { sessionTitleFromSummary } from '../../utils/textUtil';
 import type { Emotion } from '../../models/emotion';
 import Loading from '../../components/Loading/Loading';
 import { ButtonLink } from '../../components/Button/Button';
+import AuraMark from '../../components/AuraMark/AuraMark';
 import './TodayPage.scss';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -41,8 +41,6 @@ const TodayPage = () => {
     const firstName = (currentUser?.fullName ?? '').trim().split(/\s+/).pop() || currentUser?.fullName || '';
     const hour = new Date().getHours();
     const greetingKey = hour < 12 ? 'today.greetingMorning' : hour < 18 ? 'today.greetingAfternoon' : 'today.greetingEvening';
-
-    const streak = useMemo(() => calculateDayStreak(entries), [entries]);
 
     const dateLabel = useMemo(
         () => new Date().toLocaleDateString(i18n.language === 'vi' ? 'vi-VN' : 'en-US', { weekday: 'long', day: 'numeric', month: 'long' }),
@@ -145,19 +143,16 @@ const TodayPage = () => {
     return (
         <div className="today">
             <div className="today__header">
-                <div className="today__date">{dateLabel}</div>
                 <h2 className="today__greeting">{t(greetingKey, { name: firstName })}</h2>
-                <p className="today__subtitle">
-                    {streak.count > 0 ? t('today.subtitleStreak', { count: streak.count }) : t('today.subtitleNone')}
-                </p>
+                <span className="today__date">{dateLabel}</span>
             </div>
 
             <div className="today__body">
                 <div className="today__main">
                     <div className="today__opener">
                         <div className="today__opener-inner">
-                            <div className="today__opener-label">{t('today.openerLabel')}</div>
-                            <p className="today__opener-text">&ldquo;{opener}&rdquo;</p>
+                            <AuraMark size="lg" />
+                            <p className="today__opener-text">{opener}</p>
                         </div>
                         <div className="today__opener-actions">
                             <button type="button" className="btn btn-primary today__opener-start" onClick={() => startConversation(opener)}>
@@ -172,6 +167,7 @@ const TodayPage = () => {
                     <div className="today__mood">
                         <div className="today__section-head">
                             <span className="today__section-label">{t('today.lastSevenDays')}</span>
+                            {trendLine && <span className="today__mood-trend">{trendLine}</span>}
                         </div>
                         {hasAnyMood ? (
                             <>
@@ -197,7 +193,6 @@ const TodayPage = () => {
                                         </div>
                                     ))}
                                 </div>
-                                {trendLine && <p className="today__mood-trend">{trendLine}</p>}
                             </>
                         ) : (
                             <p className="today__mood-empty">{t('today.noMoodYet')}</p>
@@ -218,9 +213,7 @@ const TodayPage = () => {
                                             {new Date(item.date).toLocaleDateString(i18n.language === 'vi' ? 'vi-VN' : 'en-US', { weekday: 'short' })}
                                         </span>
                                         <span className="today__pickbackup-label">{item.label}</span>
-                                        <span className={`tag ${item.type === 'session' ? 'tag-outline' : 'tag-neutral'}`}>
-                                            {item.type === 'session' ? t('today.session') : t('today.entry')}
-                                        </span>
+                                        <span className="today__pickbackup-arrow" aria-hidden="true">&rarr;</span>
                                     </button>
                                 ))}
                             </div>
@@ -255,7 +248,6 @@ const TodayPage = () => {
                                 <div key={pane} className={`today__mirror-cell today__mirror-cell--${pane}`}>
                                     <div className="today__mirror-cell-label">{t(`mirror.${pane}.label`)}</div>
                                     <div className="today__mirror-cell-count">{mirror.counts[pane]}</div>
-                                    <div className="today__mirror-cell-sub">{t(`mirror.${pane}.sub`)}</div>
                                 </div>
                             ))}
                         </div>
@@ -278,7 +270,6 @@ const TodayPage = () => {
                                 ))}
                             </div>
                         )}
-                        {needsAttention[0]?.nudgeText && <p className="today__attention-nudge">{needsAttention[0].nudgeText}</p>}
                     </div>
 
                     <div className="today__write-alone">

@@ -8,6 +8,7 @@ import axios from 'axios';
 import { APP_ROUTES } from '../../constants/route';
 import { useAuth } from '../../providers/AuthProvider';
 import './LoginPage.scss';
+import AuraMark from '../../components/AuraMark/AuraMark';
 
 /** See mockup 3b — no nav, just the wordmark; the form sits pinned toward the bottom of the
  * frame (margin-top: auto) rather than centered, matching that mockup's composition. */
@@ -93,7 +94,10 @@ const LoginPage = () => {
     if (isLoading) {
         return (
             <main className="auth-page">
-                <div className="auth-page__wordmark">{t('brand.name')}</div>
+                <div className="auth-page__brand">
+                <AuraMark size="sm" />
+                <span className="auth-page__wordmark">{t('brand.name')}</span>
+            </div>
                 <p className="auth-page__loading">{t('auth.signingIn')}</p>
             </main>
         );
@@ -101,7 +105,10 @@ const LoginPage = () => {
 
     return (
         <main className="auth-page">
-            <div className="auth-page__wordmark">{t('brand.name')}</div>
+            <div className="auth-page__brand">
+                <AuraMark size="sm" />
+                <span className="auth-page__wordmark">{t('brand.name')}</span>
+            </div>
 
             <div className="auth-page__form">
                 <h2 className="auth-page__title">{t('brand.welcome')}</h2>

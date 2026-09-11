@@ -14,26 +14,29 @@
   @include laptop-up { padding: 26px 30px; }
 }
 
+// Aura's turns lead with the mark; the person's turns are a right-aligned bubble on their own.
 .chat-bubble-row {
-  max-width: 82%;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  max-width: 86%;
 
-  @include laptop-up { max-width: 78%; }
+  @include laptop-up { gap: 12px; max-width: 78%; }
 }
 
 .chat-bubble-row--user {
   align-self: flex-end;
+  max-width: 82%;
+
+  @include laptop-up { max-width: 72%; }
 }
 
-.chat-bubble-label {
-  font: 400 10px var(--font-body);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-slate);
-  margin-bottom: 6px;
+.chat-bubble-stack {
+  min-width: 0;
 }
 
 // Both bubbles flatten the one corner nearest their speaker, so a turn points back at whoever
-// said it without needing a tail or an avatar.
+// said it.
 .chat-bubble--aura {
   background: var(--color-surface);
   color: var(--color-text);
@@ -79,10 +82,14 @@
   &:hover { background: var(--color-accent-100); }
 }
 
+// Lines up with Aura's bubbles rather than the gutter, so the wait reads as Aura's.
 .chat-thinking {
   display: flex;
   align-items: center;
   gap: 9px;
+  padding-left: 44px;
+
+  @include laptop-up { padding-left: 50px; }
 }
 
 .chat-thinking-dot {

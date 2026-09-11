@@ -19,29 +19,16 @@
 
 .public-layout__brand {
   display: flex;
-  align-items: baseline;
-  gap: 14px;
+  align-items: center;
+  gap: 11px;
   min-width: 0;
+  text-decoration: none;
 }
 
 .public-layout__wordmark {
   font: 600 21px var(--font-heading);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   color: var(--color-text);
-  text-decoration: none;
-}
-
-.public-layout__tagline {
-  font: 400 11px var(--font-body);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-neutral-600);
-  white-space: nowrap;
-  display: none;
-
-  @media (min-width: 640px) {
-    display: inline;
-  }
 }
 
 .public-layout__actions {

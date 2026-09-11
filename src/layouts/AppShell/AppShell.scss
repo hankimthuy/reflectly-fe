@@ -26,21 +26,15 @@
 }
 
 .app-shell__brand {
-  padding: 0 18px 18px;
-  border-bottom: 1px solid var(--color-divider);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 6px 20px;
 }
 
 .app-shell__wordmark {
-  font: 600 20px var(--font-heading);
-  letter-spacing: -0.02em;
-}
-
-.app-shell__tagline {
-  font: 400 10.5px var(--font-body);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-neutral-600);
-  margin-top: 3px;
+  font: 600 19px var(--font-heading);
+  letter-spacing: -0.01em;
 }
 
 .app-shell__nav {

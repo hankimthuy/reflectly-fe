@@ -1,0 +1,11 @@
+/* The mark is a round, soft-lit blue orb on transparent ground. It gets a paper backing so it
+   keeps its shape on the tinted and gradient panels it sits on (Today's opener, Talk's bubbles). */
+.aura-mark {
+  flex: none;
+  border-radius: 12px;
+  background: var(--color-paper);
+  object-fit: cover;
+}
+
+.aura-mark--sm { border-radius: 11px; }
+.aura-mark--lg { border-radius: 13px; }

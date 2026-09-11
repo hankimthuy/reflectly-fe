@@ -10,9 +10,15 @@
   margin: 0 auto;
 }
 
+.auth-page__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .auth-page__wordmark {
-  font: 600 21px var(--font-heading);
-  letter-spacing: -0.02em;
+  font: 600 19px var(--font-heading);
+  letter-spacing: -0.01em;
 }
 
 .auth-page__loading {
