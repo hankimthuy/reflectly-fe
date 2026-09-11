@@ -31,7 +31,7 @@
 }
 
 .app-shell__wordmark {
-  font: 600 20px var(--font-body);
+  font: 600 20px var(--font-heading);
   letter-spacing: -0.02em;
 }
 
@@ -74,16 +74,16 @@
 }
 
 .app-shell__nav-item--active {
-  background: var(--color-text);
-  color: var(--color-bg);
+  background: var(--color-indigo);
+  color: var(--color-paper);
 
   &:hover {
-    background: var(--color-text);
+    background: var(--color-indigo);
   }
 
   .app-shell__nav-dot {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
+    background: var(--color-paper);
+    border-color: var(--color-paper);
   }
 }
 
@@ -170,11 +170,11 @@
 }
 
 .app-shell__tab--active {
-  background: var(--color-text);
-  color: var(--color-bg);
+  background: var(--color-indigo);
+  color: var(--color-paper);
 
   .app-shell__tab-dot {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
+    background: var(--color-paper);
+    border-color: var(--color-paper);
   }
 }

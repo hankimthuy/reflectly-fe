@@ -12,20 +12,26 @@
   --garden-path-out: #5B8C5A;
   --garden-path-return: #D4A843;
 
-  /* --- CORE PALETTE (mapped to garden) --- */
-  --c-primary: #5B8C5A;
-  --c-primary-hover: #4A7349;
-  --c-secondary: #8B6F47;
-  --c-secondary-hover: #735A38;
-  --c-tertiary: #A67B5B;
-  --c-accent-warm: #D4A843;
-  --c-gradient-bridge: linear-gradient(135deg, #8FBF8F 0%, #5B8C5A 50%, #A67B5B 100%);
+  /* --- CORE PALETTE (Aura Soft) ---
+     These are the tokens index.scss uses to style bare <button>, <a>, h1-h3, .container and
+     .main-content globally, in parallel with the Tailwind theme in styles/tailwind.css. They
+     are repointed onto Aura Soft rather than the garden palette so no old green/brown can leak
+     through on an element that isn't wrapped in a .btn/.tag/Tailwind class. The --garden-*
+     tokens above are left alone deliberately — dead source material, not referenced by the app
+     chrome. */
+  --c-primary: #4F5FD6;
+  --c-primary-hover: #4453C4;
+  --c-secondary: #4A5488;
+  --c-secondary-hover: #3B4470;
+  --c-tertiary: #7D8AE8;
+  --c-accent-warm: #5CC6EC;
+  --c-gradient-bridge: linear-gradient(135deg, #26305E 0%, #4F5FD6 50%, #5CC6EC 100%);
 
   /* --- SURFACES & BACKGROUNDS --- */
-  --c-background: var(--garden-sky);
-  --c-background-dark: #2C3E2D;
-  --c-surface: #FFFFFF;
-  --c-surface-subtle: rgba(245, 237, 214, 0.85);
+  --c-background: #F4F7FD;
+  --c-background-dark: #26305E;
+  --c-surface: #FBFCFE;
+  --c-surface-subtle: rgba(238, 243, 253, 0.85);
 
 
   /* --- BASIC COLORS --- */
@@ -34,21 +40,21 @@
 
 
   /* --- TEXT COLORS --- */
-  --c-text-on-surface: var(--garden-text);
-  --c-text-on-background: var(--garden-text);
-  --c-text-muted: var(--garden-text-muted);
-  --c-page-title: rgba(44, 62, 45, 0.15); 
-  
+  --c-text-on-surface: #26305E;
+  --c-text-on-background: #26305E;
+  --c-text-muted: #616C9C;
+  --c-page-title: rgba(38, 48, 94, 0.15);
+
   /* Text on Dark Background */
-  --c-text-on-dark: #F1F5F9; /* Slate 100 */
-  --c-text-muted-on-dark: #94A3B8; /* Slate 400 */
+  --c-text-on-dark: #FBFCFE;
+  --c-text-muted-on-dark: #A3ADF2;
 
 
   /* --- UI ELEMENTS --- */
-  --c-border: #E2E8F0; /* Slate 200 */
-  
-  /* Subtle Border adapts to Warmth */
-  --c-border-subtle: rgba(91, 140, 90, 0.15);
+  --c-border: #C9D5F0;
+
+  /* Subtle Border adapts to the ground */
+  --c-border-subtle: rgba(79, 95, 214, 0.15);
   
   /* Dark Border (for Innerverse) */
   --c-border-dark: rgba(255, 255, 255, 0.1); 
@@ -57,9 +63,9 @@
 
 
   /* --- SHADOWS (Context Aware) --- */
-  /* Shadow Base Color -> Orange tinted for Warmth */
-  --c-shadow-color-rgb: 91, 140, 90;
-  --c-glow-color-rgb: 143, 191, 143;
+  /* Shadow Base Color -> ink tinted, matching the Aura Soft shadow scale */
+  --c-shadow-color-rgb: 38, 48, 94;
+  --c-glow-color-rgb: 125, 138, 232;
 
   --c-shadow-light: 0 2px 8px rgba(var(--c-shadow-color-rgb), 0.08), 0 1px 3px rgba(var(--c-shadow-color-rgb), 0.06);
   --c-shadow-heavy: 0 4px 16px rgba(var(--c-shadow-color-rgb), 0.12), 0 2px 6px rgba(var(--c-shadow-color-rgb), 0.08);
@@ -68,10 +74,18 @@
   --shadow-neon: 0 0 15px rgba(var(--c-glow-color-rgb), 0.3);
 
 
-  /* --- SHADOW SCALES (Updated Tint) --- */
-  --shadow-sm: 0 1px 2px rgba(var(--c-shadow-color-rgb), 0.05);
-  --shadow-md: 0 4px 6px rgba(var(--c-shadow-color-rgb), 0.07);
-  --shadow-lg: 0 10px 15px rgba(var(--c-shadow-color-rgb), 0.1);
+  /* --- SHADOW SCALES ---
+     --shadow-sm/md/lg are ALSO declared by the design system in styles/tailwind.css's @theme.
+     Tailwind emits @theme into `@layer theme`, and unlayered CSS (this file) always outranks
+     layered CSS regardless of source order — so these declarations silently won, and every
+     .elev-* / box-shadow: var(--shadow-*) in the app rendered the legacy scale instead of the
+     token it named. They're held identical to the Aura Soft values here so the name resolves to
+     the same shadow whichever declaration the cascade picks. Keep them in sync with
+     styles/tailwind.css if the design system's shadows change.
+     --shadow-xl/2xl have no design-system counterpart and are unused outside this file. */
+  --shadow-sm: 0 2px 12px rgba(var(--c-shadow-color-rgb), 0.05);
+  --shadow-md: 0 6px 20px rgba(var(--c-shadow-color-rgb), 0.08);
+  --shadow-lg: 0 18px 44px rgba(var(--c-shadow-color-rgb), 0.12);
   --shadow-xl: 0 20px 25px rgba(var(--c-shadow-color-rgb), 0.15);
   --shadow-2xl: 0 25px 50px rgba(var(--c-shadow-color-rgb), 0.25);
 
@@ -240,8 +254,8 @@
 
 // Font Family
 :root {
-  --font-family-primary: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-family-heading: 'Lora', Georgia, 'Times New Roman', serif;
-  --font-family-mono: 'Be Vietnam Pro', Consolas, 'Courier New', monospace;
-  --font-family-secondary: 'Be Vietnam Pro', sans-serif;
+  --font-family-primary: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-family-heading: 'Outfit', system-ui, sans-serif;
+  --font-family-mono: ui-monospace, Consolas, 'Courier New', monospace;
+  --font-family-secondary: 'DM Sans', system-ui, sans-serif;
 }

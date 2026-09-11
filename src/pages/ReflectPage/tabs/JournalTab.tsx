@@ -87,7 +87,7 @@ const JournalTab = () => {
                         <button
                             key={key}
                             type="button"
-                            className={`tag ${filter === key ? 'tag-accent' : 'tag-outline'} reflect-journal__filter`}
+                            className={`tag ${filter === key ? 'tag-accent' : ''} reflect-journal__filter`}
                             onClick={() => setFilter(key)}
                         >
                             {t(`entriesPage.filter${key.charAt(0).toUpperCase()}${key.slice(1)}`)}

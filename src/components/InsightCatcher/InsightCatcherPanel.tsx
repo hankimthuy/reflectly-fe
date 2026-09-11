@@ -127,6 +127,12 @@ const InsightCatcherPanel = ({ conversationId, draftText, onSaved, onPersonSaved
           <PersonForm onSubmit={handleAddPerson} onCancel={() => setTab('mirror')} submitLabel={t('insightCatcher.save')} />
         ) : (
           <>
+            {/* What's actually being caught, shown back before it's filed — the panel used to
+                give no indication of which line a "Catch this" had picked up. Only rendered for
+                a seeded draft; typing straight into the textarea needs no echo of itself. */}
+            {seenDraftText && (
+              <blockquote className="catch-panel__quote">{seenDraftText}</blockquote>
+            )}
             <p className="catch-panel__hint">{tab === 'mirror' ? t('talk.dropTheLine') : t('talk.noteHint')}</p>
             <textarea className="input catch-panel__textarea" value={text} onChange={(e) => setText(e.target.value)} rows={3} />
 

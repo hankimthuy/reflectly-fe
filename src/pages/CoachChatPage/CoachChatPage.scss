@@ -64,7 +64,7 @@
   height: 10px;
   border-radius: var(--radius-pill);
   overflow: hidden;
-  background: linear-gradient(to right, var(--color-accent-600), var(--color-accent-300) 40%, var(--color-pine-300) 75%, var(--color-pine-400));
+  background: var(--gradient-mood);
 }
 
 .talk__ribbon-marker {
@@ -123,20 +123,23 @@
 }
 
 // — Composer —
+// These .chat-composer* rules style the shared Chat/MessageInput component rather than anything
+// page-specific; they live here for historical reasons.
 .chat-composer {
   border-top: 1px solid var(--color-divider);
-  background: var(--color-neutral-100);
+  background: var(--color-mist);
   padding: 14px 20px 16px;
 
   @include laptop-up { padding: 16px 30px 18px; }
 }
 
+// One pill holding the field and the send button, rather than a rounded rectangle.
 .chat-composer-row {
   display: flex;
   align-items: flex-end;
   gap: 6px;
-  border: 1.5px solid var(--color-divider);
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-pill);
   background: var(--color-surface);
   padding: 6px 6px 6px 18px;
   box-shadow: var(--shadow-sm);
@@ -161,6 +164,7 @@
   padding: 11px 22px;
   font-size: 14px;
   flex: none;
+  border-radius: var(--radius-pill);
 }
 
 .chat-composer-actions {
@@ -177,10 +181,12 @@
   gap: 8px;
 }
 
+// Plain .tag mist pills — these are shortcuts, not primary actions, so they drop the old
+// accent-bordered treatment and inherit the base chip styling.
 .chat-composer-shortcut {
   cursor: pointer;
-  background: transparent;
-  border: 1.5px solid var(--color-accent);
+
+  &:disabled { opacity: 0.45; cursor: not-allowed; }
 }
 
 .chat-composer-end {

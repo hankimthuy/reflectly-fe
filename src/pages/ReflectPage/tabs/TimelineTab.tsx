@@ -2,12 +2,6 @@ import { useTranslation } from 'react-i18next';
 import { useInsightsInfiniteQuery } from '../../../queries/insightsQueryHook';
 import Loading from '../../../components/Loading/Loading';
 
-const CATEGORY_TAG_CLASS: Record<string, string> = {
-    RELATIONSHIP: 'tag-accent',
-    VALUE: 'tag-pine',
-    BEHAVIOR_PATTERN: 'tag-neutral',
-};
-
 const CATEGORY_LABEL_KEY: Record<string, string> = {
     RELATIONSHIP: 'dashboard.category.relationship',
     VALUE: 'dashboard.category.value',
@@ -30,20 +24,16 @@ const TimelineTab = () => {
             ) : (
                 <div className="reflect-timeline__list">
                     {insights.map((insight) => (
-                        <div key={insight.id} className="reflect-timeline__item">
-                            <span className="reflect-timeline__dot" />
-                            <div className="reflect-timeline__content">
-                                <div className="reflect-timeline__row">
-                                    <span className={`tag ${CATEGORY_TAG_CLASS[insight.category]}`}>{t(CATEGORY_LABEL_KEY[insight.category])}</span>
-                                    <span className="reflect-timeline__date">
-                                        {new Intl.DateTimeFormat(i18n.language, { day: 'numeric', month: 'short' }).format(new Date(insight.createdAt))}
-                                    </span>
-                                </div>
-                                <p className="reflect-timeline__text">{insight.insightText}</p>
-                                {insight.personName && (
-                                    <p className="reflect-timeline__person">{t('dashboard.person.relatedTo', { name: insight.personName })}</p>
-                                )}
+                        <div key={insight.id} className="reflect-timeline__card">
+                            <div className="reflect-timeline__eyebrow">
+                                {t(CATEGORY_LABEL_KEY[insight.category])}
+                                {' · '}
+                                {new Intl.DateTimeFormat(i18n.language, { day: 'numeric', month: 'short' }).format(new Date(insight.createdAt))}
                             </div>
+                            <p className="reflect-timeline__text">{insight.insightText}</p>
+                            {insight.personName && (
+                                <p className="reflect-timeline__person">{t('dashboard.person.relatedTo', { name: insight.personName })}</p>
+                            )}
                         </div>
                     ))}
                 </div>

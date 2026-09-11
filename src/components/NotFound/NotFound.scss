@@ -8,7 +8,7 @@
 }
 
 .not-found-page__wordmark {
-  font: 600 15px var(--font-body);
+  font: 600 15px var(--font-heading);
   letter-spacing: -0.02em;
 }
 
@@ -18,9 +18,9 @@
 }
 
 .not-found-page__code {
-  font: 600 76px var(--font-body);
+  font: 600 76px var(--font-heading);
   line-height: 0.9;
-  color: var(--color-accent);
+  color: var(--color-indigo);
   margin-bottom: 14px;
 }
 

@@ -34,7 +34,6 @@ const CoachChatPage = () => {
   const [catchDraft, setCatchDraft] = useState<string | null>(null);
   const [catchOpenOnMobile, setCatchOpenOnMobile] = useState(false);
   const hasStartedRef = useRef(false);
-  const lastHandledReplyIdRef = useRef<string | null>(null);
 
   const sendMessage = useSendMessageMutation(conversationId ?? '');
   const endConversation = useEndConversationMutation();
@@ -91,14 +90,6 @@ const CoachChatPage = () => {
   }, []);
 
   useEffect(() => {
-    const reply = sendMessage.data;
-    if (reply && reply.id !== lastHandledReplyIdRef.current) {
-      lastHandledReplyIdRef.current = reply.id;
-      setMessages((prev) => [...prev, reply]);
-    }
-  }, [sendMessage.data]);
-
-  useEffect(() => {
     if (endConversation.isSuccess) {
       localStorage.removeItem(ACTIVE_CONVERSATION_KEY);
       navigate(APP_ROUTES.HOME);
@@ -109,14 +100,26 @@ const CoachChatPage = () => {
   const handleSend = (content: string) => {
     if (!conversationId) return;
 
+    const optimisticId = `optimistic-${Date.now()}`;
     const optimisticUserMessage: ConversationMessage = {
-      id: `optimistic-${Date.now()}`,
+      id: optimisticId,
       role: 'USER',
       content,
       createdAt: new Date().toISOString(),
+      moodEmotion: null,
+      moodScore: null,
     };
     setMessages((prev) => [...prev, optimisticUserMessage]);
-    sendMessage.mutate(content);
+    sendMessage.mutate(content, {
+      onSuccess: ({ userMessage, assistantMessage }) => {
+        // Swap the optimistic placeholder for the backend-authoritative user message (now
+        // carrying its own moodEmotion/moodScore) and append Aura's reply.
+        setMessages((prev) => [
+          ...prev.map((m) => (m.id === optimisticId ? userMessage : m)),
+          assistantMessage,
+        ]);
+      },
+    });
   };
 
   const handleEndSession = () => {
@@ -207,9 +210,11 @@ const CoachChatPage = () => {
           </div>
         </div>
         <div className="talk__ribbon-track">
+          {/* --gradient-mood runs heavy (ink, left) → light (cyan, right) — the marker's left
+              offset has to travel the same direction, so it's the inverse of heaviness. */}
           <div
             className="talk__ribbon-marker"
-            style={{ left: `${mood.heaviness * 100}%`, background: heavinessColorVar(mood.heaviness) }}
+            style={{ left: `${(1 - mood.heaviness) * 100}%`, background: heavinessColorVar(mood.heaviness) }}
           />
         </div>
         <div className="talk__ribbon-scale">

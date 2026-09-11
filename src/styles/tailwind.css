@@ -2,93 +2,136 @@
 
 /*
  * ─────────────────────────────────────────────────────────────────────────
- * Hearth — Aura's second design system, replacing Modernist (see the
- * redesign/aura-modernist branch for that one — flat, architectural,
- * Archivo, zero radius, clay & pine).
+ * Aura Soft — Aura's third design system, replacing Hearth (see the
+ * redesign/aura-hearth branch for that one — linen ground, Fraunces serif,
+ * terracotta & sage).
  *
- * Where Modernist was flat and graphic, Hearth is warm and editorial: a
- * linen paper ground, a soft serif for anything that speaks (headings,
- * Aura's own lines) over a clean humanist sans for everything else, thin
- * hairlines instead of heavy black rules, soft shadows for lift instead of
- * borders, and real corner radius throughout. Terracotta keeps the "one
- * accent carries the charge" idea from Modernist; sage takes over pine's
- * job as the color a mood can settle *to*. Every color below is exposed as
- * a Tailwind v4 theme token (`--color-foo` → `bg-foo` / `text-foo` /
- * `border-foo` utilities).
+ * Where Hearth was warm and editorial, Aura Soft is cool and calm: a pale
+ * blue paper ground, a geometric sans (Outfit) for anything that speaks over
+ * DM Sans for body copy, generous soft radius, and shadows that lift rather
+ * than outline. The single biggest idea Aura Soft adds is a *split* that
+ * Hearth (and Modernist before it) never made: indigo is now exclusively
+ * "primary action", and clay is exclusively "needs attention". One color no
+ * longer carries both charges — a destructive button, a relationship that
+ * needs you, and an error message are clay; a CTA is indigo. Periwinkle,
+ * cyan and clay are fills only: text never sits directly on them, it goes
+ * through paper, mist or ink first.
  *
- * Component class names (.btn, .tag, .input, .hr, .card) and CSS variable
+ * Component class names (.btn, .tag, .input, .hr, .elev-*) and CSS variable
  * names (including --color-pine, kept even though the color itself is now
- * sage) are unchanged from Modernist on purpose — every page's SCSS
- * references these by name, and re-pointing what they resolve to is the
- * whole mechanism by which one design system swaps for another without
- * touching per-page layout code.
+ * periwinkle-light, and --color-accent, now indigo) are unchanged from
+ * Hearth on purpose — every page's SCSS references these by name, and
+ * re-pointing what they resolve to is the whole mechanism by which one
+ * design system swaps for another without touching per-page layout code.
  *
- * Tonal ramps are derived with `color-mix()` off the two ground roles
- * (--color-bg, --color-text) rather than hand-picked hexes, so every ramp
- * stays perceptually tied to the ground it's mixed against.
+ * Neutral steps are derived with `color-mix()` off the two ground roles
+ * (--color-page, --color-ink) rather than hand-picked hexes, so the ramp
+ * stays perceptually tied to the ground it's mixed against. The accent and
+ * pine ramps are fixed hexes: the same indigo has to read as "the primary
+ * action" regardless of which ground it lands on.
  * ─────────────────────────────────────────────────────────────────────────
  */
-@theme {
-  --color-bg: #f8f1e6;
-  --color-surface: color-mix(in srgb, #3a291f 6%, #f8f1e6);
-  --color-text: #3a291f;
-  --color-divider: color-mix(in srgb, #3a291f 16%, transparent);
+/* `static` matters here: by default Tailwind only emits the theme variables it can see being
+   used, and it cannot see this app's per-page SCSS (compiled by Vite's sass, not by Tailwind).
+   Under the default the tonal ramps were being tree-shaken out of the bundle even though the
+   SCSS reaches for them by name — `var(--color-neutral-700)` resolved to nothing on every
+   muted line of copy in the app. `static` emits the whole theme, which is the premise this
+   file is built on: SCSS references these names and re-pointing them is what swaps the design
+   system. */
+@theme static {
+  /* — Raw palette. Exposed as theme tokens so Tailwind generates utilities
+       (bg-mist, text-clay, border-clay …) straight off the design names. — */
+  --color-ink: #26305e;
+  --color-indigo: #4f5fd6;
+  --color-periwinkle: #7d8ae8;
+  --color-periwinkle-light: #a3adf2;
+  --color-cyan: #5cc6ec;
+  --color-slate: #616c9c;
+  --color-slate-deep: #4a5488;
+  --color-mist: #eef3fd;
+  --color-paper: #fbfcfe;
+  --color-page: #f4f7fd;
+  --color-clay: #e8795f;
+  --color-clay-light: #f7d3c8;
 
-  /* Neutral ramp — text mixed into the ground, light steps for tints/fills,
-     dark steps for muted copy. */
-  --color-neutral-100: color-mix(in srgb, #3a291f 5%, #f8f1e6);
-  --color-neutral-200: color-mix(in srgb, #3a291f 11%, #f8f1e6);
-  --color-neutral-300: color-mix(in srgb, #3a291f 20%, #f8f1e6);
-  --color-neutral-400: color-mix(in srgb, #3a291f 33%, #f8f1e6);
-  --color-neutral-500: color-mix(in srgb, #3a291f 48%, #f8f1e6);
-  --color-neutral-600: color-mix(in srgb, #3a291f 63%, #f8f1e6);
-  --color-neutral-700: color-mix(in srgb, #3a291f 76%, #f8f1e6);
-  --color-neutral-800: color-mix(in srgb, #3a291f 87%, #f8f1e6);
-  --color-neutral-900: color-mix(in srgb, #3a291f 95%, #f8f1e6);
+  /* — Ground roles. Every page's SCSS reaches for these four. — */
+  --color-bg: #f4f7fd;
+  --color-surface: #fbfcfe;
+  --color-text: #26305e;
+  --color-divider: #c9d5f0;
 
-  /* Accent — terracotta, the one color allowed to carry charge/tension.
-     Fixed hexes (not ground-mixed): the same warm rust reads as "the
-     accent" no matter which ground the system ends up painted on. */
-  --color-accent: #c1573a;
-  --color-accent-100: #fbe9e2;
-  --color-accent-200: #f6d5c8;
-  --color-accent-300: #edb49d;
-  --color-accent-400: #dd8862;
-  --color-accent-500: #c1573a;
-  --color-accent-600: #a8432a;
-  --color-accent-700: #86341f;
-  --color-accent-800: #602417;
-  --color-accent-900: #3d160e;
+  /* Neutral ramp — ink mixed into the page ground: light steps for tints and
+     fills, dark steps for muted copy (600/700 are the two the app leans on
+     most for secondary text, so they land on slate, not gray). */
+  --color-neutral-100: color-mix(in srgb, #26305e 4%, #f4f7fd);
+  --color-neutral-200: color-mix(in srgb, #26305e 9%, #f4f7fd);
+  --color-neutral-300: color-mix(in srgb, #26305e 17%, #f4f7fd);
+  --color-neutral-400: color-mix(in srgb, #26305e 30%, #f4f7fd);
+  --color-neutral-500: color-mix(in srgb, #26305e 45%, #f4f7fd);
+  --color-neutral-600: color-mix(in srgb, #26305e 62%, #f4f7fd);
+  --color-neutral-700: color-mix(in srgb, #26305e 76%, #f4f7fd);
+  --color-neutral-800: color-mix(in srgb, #26305e 88%, #f4f7fd);
+  --color-neutral-900: color-mix(in srgb, #26305e 96%, #f4f7fd);
 
-  /* "Pine" — same role Modernist gave it (the settled state a mood can
-     travel *to*, instead of just fading to gray), now sage rather than
-     dark pine. Variable name kept as -pine- so every page that already
-     reaches for it repaints automatically. */
-  --color-pine: #7c8d6e;
-  --color-pine-100: #eef1e8;
-  --color-pine-200: #dbe3d1;
-  --color-pine-300: #c0cdae;
-  --color-pine-400: #a1b489;
-  --color-pine-500: #7c8d6e;
-  --color-pine-600: #64735a;
-  --color-pine-700: #4f5b47;
-  --color-pine-800: #3a4335;
-  --color-pine-900: #262c23;
+  /* Accent — indigo. In Aura Soft this means exactly one thing: a primary
+     action. It is NOT the "needs attention" color anymore (that's clay), and
+     nothing informational should reach for it. */
+  --color-accent: #4f5fd6;
+  --color-accent-100: #eaedfc;
+  --color-accent-200: #d5dbf8;
+  --color-accent-300: #b4bef2;
+  --color-accent-400: #8996e6;
+  --color-accent-500: #4f5fd6;
+  --color-accent-600: #4453c4;
+  --color-accent-700: #3a47a6;
+  --color-accent-800: #2d3780;
+  --color-accent-900: #212859;
 
-  --font-heading: "Fraunces", Georgia, "Times New Roman", serif;
-  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  /* "Pine" — same role Hearth gave it (the settled state a mood can travel
+     *to*, instead of just fading to gray), now periwinkle-light rather than
+     sage. Variable name kept as -pine- so every page that already reaches
+     for it repaints automatically. */
+  --color-pine: #a3adf2;
+  --color-pine-100: #f0f2fe;
+  --color-pine-200: #e0e4fc;
+  --color-pine-300: #c8cff8;
+  --color-pine-400: #a3adf2;
+  --color-pine-500: #7d8ae8;
+  --color-pine-600: #6371d3;
+  --color-pine-700: #4f5cb0;
+  --color-pine-800: #3b4586;
+  --color-pine-900: #29305c;
 
-  --shadow-sm: 0 1px 3px color-mix(in srgb, #3a291f 12%, transparent);
-  --shadow-md: 0 6px 20px color-mix(in srgb, #3a291f 14%, transparent);
-  --shadow-lg: 0 20px 45px color-mix(in srgb, #3a291f 20%, transparent);
+  --font-heading: "Outfit", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, -apple-system, sans-serif;
 
-  /* Real corner radius everywhere — the clearest single signal that this
-     is not Modernist. Kept as theme tokens so `rounded-md` etc. resolve
-     to something intentional if anything reaches for them. */
-  --radius-sm: 10px;
-  --radius-md: 16px;
-  --radius-lg: 26px;
+  /* Soft, ink-tinted lift. --shadow-cta is new in Aura Soft: an indigo-tinted
+     glow that only a primary CTA is allowed to wear. */
+  --shadow-sm: 0 2px 12px rgba(38, 48, 94, .05);
+  --shadow-md: 0 6px 20px rgba(38, 48, 94, .08);
+  --shadow-lg: 0 18px 44px rgba(38, 48, 94, .12);
+  --shadow-cta: 0 6px 18px rgba(79, 95, 214, .28);
+
+  /* Generous, consistent radius. Cards and panels take sm–lg; anything
+     button-, tag- or badge-shaped takes the pill. */
+  --radius-sm: 14px;
+  --radius-md: 18px;
+  --radius-lg: 20px;
   --radius-pill: 999px;
+}
+
+/* The app's "mood gradient", heavy → light: ink → indigo → periwinkle → cyan.
+   Read by the Talk mood ribbon, Today's seven-day bars and the Sessions
+   mood-shift track, so a mood always travels the same visual path.
+
+   Note for whoever changes --shadow-sm/md/lg above: `src/styles/_variables.scss`
+   declares those same three names in an *unlayered* `:root`, and unlayered CSS
+   outranks the `@layer theme` Tailwind emits @theme into, regardless of source
+   order — so that file's copies are what actually render. They're held
+   identical to the values above; change both together or the tokens here go
+   back to being decorative. */
+:root {
+  --gradient-mood: linear-gradient(to right, #26305e, #4f5fd6 40%, #7d8ae8 65%, #5cc6ec);
 }
 
 @keyframes aura-drift {
@@ -103,7 +146,7 @@
 }
 
 /* ══════════════════════════════════════════════════════════════════════
-   Base type + component classes — plain CSS, repainted warm for Hearth.
+   Base type + component classes — plain CSS, repainted cool for Aura Soft.
    Unlayered on purpose: this repo's Tailwind utilities and per-page SCSS
    both need to be able to override a specific instance, so nothing here
    should out-rank a class selector — see index.scss's own note on the
@@ -119,12 +162,19 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 600;
   line-height: 1.18;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   margin: 0 0 8px;
 }
-h6 { letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; }
+/* The eyebrow: small uppercase section labels, wide-tracked, muted. */
+h6 {
+  font-size: 10.75px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-slate);
+}
 
-.text-muted { color: color-mix(in srgb, var(--color-text) 55%, transparent); }
+.text-muted { color: var(--color-slate); }
 
 /* — rules — */
 .hr { height: 1px; border: 0; margin: 16px 0; background: var(--color-divider); }
@@ -135,48 +185,61 @@ h6 { letter-spacing: 0.06em; text-transform: uppercase; font-weight: 700; }
   cursor: pointer; text-decoration: none;
   font-family: var(--font-body); font-weight: 600;
   font-size: 14px; line-height: 1.2; color: var(--color-text);
-  background: transparent; border: 1.5px solid transparent;
+  background: transparent; border: 1px solid transparent;
   padding: 10px 18px; border-radius: var(--radius-pill);
   transition: background-color .15s ease-in-out, box-shadow .15s ease-in-out, transform .1s ease-in-out;
 }
 .btn svg { display: block; }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; }
-.btn-primary { background: var(--color-accent); color: var(--color-bg); box-shadow: var(--shadow-sm); }
-.btn-primary:hover { background: var(--color-accent-600); box-shadow: var(--shadow-md); }
+/* White is spelled out rather than var(--color-bg): the primary CTA's label
+   has to stay legible on indigo even if the ground role is ever repointed. */
+.btn-primary { background: var(--color-indigo); color: #ffffff; box-shadow: var(--shadow-cta); }
+.btn-primary:hover { background: var(--color-accent-600); }
 .btn-primary:active { background: var(--color-accent-700); transform: scale(0.98); }
-.btn-secondary { border-color: var(--color-divider); background: var(--color-surface); }
-.btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 6%, var(--color-surface)); }
-.btn-secondary:active { background: color-mix(in srgb, var(--color-text) 12%, var(--color-surface)); }
-.btn-ghost { color: var(--color-accent-700); padding-inline: 8px; border-color: transparent; border-radius: var(--radius-sm); }
-.btn-ghost:hover { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
-.btn-ghost:active { background: color-mix(in srgb, var(--color-accent) 18%, transparent); }
+.btn-secondary { border-color: var(--color-divider); background: var(--color-surface); color: var(--color-text); }
+.btn-secondary:hover { background: var(--color-mist); }
+.btn-secondary:active { background: var(--color-accent-100); }
+.btn-ghost { color: var(--color-indigo); padding-inline: 8px; border-color: transparent; border-radius: var(--radius-sm); }
+.btn-ghost:hover { background: var(--color-mist); }
+.btn-ghost:active { background: var(--color-accent-100); }
 .btn-icon { width: 38px; height: 38px; padding: 0; border-radius: var(--radius-pill); }
 .btn-block { width: 100%; margin-top: 8px; justify-content: flex-start; text-align: left; border-radius: var(--radius-md); }
-.btn:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.btn:focus-visible { outline: 2px solid var(--color-indigo); outline-offset: 2px; }
 
 /* — forms — */
-.field > label { display: block; font-size: 12.5px; font-weight: 500; margin-bottom: 6px; color: color-mix(in srgb, var(--color-text) 70%, transparent); }
+.field > label { display: block; font-size: 12.5px; font-weight: 500; margin-bottom: 6px; color: var(--color-slate); }
 .input {
   width: 100%; min-height: 46px; padding: 10px 15px; font: inherit;
-  font-size: 14.5px; color: var(--color-text); caret-color: var(--color-accent);
-  background: var(--color-surface); border: 1.5px solid var(--color-divider); border-radius: var(--radius-md);
-  transition: border-color .15s ease-in-out;
+  font-size: 14.5px; color: var(--color-text); caret-color: var(--color-indigo);
+  background: var(--color-mist); border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+  transition: border-color .15s ease-in-out, background-color .15s ease-in-out;
 }
-.input::placeholder { color: var(--color-neutral-600); }
-.input:hover { border-color: color-mix(in srgb, var(--color-text) 30%, transparent); }
-.input:focus-visible { border-color: var(--color-accent); outline: none; }
+.input::placeholder { color: var(--color-slate); }
+.input:hover { border-color: var(--color-periwinkle-light); }
+.input:focus-visible { border-color: var(--color-indigo); background: var(--color-surface); outline: none; }
 textarea.input { min-height: 100px; resize: vertical; border-radius: var(--radius-md); }
 
-/* — tags — */
-.tag { display: inline-flex; align-items: center; font-size: 11.5px; letter-spacing: 0.01em; padding: 4px 12px; border-radius: var(--radius-pill); font-family: var(--font-body); font-weight: 600; }
-.tag-accent { background: var(--color-accent-200); color: var(--color-accent-800); }
-.tag-pine { background: var(--color-pine-200); color: var(--color-pine-800); }
-.tag-neutral { background: var(--color-neutral-200); color: var(--color-neutral-800); }
-.tag-outline { border: 1.5px solid var(--color-accent-400); color: var(--color-accent-700); }
+/* — tags —
+   .tag on its own is the inactive/base chip. .tag-accent is the *selected*
+   state and is a solid indigo fill, not a tint — a chosen chip should read as
+   firmly chosen. .tag-neutral and .tag-outline are informational badges
+   ("Soon", "Read only"), deliberately never indigo. */
+.tag {
+  display: inline-flex; align-items: center; font-size: 11.5px; letter-spacing: 0.01em;
+  padding: 4px 12px; border-radius: var(--radius-pill);
+  font-family: var(--font-body); font-weight: 600;
+  background: var(--color-mist); color: var(--color-indigo);
+  border: 1px solid transparent;
+}
+.tag-accent { background: var(--color-indigo); color: #ffffff; border-color: var(--color-indigo); }
+.tag-pine { background: var(--color-periwinkle-light); color: var(--color-ink); border-color: transparent; }
+.tag-neutral { background: var(--color-mist); color: var(--color-slate-deep); border-color: transparent; }
+.tag-outline { background: var(--color-surface); color: var(--color-slate-deep); border-color: var(--color-divider); }
 
 /* — cards / elevation — */
 .elev-sm { box-shadow: var(--shadow-sm); }
 .elev-md { box-shadow: var(--shadow-md); }
 .elev-lg { box-shadow: var(--shadow-lg); }
+.elev-cta { box-shadow: var(--shadow-cta); }
 
-::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+::selection { background: color-mix(in srgb, var(--color-indigo) 22%, transparent); }

@@ -2,10 +2,22 @@ import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useConversationsInfiniteQuery } from '../../queries/conversationsQueryHook';
+import type { Conversation } from '../../models/conversation';
 import { APP_ROUTES } from '../../constants/route';
 import { sessionTitleFromSummary, stripMarkdown } from '../../utils/textUtil';
+import { EMOTION_HEAVINESS, heavinessColorVar } from '../../utils/moodUtil';
+import type { Emotion } from '../../models/emotion';
 import Loading from '../../components/Loading/Loading';
 import './CoachHistoryPage.scss';
+
+/** A row's sliver is colored by how the session ended (falling back to how it opened) — real
+ * per-conversation mood data, now that the list endpoint carries it. Falls back to the generic
+ * mood gradient only for a session with no scored messages at all (e.g. still active). */
+const rowMoodColor = (conversation: Conversation): string => {
+  const emotion = conversation.finalMoodEmotion ?? conversation.initialMoodEmotion;
+  if (emotion && emotion in EMOTION_HEAVINESS) return heavinessColorVar(EMOTION_HEAVINESS[emotion as Emotion]);
+  return 'var(--gradient-mood)';
+};
 
 /** Read-only list of past Aura chat sessions — reachable now that transcripts aren't purged
  * after a session ends. Search is a local filter over each session's summary text (there's no
@@ -52,12 +64,15 @@ const CoachHistoryListPage = () => {
               className="sessions-page__row"
               onClick={() => navigate(`${APP_ROUTES.COACH_HISTORY}/${conversation.id}`)}
             >
-              <span className="sessions-page__row-title">
-                {sessionTitleFromSummary(conversation.summary, t('coach.history.noSummary'), 72)}
-              </span>
-              <span className="sessions-page__row-meta">
-                {new Intl.DateTimeFormat(i18n.language, { day: 'numeric', month: 'short' }).format(new Date(conversation.startedAt))}
-                {conversation.endedAt && ` · ${Math.max(1, Math.round((new Date(conversation.endedAt).getTime() - new Date(conversation.startedAt).getTime()) / 60000))} ${t('sessions.min')}`}
+              <span className="sessions-page__row-mood" style={{ background: rowMoodColor(conversation) }} />
+              <span className="sessions-page__row-body">
+                <span className="sessions-page__row-title">
+                  {sessionTitleFromSummary(conversation.summary, t('coach.history.noSummary'), 72)}
+                </span>
+                <span className="sessions-page__row-meta">
+                  {new Intl.DateTimeFormat(i18n.language, { day: 'numeric', month: 'short' }).format(new Date(conversation.startedAt))}
+                  {conversation.endedAt && ` · ${Math.max(1, Math.round((new Date(conversation.endedAt).getTime() - new Date(conversation.startedAt).getTime()) / 60000))} ${t('sessions.min')}`}
+                </span>
               </span>
             </button>
           ))}

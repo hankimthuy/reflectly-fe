@@ -70,6 +70,19 @@
   margin: 0;
 }
 
+// The line being caught, echoed back above the field it's about to be filed into.
+.catch-panel__quote {
+  margin: 0;
+  padding: 11px 13px;
+  background: var(--color-mist);
+  border-radius: 14px;
+  font: 400 12.5px/1.5 var(--font-body);
+  font-style: italic;
+  color: var(--color-slate-deep);
+  max-height: 108px;
+  overflow-y: auto;
+}
+
 .catch-panel__textarea {
   min-height: 84px;
 }
@@ -92,18 +105,24 @@
   justify-content: flex-start;
 }
 
+// Selected pane: a filled chip rather than a differently-bordered one, so which pane a line is
+// going into is readable at a glance across the 2x2 grid.
 .catch-panel__pane-btn--active {
-  border-color: var(--color-accent);
-  color: var(--color-accent-700);
+  background: var(--color-periwinkle-light);
+  border-color: var(--color-periwinkle-light);
+  color: var(--color-ink);
+
+  &:hover { background: var(--color-periwinkle-light); }
 }
 
 .catch-panel__tags {
   min-height: 40px;
 }
 
+// An error is a "needs attention" signal, so clay — never the accent/CTA indigo.
 .catch-panel__error {
   font-size: 12px;
-  color: var(--color-accent-700);
+  color: var(--color-clay);
   margin: 0;
 }
 

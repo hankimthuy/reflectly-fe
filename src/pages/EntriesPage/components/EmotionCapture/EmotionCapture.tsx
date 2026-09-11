@@ -27,7 +27,7 @@ const EmotionCapture: React.FC<EmotionCaptureProps> = ({ selectedEmotions, onEmo
             <button
               key={emotionData.id}
               type="button"
-              className={`tag ${selected ? 'tag-accent' : 'tag-outline'} entry-editor__tag-btn`}
+              className={`tag ${selected ? 'tag-accent' : ''} entry-editor__tag-btn`}
               onClick={() => onEmotionToggle(emotionData.id)}
               disabled={!selected && !canSelectMore}
             >

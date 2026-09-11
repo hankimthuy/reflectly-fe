@@ -6,7 +6,7 @@
     "step2Title": "Ai đang ở trong tâm trí bạn?",
     "step2Subtitle": "Tối đa năm người chiếm chỗ trong đầu bạn — dù tốt hay xấu. Chỉ cần tên; bạn không cần giải thích gì ở đây.",
     "selectAtLeastOne": "Chọn ít nhất một giá trị để tiếp tục.",
-    "addAtLeastOnePerson": "Thêm ít nhất một người, hoặc bấm \"Bỏ qua, vào Coach luôn\".",
+    "addAtLeastOnePerson": "Thêm ít nhất một người, hoặc bấm \"Bỏ qua — tôi sẽ thêm người sau\".",
     "submitError": "Có lỗi xảy ra, vui lòng thử lại.",
     "namePlaceholder": "Tên",
     "removePerson": "Xóa",
@@ -430,13 +430,13 @@
     "pageSubtitle": "Mọi thứ Coach đã hiểu về bạn — giá trị cốt lõi, những người quan trọng, và những insight đã đúc kết được.",
     "mapTitle": "Bản đồ mối quan hệ",
     "mapSubtitle": "Được xây dựng dần từ những gì bạn chia sẻ với Coach.",
-    "mapEmpty": "Chưa có ai trong bản đồ — hãy chia sẻ về những người quan trọng với bạn khi trò chuyện với Coach.",
+    "mapEmpty": "Chưa có ai trong bản đồ — hãy kể cho Aura nghe về những người quan trọng với bạn.",
     "talkToCoach": "Trò chuyện với Coach",
     "noNudge": "Mối quan hệ này đang ổn định.",
     "loading": "Đang tải...",
     "loadMore": "Tải thêm",
     "insightsTitle": "Dòng thời gian Insight",
-    "insightsEmpty": "Chưa có insight nào — hãy trò chuyện với Coach để bắt đầu.",
+    "insightsEmpty": "Chưa có insight nào — hãy trò chuyện với Aura để bắt đầu.",
     "category": {
       "value": "Giá trị",
       "behaviorPattern": "Mẫu hành vi",
@@ -475,6 +475,7 @@
     },
     "emotionOverview": {
       "title": "Tổng quan Cảm xúc",
+      "titleWithDays": "Cảm xúc · {{days}} ngày",
       "subtitle": "{{entries}} bài viết, {{emotions}} cảm xúc được gắn",
       "empty": "Bắt đầu viết đúc kết để xem mẫu hình cảm xúc của bạn."
     },
@@ -821,6 +822,11 @@
     "somethingElse": "Có chuyện khác đang nghĩ tới",
     "lastSevenDays": "7 ngày qua",
     "noMoodYet": "Viết hoặc trò chuyện vài lần rồi bạn sẽ thấy nhịp điệu ở đây.",
+    "trend": {
+      "lighter": "Nhẹ hơn kể từ {{day}}.",
+      "heavier": "Nặng hơn kể từ {{day}}.",
+      "same": "Gần như không đổi trong tuần."
+    },
     "pickBackUp": "Tiếp tục từ đây",
     "emptyPickBackUp": "Chưa có gì — mục này sẽ đầy dần khi bạn trò chuyện và viết.",
     "session": "Phiên trò chuyện",
@@ -875,6 +881,7 @@
       "count": "{{count}} người · khoảng cách = số ngày kể từ lần nhắc tới",
       "needsAttention": "Cần để ý",
       "drifting": "Đang xa dần",
+      "talkedAboutMost": "Được nhắc tới nhiều nhất",
       "steady": "Ổn định",
       "selectHint": "Chọn một người trên bản đồ để xem điều Aura đã nhận ra về họ.",
       "healthSignal": "Tín hiệu mối quan hệ",

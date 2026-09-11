@@ -5,14 +5,20 @@ import { updateUserProfile, changePassword, uploadAvatar, completeOnboarding } f
 import CoreValuesCard from '../../components/CoreValuesCard/CoreValuesCard';
 import { useEntriesInfiniteQuery } from '../../queries/entriesQueryHook';
 import { useConversationsInfiniteQuery } from '../../queries/conversationsQueryHook';
+import { useUserStatsQuery } from '../../queries/userQueryHook';
 import { calculateDayStreak, getEmotionDistribution } from '../../utils/statsUtil';
+import { EMOTION_HEAVINESS, heavinessColorVar } from '../../utils/moodUtil';
+import type { Emotion } from '../../models/emotion';
 import ConfirmDialog from '../../components/ConfirmDialog/ConfirmDialog';
 import LanguageSwitcher from '../../components/LanguageSwitcher/LanguageSwitcher';
+import { Button } from '../../components/Button/Button';
 import { APP_ROUTES } from '../../constants/route';
 import SnackbarComponent from '../../components/Snackbar/Snackbar';
 import type { SnackbarType } from '../../components/Snackbar/Snackbar';
 import { useNavigate } from 'react-router-dom';
 import './ProfilePage.scss';
+
+const STATS_WINDOW_DAYS = 90;
 
 const ProfilePage: React.FC = () => {
     const { currentUser, logout, setCurrentUser } = useAuth();
@@ -44,15 +50,32 @@ const ProfilePage: React.FC = () => {
 
     const { data: entriesData } = useEntriesInfiniteQuery();
     const { data: conversationsData } = useConversationsInfiniteQuery();
+    const { data: stats } = useUserStatsQuery(STATS_WINDOW_DAYS);
 
     const entries = useMemo(() => entriesData?.pages.flatMap((p) => p.content) ?? [], [entriesData]);
     const entriesTotal = entriesData?.pages[0]?.total ?? 0;
     const conversationsTotal = conversationsData?.pages[0]?.total ?? 0;
 
-    const streak = useMemo(() => calculateDayStreak(entries), [entries]);
-    const emotionDist = useMemo(() => getEmotionDistribution(entries).filter((e) => e.count > 0), [entries]);
+    // GET /users/stats is the source of truth once it's loaded; calculateDayStreak/
+    // getEmotionDistribution (client-side, entries-only) are only an optimistic fallback while
+    // it's still in flight, so the tiles aren't empty on first paint.
+    const fallbackStreak = useMemo(() => calculateDayStreak(entries), [entries]);
+    const fallbackEmotionDist = useMemo(() => getEmotionDistribution(entries).filter((e) => e.count > 0), [entries]);
+
+    const streakCount = stats?.currentStreakDays ?? fallbackStreak.count;
+    const topMoodEmotion = stats?.mostFrequentEmotion ?? fallbackEmotionDist[0]?.emotion ?? null;
+    const talksCount = stats?.talksCount ?? conversationsTotal;
+    const totalEntries = stats?.entriesCount ?? entriesTotal;
+    const emotionsWindowDays = stats?.emotionsWindowDays ?? STATS_WINDOW_DAYS;
+
+    const emotionDist = useMemo(
+        () =>
+            stats
+                ? stats.emotionDistribution.filter((e) => e.count > 0)
+                : fallbackEmotionDist.map((e) => ({ emotion: e.emotion, count: e.count })),
+        [stats, fallbackEmotionDist],
+    );
     const maxEmotionCount = useMemo(() => Math.max(...emotionDist.map((e) => e.count), 1), [emotionDist]);
-    const topMood = emotionDist[0] ?? null;
 
     const handleLogout = async () => {
         setLogoutDialogOpen(false);
@@ -159,7 +182,11 @@ const ProfilePage: React.FC = () => {
     return (
         <div className="you-page">
             <div className="you-page__header">
-                <button type="button" className="you-page__avatar" onClick={handleAvatarClick}>
+                <button
+                    type="button"
+                    className={`you-page__avatar ${currentUser.pictureUrl ? '' : 'you-page__avatar--fallback'}`}
+                    onClick={handleAvatarClick}
+                >
                     {currentUser.pictureUrl ? (
                         <img src={currentUser.pictureUrl} alt={currentUser.fullName} referrerPolicy="no-referrer" />
                     ) : (
@@ -195,19 +222,19 @@ const ProfilePage: React.FC = () => {
                 <div className="you-page__stat">
                     <div className="you-page__stat-label">{t('profilePage.stats.dayStreak')}</div>
                     <div className="you-page__stat-value">
-                        {streak.count}<span>{t('profilePage.stats.days')}</span>
+                        {streakCount}<span>{t('profilePage.stats.days')}</span>
                     </div>
                 </div>
                 <div className="you-page__stat">
                     <div className="you-page__stat-label">{t('profilePage.stats.topMood')}</div>
                     <div className="you-page__stat-value you-page__stat-value--accent">
-                        {topMood ? t(`emotion.${topMood.emotion}`) : '—'}
+                        {topMoodEmotion ? t(`emotion.${topMoodEmotion}`) : '—'}
                     </div>
                 </div>
                 <div className="you-page__stat">
                     <div className="you-page__stat-label">{t('profilePage.stats.sessionsEntries')}</div>
                     <div className="you-page__stat-value">
-                        {conversationsTotal}<span> · </span>{entriesTotal}
+                        {talksCount}<span> · </span>{totalEntries}
                     </div>
                 </div>
             </div>
@@ -215,7 +242,9 @@ const ProfilePage: React.FC = () => {
             <div className="you-page__body">
                 <div className="you-page__main">
                     <div className="you-page__section">
-                        <div className="you-page__section-label">{t('profilePage.emotionOverview.title')}</div>
+                        <div className="you-page__section-label">
+                            {t('profilePage.emotionOverview.titleWithDays', { days: emotionsWindowDays })}
+                        </div>
                         {emotionDist.length === 0 ? (
                             <p className="you-page__empty-inline">{t('profilePage.emotionOverview.empty')}</p>
                         ) : (
@@ -226,7 +255,10 @@ const ProfilePage: React.FC = () => {
                                         <span className="you-page__emotion-track">
                                             <span
                                                 className="you-page__emotion-fill"
-                                                style={{ width: `${(item.count / maxEmotionCount) * 100}%` }}
+                                                style={{
+                                                    width: `${(item.count / maxEmotionCount) * 100}%`,
+                                                    background: heavinessColorVar(EMOTION_HEAVINESS[item.emotion as Emotion]),
+                                                }}
                                             />
                                         </span>
                                         <span className="you-page__emotion-count">{item.count}</span>
@@ -279,9 +311,9 @@ const ProfilePage: React.FC = () => {
                             <span className="tag tag-neutral">{t('profilePage.settings.soon')}</span>
                         </div>
                         <div className="you-page__signout">
-                            <button type="button" className="btn btn-secondary btn-block you-page__signout-btn" onClick={() => setLogoutDialogOpen(true)}>
+                            <Button variant="danger" className="btn-block you-page__signout-btn" onClick={() => setLogoutDialogOpen(true)}>
                                 {t('profilePage.logout')}
-                            </button>
+                            </Button>
                         </div>
                     </div>
                 </div>
