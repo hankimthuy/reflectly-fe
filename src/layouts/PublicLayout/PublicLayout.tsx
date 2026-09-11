@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { APP_ROUTES } from '../../constants/route';
 import { useAuth } from '../../providers/AuthProvider';
 import { ButtonLink } from '../../components/Button/Button';
+import AuraMark from '../../components/AuraMark/AuraMark';
 import './PublicLayout.scss';
 
 interface PublicLayoutProps {
@@ -22,10 +23,10 @@ const PublicLayout = ({ children }: PublicLayoutProps) => {
     return (
         <div className="public-layout">
             <header className="public-layout__header">
-                <div className="public-layout__brand">
-                    <Link to={APP_ROUTES.WELCOME} className="public-layout__wordmark">{t('brand.name')}</Link>
-                    <span className="public-layout__tagline">{t('brand.tagline')}</span>
-                </div>
+                <Link to={APP_ROUTES.WELCOME} className="public-layout__brand">
+                    <AuraMark size="sm" />
+                    <span className="public-layout__wordmark">{t('brand.name')}</span>
+                </Link>
                 <div className="public-layout__actions">
                     {currentUser ? (
                         <ButtonLink to={APP_ROUTES.HOME} variant="primary">{t('publicLayout.goToToday')}</ButtonLink>

@@ -107,7 +107,6 @@ const OnboardingPage = () => {
           <span className="onboard__progress-seg onboard__progress-seg--filled" />
           <span className={`onboard__progress-seg ${step === 2 ? 'onboard__progress-seg--filled' : ''}`} />
         </div>
-        <div className="onboard__step">{t('onboarding.step', { current: step })}</div>
         <h2 className="onboard__title">{step === 1 ? t('onboarding.step1Title') : t('onboarding.step2Title')}</h2>
         <p className="onboard__subtitle">{step === 1 ? t('onboarding.step1Subtitle') : t('onboarding.step2Subtitle')}</p>
       </div>

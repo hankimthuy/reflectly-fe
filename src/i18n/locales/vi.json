@@ -1,6 +1,5 @@
 {
   "onboarding": {
-    "step": "Bước {{current}}/2",
     "step1Title": "Điều gì bạn sẽ không đánh đổi?",
     "step1Subtitle": "Chọn ba hoặc bốn điều.",
     "step2Title": "Ai đang ở trong tâm trí bạn?",
@@ -80,7 +79,6 @@
   },
   "brand": {
     "name": "AURA",
-    "tagline": "Bạn đồng hành tư duy",
     "welcome": "Chào mừng trở lại."
   },
   "nav": {
@@ -354,9 +352,6 @@
     "greetingMorning": "Chào buổi sáng, {{name}}.",
     "greetingAfternoon": "Chào buổi chiều, {{name}}.",
     "greetingEvening": "Chào buổi tối, {{name}}.",
-    "subtitleStreak": "Bạn đã duy trì {{count}} ngày liên tiếp.",
-    "subtitleNone": "Hôm nay là một trang trắng — cũng không sao.",
-    "openerLabel": "Gợi ý hôm nay",
     "openers": [
       "Điều gì bạn đã tránh không nói ra trong tuần này?",
       "Ai xuất hiện trong đầu bạn hôm nay mà bạn không cố ý nghĩ tới?",
@@ -377,8 +372,6 @@
     },
     "pickBackUp": "Tiếp tục từ đây",
     "emptyPickBackUp": "Chưa có gì — mục này sẽ đầy dần khi bạn trò chuyện và viết.",
-    "session": "Phiên trò chuyện",
-    "entry": "Nhật ký",
     "needsAttention": "Đã lâu không thấy",
     "daysSince_one": "{{count}} ngày",
     "daysSince_other": "{{count}} ngày",
@@ -387,7 +380,6 @@
     "newEntry": "Viết nhật ký mới"
   },
   "talk": {
-    "you": "Bạn",
     "thinking": "Aura đang suy nghĩ",
     "catchThis": "Giữ lại câu này",
     "catchShortcut": "⌘K để giữ lại một câu",
@@ -401,10 +393,6 @@
     "noteHint": "Ghi lại theo cách của riêng bạn — không cần khuôn mẫu.",
     "saveToMirror": "Lưu vào tấm gương",
     "readingLabel": "Đang đọc",
-    "heavy": "Nặng nề",
-    "light": "Nhẹ nhàng",
-    "openedAt": "bắt đầu ở mức {{emotion}} · {{minutes}} phút trước",
-    "minutesElapsed": "đã {{minutes}} phút",
     "moodBuckets": {
       "heavy": "nặng nề · có nhiều điều đang diễn ra",
       "charged": "căng thẳng · đang kìm lại điều gì đó",
@@ -461,68 +449,27 @@
       "cta": "Bắt đầu trò chuyện",
       "ctaLoggedIn": "Vào Hôm nay",
       "note": "Miễn phí · riêng tư · xóa bất cứ lúc nào",
-      "photoCaption": "ảnh — một người, ánh sáng cửa sổ, đen trắng",
-      "openerLabel": "Aura · một câu mở đầu thật",
-      "openerQuote": "\"Bạn đã kể về công việc đó ba lần mà chưa từng nói bạn thích điều gì ở nó.\""
+      "previewAura": "Tuần này bạn nhắc tới Minh hai lần. Điều gì bạn vẫn chưa nói với anh ấy?",
+      "previewUser": "Anh ấy trình bày phần việc của tôi như của mình, còn tôi thì im lặng.",
+      "previewMood": "căng thẳng"
     },
     "functions": {
-      "label": "Sáu điều Aura làm",
       "talk": {
-        "kicker": "01 · Trò chuyện",
-        "title": "Một cuộc trò chuyện, không phải kịch bản",
+        "title": "Trò chuyện",
         "body": "Aura đọc được tâm trạng bạn đang viết ra, và nói cho bạn biết."
       },
       "catch": {
-        "kicker": "02 · Giữ lại",
-        "title": "Giữ lại câu nói chạm đến bạn",
+        "title": "Giữ lại",
         "body": "Giữ lại câu nói chạm đến bạn. Nó sẽ trở thành một mẫu hình.",
         "example": "Tôi im lặng ở những nơi tôi có nhiều thứ để mất nhất."
       },
       "mirror": {
-        "kicker": "03 · Tấm gương của bạn",
-        "title": "Bốn góc nhìn về chính mình",
+        "title": "Tấm gương của bạn",
         "body": "Cởi mở, điểm mù, giữ kín, chưa rõ — luôn được cập nhật."
       },
       "people": {
-        "kicker": "04 · Những người trong đó",
-        "title": "Bạn hay nhắc tới ai",
-        "body": "Bạn hay nhắc tới ai — và ai đã âm thầm im lặng.",
-        "example": "Ba — 31 ngày chưa được nhắc tới"
-      },
-      "timeline": {
-        "kicker": "05 · Dòng thời gian",
-        "title": "Một bản ghi, không phải cảm giác",
-        "body": "Mỗi điều nhận ra đều giữ ngày tháng, phân loại và mức năng lượng hôm đó — để các khuôn mẫu tự hiện ra."
-      },
-      "values": {
-        "kicker": "06 · Giá trị của bạn",
-        "title": "Điều bạn sẽ không đánh đổi",
-        "body": "Chọn từ mười hai giá trị. Aura dùng chúng để nhận ra khi bạn đang tự thuyết phục mình từ bỏ điều quan trọng."
-      }
-    },
-    "why": {
-      "label": "Vì sao nó hiệu quả",
-      "title": "Dẫn dắt chính mình đến trước khi dẫn dắt bất kỳ ai khác.",
-      "subtitle": "Mỗi tính năng trên thuộc về một lớp trong mô hình đó. Không gì trong Aura tồn tại chỉ vì nó trình diễn đẹp.",
-      "layer0": {
-        "kicker": "Lớp 0 · Nền tảng",
-        "title": "Giá trị của bạn",
-        "body": "Nền tảng để bạn đánh giá mọi thứ khác."
-      },
-      "layer1": {
-        "kicker": "Lớp 1 · Thế giới nội tâm",
-        "title": "Trò chuyện · Tấm gương",
-        "body": "Gọi tên điều đang diễn ra bên trong, bằng chính lời của bạn."
-      },
-      "layer3": {
-        "kicker": "Lớp 3 · Cầu nối",
         "title": "Những người trong đó",
-        "body": "Nơi bên trong bạn gặp gỡ mọi người bạn phải đối diện."
-      },
-      "layer5": {
-        "kicker": "Lớp 5 · Thấu hiểu & Trưởng thành",
-        "title": "Giữ lại · Dòng thời gian",
-        "body": "Những gì bạn giữ lại, và chúng cộng lại thành điều gì sau nhiều tháng."
+        "body": "Bạn hay nhắc tới ai — và ai đã âm thầm im lặng."
       }
     },
     "closing": {

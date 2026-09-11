@@ -10,6 +10,7 @@ import { APP_ROUTES } from '../../constants/route';
 import { firstNonEmptyPayloadField } from '../../utils/textUtil';
 import Loading from '../../components/Loading/Loading';
 import './CoachHistoryPage.scss';
+import AuraMark from '../../components/AuraMark/AuraMark';
 
 const SNIPPET_FIELDS: Record<string, string[]> = {
   FREEFORM: ['content'],
@@ -80,8 +81,11 @@ const CoachHistoryDetailPage = () => {
         <>
           {conversation.summary && (
             <div className="session-detail__summary">
-              <div className="session-detail__section-label">{t('sessions.whatAuraWrote')}</div>
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>{conversation.summary}</ReactMarkdown>
+              <AuraMark />
+              <div className="session-detail__summary-body">
+                <div className="session-detail__section-label">{t('sessions.whatAuraWrote')}</div>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{conversation.summary}</ReactMarkdown>
+              </div>
             </div>
           )}
 

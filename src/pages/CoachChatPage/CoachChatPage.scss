@@ -32,57 +32,53 @@
 
 // — Mood ribbon —
 .talk__ribbon {
-  border-bottom: 1px solid var(--color-divider);
-  background: var(--color-neutral-100);
-  padding: 14px 20px 15px;
-
-  @include laptop-up { padding: 14px 30px 15px; }
-}
-
-.talk__ribbon-top {
   display: flex;
-  align-items: baseline;
-  gap: 10px;
-  margin-bottom: 8px;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--color-divider);
+  background: var(--color-surface);
+  padding: 13px 20px;
+
+  @include laptop-up { gap: 16px; padding: 16px 28px; }
 }
 
 .talk__reading-label {
-  font: 400 9.5px var(--font-body);
+  flex: none;
+  font: 500 10.5px var(--font-body);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-neutral-600);
-  margin-right: 8px;
+  color: var(--color-slate);
 }
 
 .talk__reading-value {
-  font: 600 13.5px var(--font-body);
-  color: var(--color-accent-700);
+  flex: none;
+  font: 500 13px var(--font-body);
+  color: var(--color-indigo);
+
+  @include laptop-up { font-size: 14.5px; }
 }
 
 .talk__ribbon-track {
   position: relative;
+  flex: 1;
+  min-width: 0;
   height: 10px;
   border-radius: var(--radius-pill);
-  overflow: hidden;
   background: var(--gradient-mood);
 }
 
+// A paper bead ringed in the mood's own colour — the ring carries the signal the old solid bar
+// did, while the shape matches artboard 5d.
 .talk__ribbon-marker {
   position: absolute;
-  top: -3px;
-  bottom: -3px;
-  width: 4px;
-  border-radius: var(--radius-pill);
-  background: var(--color-text);
-  transition: left 0.6s ease-in-out;
-}
-
-.talk__ribbon-scale {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 6px;
-  font: 400 10px var(--font-body);
-  color: var(--color-neutral-600);
+  top: -5px;
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  border-radius: 50%;
+  background: var(--color-paper);
+  border: 3px solid var(--color-ink);
+  transition: left 0.6s ease-in-out, border-color 0.6s ease-in-out;
 }
 
 // — Body: conversation + catch —

@@ -27,7 +27,6 @@ const CoachChatPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [conversationId, setConversationId] = useState<string | null>(null);
-  const [startedAt, setStartedAt] = useState<string | null>(null);
   const [isStarting, setIsStarting] = useState(true);
   const [messages, setMessages] = useState<ConversationMessage[]>([]);
   const [startError, setStartError] = useState<string | null>(null);
@@ -59,7 +58,6 @@ const CoachChatPage = () => {
           const existing = await conversationsService.getConversation(storedId);
           if (existing.status === 'ACTIVE') {
             setConversationId(existing.id);
-            setStartedAt(existing.startedAt);
             setMessages(existing.messages);
             return;
           }
@@ -73,7 +71,6 @@ const CoachChatPage = () => {
         const conversation = await conversationsService.startConversation();
         localStorage.setItem(ACTIVE_CONVERSATION_KEY, conversation.id);
         setConversationId(conversation.id);
-        setStartedAt(conversation.startedAt);
       } catch (error) {
         const status = (error as { response?: { status?: number } })?.response?.status;
         const serverMessage = (error as { response?: { data?: { message?: string } } })?.response?.data?.message;
@@ -164,7 +161,6 @@ const CoachChatPage = () => {
 
   const mood = useLiveMoodRead(messages);
   const bucket = moodBucket(mood.heaviness);
-  const elapsedMinutes = startedAt ? Math.max(0, Math.round((Date.now() - new Date(startedAt).getTime()) / 60000)) : 0;
 
   const recentList = useMemo(
     () =>
@@ -202,30 +198,19 @@ const CoachChatPage = () => {
 
   return (
     <div className="talk">
+      {/* One row: what Aura is reading, where it sits, what it is called. Aura Soft v2 dropped the
+          heavy/light scale beneath it — the gradient already says which end is which. */}
       <div className="talk__ribbon">
-        <div className="talk__ribbon-top">
-          <div className="talk__reading">
-            <span className="talk__reading-label">{t('talk.readingLabel')}</span>
-            <span className="talk__reading-value">{t(`talk.moodBuckets.${bucket}`)}</span>
-          </div>
-        </div>
+        <span className="talk__reading-label">{t('talk.readingLabel')}</span>
         <div className="talk__ribbon-track">
           {/* --gradient-mood runs heavy (ink, left) → light (cyan, right) — the marker's left
               offset has to travel the same direction, so it's the inverse of heaviness. */}
           <div
             className="talk__ribbon-marker"
-            style={{ left: `${(1 - mood.heaviness) * 100}%`, background: heavinessColorVar(mood.heaviness) }}
+            style={{ left: `${(1 - mood.heaviness) * 100}%`, borderColor: heavinessColorVar(mood.heaviness) }}
           />
         </div>
-        <div className="talk__ribbon-scale">
-          <span>{t('talk.heavy')}</span>
-          <span>
-            {mood.openedAt
-              ? t('talk.openedAt', { emotion: t(`emotion.${mood.openedAt}`), minutes: elapsedMinutes })
-              : t('talk.minutesElapsed', { minutes: elapsedMinutes })}
-          </span>
-          <span>{t('talk.light')}</span>
-        </div>
+        <span className="talk__reading-value">{t(`talk.moodBuckets.${bucket}`)}</span>
       </div>
 
       <div className="talk__body">

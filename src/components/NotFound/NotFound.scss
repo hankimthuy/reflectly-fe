@@ -7,14 +7,35 @@
   padding: 20px;
 }
 
+.not-found-page__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .not-found-page__wordmark {
-  font: 600 15px var(--font-heading);
-  letter-spacing: -0.02em;
+  font: 600 18px var(--font-heading);
+  letter-spacing: -0.01em;
 }
 
 .not-found-page__body {
   margin-top: auto;
   max-width: 420px;
+
+  @media (min-width: 640px) {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    max-width: 640px;
+  }
+}
+
+.not-found-page__body .btn {
+  flex: none;
+  margin-top: 20px;
+
+  @media (min-width: 640px) { margin-top: 0; }
 }
 
 .not-found-page__code {

@@ -3,6 +3,7 @@ import remarkGfm from 'remark-gfm';
 import type { Components } from 'react-markdown';
 import { useTranslation } from 'react-i18next';
 import type { ConversationMessage } from '../../models/conversation';
+import AuraMark from '../AuraMark/AuraMark';
 
 interface ChatBubbleProps {
   message: ConversationMessage;
@@ -32,32 +33,39 @@ const MARKDOWN_COMPONENTS: Components = {
   h3: ({ children }) => <p className="mb-2 font-semibold last:mb-0">{children}</p>,
 };
 
-/** One turn of the conversation, labeled flush-left above the bubble (Modernist keeps the label
- * outside the bubble rather than an avatar beside it — see mockup 1b). Aura's replies render in
- * the heading typeface, matching the "a real opener" treatment used everywhere else Aura speaks
- * (Today's opener, the landing page). */
+/** One turn of the conversation. Aura Soft v2 gave Aura a face: its replies sit beside the brand
+ * mark (artboard 5d) instead of under the flush-left "AURA" label Modernist and Hearth used, and
+ * the person's own turns need no label at all — a right-aligned ink bubble already says who is
+ * speaking. Aura's replies render in the heading typeface, matching every other place Aura
+ * speaks (Today's opener, the landing preview). */
 const ChatBubble = ({ message, onCatch }: ChatBubbleProps) => {
   const { t } = useTranslation();
   const isUser = message.role === 'USER';
   const isOptimistic = message.id.startsWith('optimistic-');
 
-  return (
-    <div className={`chat-bubble-row ${isUser ? 'chat-bubble-row--user' : ''}`}>
-      <div className="chat-bubble-label">{isUser ? t('talk.you') : t('brand.name')}</div>
-      {isUser ? (
+  if (isUser) {
+    return (
+      <div className="chat-bubble-row chat-bubble-row--user">
         <div className="chat-bubble chat-bubble--user">{message.content}</div>
-      ) : (
+      </div>
+    );
+  }
+
+  return (
+    <div className="chat-bubble-row">
+      <AuraMark />
+      <div className="chat-bubble-stack">
         <div className="chat-bubble chat-bubble--aura">
           <ReactMarkdown remarkPlugins={[remarkGfm]} components={MARKDOWN_COMPONENTS}>
             {message.content}
           </ReactMarkdown>
         </div>
-      )}
-      {onCatch && !isOptimistic && (
-        <button type="button" className="chat-bubble-catch" onClick={() => onCatch(message.content)}>
-          {t('talk.catchThis')}
-        </button>
-      )}
+        {onCatch && !isOptimistic && (
+          <button type="button" className="chat-bubble-catch" onClick={() => onCatch(message.content)}>
+            {t('talk.catchThis')}
+          </button>
+        )}
+      </div>
     </div>
   );
 };

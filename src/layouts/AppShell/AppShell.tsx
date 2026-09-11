@@ -2,6 +2,7 @@ import { useMemo, useState, type ReactNode } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { APP_ROUTES } from '../../constants/route';
+import AuraMark from '../../components/AuraMark/AuraMark';
 import { useAuth } from '../../providers/AuthProvider';
 import PageTransition from '../../components/PageTransition/PageTransition';
 import { AppShellContext } from './AppShellContext';
@@ -49,8 +50,8 @@ const AppShell = ({ children }: AppShellProps) => {
             <div className="app-shell">
                 <aside className="app-shell__sidebar">
                     <div className="app-shell__brand">
+                        <AuraMark size="sm" />
                         <div className="app-shell__wordmark">{t('brand.name')}</div>
-                        <div className="app-shell__tagline">{t('brand.tagline')}</div>
                     </div>
                     <nav className="app-shell__nav">
                         {navItems.map((item) => {

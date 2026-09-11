@@ -1,6 +1,5 @@
 {
   "onboarding": {
-    "step": "Step {{current}}/2",
     "step1Title": "What will you not trade away?",
     "step1Subtitle": "Pick three or four.",
     "step2Title": "Who is in the room with you?",
@@ -80,7 +79,6 @@
   },
   "brand": {
     "name": "AURA",
-    "tagline": "Thinking partner",
     "welcome": "Welcome back."
   },
   "nav": {
@@ -354,9 +352,6 @@
     "greetingMorning": "Morning, {{name}}.",
     "greetingAfternoon": "Afternoon, {{name}}.",
     "greetingEvening": "Evening, {{name}}.",
-    "subtitleStreak": "You've shown up {{count}} days running.",
-    "subtitleNone": "A blank page today — that’s fine too.",
-    "openerLabel": "Today's opener",
     "openers": [
       "What have you been avoiding saying out loud this week?",
       "Who came up in your head today without you meaning them to?",
@@ -377,8 +372,6 @@
     },
     "pickBackUp": "Pick back up",
     "emptyPickBackUp": "Nothing yet — this fills in as you talk and write.",
-    "session": "Session",
-    "entry": "Entry",
     "needsAttention": "Gone quiet",
     "daysSince_one": "{{count}} day",
     "daysSince_other": "{{count}} days",
@@ -387,7 +380,6 @@
     "newEntry": "New entry"
   },
   "talk": {
-    "you": "You",
     "thinking": "Aura is thinking",
     "catchThis": "Catch this",
     "catchShortcut": "⌘K to catch a line",
@@ -401,10 +393,6 @@
     "noteHint": "Write it down your own way — no framework needed.",
     "saveToMirror": "Save to mirror",
     "readingLabel": "Reading",
-    "heavy": "Heavy",
-    "light": "Light",
-    "openedAt": "opened at {{emotion}} · {{minutes}} min ago",
-    "minutesElapsed": "{{minutes}} min in",
     "moodBuckets": {
       "heavy": "heavy · a lot is here",
       "charged": "tense · holding back",
@@ -461,68 +449,27 @@
       "cta": "Start a conversation",
       "ctaLoggedIn": "Go to Today",
       "note": "Free · private · delete any time",
-      "photoCaption": "photograph — one person, window light, b/w",
-      "openerLabel": "Aura · a real opener",
-      "openerQuote": "\"You have described that job three times without once saying what you like about it.\""
+      "previewAura": "You mentioned Minh twice this week. What have you not said to him?",
+      "previewUser": "He presented my work as his and I said nothing.",
+      "previewMood": "tense"
     },
     "functions": {
-      "label": "Six things it does",
       "talk": {
-        "kicker": "01 · Talk",
-        "title": "A conversation, not a script",
+        "title": "Talk",
         "body": "It reads the mood you write in, and says so."
       },
       "catch": {
-        "kicker": "02 · Catch",
-        "title": "Keep the sentence that lands",
+        "title": "Catch",
         "body": "Keep the sentence that lands. It becomes a pattern.",
         "example": "I stay quiet in rooms where I have the most to lose."
       },
       "mirror": {
-        "kicker": "03 · Your mirror",
-        "title": "Four views of yourself",
+        "title": "Your mirror",
         "body": "Open, blind, hidden, unknown — kept live."
       },
       "people": {
-        "kicker": "04 · The people in it",
-        "title": "Who you keep talking about",
-        "body": "Who you keep naming — and who went quiet.",
-        "example": "Ba — 31 days since he came up"
-      },
-      "timeline": {
-        "kicker": "05 · Insight timeline",
-        "title": "A log, not a feeling",
-        "body": "Every noticing keeps its date, its category and the energy you had that day — so patterns show up on their own."
-      },
-      "values": {
-        "kicker": "06 · Your values",
-        "title": "What you will not trade away",
-        "body": "Choose from twelve. Aura uses them to notice when you are talking yourself out of something that matters."
-      }
-    },
-    "why": {
-      "label": "Why it works",
-      "title": "Leading yourself comes before leading anyone else.",
-      "subtitle": "Every feature above belongs to one layer of that model. Nothing in Aura exists because it demoed well.",
-      "layer0": {
-        "kicker": "Layer 0 · Foundation",
-        "title": "Your values",
-        "body": "The ground you judge everything else against."
-      },
-      "layer1": {
-        "kicker": "Layer 1 · Innerverse",
-        "title": "Talk · Mirror",
-        "body": "Naming what is happening inside, in your own words."
-      },
-      "layer3": {
-        "kicker": "Layer 3 · Bridge",
         "title": "The people in it",
-        "body": "Where the inside meets everyone you have to deal with."
-      },
-      "layer5": {
-        "kicker": "Layer 5 · Insight & Growth",
-        "title": "Catch · Timeline",
-        "body": "What you keep, and what it adds up to over months."
+        "body": "Who you keep naming — and who went quiet."
       }
     },
     "closing": {

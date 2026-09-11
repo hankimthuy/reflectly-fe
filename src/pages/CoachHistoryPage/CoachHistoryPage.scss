@@ -159,12 +159,21 @@
   margin-bottom: 10px;
 }
 
+// Aura's read of the session is the one place on this page Aura speaks, so it leads with the
+// mark the same way its replies do (artboard 6f).
 .session-detail__summary {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
   padding: 18px 20px 0;
 
   @include laptop-up { padding: 20px 30px 0; }
 
   p { font-size: 15px; line-height: 1.6; }
+}
+
+.session-detail__summary-body {
+  min-width: 0;
 }
 
 .session-detail__transcript {

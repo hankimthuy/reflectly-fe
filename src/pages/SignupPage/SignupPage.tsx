@@ -8,6 +8,7 @@ import axios from 'axios';
 import { APP_ROUTES } from '../../constants/route';
 import { useAuth } from '../../providers/AuthProvider';
 import '../LoginPage/LoginPage.scss';
+import AuraMark from '../../components/AuraMark/AuraMark';
 
 /** See mockup 3b's second card — same auth-page shell as LoginPage, fields-then-Google order
  * (the opposite of Login's Google-first). Keeps the confirm-password field the mockup itself
@@ -87,7 +88,10 @@ const SignupPage = () => {
 
     return (
         <main className="auth-page">
-            <div className="auth-page__wordmark">{t('brand.name')}</div>
+            <div className="auth-page__brand">
+                <AuraMark size="sm" />
+                <span className="auth-page__wordmark">{t('brand.name')}</span>
+            </div>
 
             <div className="auth-page__form">
                 <h2 className="auth-page__title">{t('auth.signupTitle')}</h2>
