@@ -76,7 +76,7 @@ const CoreValuesCard = ({ coreValues, onSave, autoEdit = false, className = '' }
                   key={key}
                   type="button"
                   onClick={() => toggleValue(key)}
-                  className={`tag ${selected ? 'tag-accent' : 'tag-outline'} core-values-card__tag-btn`}
+                  className={`tag ${selected ? 'tag-accent' : ''} core-values-card__tag-btn`}
                 >
                   {t(`onboarding.value.${key}`)}
                 </button>

@@ -122,7 +122,7 @@ const OnboardingPage = () => {
                   key={key}
                   type="button"
                   onClick={() => toggleValue(key)}
-                  className={`tag ${selected ? 'tag-accent' : 'tag-outline'} onboard__tag-btn`}
+                  className={`tag ${selected ? 'tag-accent' : ''} onboard__tag-btn`}
                 >
                   {t(`onboarding.value.${key}`)}
                 </button>
