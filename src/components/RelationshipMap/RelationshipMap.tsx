@@ -16,13 +16,44 @@ const RADIUS = 140;
 const NODE_W = 76;
 const NODE_H = 32;
 
-/** Needs attention (low health) → accent; drifting (mid) → accent-300; steady (high) → the
- * ground itself, bordered. Three flat fills, not a continuous gradient — matches the legend in
- * mockup 1c rather than a health "meter". */
-const nodeFill = (signal: number): string => {
-  if (signal < 0.35) return 'var(--color-accent)';
-  if (signal < 0.7) return 'var(--color-accent-300)';
-  return 'var(--color-bg)';
+/**
+ * Four flat fills, not a continuous gradient — a legend, not a health "meter".
+ *
+ * The two states that want something from you are clay: Aura Soft reserves indigo/accent for
+ * "primary action" and clay for "needs attention", so a relationship that needs you must never
+ * reuse the CTA color. Above the health threshold the old single "healthy" bucket splits in two
+ * on `daysSinceLastMention` — someone you've brought up in the last few days reads as "talked
+ * about most" (periwinkle-light) rather than sitting in the same bucket as someone who is simply
+ * fine and quiet ("steady", a mist fill with a hairline so it still reads as a node).
+ */
+const RECENTLY_MENTIONED_DAYS = 3;
+
+type NodeBucket = 'needsAttention' | 'drifting' | 'talkedAboutMost' | 'steady';
+
+interface NodeStyle {
+  fill: string;
+  stroke: string;
+  /** Node labels sit directly on the fill, so this tracks the fill rather than being derived
+   * from it — clay is dark enough to need a light label, the other three take ink. */
+  text: string;
+}
+
+const BUCKET_STYLES: Record<NodeBucket, NodeStyle> = {
+  needsAttention: { fill: 'var(--color-clay)', stroke: 'var(--color-clay)', text: 'var(--color-paper)' },
+  drifting: { fill: 'var(--color-clay-light)', stroke: 'var(--color-clay-light)', text: 'var(--color-ink)' },
+  talkedAboutMost: { fill: 'var(--color-periwinkle-light)', stroke: 'var(--color-periwinkle-light)', text: 'var(--color-ink)' },
+  steady: { fill: 'var(--color-mist)', stroke: 'var(--color-divider)', text: 'var(--color-ink)' },
+};
+
+/** The legend, in the order the buckets are explained. */
+const LEGEND_BUCKETS: NodeBucket[] = ['needsAttention', 'drifting', 'talkedAboutMost', 'steady'];
+
+const nodeBucket = (person: Person): NodeBucket => {
+  if (person.healthSignal < 0.35) return 'needsAttention';
+  if (person.healthSignal < 0.7) return 'drifting';
+  const days = person.daysSinceLastMention;
+  if (days != null && days <= RECENTLY_MENTIONED_DAYS) return 'talkedAboutMost';
+  return 'steady';
 };
 
 const RelationshipMap = ({ people, emptyLabel, selectedId, onSelect }: RelationshipMapProps) => {
@@ -45,18 +76,17 @@ const RelationshipMap = ({ people, emptyLabel, selectedId, onSelect }: Relations
     <div className="relationship-map">
       <svg viewBox={`0 0 ${SIZE} ${SIZE}`} className="relationship-map__svg">
         {nodes.map(({ person, x, y }) => (
-          <line key={`line-${person.id}`} x1={CENTER} y1={CENTER} x2={x} y2={y} stroke="var(--color-text)" strokeWidth={1.5} />
+          <line key={`line-${person.id}`} x1={CENTER} y1={CENTER} x2={x} y2={y} stroke="var(--color-divider)" strokeWidth={1.5} />
         ))}
 
         <circle cx={CENTER} cy={CENTER} r={30} fill="var(--color-text)" />
-        <text x={CENTER} y={CENTER + 5} textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={700} fontSize={14} fill="var(--color-bg)">
+        <text x={CENTER} y={CENTER + 5} textAnchor="middle" fontFamily="DM Sans, system-ui, sans-serif" fontWeight={700} fontSize={14} fill="var(--color-paper)">
           {t('dashboard.you')}
         </text>
 
         {nodes.map(({ person, x, y }) => {
           const active = person.id === selectedId;
-          const fill = nodeFill(person.healthSignal);
-          const textColor = fill === 'var(--color-accent)' ? 'var(--color-bg)' : 'var(--color-text)';
+          const { fill, stroke, text: textColor } = BUCKET_STYLES[nodeBucket(person)];
           return (
             <g
               key={person.id}
@@ -81,10 +111,10 @@ const RelationshipMap = ({ people, emptyLabel, selectedId, onSelect }: Relations
                 rx={NODE_H / 2}
                 ry={NODE_H / 2}
                 fill={fill}
-                stroke="var(--color-text)"
-                strokeWidth={active ? 2.5 : 1.5}
+                stroke={active ? 'var(--color-ink)' : stroke}
+                strokeWidth={active ? 2.5 : 1}
               />
-              <text x={x} y={y + 5} textAnchor="middle" fontFamily="Inter, sans-serif" fontWeight={600} fontSize={13} fill={textColor}>
+              <text x={x} y={y + 5} textAnchor="middle" fontFamily="DM Sans, system-ui, sans-serif" fontWeight={600} fontSize={13} fill={textColor}>
                 {person.name}
               </text>
             </g>
@@ -93,18 +123,12 @@ const RelationshipMap = ({ people, emptyLabel, selectedId, onSelect }: Relations
       </svg>
 
       <div className="relationship-map__legend">
-        <span className="relationship-map__legend-item">
-          <span className="relationship-map__legend-swatch" style={{ background: 'var(--color-accent)' }} />
-          {t('reflect.people.needsAttention')}
-        </span>
-        <span className="relationship-map__legend-item">
-          <span className="relationship-map__legend-swatch" style={{ background: 'var(--color-accent-300)' }} />
-          {t('reflect.people.drifting')}
-        </span>
-        <span className="relationship-map__legend-item">
-          <span className="relationship-map__legend-swatch" style={{ background: 'var(--color-bg)' }} />
-          {t('reflect.people.steady')}
-        </span>
+        {LEGEND_BUCKETS.map((bucket) => (
+          <span key={bucket} className="relationship-map__legend-item">
+            <span className="relationship-map__legend-swatch" style={{ background: BUCKET_STYLES[bucket].fill }} />
+            {t(`reflect.people.${bucket}`)}
+          </span>
+        ))}
       </div>
     </div>
   );

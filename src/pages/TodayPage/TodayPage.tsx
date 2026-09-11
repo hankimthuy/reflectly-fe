@@ -247,7 +247,7 @@ const TodayPage = () => {
                             <div className="today__attention-list">
                                 {needsAttention.map((person) => (
                                     <div key={person.id} className="today__attention-row">
-                                        <span className="today__attention-dot" style={{ background: person.healthSignal < 0.3 ? 'var(--color-accent)' : 'var(--color-accent-400)' }} />
+                                        <span className="today__attention-dot" style={{ background: person.healthSignal < 0.3 ? 'var(--color-clay)' : 'var(--color-clay-light)' }} />
                                         <span className="today__attention-name">{person.name}</span>
                                         <span className="today__attention-days">{t('today.daysSince', { count: person.daysSinceLastMention ?? 0 })}</span>
                                     </div>

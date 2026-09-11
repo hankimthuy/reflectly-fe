@@ -875,6 +875,7 @@
       "count": "{{count}} người · khoảng cách = số ngày kể từ lần nhắc tới",
       "needsAttention": "Cần để ý",
       "drifting": "Đang xa dần",
+      "talkedAboutMost": "Được nhắc tới nhiều nhất",
       "steady": "Ổn định",
       "selectHint": "Chọn một người trên bản đồ để xem điều Aura đã nhận ra về họ.",
       "healthSignal": "Tín hiệu mối quan hệ",

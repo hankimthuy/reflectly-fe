@@ -7,7 +7,7 @@ import MessageList from '../../components/Chat/MessageList';
 import { useConversationQuery } from '../../queries/conversationsQueryHook';
 import { useSavedFrameworkEntriesInfiniteQuery } from '../../queries/savedFrameworkEntriesQueryHook';
 import { APP_ROUTES } from '../../constants/route';
-import { readMoodFromText, EMOTION_HEAVINESS } from '../../utils/moodUtil';
+import { readMoodFromText } from '../../utils/moodUtil';
 import { firstNonEmptyPayloadField } from '../../utils/textUtil';
 import Loading from '../../components/Loading/Loading';
 import './CoachHistoryPage.scss';
@@ -68,7 +68,7 @@ const CoachHistoryDetailPage = () => {
             <span className="session-detail__shift-open">{t(`emotion.${shift.opened}`)}</span>
             <span
               className="session-detail__shift-track"
-              style={{ background: `linear-gradient(to right, var(--color-accent-600), ${EMOTION_HEAVINESS[shift.closed] < 0.4 ? 'var(--color-pine-400)' : 'var(--color-neutral-400)'})` }}
+              style={{ background: 'var(--gradient-mood)' }}
             />
             <span className="session-detail__shift-close">{t(`emotion.${shift.closed}`)}</span>
           </div>

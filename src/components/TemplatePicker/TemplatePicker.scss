@@ -38,19 +38,19 @@
   text-align: left;
   border: 1px solid var(--color-divider);
   border-radius: var(--radius-md);
-  background: var(--color-bg);
+  background: var(--color-surface);
   padding: 14px 15px;
   cursor: pointer;
   font: inherit;
   color: var(--color-text);
-  transition: box-shadow .15s ease-in-out;
+  transition: box-shadow .15s ease-in-out, border-color .15s ease-in-out, background-color .15s ease-in-out;
 
-  &:hover { border-color: var(--color-text); box-shadow: var(--shadow-sm); }
+  &:hover { border-color: var(--color-periwinkle-light); box-shadow: var(--shadow-sm); }
 }
 
 .template-card.selected {
-  border-color: var(--color-text);
-  background: var(--color-neutral-100);
+  border-color: var(--color-indigo);
+  background: var(--color-mist);
 }
 
 .template-card__icon {

@@ -874,6 +874,7 @@
       "count": "{{count}} people · distance = days since mentioned",
       "needsAttention": "Needs attention",
       "drifting": "Drifting",
+      "talkedAboutMost": "Talked about most",
       "steady": "Steady",
       "selectHint": "Select someone on the map to see what Aura has noticed about them.",
       "healthSignal": "Health signal",

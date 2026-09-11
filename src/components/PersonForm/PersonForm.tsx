@@ -67,7 +67,7 @@ const PersonForm = ({ initialValue, onSubmit, onCancel, submitLabel }: PersonFor
         rows={2}
         className="input"
       />
-      {error && <p className="text-xs" style={{ color: 'var(--color-accent-700)' }}>{error}</p>}
+      {error && <p className="text-xs" style={{ color: 'var(--color-clay)' }}>{error}</p>}
       <div className="flex gap-2">
         <Button variant="primary" size="sm" onClick={handleSubmit} disabled={saving}>
           {saving ? t('onboarding.submitting') : submitLabel}

@@ -7,20 +7,21 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 export type ButtonShape = 'rounded' | 'pill';
 
 /**
- * The one shared button style for the whole app, built on the Modernist `.btn` classes
+ * The one shared button style for the whole app, built on the design system's `.btn` classes
  * (see src/styles/tailwind.css) instead of a hand-rolled className string — every clickable
  * action (CTA, form submit, icon-text button, nav-styled link) should render through this
  * component so it can never drift from the system.
  *
  * `shape` is kept for API compatibility with existing call sites but has no visual effect:
- * Modernist never rounds a corner (see the design system readme's "Don't"), so both shapes
- * render flat.
+ * Aura Soft renders every button as a pill, so both shapes come out the same.
  */
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary: 'btn-primary',
   secondary: 'btn-secondary',
   ghost: 'btn-ghost',
-  danger: 'btn-secondary !border-accent-400 !text-accent-700',
+  // Clay, not accent: Aura Soft reserves indigo/accent for "primary action" and clay for
+  // "needs attention", and a destructive action is the latter.
+  danger: 'btn-secondary !border-clay !text-clay',
 };
 
 const SIZE_CLASSES: Record<ButtonSize, string> = {
