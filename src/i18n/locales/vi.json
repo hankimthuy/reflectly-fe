@@ -67,7 +67,7 @@
     "freeformLabel": "Log tự do",
     "johariWindowLabel": "Cửa sổ Johari",
     "actMatrix": "ACT Matrix",
-    "personalSwot": "SWOT Cá Nhân",
+    "personalSwot": "SWOT cá nhân",
     "lifePositions": "Life Positions",
     "freeform": {
       "tagsPlaceholder": "Thẻ, cách nhau bởi dấu phẩy (không bắt buộc)",
@@ -179,8 +179,8 @@
     "title": "Góc tự chiêm nghiệm",
     "subtitle": "Ngay lúc này — bạn đang cảm thấy thế nào?",
     "emotionQuestion": "Cảm xúc này đang ở đâu?",
-    "emotionInstruction": "Chọn những gì cộng hưởng. Không có đáp án sai.",
-    "reflectionStep": "Nói Lên Sự Thật",
+    "emotionInstruction": "Chọn điều đúng với cảm giác của bạn. Không có đáp án sai.",
+    "reflectionStep": "Nói lên sự thật",
     "titlePlaceholder": "Đặt tên cho khoảnh khắc này",
     "reflectionPlaceholder": "Nói thẳng ra. Không ai chấm điểm điều này cả.",
     "save": "Xong",
@@ -266,7 +266,7 @@
   },
   "auth": {
     "loginTitle": "Đăng nhập",
-    "signupTitle": "Hai phút nữa, chúng ta sẽ trò chuyện.",
+    "signupTitle": "Chỉ mất hai phút, rồi chúng ta bắt đầu trò chuyện.",
     "fullName": "Họ và tên",
     "username": "Tên đăng nhập",
     "password": "Mật khẩu",
@@ -274,7 +274,7 @@
     "loginButton": "Đăng nhập",
     "signupButton": "Tạo tài khoản",
     "googleLogin": "Tiếp tục với Google",
-    "noAccount": "Mới đến lần đầu?",
+    "noAccount": "Lần đầu đến đây?",
     "hasAccount": "Đã có tài khoản?",
     "signupLink": "Tạo tài khoản",
     "loginLink": "Đăng nhập",
@@ -353,8 +353,8 @@
     "greetingAfternoon": "Chào buổi chiều, {{name}}.",
     "greetingEvening": "Chào buổi tối, {{name}}.",
     "openers": [
-      "Điều gì bạn đã tránh không nói ra trong tuần này?",
-      "Ai xuất hiện trong đầu bạn hôm nay mà bạn không cố ý nghĩ tới?",
+      "Điều gì bạn đã tránh nói ra trong tuần này?",
+      "Hôm nay ai bất chợt hiện lên trong đầu bạn, dù bạn không định nghĩ tới?",
       "Bạn đã đồng ý điều gì trong khi thực lòng muốn từ chối?",
       "Điều gì bạn cứ định nói ra rồi lại thôi?",
       "Lúc nào hôm nay bạn thấy giống chính mình nhất?",
@@ -425,7 +425,7 @@
       "whatAuraNoticed": "Điều Aura nhận ra"
     },
     "mirror": {
-      "empty": "Chưa có gì được giữ lại — trò chuyện với Aura và giữ lại một câu vào tấm gương của bạn.",
+      "empty": "Chưa có gì được giữ lại — trò chuyện với Aura và chọn một câu để đưa vào tấm gương của bạn.",
       "emptyCta": "Bắt đầu trò chuyện",
       "paneEmpty": "Chưa có gì ở đây."
     },
@@ -444,12 +444,12 @@
   },
   "landing": {
     "hero": {
-      "headline": "Nghĩ thành lời. Aura theo kịp.",
+      "headline": "Trò chuyện cùng Aura.",
       "body": "Aura hỏi tiếp câu tiếp theo, thay vì đưa ra câu trả lời.",
       "cta": "Bắt đầu trò chuyện",
       "ctaLoggedIn": "Vào Hôm nay",
       "note": "Miễn phí · riêng tư",
-      "previewAura": "Tuần này bạn nhắc tới Minh hai lần. Điều gì bạn vẫn chưa nói với anh ấy?",
+      "previewAura": "Tuần này bạn nhắc tới Trung hai lần. Điều gì bạn vẫn chưa nói với anh ấy?",
       "previewUser": "Anh ấy trình bày phần việc của tôi như của mình, còn tôi thì im lặng.",
       "previewMood": "căng thẳng"
     },
@@ -473,7 +473,7 @@
       }
     },
     "closing": {
-      "title": "Nói ra điều bạn vẫn cứ vòng vo.",
+      "title": "Nói ra điều bạn cứ né tránh.",
       "cta": "Bắt đầu miễn phí"
     },
     "footer": {
