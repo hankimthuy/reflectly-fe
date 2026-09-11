@@ -1,5 +1,5 @@
 import type { PaginatedResponse } from '../models/base';
-import type { Conversation, ConversationMessage } from '../models/conversation';
+import type { Conversation, SendMessageResponse } from '../models/conversation';
 import axiosInstance from './axiosSetup';
 
 export const conversationsService = {
@@ -24,8 +24,10 @@ export const conversationsService = {
     return data;
   },
 
-  async sendMessage(conversationId: string, content: string): Promise<ConversationMessage> {
-    const { data } = await axiosInstance.post<ConversationMessage>(
+  /** Returns both the just-sent user message and Aura's reply, each already carrying its own
+   * backend-scored moodEmotion/moodScore — see models/conversation.ts's SendMessageResponse. */
+  async sendMessage(conversationId: string, content: string): Promise<SendMessageResponse> {
+    const { data } = await axiosInstance.post<SendMessageResponse>(
       `/conversations/${conversationId}/messages`,
       { content },
     );

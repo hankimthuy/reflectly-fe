@@ -64,7 +64,7 @@
   height: 10px;
   border-radius: var(--radius-pill);
   overflow: hidden;
-  background: linear-gradient(to right, var(--color-accent-600), var(--color-accent-300) 40%, var(--color-pine-300) 75%, var(--color-pine-400));
+  background: var(--gradient-mood);
 }
 
 .talk__ribbon-marker {

@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import type { ConversationMessage } from '../models/conversation';
+import type { Emotion } from '../models/emotion';
 import { EMOTION_HEAVINESS, readMoodFromText } from '../utils/moodUtil';
 
 export interface LiveMoodRead {
@@ -14,11 +15,15 @@ const NEUTRAL = 0.5;
 
 /**
  * Drives the Talk mood ribbon from the user's own messages — see moodUtil.ts for what "reading"
- * means here (a small keyword scan, not real sentiment analysis). Each new user message with a
- * keyword match nudges the read toward that emotion's weight; a message with no match lets it
- * drift back toward neutral, so the ribbon still feels alive between hits instead of going stale.
- * Recomputed fresh from `messages` every time (no ref) — the full history is already there, so
- * "opened at" is just whichever match comes first in it.
+ * means here (a small keyword scan, not real sentiment analysis) when there's nothing better yet.
+ * Each new user message nudges the read toward an emotion's weight; a message with no read lets
+ * it drift back toward neutral, so the ribbon still feels alive between hits instead of going
+ * stale. Recomputed fresh from `messages` every time (no ref) — the full history is already
+ * there, so "opened at" is just whichever match comes first in it.
+ *
+ * Prefers the backend's own `moodEmotion` once a message carries one (it's scored server-side
+ * after the round trip completes) over the client-side keyword scan — an optimistic message still
+ * in flight has no `moodEmotion` yet, so it falls back to the local read until the real one lands.
  */
 export const useLiveMoodRead = (messages: ConversationMessage[]): LiveMoodRead => {
     return useMemo(() => {
@@ -26,7 +31,7 @@ export const useLiveMoodRead = (messages: ConversationMessage[]): LiveMoodRead =
         let openedAt: string | null = null;
         for (const message of messages) {
             if (message.role !== 'USER') continue;
-            const emotion = readMoodFromText(message.content);
+            const emotion: Emotion | null = message.moodEmotion ?? readMoodFromText(message.content);
             if (emotion) {
                 if (!openedAt) openedAt = emotion;
                 heaviness = heaviness * 0.3 + EMOTION_HEAVINESS[emotion] * 0.7;

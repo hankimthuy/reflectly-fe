@@ -51,6 +51,7 @@ export const useSendMessageMutation = (conversationId: string) => {
     mutationFn: (content: string) => conversationsService.sendMessage(conversationId, content),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['conversations', conversationId] });
+      queryClient.invalidateQueries({ queryKey: ['userMoodSummary'] });
     },
   });
 };
