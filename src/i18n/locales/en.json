@@ -1,22 +1,22 @@
 {
   "onboarding": {
     "step": "Step {{current}}/2",
-    "step1Title": "What do you not want to trade away?",
-    "step1Subtitle": "Pick three or four. Aura uses them to notice when you are talking yourself out of something that matters.",
+    "step1Title": "What will you not trade away?",
+    "step1Subtitle": "Pick three or four.",
     "step2Title": "Who is in the room with you?",
-    "step2Subtitle": "Up to five people who take up space in your head — good or bad. Names only; you never have to explain them here.",
+    "step2Subtitle": "Names only. You never have to explain them here.",
     "selectAtLeastOne": "Select at least one value to continue.",
-    "addAtLeastOnePerson": "Add at least one person, or tap \"Skip — I will add people later\".",
+    "addAtLeastOnePerson": "Add at least one person, or tap \"Skip — add people later\".",
     "submitError": "Something went wrong, please try again.",
     "namePlaceholder": "Name",
     "removePerson": "Remove",
-    "addPerson": "+ Add person",
+    "addPerson": "Add a name",
     "back": "Back",
     "continue": "Continue",
     "submitting": "Saving...",
-    "finish": "Finish",
+    "finish": "Take me in",
     "skipStep": "Skip for now",
-    "skipToCoach": "Skip — I will add people later",
+    "skipToCoach": "Skip — add people later",
     "value": {
       "honesty": "Honesty",
       "family": "Family",
@@ -40,32 +40,21 @@
       "OTHER": "Other"
     },
     "relationshipTypesLabel": "Relationship types",
-    "chosenCount": "{{count}} chosen · you can change these any time"
+    "chosenCount": "{{count}} chosen"
   },
   "coach": {
-    "title": "Aura",
-    "subtitle": "I'm Aura. In today's session, I'll listen and ask questions alongside you — no judgment, no advice imposed — and we'll keep a record of this journey together.",
-    "inputPlaceholder": "Share what's on your mind...",
+    "inputPlaceholder": "Say it plainly.",
     "send": "Send",
-    "endSession": "End session",
     "emptyState": "Feel free to start — share whatever's on your mind right now. I'm here to listen.",
     "sendError": "Couldn't send your message right now. Please try again.",
-    "summarize": "Summarize",
     "summarizing": "Summarizing...",
-    "summarizeError": "Couldn't summarize right now. Please try again.",
     "summarizeNudge": "💡 Want to save this? Pick a format on the right.",
-    "historyLink": "Chat history",
     "history": {
-      "title": "Chat history",
+      "title": "Sessions",
       "empty": "No sessions yet.",
       "noSummary": "No summary for this session yet.",
-      "statusActive": "In progress",
-      "statusEnded": "Ended",
-      "statusExtracting": "Processing",
       "back": "Back",
       "backToChat": "New chat",
-      "sessionTitle": "Session details",
-      "summaryLabel": "Summary",
       "loadError": "Couldn't load this session."
     },
     "startError": "Couldn't start a session right now. Please try again shortly.",
@@ -73,368 +62,40 @@
     "backToDashboard": "Back to Today"
   },
   "insightCatcher": {
-    "title": "Capture an insight",
-    "subtitle": "Pick a framework to save what you just realized.",
-    "freeformLabel": "Free-form log",
-    "freeformDesc": "Write down a thought your own way — no template needed.",
-    "johariWindowLabel": "Johari Window",
-    "johariWindowDesc": "Separate what you already know from what others see but you don't.",
-    "actMatrix": "ACT Matrix",
-    "actMatrixDesc": "Spot what you're avoiding and the actions that actually match your values.",
-    "personalSwot": "Personal SWOT",
-    "personalSwotDesc": "See your strengths, weaknesses, opportunities, and threats clearly.",
-    "lifePositions": "Life Positions",
-    "lifePositionsDesc": "Assess where you stand in one specific relationship (the OK Corral model).",
-    "titlePlaceholder": "Title (optional)",
     "save": "Save",
-    "saveChanges": "Save changes",
     "saving": "Saving...",
-    "saveError": "Couldn't save right now. Please try again.",
-    "updateSuccess": "Updated.",
     "cancel": "Cancel",
-    "edit": "Edit",
+    "freeformLabel": "Free-form log",
+    "johariWindowLabel": "Johari Window",
+    "actMatrix": "ACT Matrix",
+    "personalSwot": "Personal SWOT",
+    "lifePositions": "Life Positions",
     "freeform": {
-      "contentPlaceholder": "What did you just realize?",
       "tagsPlaceholder": "Tags, comma-separated (optional)",
       "contentRequired": "Please enter some content."
     },
     "johari": {
-      "open": "Open — Both you and others know",
-      "blind": "Blind spot — Others know, you don't",
-      "hidden": "Hidden — You know, others don't",
-      "unknown": "Unknown — Neither of you knows yet",
       "atLeastOneRequired": "Please fill in at least one box."
-    },
-    "relationshipTitle": "Relationship Map (PRM)",
-    "relationshipSubtitle": "Capture an insight about a specific relationship, or update that person on the map.",
-    "prm": "Add / update in PRM",
-    "prmDesc": "Add or update a person in your Relationship Map (PRM).",
-    "actMatrixForm": {
-      "atLeastOneRequired": "Please fill in at least one box.",
-      "fiveSenses": "5 senses — Who/what was around you then?",
-      "values": "What matters to me",
-      "awayMoves": "Avoidance behavior",
-      "towardMoves": "Values-based action"
-    },
-    "swotForm": {
-      "atLeastOneRequired": "Please fill in at least one box.",
-      "strengths": "Strengths",
-      "weaknesses": "Weaknesses",
-      "opportunities": "Opportunities",
-      "threats": "Threats"
-    },
-    "lifePositionsForm": {
-      "personRequired": "Please select who this is about.",
-      "person": "About whom?",
-      "personPlaceholder": "Choose a person from your relationship map",
-      "noPeople": "No one on the map yet — add a person first via 'Add / update in PRM'.",
-      "position": "Position",
-      "notesPlaceholder": "Notes (optional)",
-      "about": "About {{name}}",
-      "positions": {
-        "I_OK_YOU_OK": "I'm OK — You're OK",
-        "I_OK_YOU_NOT_OK": "I'm OK — You're not OK",
-        "I_NOT_OK_YOU_OK": "I'm not OK — You're OK",
-        "I_NOT_OK_YOU_NOT_OK": "I'm not OK — You're not OK"
-      }
     }
-  },
-  "homePreview": {
-    "pillars": {
-      "coach": "Companion AI Coach",
-      "map": "Relationship Map (PRM)",
-      "johari": "Johari Window",
-      "insights": "Insight Timeline"
-    },
-    "chat": {
-      "sectionTitle": "Chat with your AI Coach",
-      "sectionDescription": "Aura listens and asks open questions — no judgment, no advice imposed, just help finding your own answers.",
-      "title": "Chat with your AI Coach",
-      "tag1": "Calm",
-      "tag2": "Curious",
-      "userMessage": "I've been feeling a bit unsure about my direction lately.",
-      "aiMessage": "Hi there. That sense of uncertainty often shows up when we're at a crossroads, or searching for something more meaningful. Would you like to start by sharing what's weighing on you the most right now?",
-      "inputPlaceholder": "Share what's on your mind..."
-    },
-    "map": {
-      "sectionTitle": "Relationship Map (PRM)",
-      "sectionDescription": "Personal Relationship Management — see the full picture of the people who matter most to you, and how you connect with them.",
-      "centerLabel": "Me",
-      "node1": "Family",
-      "node2": "Colleagues",
-      "node3": "Mentor",
-      "node4": "Friends"
-    },
-    "johari": {
-      "sectionTitle": "Johari Window — 4 views of yourself",
-      "sectionDescription": "A classic self-leadership framework that helps you tell apart what you already know, what others see that you don't, and the potential still waiting to be discovered.",
-      "open": {
-        "label": "Open Area",
-        "desc": "What you know about yourself, and others see too."
-      },
-      "blind": {
-        "label": "Blind Spot",
-        "desc": "What others — or Aura — notice in you, but you haven't yet."
-      },
-      "hidden": {
-        "label": "Hidden Area",
-        "desc": "What you know about yourself but have never shared."
-      },
-      "unknown": {
-        "label": "Unknown Area",
-        "desc": "Untapped potential, waiting to surface through conversation."
-      }
-    },
-    "insights": {
-      "sectionTitle": "Insight Timeline",
-      "sectionDescription": "Track your psychological shifts over time — each insight comes with an energy indicator, helping you spot your own behavior patterns, not just re-read the past.",
-      "title": "Insight timeline",
-      "energyHigh": "High energy",
-      "energyLow": "Low energy",
-      "today": "Today",
-      "todayTime": "2:32 PM",
-      "todayCategory": "Value",
-      "todayText": "Valuing creative freedom over stability.",
-      "lastWeek": "Last week",
-      "lastWeekTime": "Tue, Jul 29",
-      "lastWeekCategory": "Behavior pattern",
-      "lastWeekText": "Tends to avoid direct conflict in group conversations."
-    },
-    "cta": "Learn more"
   },
   "brand": {
     "name": "AURA",
-    "acronym": "AI Coach for Self-Understanding",
-    "slogan": "Why am I here?",
-    "heroLine1": "No one else can answer that for you.",
-    "heroLine2": "At Aura Self AI, conversations and insight maps help you untangle what's on your mind.",
-    "heroLine3": "The final answer is yours alone to find.",
-    "description": "Discover yourself through every conversation. Your relationship map and insights are personalized from what you share.",
     "tagline": "Thinking partner",
-    "footer": "© 2026 Aura Self AI. Walking with you on the path of Self-Understanding & Self-Leadership.",
-    "welcome": "Welcome back.",
-    "ctaLoggedOut": "Start chatting with your Coach",
-    "ctaLoggedIn": "Continue the conversation"
-  },
-  "chatFab": {
-    "label": "Chat with AI"
+    "welcome": "Welcome back."
   },
   "nav": {
-    "coach": "AI Coach",
-    "garden": "Home",
-    "reflection": "Reflection",
-    "emotion": "Emotion",
-    "energy": "Energy",
-    "dashboard": "Insights",
-    "protocols": "Protocols",
-    "method": "Method",
-    "journal": "Reflectly",
-    "profile": "Me",
-    "login": "Log In",
-    "startJourney": "Start your journey",
-    "groupSpaces": "Spaces",
-    "groupJourney": "Your journey",
+    "login": "Sign in",
     "today": "Today",
     "talk": "Talk",
     "reflect": "Reflect",
     "you": "You"
   },
-  "garden": {
-    "mapTitle": "My Mind Space",
-    "mapSubtitle": "Pick a corner to connect with and understand yourself.",
-    "mapAlt": "Map with a central house and four surrounding areas",
-    "comingSoon": "Coming soon",
-    "quote": "I can't control what happens to me, but I always have the choice of how I listen and respond.",
-    "legend": {
-      "goOut": "Reach out and experience",
-      "comeBack": "Take time to recover"
-    },
-    "zones": {
-      "mind": {
-        "title": "Mind",
-        "description": "A quiet corner — where you return to find your balance."
-      },
-      "reflection": {
-        "title": "Reflection",
-        "description": "A corner to look back — for deep dialogue with yourself."
-      },
-      "creativity": {
-        "title": "Creativity",
-        "description": "A corner to express — turning emotion into creative flow."
-      },
-      "connection": {
-        "title": "Relationships",
-        "description": "A corner to connect — recognizing the sources of energy around you."
-      },
-      "emotion": {
-        "title": "Emotion",
-        "description": "A corner to be present — naming and welcoming every emotion."
-      },
-      "filter": {
-        "title": "Value filter",
-        "description": "A corner to sift through — actively choosing what to keep and what to release."
-      }
-    },
-    "framework": {
-      "goOut": {
-        "title": "Chat with your AI Coach",
-        "intro": "A Socratic conversation space — the Coach asks open questions so you find your own answers.",
-        "steps": [
-          "Share what's on your mind, no preparation needed.",
-          "The Coach remembers what matters to you, conversation by conversation."
-        ],
-        "linkLabel": "Start chatting"
-      },
-      "comeBack": {
-        "title": "Your relationship map",
-        "intro": "Built automatically from what you share — so you can see clearly who energizes you and who drains you.",
-        "steps": [
-          "No manual data entry — the Coach recognizes people as you talk.",
-          "Add or edit anyone directly, any time you want."
-        ],
-        "linkLabel": "View your map"
-      },
-      "filter": {
-        "title": "Insight timeline",
-        "intro": "A running summary of your core values, behavior patterns, and insights the Coach has picked up on over time.",
-        "steps": [
-          "Notice what keeps repeating — the next decision is always yours.",
-          "Core values update the moment you change them."
-        ],
-        "linkLabel": "View about you"
-      },
-      "principlesTitle": "Four Principles of Experience & Transformation",
-      "principles": [
-        {
-          "title": "Action is core",
-          "description": "Every tool points toward a real experience — helping you turn awareness into lived habits, not just theory."
-        },
-        {
-          "title": "Open up your own agency",
-          "description": "Aura Self AI offers open-ended questions so you find your own answers, instead of imposed advice."
-        },
-        {
-          "title": "Continuous growth",
-          "description": "Insights and your relationship map are nurtured, tracked, and upgraded as you grow — never a one-off fix."
-        },
-        {
-          "title": "The map is yours",
-          "description": "Data is only a mirror. You always own the decisions for your own journey."
-        }
-      ]
-    },
-    "bridge": {
-      "heading": "Your bridge from insight to action",
-      "subtitle": "Small shifts that turn understanding into change.",
-      "energy": {
-        "title": "Today's energy",
-        "body": "Last logged: level {{level}} · {{days}} days ago",
-        "bodyToday": "Last logged: level {{level}} · today",
-        "empty": "No presence logged yet — a light tap to begin",
-        "cta": "Presence history"
-      },
-      "protocols": {
-        "title": "Your protocols",
-        "body": "{{count}} protocols ready to accompany you",
-        "empty": "No protocol yet — set up your first",
-        "cta": "View protocols"
-      },
-      "dashboard": {
-        "title": "The bigger picture",
-        "body": "See your last-7-day rhythm",
-        "cta": "View dashboard"
-      }
-    }
-  },
-  "breadcrumb": {
-    "home": "Home",
-    "reflection": "Reflection",
-    "emotion": "Emotion",
-    "journal": "Reflectly",
-    "profile": "Profile",
-    "method": "Method",
-    "coach": "AI Coach",
-    "dashboard": "Insights"
-  },
-  "mobileFooter": {
-    "coach": "AI Coach",
-    "dashboard": "Insights",
-    "garden": "Home",
-    "journal": "Reflectly",
-    "emotion": "Emotion",
-    "energy": "Energy",
-    "profile": "Me",
-    "authDialog": {
-      "title": "Login Required",
-      "message": "You need to log in to create or view your entries.",
-      "confirm": "Log In",
-      "cancel": "Later"
-    }
-  },
-  "energyLog": {
-    "quickLogTitle": "How's your energy right now?",
-    "levelLabel": "Energy level (1-10)",
-    "contextLabel": "What are you doing?",
-    "notesLabel": "Add a note (optional)",
-    "notesPlaceholder": "Anything you want to remember...",
-    "save": "Log it",
-    "saving": "Saving...",
-    "cancel": "Cancel",
-    "savedMessage": "Energy logged.",
-    "errorMessage": "Could not save your energy log. Please try again."
-  },
-  "energyHistoryPage": {
-    "title": "Energy History",
-    "subtitle": "A quick record of your energy over time.",
-    "logButton": "Log Energy",
-    "empty": "No energy logs yet. Log your first one!",
-    "loadMore": "Load more",
-    "deleted": "Energy log deleted.",
-    "deleteConfirm": {
-      "title": "Delete energy log",
-      "message": "Are you sure you want to delete this energy log?",
-      "confirm": "Delete",
-      "cancel": "Cancel"
-    }
-  },
   "dashboard": {
-    "title": "Energy Dashboard",
-    "subtitle": "See how your energy shifts over time and where it goes.",
-    "loginRequired": "Please log in to view your energy dashboard.",
-    "rangeLabel": "Last {{days}} days",
-    "logButton": "Log Energy",
-    "empty": "No energy logs yet. Log your energy to see your dashboard come to life.",
-    "trend": {
-      "title": "Energy Trend",
-      "subtitle": "Average energy level per day",
-      "empty": "No energy logs yet for this period. Start logging to see your trend."
-    },
-    "byContext": {
-      "title": "Energy by Context",
-      "subtitle": "Average energy level for each activity",
-      "empty": "Log some energy entries with context tags to see this breakdown."
-    },
-    "byCount": {
-      "title": "Logs by Context",
-      "subtitle": "How many times you've logged energy in each context",
-      "empty": "No logs yet."
-    },
-    "summary": {
-      "average": "Average level",
-      "totalLogs": "Total logs",
-      "bestContext": "Highest energy context"
-    },
     "you": "You",
-    "pageTitle": "Insights",
-    "pageSubtitle": "Everything the Coach has learned about you — core values, the people who matter, and the insights gathered so far.",
-    "mapTitle": "Relationship Map",
-    "mapSubtitle": "Built up gradually from what you share with the Coach.",
     "mapEmpty": "No one on the map yet — tell Aura about the people who matter to you.",
-    "talkToCoach": "Talk to the Coach",
     "noNudge": "This relationship looks stable.",
     "loading": "Loading...",
     "loadMore": "Load more",
-    "insightsTitle": "Insight Timeline",
     "insightsEmpty": "No insights yet — talk to Aura to get started.",
     "category": {
       "value": "Value",
@@ -442,7 +103,7 @@
       "relationship": "Relationship"
     },
     "person": {
-      "add": "+ Add person",
+      "add": "Add someone",
       "edit": "Edit",
       "save": "Save",
       "cancel": "Cancel",
@@ -457,23 +118,22 @@
     "title": "My Profile",
     "loginRequired": "Please log in to view your profile.",
     "stats": {
-      "dayStreak": "Day Streak",
-      "topMood": "Top Mood",
-      "sessionsEntries": "Sessions · entries",
+      "dayStreak": "Streak",
+      "topMood": "Most frequent",
+      "sessionsEntries": "Talks · entries",
       "days": "days"
     },
     "coreValues": {
-      "title": "Core Values",
-      "edit": "Edit",
+      "title": "Values",
+      "edit": "Change",
       "add": "+ Set up",
       "save": "Save",
       "cancel": "Cancel",
-      "empty": "Not set up yet — the Coach will understand you better once you share what matters to you.",
+      "empty": "Not set up yet — Aura will understand you better once you share what matters to you.",
       "saveError": "Could not save your core values.",
-      "count": "{{count}} of 12 chosen"
+      "count": "{{count}} of 12"
     },
     "emotionOverview": {
-      "title": "Emotion Overview",
       "titleWithDays": "Emotions · {{days}} days",
       "subtitle": "{{entries}} entries, {{emotions}} emotions tagged",
       "empty": "Start journaling to see your emotion patterns."
@@ -485,7 +145,7 @@
       "updateError": "Failed to update name."
     },
     "changePassword": {
-      "label": "Change Password",
+      "label": "Password",
       "change": "Change",
       "cancel": "Cancel",
       "currentPlaceholder": "Current password",
@@ -504,10 +164,10 @@
       "title": "Settings",
       "language": "Language",
       "notifications": "Notifications",
-      "exportData": "Export Data",
+      "exportData": "Export my data",
       "soon": "Soon"
     },
-    "logout": "Log Out",
+    "logout": "Sign out",
     "logoutDialog": {
       "title": "Log Out",
       "message": "Are you sure you want to log out?",
@@ -535,7 +195,7 @@
     "cancel": "Cancel",
     "draft": "Draft",
     "prompts": "Prompts",
-    "talkInstead": "Talk it out instead →"
+    "talkInstead": "Talk it out →"
   },
   "entryTemplates": {
     "picker": {
@@ -581,16 +241,10 @@
     }
   },
   "entriesPage": {
-    "title": "Reflectly",
-    "subtitle": "Every reflection is a step toward understanding yourself.",
-    "loadMore": "Load More",
-    "showing": "Showing {{current}} of {{total}} entries",
     "emptyState": "No reflections yet",
     "emptyStateHint": "Jot down what's on your mind right now — it only takes a minute.",
-    "startWriting": "Start writing",
-    "loginRequired": "Log in to begin your journey of self-understanding.",
-    "loginRequiredHint": "Your reflections are private, encrypted, and waiting for you.",
-    "searchPlaceholder": "Search reflections...",
+    "startWriting": "Write something",
+    "searchPlaceholder": "Search entries",
     "filterAll": "All",
     "filterToday": "Today",
     "filterWeek": "This Week",
@@ -602,118 +256,14 @@
     "deleteConfirmMessage": "Are you sure you want to delete this reflection?",
     "deleteConfirmBtn": "Delete",
     "deleteCancel": "Cancel",
-    "editTitle": "Edit Reflection",
-    "editSubtitle": "Revisit and refine your reflection.",
     "updateSuccess": "Your reflection has been updated.",
     "updateError": "Failed to update reflection.",
     "deleteSuccess": "Reflection deleted.",
-    "deleteError": "Failed to delete reflection.",
-    "tabEntries": "Journal",
-    "tabInsights": "Saved insights",
-    "insightsEmpty": "No saved insights yet.",
-    "insightsEmptyHint": "Chat with Aura and save an insight to see it here.",
-    "goChatWithAura": "Chat with Aura"
-  },
-  "actionProtocol": {
-    "list": {
-      "title": "Action Protocols",
-      "subtitle": "Your coping scripts, written in advance and ready when you need them.",
-      "createButton": "New Protocol",
-      "empty": "No protocols yet. Write your first coping script.",
-      "loadMore": "Load more",
-      "triggerLabel": "Trigger:",
-      "usageCount": "Used {{times}} times",
-      "lastUsed": "Last used {{date}}",
-      "markUsedButton": "Mark used",
-      "deleted": "Protocol deleted.",
-      "deleteConfirm": {
-        "title": "Delete protocol",
-        "message": "Are you sure you want to delete this protocol?",
-        "confirm": "Delete",
-        "cancel": "Cancel"
-      }
-    },
-    "form": {
-      "createTitle": "New Action Protocol",
-      "editTitle": "Edit Action Protocol",
-      "titleLabel": "Title",
-      "titlePlaceholder": "e.g. When I feel overwhelmed at work",
-      "triggerLabel": "Trigger / situation",
-      "triggerPlaceholder": "What situation calls for this protocol?",
-      "scriptLabel": "Script / coping steps",
-      "scriptPlaceholder": "Write the steps you'll follow, in order...",
-      "save": "Save",
-      "saving": "Saving...",
-      "cancel": "Cancel",
-      "savedMessage": "Protocol created.",
-      "updatedMessage": "Protocol updated.",
-      "errorMessage": "Could not save your protocol. Please try again."
-    },
-    "markUsed": {
-      "title": "How did it go?",
-      "subtitle": "Rate how effective this protocol was this time.",
-      "notePlaceholder": "Add a note (optional)...",
-      "save": "Save",
-      "saving": "Saving...",
-      "cancel": "Cancel",
-      "savedMessage": "Usage recorded.",
-      "errorMessage": "Could not record usage. Please try again."
-    },
-    "effectiveness": {
-      "WORKED": "It worked",
-      "PARTIAL": "It partially worked",
-      "DIDNT_WORK": "It didn't work"
-    }
-  },
-  "phuongPhapPage": {
-    "hero": {
-      "badge": "Self-leadership foundations",
-      "title": "Why Aura Self AI <span class=\"highlight\">works this way</span>",
-      "subtitle": "Aura Self AI is built on Leading Self: understanding and guiding yourself comes before guiding anyone else. This page explains the reasoning behind the features you use every day."
-    },
-    "layers": {
-      "title": "The four layers Aura Self AI has today",
-      "subtitle": "Every feature you use belongs to one layer of the self-leadership model.",
-      "items": {
-        "foundation": {
-          "label": "Layer 0 · Foundation",
-          "description": "Your account, profile, and journal entries — where all your data begins."
-        },
-        "innerverse": {
-          "label": "Layer 1 · Innerverse",
-          "description": "Energy tracking and emotion tagging — understanding what's happening inside."
-        },
-        "bridge": {
-          "label": "Layer 3 · Bridge",
-          "description": "Action Protocols — the core differentiator that turns insight into concrete action."
-        },
-        "insight": {
-          "label": "Layer 5 · Insight & Growth",
-          "description": "Dashboards and trend charts — looking back at the path you've walked."
-        }
-      }
-    },
-    "cta": {
-      "title": "Ready to apply it?",
-      "subtitle": "Start with your first entry — a journal line, an energy log, or a protocol.",
-      "button": "Start your first entry"
-    }
-  },
-  "zonePage": {
-    "comingSoon": "Coming soon",
-    "comingSoonDesc": "This feature is still being built. Please check back later.",
-    "writeJournal": "Write a reflection",
-    "viewJournal": "View reflections",
-    "backToGarden": "Back to Home"
-  },
-  "emotionPage": {
-    "title": "Emotion Profile",
-    "subtitle": "Recognize and track your emotion patterns — the first step to understanding yourself.",
-    "empty": "Start journaling to see your emotion patterns take shape."
+    "deleteError": "Failed to delete reflection."
   },
   "notFound": {
     "title": "Nothing here to reflect on.",
-    "subtitle": "This page does not exist — which is at least an easy problem.",
+    "subtitle": "At least this one is an easy problem.",
     "back": "Back to Today"
   },
   "auth": {
@@ -726,7 +276,7 @@
     "loginButton": "Sign in",
     "signupButton": "Create account",
     "googleLogin": "Continue with Google",
-    "noAccount": "Don't have an account?",
+    "noAccount": "New here?",
     "hasAccount": "Already have an account?",
     "signupLink": "Make an account",
     "loginLink": "Sign in",
@@ -751,10 +301,9 @@
       "signupFailed": "Signup failed. Please try again."
     },
     "loginNote": "Nothing has moved since you left.",
-    "signupSubtitle": "No email verification, no onboarding survey you will resent.",
-    "signupNote": "Your entries are yours. Aura reads them to answer you and for nothing else.",
-    "whatShouldAuraCallYou": "What should Aura call you?",
-    "passwordMinChars": "Password · 8 characters or more"
+    "signupSubtitle": "No verification email, no survey.",
+    "signupNote": "Your entries are yours. Aura reads them to answer you and nothing else.",
+    "whatShouldAuraCallYou": "What should Aura call you?"
   },
   "appShell": {
     "defaultFooter": {
@@ -762,7 +311,7 @@
     },
     "thisWeek": {
       "label": "This week",
-      "value": "{{sessions}} sessions · {{entries}} entries"
+      "value": "{{sessions}} talks · {{entries}} entries"
     }
   },
   "publicLayout": {
@@ -798,8 +347,8 @@
       "label": "Unknown",
       "sub": "yet to surface"
     },
-    "openLink": "Open →",
-    "whichPane": "Which pane of your mirror?"
+    "openLink": "Open",
+    "whichPane": "Which pane?"
   },
   "today": {
     "greetingMorning": "Morning, {{name}}.",
@@ -817,33 +366,33 @@
       "What's a conversation you're still replaying?",
       "What are you pretending not to notice?"
     ],
-    "startHere": "Start here →",
-    "somethingElse": "Something else on my mind",
+    "startHere": "Start here",
+    "somethingElse": "Something else",
     "lastSevenDays": "Last seven days",
     "noMoodYet": "Write or talk a few times and a pattern will show up here.",
     "trend": {
-      "lighter": "Lighter since {{day}}.",
-      "heavier": "Heavier since {{day}}.",
-      "same": "About the same all week."
+      "lighter": "lighter since {{day}}",
+      "heavier": "heavier since {{day}}",
+      "same": "about the same all week"
     },
     "pickBackUp": "Pick back up",
     "emptyPickBackUp": "Nothing yet — this fills in as you talk and write.",
     "session": "Session",
     "entry": "Entry",
-    "needsAttention": "Needs attention",
+    "needsAttention": "Gone quiet",
     "daysSince_one": "{{count}} day",
     "daysSince_other": "{{count}} days",
     "noAttention": "Everyone you've mapped is steady right now.",
-    "preferAlone": "Prefer to write alone?",
-    "newEntry": "New journal entry"
+    "preferAlone": "Rather write it down than say it?",
+    "newEntry": "New entry"
   },
   "talk": {
     "you": "You",
     "thinking": "Aura is thinking",
     "catchThis": "Catch this",
-    "catchShortcut": "⌘K Catch",
+    "catchShortcut": "⌘K to catch a line",
     "summarizeShortcut": "Summarise so far",
-    "endSessionKeepShift": "End session & keep the shift",
+    "endSessionKeepShift": "End & keep the shift",
     "catchTitle": "Catch",
     "catchSubtitle": "Keep a line before it slips. Nothing here is auto-saved by Aura.",
     "note": "Note",
@@ -851,15 +400,14 @@
     "dropTheLine": "Drop the line into the pane it belongs in.",
     "noteHint": "Write it down your own way — no framework needed.",
     "saveToMirror": "Save to mirror",
-    "readingLabel": "Aura is reading",
-    "whatIsThis": "What is this?",
+    "readingLabel": "Reading",
     "heavy": "Heavy",
     "light": "Light",
     "openedAt": "opened at {{emotion}} · {{minutes}} min ago",
     "minutesElapsed": "{{minutes}} min in",
     "moodBuckets": {
       "heavy": "heavy · a lot is here",
-      "charged": "tense · holding something back",
+      "charged": "tense · holding back",
       "settling": "settling · still finding words",
       "easing": "easing · lighter than it opened",
       "light": "light · easy to be in"
@@ -878,7 +426,7 @@
     },
     "people": {
       "count": "{{count}} people · distance = days since mentioned",
-      "needsAttention": "Needs attention",
+      "needsAttention": "Needs you",
       "drifting": "Drifting",
       "talkedAboutMost": "Talked about most",
       "steady": "Steady",
@@ -886,7 +434,7 @@
       "healthSignal": "Health signal",
       "talkAbout": "Talk about {{name}}",
       "talkAboutPrefill": "I've been thinking about {{name}}.",
-      "whatAuraNoticed": "What Aura noticed about them"
+      "whatAuraNoticed": "What Aura noticed"
     },
     "mirror": {
       "empty": "Nothing caught yet — Talk to Aura and catch a line into your mirror.",
@@ -904,15 +452,15 @@
     "readOnly": "Read only",
     "shift": "SHIFT",
     "whatAuraWrote": "What Aura wrote back",
-    "caughtFromSession": "Caught from this session · {{count}}"
+    "caughtFromSession": "Caught here · {{count}}"
   },
   "landing": {
     "hero": {
-      "headline": "No one else can answer that for you.",
-      "body": "Aura is a place to think out loud. Conversations, a map of the people in them, and four views of yourself — so you can untangle what is on your mind. The answer stays yours to find.",
+      "headline": "Think out loud. Aura keeps up.",
+      "body": "It asks the next question instead of giving you the answer.",
       "cta": "Start a conversation",
       "ctaLoggedIn": "Go to Today",
-      "note": "Free · nothing shared · delete it all any time",
+      "note": "Free · private · delete any time",
       "photoCaption": "photograph — one person, window light, b/w",
       "openerLabel": "Aura · a real opener",
       "openerQuote": "\"You have described that job three times without once saying what you like about it.\""
@@ -922,23 +470,23 @@
       "talk": {
         "kicker": "01 · Talk",
         "title": "A conversation, not a script",
-        "body": "It follows what you actually said, and reads the mood you are writing in — out loud, so you can disagree with it."
+        "body": "It reads the mood you write in, and says so."
       },
       "catch": {
         "kicker": "02 · Catch",
         "title": "Keep the sentence that lands",
-        "body": "One keystroke on any message. Nothing is filed about you without you putting it there.",
+        "body": "Keep the sentence that lands. It becomes a pattern.",
         "example": "I stay quiet in rooms where I have the most to lose."
       },
       "mirror": {
         "kicker": "03 · Your mirror",
         "title": "Four views of yourself",
-        "body": "The Johari window, kept live: what is open, what is blind, what you hold back, what has yet to surface."
+        "body": "Open, blind, hidden, unknown — kept live."
       },
       "people": {
         "kicker": "04 · The people in it",
         "title": "Who you keep talking about",
-        "body": "A map of your relationships — and who has quietly gone missing from the story.",
+        "body": "Who you keep naming — and who went quiet.",
         "example": "Ba — 31 days since he came up"
       },
       "timeline": {
@@ -978,8 +526,8 @@
       }
     },
     "closing": {
-      "title": "Say the thing you have been circling.",
-      "cta": "Start free →"
+      "title": "Say the thing you keep circling.",
+      "cta": "Start free"
     },
     "footer": {
       "rights": "AuraSelfAI · 2026",

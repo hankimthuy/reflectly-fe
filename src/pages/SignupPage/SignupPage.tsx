@@ -96,7 +96,7 @@ const SignupPage = () => {
 
                 <form onSubmit={handleSignup}>
                     <div className="field auth-page__field">
-                        <label htmlFor="signup-name">{t('auth.fullName')}</label>
+                        <label htmlFor="signup-name">{t('auth.whatShouldAuraCallYou')}</label>
                         <input
                             className="input"
                             id="signup-name"
