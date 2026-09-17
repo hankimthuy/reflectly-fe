@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { LuChevronLeft } from 'react-icons/lu';
 import MessageList from '../../components/Chat/MessageList';
 import MessageInput from '../../components/Chat/MessageInput';
 import InsightCatcherPanel from '../../components/InsightCatcher/InsightCatcherPanel';
@@ -14,8 +15,6 @@ import {
 } from '../../queries/conversationsQueryHook';
 import { APP_ROUTES } from '../../constants/route';
 import { useSidebarFooter } from '../../layouts/AppShell/AppShellContext';
-import { useLiveMoodRead } from '../../hooks/useLiveMoodRead';
-import { moodBucket, heavinessColorVar } from '../../utils/moodUtil';
 import { sessionTitleFromSummary } from '../../utils/textUtil';
 import './CoachChatPage.scss';
 
@@ -159,9 +158,6 @@ const CoachChatPage = () => {
     // Same reasoning as handleInsightSaved above.
   };
 
-  const mood = useLiveMoodRead(messages);
-  const bucket = moodBucket(mood.heaviness);
-
   const recentList = useMemo(
     () =>
       (recentSessions.data?.pages.flatMap((p) => p.content) ?? [])
@@ -170,47 +166,50 @@ const CoachChatPage = () => {
     [recentSessions.data, conversationId],
   );
   useSidebarFooter(
-    <>
-      <div className="app-shell__footer-label">{t('talk.recent')}</div>
-      {recentList.length === 0 ? (
-        <div className="app-shell__footer-name" style={{ fontWeight: 400, fontSize: 12.5 }}>
-          {t('coach.history.empty')}
-        </div>
-      ) : (
-        recentList.map((c) => (
-          <button
-            key={c.id}
-            type="button"
-            className="talk-sidebar-session"
-            onClick={() => navigate(`${APP_ROUTES.COACH_HISTORY}/${c.id}`)}
-          >
-            {sessionTitleFromSummary(c.summary, t('coach.history.noSummary'), 44)}
-          </button>
-        ))
-      )}
-      <button type="button" className="talk-sidebar-allsessions" onClick={() => navigate(APP_ROUTES.COACH_HISTORY)}>
-        {t('talk.allSessions')}
-      </button>
-    </>,
+    () => (
+      <>
+        <div className="app-shell__footer-label">{t('talk.recent')}</div>
+        {recentList.length === 0 ? (
+          <div className="app-shell__footer-name" style={{ fontWeight: 400, fontSize: 12.5 }}>
+            {t('coach.history.empty')}
+          </div>
+        ) : (
+          recentList.map((c) => (
+            <button
+              key={c.id}
+              type="button"
+              className="talk-sidebar-session"
+              onClick={() => navigate(`${APP_ROUTES.COACH_HISTORY}/${c.id}`)}
+            >
+              {sessionTitleFromSummary(c.summary, t('coach.history.noSummary'), 44)}
+            </button>
+          ))
+        )}
+        <button type="button" className="talk-sidebar-allsessions" onClick={() => navigate(APP_ROUTES.COACH_HISTORY)}>
+          {t('talk.allSessions')}
+        </button>
+      </>
+    ),
+    [recentList, navigate, t],
   );
 
   const prefill = (location.state as { prefill?: string } | null)?.prefill;
 
   return (
     <div className="talk">
-      {/* One row: what Aura is reading, where it sits, what it is called. Aura Soft v2 dropped the
-          heavy/light scale beneath it — the gradient already says which end is which. */}
-      <div className="talk__ribbon">
-        <span className="talk__reading-label">{t('talk.readingLabel')}</span>
-        <div className="talk__ribbon-track">
-          {/* --gradient-mood runs heavy (ink, left) → light (cyan, right) — the marker's left
-              offset has to travel the same direction, so it's the inverse of heaviness. */}
-          <div
-            className="talk__ribbon-marker"
-            style={{ left: `${(1 - mood.heaviness) * 100}%`, borderColor: heavinessColorVar(mood.heaviness) }}
-          />
-        </div>
-        <span className="talk__reading-value">{t(`talk.moodBuckets.${bucket}`)}</span>
+      {/* Mobile only — the desktop sidebar is always visible, so this is the only way back to
+          Today/Reflect/You while a live conversation has hidden the bottom tab bar (see
+          AppShell's MOBILE_FULL_BLEED_PREFIXES). Leaves the session ACTIVE and resumable — the
+          composer's "End session" is the deliberate way to close it out instead. */}
+      <div className="talk__topbar">
+        <button
+          type="button"
+          className="talk__back"
+          onClick={() => navigate(APP_ROUTES.HOME)}
+          aria-label={t('talk.back') as string}
+        >
+          <LuChevronLeft size={22} />
+        </button>
       </div>
 
       <div className="talk__body">

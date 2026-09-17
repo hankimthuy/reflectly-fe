@@ -157,6 +157,16 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
+  /* Without this, Safari/Chrome on a touchscreen wait ~300ms after a tap to see if a second one
+     is coming (to decide whether it's a double-tap-to-zoom) before firing click — the whole app
+     reads as sluggish/unresponsive on mobile even when nothing is actually broken. The page
+     already never needs pinch/double-tap zoom (viewport meta below), so nothing is lost. */
+  touch-action: manipulation;
+}
+/* The gray flash a tap leaves on iOS Safari by default, kept only where a focus-visible ring
+   already gives clearer feedback (buttons, links, chips). */
+a, button, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
 }
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
@@ -202,7 +212,7 @@ h6 {
 .btn-ghost { color: var(--color-indigo); padding-inline: 8px; border-color: transparent; border-radius: var(--radius-sm); }
 .btn-ghost:hover { background: var(--color-mist); }
 .btn-ghost:active { background: var(--color-accent-100); }
-.btn-icon { width: 38px; height: 38px; padding: 0; border-radius: var(--radius-pill); }
+.btn-icon { width: 44px; height: 44px; padding: 0; border-radius: var(--radius-pill); }
 .btn-block { width: 100%; margin-top: 8px; justify-content: flex-start; text-align: left; border-radius: var(--radius-md); }
 .btn:focus-visible { outline: 2px solid var(--color-indigo); outline-offset: 2px; }
 
@@ -210,7 +220,9 @@ h6 {
 .field > label { display: block; font-size: 12.5px; font-weight: 500; margin-bottom: 6px; color: var(--color-slate); }
 .input {
   width: 100%; min-height: 46px; padding: 10px 15px; font: inherit;
-  font-size: 14.5px; color: var(--color-text); caret-color: var(--color-indigo);
+  /* 16px, not 14.5px: any smaller and iOS Safari auto-zooms the whole page in on focus, which
+     then leaves the layout zoomed and every next tap landing on the wrong element. */
+  font-size: 16px; color: var(--color-text); caret-color: var(--color-indigo);
   background: var(--color-mist); border: 1px solid var(--color-divider); border-radius: var(--radius-md);
   transition: border-color .15s ease-in-out, background-color .15s ease-in-out;
 }
@@ -235,6 +247,17 @@ textarea.input { min-height: 100px; resize: vertical; border-radius: var(--radiu
 .tag-pine { background: var(--color-periwinkle-light); color: var(--color-ink); border-color: transparent; }
 .tag-neutral { background: var(--color-mist); color: var(--color-slate-deep); border-color: transparent; }
 .tag-outline { background: var(--color-surface); color: var(--color-slate-deep); border-color: var(--color-divider); }
+
+/* On phones, every place `.tag` is a real <button> (emotion picker, catch-panel shortcuts, the
+   Talk composer's shortcuts, journal filters — never the plain <span> display badges, e.g. an
+   entry's emotion label or "Read only") gets a taller hit area. The visible chip stays the same
+   size; the padding just grows around it, the way `.tag` already reads at any padding. */
+@media (max-width: 499px) {
+  button.tag {
+    min-height: 40px;
+    padding-inline: 14px;
+  }
+}
 
 /* — cards / elevation — */
 .elev-sm { box-shadow: var(--shadow-sm); }

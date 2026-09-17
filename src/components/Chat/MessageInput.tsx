@@ -1,5 +1,6 @@
-import { useRef, useState, type KeyboardEvent } from 'react';
+import { useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
+import { LuBookmark, LuLogOut, LuSparkles } from 'react-icons/lu';
 
 /** Mirrors the backend's SendMessageRequestDto @Size(max = 4000) cap. */
 const MAX_MESSAGE_LENGTH = 4000;
@@ -41,6 +42,15 @@ const MessageInput = ({
     el.style.height = `${el.scrollHeight}px`;
   };
 
+  // Today's opener (`initialValue`) is often two lines — without this, a `rows={1}` textarea
+  // renders it clipped to one line (only growing once the person's own typing fires onChange),
+  // which on a phone looked exactly like a broken/unresponsive composer.
+  useLayoutEffect(() => {
+    if (textareaRef.current) {
+      resizeToContent(textareaRef.current);
+    }
+  }, []);
+
   const handleSend = () => {
     const trimmed = value.trim();
     if (!trimmed || disabled) return;
@@ -81,7 +91,11 @@ const MessageInput = ({
       </div>
       <div className="chat-composer-actions">
         <div className="chat-composer-shortcuts">
+          {/* Icon + a short, literal label — the old copy here ("⌘K to catch a line") named a
+              keyboard shortcut that was never actually wired up, which read as broken on desktop
+              and as meaningless on a phone (no keyboard at all). */}
           <button type="button" className="tag chat-composer-shortcut" onClick={onOpenCatch}>
+            <LuBookmark size={14} />
             {t('talk.catchShortcut')}
           </button>
           <button
@@ -90,10 +104,12 @@ const MessageInput = ({
             onClick={onSummarize}
             disabled={summarizeDisabled}
           >
+            <LuSparkles size={14} />
             {summarizing ? t('coach.summarizing') : t('talk.summarizeShortcut')}
           </button>
         </div>
         <button type="button" className="btn btn-secondary chat-composer-end" onClick={onEndSession} disabled={endSessionDisabled}>
+          <LuLogOut size={14} />
           {t('talk.endSessionKeepShift')}
         </button>
       </div>

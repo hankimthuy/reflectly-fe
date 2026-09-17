@@ -69,10 +69,13 @@ const PersonForm = ({ initialValue, onSubmit, onCancel, submitLabel }: PersonFor
       />
       {error && <p className="text-xs" style={{ color: 'var(--color-clay)' }}>{error}</p>}
       <div className="flex gap-2">
-        <Button variant="primary" size="sm" onClick={handleSubmit} disabled={saving}>
+        {/* md, not sm — this is the actual submit/cancel for adding someone (Catch's Person
+            tab, onboarding step 2, People tab), not a secondary/inline action, so it gets a
+            proper tap target rather than the compact size. */}
+        <Button variant="primary" size="md" onClick={handleSubmit} disabled={saving}>
           {saving ? t('onboarding.submitting') : submitLabel}
         </Button>
-        <Button variant="secondary" size="sm" onClick={onCancel} disabled={saving}>
+        <Button variant="secondary" size="md" onClick={onCancel} disabled={saving}>
           {t('dashboard.person.cancel')}
         </Button>
       </div>

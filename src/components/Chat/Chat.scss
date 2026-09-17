@@ -80,6 +80,13 @@
   transition: background-color .15s ease-in-out;
 
   &:hover { background: var(--color-accent-100); }
+
+  // The visible chip stays small (it sits right under a message, not as its own row) — the tap
+  // area around it grows on phones instead, the same way button.tag does in tailwind.css.
+  @media (max-width: 499px) {
+    min-height: 36px;
+    padding-inline: 14px;
+  }
 }
 
 // Lines up with Aura's bubbles rather than the gutter, so the wait reads as Aura's.

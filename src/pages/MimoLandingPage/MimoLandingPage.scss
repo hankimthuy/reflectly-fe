@@ -96,32 +96,6 @@
   line-height: 1.55;
 }
 
-.landing__preview-reading {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-top: 2px;
-}
-
-.landing__preview-reading-label {
-  font: 500 11px var(--font-body);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-slate-deep);
-}
-
-.landing__preview-reading-bar {
-  flex: 1;
-  height: 8px;
-  border-radius: var(--radius-pill);
-  background: var(--gradient-mood);
-}
-
-.landing__preview-reading-value {
-  font: 500 13px var(--font-body);
-  color: var(--color-indigo);
-}
-
 // — The four things it does —
 .landing__functions {
   display: grid;
