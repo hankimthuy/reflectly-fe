@@ -2,6 +2,10 @@ import type { PaginatedResponse } from '../models/base';
 import type { Conversation, SendMessageResponse } from '../models/conversation';
 import axiosInstance from './axiosSetup';
 
+/** A reply and a summary are both a full model round-trip on the backend — well past the 10s
+ * axios default, which was aborting them client-side and surfacing as "Aura didn't answer". */
+const AI_REQUEST_TIMEOUT_MS = 60000;
+
 export const conversationsService = {
   async startConversation(): Promise<Conversation> {
     const { data } = await axiosInstance.post<Conversation>('/conversations');
@@ -20,7 +24,11 @@ export const conversationsService = {
   },
 
   async summarizeConversation(id: string): Promise<Conversation> {
-    const { data } = await axiosInstance.post<Conversation>(`/conversations/${id}/summarize`);
+    const { data } = await axiosInstance.post<Conversation>(
+      `/conversations/${id}/summarize`,
+      undefined,
+      { timeout: AI_REQUEST_TIMEOUT_MS },
+    );
     return data;
   },
 
@@ -30,6 +38,7 @@ export const conversationsService = {
     const { data } = await axiosInstance.post<SendMessageResponse>(
       `/conversations/${conversationId}/messages`,
       { content },
+      { timeout: AI_REQUEST_TIMEOUT_MS },
     );
     return data;
   },

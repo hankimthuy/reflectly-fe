@@ -128,12 +128,15 @@ const TodayPage = () => {
     const sessionsThisWeek = conversations.filter((c) => now - new Date(c.startedAt).getTime() < 7 * DAY_MS).length;
     const entriesThisWeek = entries.filter((e) => now - new Date(e.createdAt).getTime() < 7 * DAY_MS).length;
     useSidebarFooter(
-        <>
-            <div className="app-shell__footer-label">{t('appShell.thisWeek.label')}</div>
-            <div className="app-shell__footer-name">
-                {t('appShell.thisWeek.value', { sessions: sessionsThisWeek, entries: entriesThisWeek })}
-            </div>
-        </>,
+        () => (
+            <>
+                <div className="app-shell__footer-label">{t('appShell.thisWeek.label')}</div>
+                <div className="app-shell__footer-name">
+                    {t('appShell.thisWeek.value', { sessions: sessionsThisWeek, entries: entriesThisWeek })}
+                </div>
+            </>
+        ),
+        [sessionsThisWeek, entriesThisWeek, t],
     );
 
     if (isLoading) {

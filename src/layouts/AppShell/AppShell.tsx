@@ -45,8 +45,12 @@ const AppShell = ({ children }: AppShellProps) => {
 
     const hideMobileTabs = MOBILE_FULL_BLEED_PREFIXES.some((prefix) => location.pathname.startsWith(prefix));
 
+    // Stable across renders — a fresh object here would re-render every useSidebarFooter
+    // consumer on each footer swap, which is exactly the loop that took Today/Talk down.
+    const shellContext = useMemo(() => ({ setSidebarFooter }), []);
+
     return (
-        <AppShellContext.Provider value={{ setSidebarFooter }}>
+        <AppShellContext.Provider value={shellContext}>
             <div className="app-shell">
                 <aside className="app-shell__sidebar">
                     <div className="app-shell__brand">

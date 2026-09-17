@@ -170,28 +170,31 @@ const CoachChatPage = () => {
     [recentSessions.data, conversationId],
   );
   useSidebarFooter(
-    <>
-      <div className="app-shell__footer-label">{t('talk.recent')}</div>
-      {recentList.length === 0 ? (
-        <div className="app-shell__footer-name" style={{ fontWeight: 400, fontSize: 12.5 }}>
-          {t('coach.history.empty')}
-        </div>
-      ) : (
-        recentList.map((c) => (
-          <button
-            key={c.id}
-            type="button"
-            className="talk-sidebar-session"
-            onClick={() => navigate(`${APP_ROUTES.COACH_HISTORY}/${c.id}`)}
-          >
-            {sessionTitleFromSummary(c.summary, t('coach.history.noSummary'), 44)}
-          </button>
-        ))
-      )}
-      <button type="button" className="talk-sidebar-allsessions" onClick={() => navigate(APP_ROUTES.COACH_HISTORY)}>
-        {t('talk.allSessions')}
-      </button>
-    </>,
+    () => (
+      <>
+        <div className="app-shell__footer-label">{t('talk.recent')}</div>
+        {recentList.length === 0 ? (
+          <div className="app-shell__footer-name" style={{ fontWeight: 400, fontSize: 12.5 }}>
+            {t('coach.history.empty')}
+          </div>
+        ) : (
+          recentList.map((c) => (
+            <button
+              key={c.id}
+              type="button"
+              className="talk-sidebar-session"
+              onClick={() => navigate(`${APP_ROUTES.COACH_HISTORY}/${c.id}`)}
+            >
+              {sessionTitleFromSummary(c.summary, t('coach.history.noSummary'), 44)}
+            </button>
+          ))
+        )}
+        <button type="button" className="talk-sidebar-allsessions" onClick={() => navigate(APP_ROUTES.COACH_HISTORY)}>
+          {t('talk.allSessions')}
+        </button>
+      </>
+    ),
+    [recentList, navigate, t],
   );
 
   const prefill = (location.state as { prefill?: string } | null)?.prefill;
