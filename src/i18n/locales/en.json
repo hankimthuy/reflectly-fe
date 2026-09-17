@@ -382,9 +382,10 @@
   "talk": {
     "thinking": "Aura is thinking",
     "catchThis": "Catch this",
-    "catchShortcut": "⌘K to catch a line",
-    "summarizeShortcut": "Summarise so far",
-    "endSessionKeepShift": "End & keep the shift",
+    "back": "Back",
+    "catchShortcut": "Catch",
+    "summarizeShortcut": "Summarize",
+    "endSessionKeepShift": "End session",
     "catchTitle": "Catch",
     "catchSubtitle": "Keep a line before it slips. Nothing here is auto-saved by Aura.",
     "note": "Note",

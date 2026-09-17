@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { LuChevronLeft } from 'react-icons/lu';
 import MessageList from '../../components/Chat/MessageList';
 import MessageInput from '../../components/Chat/MessageInput';
 import InsightCatcherPanel from '../../components/InsightCatcher/InsightCatcherPanel';
@@ -196,6 +197,21 @@ const CoachChatPage = () => {
 
   return (
     <div className="talk">
+      {/* Mobile only — the desktop sidebar is always visible, so this is the only way back to
+          Today/Reflect/You while a live conversation has hidden the bottom tab bar (see
+          AppShell's MOBILE_FULL_BLEED_PREFIXES). Leaves the session ACTIVE and resumable — the
+          composer's "End session" is the deliberate way to close it out instead. */}
+      <div className="talk__topbar">
+        <button
+          type="button"
+          className="talk__back"
+          onClick={() => navigate(APP_ROUTES.HOME)}
+          aria-label={t('talk.back') as string}
+        >
+          <LuChevronLeft size={22} />
+        </button>
+      </div>
+
       <div className="talk__body">
         <div className="talk__main">
           {startError ? (

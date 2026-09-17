@@ -382,9 +382,10 @@
   "talk": {
     "thinking": "Aura đang suy nghĩ",
     "catchThis": "Giữ lại câu này",
-    "catchShortcut": "⌘K để giữ lại một câu",
-    "summarizeShortcut": "Tóm tắt đến giờ",
-    "endSessionKeepShift": "Kết thúc & lưu lại sự thay đổi",
+    "back": "Quay lại",
+    "catchShortcut": "Giữ lại",
+    "summarizeShortcut": "Tóm tắt",
+    "endSessionKeepShift": "Kết thúc phiên",
     "catchTitle": "Catch",
     "catchSubtitle": "Giữ lại một câu trước khi nó trôi qua. Aura không tự động lưu gì ở đây.",
     "note": "Ghi chú",

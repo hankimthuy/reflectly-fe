@@ -6,6 +6,35 @@
   height: 100%;
 }
 
+// Desktop always has the sidebar to get back to Today/Reflect/You — this bar only exists so a
+// phone (no sidebar, and the bottom tab bar is hidden on this route) has some way back too.
+.talk__topbar {
+  display: flex;
+  align-items: center;
+  padding: max(10px, env(safe-area-inset-top)) 12px 0;
+
+  @include laptop-up {
+    display: none;
+  }
+}
+
+.talk__back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: none;
+  border-radius: var(--radius-pill);
+  color: var(--color-text);
+  cursor: pointer;
+
+  &:active {
+    background: var(--color-mist);
+  }
+}
+
 .talk-sidebar-session {
   display: block;
   width: 100%;
@@ -137,6 +166,7 @@
 // accent-bordered treatment and inherit the base chip styling.
 .chat-composer-shortcut {
   cursor: pointer;
+  gap: 6px;
 
   &:disabled { opacity: 0.45; cursor: not-allowed; }
 }
