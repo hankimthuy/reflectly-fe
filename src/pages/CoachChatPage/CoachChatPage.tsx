@@ -14,8 +14,6 @@ import {
 } from '../../queries/conversationsQueryHook';
 import { APP_ROUTES } from '../../constants/route';
 import { useSidebarFooter } from '../../layouts/AppShell/AppShellContext';
-import { useLiveMoodRead } from '../../hooks/useLiveMoodRead';
-import { moodBucket, heavinessColorVar } from '../../utils/moodUtil';
 import { sessionTitleFromSummary } from '../../utils/textUtil';
 import './CoachChatPage.scss';
 
@@ -159,9 +157,6 @@ const CoachChatPage = () => {
     // Same reasoning as handleInsightSaved above.
   };
 
-  const mood = useLiveMoodRead(messages);
-  const bucket = moodBucket(mood.heaviness);
-
   const recentList = useMemo(
     () =>
       (recentSessions.data?.pages.flatMap((p) => p.content) ?? [])
@@ -201,21 +196,6 @@ const CoachChatPage = () => {
 
   return (
     <div className="talk">
-      {/* One row: what Aura is reading, where it sits, what it is called. Aura Soft v2 dropped the
-          heavy/light scale beneath it — the gradient already says which end is which. */}
-      <div className="talk__ribbon">
-        <span className="talk__reading-label">{t('talk.readingLabel')}</span>
-        <div className="talk__ribbon-track">
-          {/* --gradient-mood runs heavy (ink, left) → light (cyan, right) — the marker's left
-              offset has to travel the same direction, so it's the inverse of heaviness. */}
-          <div
-            className="talk__ribbon-marker"
-            style={{ left: `${(1 - mood.heaviness) * 100}%`, borderColor: heavinessColorVar(mood.heaviness) }}
-          />
-        </div>
-        <span className="talk__reading-value">{t(`talk.moodBuckets.${bucket}`)}</span>
-      </div>
-
       <div className="talk__body">
         <div className="talk__main">
           {startError ? (

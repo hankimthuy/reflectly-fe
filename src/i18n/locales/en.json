@@ -392,14 +392,6 @@
     "dropTheLine": "Drop the line into the pane it belongs in.",
     "noteHint": "Write it down your own way — no framework needed.",
     "saveToMirror": "Save to mirror",
-    "readingLabel": "Reading",
-    "moodBuckets": {
-      "heavy": "heavy · a lot is here",
-      "charged": "tense · holding back",
-      "settling": "settling · still finding words",
-      "easing": "easing · lighter than it opened",
-      "light": "light · easy to be in"
-    },
     "recent": "Recent",
     "allSessions": "All sessions →"
   },
@@ -450,8 +442,7 @@
       "ctaLoggedIn": "Go to Today",
       "note": "Free · private",
       "previewAura": "You mentioned Trung twice this week. What have you not said to him?",
-      "previewUser": "He presented my work as his and I said nothing.",
-      "previewMood": "tense"
+      "previewUser": "He presented my work as his and I said nothing."
     },
     "functions": {
       "talk": {

@@ -108,7 +108,9 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding-bottom: 68px;
+  // Clears the fixed tab bar below, which now also grows by env(safe-area-inset-bottom) on a
+  // gesture-bar phone — otherwise the last row of a scrolled page can sit under the tab bar.
+  padding-bottom: calc(68px + env(safe-area-inset-bottom));
 
   @include laptop-up {
     padding-bottom: 0;
@@ -125,6 +127,10 @@
   display: flex;
   border-top: 1px solid var(--color-divider);
   background: var(--color-neutral-100);
+  // On a phone with a home-indicator/gesture bar (no physical home button), the OS reserves
+  // that strip for its own swipe gesture — without this the bar's bottom edge sits under it,
+  // so taps near the bottom of each tab could be swallowed by the system gesture instead.
+  padding-bottom: env(safe-area-inset-bottom);
 
   @include laptop-up {
     display: none;

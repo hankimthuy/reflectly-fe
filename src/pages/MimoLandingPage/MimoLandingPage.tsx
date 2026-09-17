@@ -45,11 +45,6 @@ const MimoLandingPage = () => {
             <p className="landing__preview-aura">{t('landing.hero.previewAura')}</p>
           </div>
           <p className="landing__preview-user">{t('landing.hero.previewUser')}</p>
-          <div className="landing__preview-reading">
-            <span className="landing__preview-reading-label">{t('talk.readingLabel')}</span>
-            <span className="landing__preview-reading-bar" />
-            <span className="landing__preview-reading-value">{t('landing.hero.previewMood')}</span>
-          </div>
         </div>
       </section>
 

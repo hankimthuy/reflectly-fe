@@ -392,14 +392,6 @@
     "dropTheLine": "Đặt câu này vào đúng ô của tấm gương.",
     "noteHint": "Ghi lại theo cách của riêng bạn — không cần khuôn mẫu.",
     "saveToMirror": "Lưu vào tấm gương",
-    "readingLabel": "Đang đọc",
-    "moodBuckets": {
-      "heavy": "nặng nề · có nhiều điều đang diễn ra",
-      "charged": "căng thẳng · đang kìm lại điều gì đó",
-      "settling": "đang lắng lại · còn đang tìm lời",
-      "easing": "nhẹ dần · nhẹ hơn lúc bắt đầu",
-      "light": "nhẹ nhàng · dễ chịu"
-    },
     "recent": "Gần đây",
     "allSessions": "Tất cả phiên →"
   },
@@ -450,8 +442,7 @@
       "ctaLoggedIn": "Vào Hôm nay",
       "note": "Miễn phí · riêng tư",
       "previewAura": "Tuần này bạn nhắc tới Trung hai lần. Điều gì bạn vẫn chưa nói với anh ấy?",
-      "previewUser": "Anh ấy trình bày phần việc của tôi như của mình, còn tôi thì im lặng.",
-      "previewMood": "căng thẳng"
+      "previewUser": "Anh ấy trình bày phần việc của tôi như của mình, còn tôi thì im lặng."
     },
     "functions": {
       "talk": {

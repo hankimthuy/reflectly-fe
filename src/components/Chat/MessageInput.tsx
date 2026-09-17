@@ -1,4 +1,4 @@
-import { useRef, useState, type KeyboardEvent } from 'react';
+import { useLayoutEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 
 /** Mirrors the backend's SendMessageRequestDto @Size(max = 4000) cap. */
@@ -40,6 +40,15 @@ const MessageInput = ({
     el.style.height = 'auto';
     el.style.height = `${el.scrollHeight}px`;
   };
+
+  // Today's opener (`initialValue`) is often two lines — without this, a `rows={1}` textarea
+  // renders it clipped to one line (only growing once the person's own typing fires onChange),
+  // which on a phone looked exactly like a broken/unresponsive composer.
+  useLayoutEffect(() => {
+    if (textareaRef.current) {
+      resizeToContent(textareaRef.current);
+    }
+  }, []);
 
   const handleSend = () => {
     const trimmed = value.trim();
